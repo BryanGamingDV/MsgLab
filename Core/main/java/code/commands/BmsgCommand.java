@@ -1,8 +1,8 @@
 package code.commands;
 
-import code.cache.UserData;
+import code.data.UserData;
 import code.registry.ConfigManager;
-import code.Manager;
+import code.PluginService;
 import code.methods.player.PlayerMessage;
 import code.bukkitutils.SoundManager;
 
@@ -31,7 +31,7 @@ public class BmsgCommand implements CommandClass {
 
     private final BasicMsg plugin;
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private final Configuration soundfile;
     private final Configuration config;
@@ -43,19 +43,19 @@ public class BmsgCommand implements CommandClass {
     private final PlayerMessage playersender;
     private final SoundManager sound;
 
-    public BmsgCommand(BasicMsg plugin, Manager manager){
+    public BmsgCommand(BasicMsg plugin, PluginService pluginService){
         this.plugin = plugin;
-        this.manager = manager;
+        this.pluginService = pluginService;
 
-        this.soundfile = manager.getFiles().getSounds();
-        this.config = manager.getFiles().getConfig();
-        this.messages = manager.getFiles().getMessages();
-        this.command = manager.getFiles().getCommand();
-        this.utils = manager.getFiles().getBasicUtils();
+        this.soundfile = pluginService.getFiles().getSounds();
+        this.config = pluginService.getFiles().getConfig();
+        this.messages = pluginService.getFiles().getMessages();
+        this.command = pluginService.getFiles().getCommand();
+        this.utils = pluginService.getFiles().getBasicUtils();
 
-        this.moduleCheck = manager.getPathManager();
-        this.playersender = manager.getPlayerMethods().getSender();
-        this.sound = manager.getManagingCenter().getSoundManager();
+        this.moduleCheck = pluginService.getPathManager();
+        this.playersender = pluginService.getPlayerMethods().getSender();
+        this.sound = pluginService.getManagingCenter().getSoundManager();
     }
 
     @Command(names = "")
@@ -69,7 +69,7 @@ public class BmsgCommand implements CommandClass {
     @Command(names = "help")
     public boolean helpSubCommand(@Sender Player player) {
 
-        StringFormat variable = manager.getStringFormat();
+        StringFormat variable = pluginService.getStringFormat();
         variable.loopString(player, command, "commands.bmsg.help.pages");
         return true;
 
@@ -136,7 +136,7 @@ public class BmsgCommand implements CommandClass {
 
     @Command(names = "sounds")
     public boolean soundsSubCommand(@Sender Player player) {
-        UserData playerSound = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData playerSound = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
         if (!(soundfile.getBoolean("sounds.enabled-all"))) {
             playersender.sendMessage(player, messages.getString("error.no-sound"));
@@ -209,8 +209,8 @@ public class BmsgCommand implements CommandClass {
         }
         if (arg2.equalsIgnoreCase("commands")) {
             playersender.sendMessage(player, command.getString("commands.bmsg.debug.list.commands"));
-            for (String commandName : manager.getListManager().getCommands()) {
-                if (manager.getPathManager().isCommandEnabled(commandName)) {
+            for (String commandName : pluginService.getListManager().getCommands()) {
+                if (pluginService.getPathManager().isCommandEnabled(commandName)) {
                     playersender.sendMessage(player, "&8- &f" + commandName + " &a[Enabled]");
                 } else {
                     playersender.sendMessage(player, "&8- &f" + commandName + " &c[Disabled]");
@@ -220,8 +220,8 @@ public class BmsgCommand implements CommandClass {
         }
         if (arg2.equalsIgnoreCase("modules")) {
             playersender.sendMessage(player, command.getString("commands.bmsg.debug.list.modules"));
-            for (String moduleName : manager.getListManager().getModules()) {
-                if (manager.getPathManager().isOptionEnabled(moduleName)) {
+            for (String moduleName : pluginService.getListManager().getModules()) {
+                if (pluginService.getPathManager().isOptionEnabled(moduleName)) {
                     playersender.sendMessage(player, "&8- &f" + moduleName + " &a[Enabled]");
                 } else {
                     playersender.sendMessage(player, "&8- &f" + moduleName + " &c[Disabled]");
@@ -246,7 +246,7 @@ public class BmsgCommand implements CommandClass {
             return true;
         }
 
-        ModuleCreator moduleCreator = manager.getListManager();
+        ModuleCreator moduleCreator = pluginService.getListManager();
 
         if (type.equalsIgnoreCase("commands")){
             config.set("config.modules.enabled-commands", moduleCreator.getCommands());
@@ -273,12 +273,12 @@ public class BmsgCommand implements CommandClass {
             @Override
             public void run() {
 
-                PlayerMessage playersender = manager.getPlayerMethods().getSender();
+                PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-                ConfigManager files = manager.getFiles();
-                SoundManager sound = manager.getManagingCenter().getSoundManager();
+                ConfigManager files = pluginService.getFiles();
+                SoundManager sound = pluginService.getManagingCenter().getSoundManager();
 
-                Map<String, Configuration> fileMap = manager.getCache().getConfigFiles();
+                Map<String, Configuration> fileMap = pluginService.getCache().getConfigFiles();
 
                 if (string.equalsIgnoreCase("you")){
                     playersender.sendMessage(player, "%p &fEmmm, you are not a plugin. But symbolically, you can change your future. Be positive!");
@@ -316,7 +316,7 @@ public class BmsgCommand implements CommandClass {
     }
 
     public Set<String> getHelp(){
-         Configuration commands = manager.getFiles().getCommand();
+         Configuration commands = pluginService.getFiles().getCommand();
          return commands.getConfigurationSection("commands.bmsg.commands.pages").getKeys(true);
     }
 }

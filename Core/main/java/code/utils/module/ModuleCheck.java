@@ -1,7 +1,7 @@
 package code.utils.module;
 
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.SoundManager;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
@@ -11,19 +11,19 @@ import java.util.List;
 
 public class ModuleCheck {
 
-    private Manager manager;
+    private PluginService pluginService;
     private Configuration config;
 
-    public ModuleCheck(Manager manager) {
-        this.manager = manager;
-        this.config = manager.getFiles().getConfig();
+    public ModuleCheck(PluginService pluginService) {
+        this.pluginService = pluginService;
+        this.config = pluginService.getFiles().getConfig();
     }
 
     public boolean isCommandEnabled(String commandName) {
 
         boolean bmsgCommand = false;
 
-        for (String allCommands : manager.getListManager().getCommands()){
+        for (String allCommands : pluginService.getListManager().getCommands()){
             if (allCommands.equalsIgnoreCase(commandName)){
                 bmsgCommand = true;
                 break;
@@ -45,10 +45,10 @@ public class ModuleCheck {
 
     public void sendDisableMessage(Player player, String command){
 
-        PlayerMessage sender = manager.getPlayerMethods().getSender();
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
+        PlayerMessage sender = pluginService.getPlayerMethods().getSender();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
 
-        Configuration messages = manager.getFiles().getMessages();
+        Configuration messages = pluginService.getFiles().getMessages();
 
         sender.sendMessage(player, messages.getString("error.command-disabled")
                 .replace("%player%", player.getName())

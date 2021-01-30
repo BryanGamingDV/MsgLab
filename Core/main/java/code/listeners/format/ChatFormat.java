@@ -1,8 +1,8 @@
 package code.listeners.format;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.WorldManager;
-import code.cache.UserData;
+import code.data.UserData;
 import code.methods.GroupMethod;
 import code.methods.chat.RadialChatMethod;
 import code.methods.commands.IgnoreMethod;
@@ -14,9 +14,6 @@ import code.revisor.RevisorManager;
 import code.utils.Configuration;
 import code.utils.HoverManager;
 import code.utils.StringFormat;
-import code.utils.addons.VaultSupport;
-import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -32,12 +29,12 @@ import java.util.List;
 
 public class ChatFormat implements Listener {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
 
-    public ChatFormat(Manager manager) {
-        this.manager = manager;
-        manager.getListManager().getModules().add("chat_format");
+    public ChatFormat(PluginService pluginService) {
+        this.pluginService = pluginService;
+        pluginService.getListManager().getModules().add("chat_format");
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -45,15 +42,15 @@ public class ChatFormat implements Listener {
 
         Player player = event.getPlayer();
 
-        Configuration config = manager.getFiles().getConfig();
-        Configuration command = manager.getFiles().getCommand();
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration config = pluginService.getFiles().getConfig();
+        Configuration command = pluginService.getFiles().getCommand();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        UserData playerStatus = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        UserData playerStatus = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
-        StaffChatMethod staffChatMethod = manager.getPlayerMethods().getStaffChatMethod();
-        IgnoreMethod ignoreMethod = manager.getPlayerMethods().getIgnoreMethod();
+        StaffChatMethod staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
+        IgnoreMethod ignoreMethod = pluginService.getPlayerMethods().getIgnoreMethod();
 
         event.setCancelled(true);
 
@@ -62,8 +59,8 @@ public class ChatFormat implements Listener {
             return;
         }
 
-        if (manager.getPathManager().isCommandEnabled("staffchat")) {
-            ChatMethod chatMethod = manager.getPlayerMethods().getChatMethod();
+        if (pluginService.getPathManager().isCommandEnabled("staffchat")) {
+            ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();
 
             if (staffChatMethod.isUsingStaffSymbol(event)) {
                 staffChatMethod.getStaffSymbol(event);
@@ -77,7 +74,7 @@ public class ChatFormat implements Listener {
                 }
 
                 for (Player playeronline : Bukkit.getServer().getOnlinePlayers()) {
-                    UserData onlineCache = manager.getCache().getPlayerUUID().get(playeronline.getUniqueId());
+                    UserData onlineCache = pluginService.getCache().getPlayerUUID().get(playeronline.getUniqueId());
 
                     if (onlineCache.isStaffchatMode()) {
                         playersender.sendMessage(playeronline.getPlayer(), command.getString("commands.staff-chat.message")
@@ -90,7 +87,7 @@ public class ChatFormat implements Listener {
             }
         }
 
-        if (!(manager.getPathManager().isOptionEnabled("chat_format"))) {
+        if (!(pluginService.getPathManager().isOptionEnabled("chat_format"))) {
             return;
 
         }
@@ -98,7 +95,7 @@ public class ChatFormat implements Listener {
             return;
         }
 
-        RevisorManager revisorManager = manager.getRevisorManager();
+        RevisorManager revisorManager = pluginService.getRevisorManager();
 
         if (revisorManager.getAntiRepeatRevisor().isTextSpamming(player.getUniqueId())){
             return;
@@ -110,7 +107,7 @@ public class ChatFormat implements Listener {
             message = revisorManager.revisor(event.getPlayer().getUniqueId(), event.getMessage());
         }
 
-        GroupMethod groupChannel = manager.getPlayerMethods().getGroupMethod();
+        GroupMethod groupChannel = pluginService.getPlayerMethods().getGroupMethod();
 
         String utilspath = groupChannel.getPlayerFormat(player);
 
@@ -168,17 +165,17 @@ public class ChatFormat implements Listener {
         }
 
         if (playerList == null){
-            manager.getPlugin().getLogger().info("How you came here?" +
+            pluginService.getPlugin().getLogger().info("How you came here?" +
                     utils.getBoolean("utils.chat.per-world-chat.enabled"));
             return;
         }
 
-        RadialChatMethod radialChatMethod = manager.getPlayerMethods().getRadialChatMethod();
+        RadialChatMethod radialChatMethod = pluginService.getPlayerMethods().getRadialChatMethod();
 
         Iterator<Player> playerIterator = playerList.iterator();
         while (playerIterator.hasNext()){
            Player playerChannel = playerIterator.next();
-           UserData playerCache = manager.getCache().getPlayerUUID().get(playerChannel.getUniqueId());
+           UserData playerCache = pluginService.getCache().getPlayerUUID().get(playerChannel.getUniqueId());
 
            if (!playerCache.equalsChannelGroup(playerStatus.getChannelGroup())) {
                playerIterator.remove();
@@ -215,11 +212,11 @@ public class ChatFormat implements Listener {
 
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event){
-        RevisorManager revisorManager = manager.getRevisorManager();
-        Configuration utils = manager.getFiles().getBasicUtils();
+        RevisorManager revisorManager = pluginService.getRevisorManager();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (!manager.getPathManager().isCommandEnabled(event.getMessage())){
-            manager.getPathManager().sendDisableMessage(event.getPlayer(), event.getMessage());
+        if (!pluginService.getPathManager().isCommandEnabled(event.getMessage())){
+            pluginService.getPathManager().sendDisableMessage(event.getPlayer(), event.getMessage());
             event.setCancelled(true);
             return;
         }

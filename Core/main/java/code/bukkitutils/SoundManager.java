@@ -1,8 +1,8 @@
 package code.bukkitutils;
 
 import code.CacheManager;
-import code.Manager;
-import code.cache.UserData;
+import code.PluginService;
+import code.data.UserData;
 import code.debug.DebugLogger;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
@@ -16,17 +16,17 @@ import java.util.UUID;
 public class SoundManager{
 
 
-    private final Manager manager;
+    private final PluginService pluginService;
     private final Configuration sound;
 
     private final CacheManager cache;
     private final DebugLogger debug;
 
-    public SoundManager(Manager manager){
-        this.manager = manager;
-        this.cache = manager.getCache();
-        this.sound = manager.getFiles().getSounds();
-        this.debug = manager.getLogs();
+    public SoundManager(PluginService pluginService){
+        this.pluginService = pluginService;
+        this.cache = pluginService.getCache();
+        this.sound = pluginService.getFiles().getSounds();
+        this.debug = pluginService.getLogs();
         setup();
     }
 
@@ -63,7 +63,7 @@ public class SoundManager{
             return;
         }
 
-        UserData playerMsgToggle = manager.getCache().getPlayerUUID().get(target);
+        UserData playerMsgToggle = pluginService.getCache().getPlayerUUID().get(target);
         if (!(playerMsgToggle.isPlayersoundMode())){
             return;
         }
@@ -84,8 +84,8 @@ public class SoundManager{
 
         Sound soundType = getSound(path + ".sound");
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        Configuration messages = manager.getFiles().getMessages();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        Configuration messages = pluginService.getFiles().getMessages();
 
         if (soundType == null) {
             playersender.sendMessage(player.getPlayer(), messages.getString("error.sound.no-exists"));
@@ -102,10 +102,10 @@ public class SoundManager{
             return Sound.valueOf(sound.getString(path));
 
         }catch( IllegalArgumentException io){
-            manager.getLogs().log("Sound_Error" + io.getCause());
+            pluginService.getLogs().log("Sound_Error" + io.getCause());
 
             for (StackTraceElement stack : io.getStackTrace()){
-                manager.getLogs().log(stack.toString());
+                pluginService.getLogs().log(stack.toString());
             }
 
             return null;

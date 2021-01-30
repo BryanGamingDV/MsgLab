@@ -1,6 +1,6 @@
 package code.revisor.message;
 
-import code.Manager;
+import code.PluginService;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
@@ -9,18 +9,18 @@ import org.bukkit.entity.Player;
 public class DotRevisor {
 
 
-    private Manager manager;
+    private PluginService pluginService;
 
-    public DotRevisor(Manager manager){
-        this.manager = manager;
+    public DotRevisor(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     public String check(Player player, String string){
 
-        Configuration config = manager.getFiles().getConfig();
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration config = pluginService.getFiles().getConfig();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
         if (!(utils.getBoolean("utils.chat.security.dot-module.enabled"))){
             return string;

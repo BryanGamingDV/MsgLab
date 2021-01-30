@@ -1,7 +1,7 @@
 package code.revisor;
 
 import code.BasicMsg;
-import code.Manager;
+import code.PluginService;
 import code.revisor.message.*;
 import code.utils.module.ModuleCheck;
 import org.bukkit.Bukkit;
@@ -12,7 +12,7 @@ import java.util.UUID;
 public class RevisorManager{
 
 
-    private Manager manager;
+    private PluginService pluginService;
 
     private BasicMsg plugin;
     private ModuleCheck path;
@@ -27,22 +27,22 @@ public class RevisorManager{
 
     private int revisorLevel = 2;
 
-    public RevisorManager(Manager manager) {
-        this.manager = manager;
-        manager.getListManager().getModules().add("chat_revisor");
-        plugin = manager.getPlugin();
-        path = manager.getPathManager();
+    public RevisorManager(PluginService pluginService) {
+        this.pluginService = pluginService;
+        pluginService.getListManager().getModules().add("chat_revisor");
+        plugin = pluginService.getPlugin();
+        path = pluginService.getPathManager();
         setup();
     }
 
     private void setup(){
-        cooldownData = new CooldownData(manager);
-        mentionRevisor = new MentionRevisor(manager);
-        floodRevisor = new FloodRevisor(manager);
-        wordRevisor = new WordRevisor(manager);
-        linkRevisor = new LinkRevisor(manager);
-        capsRevisor = new CapsRevisor(manager);
-        dotRevisor = new DotRevisor(manager);
+        cooldownData = new CooldownData(pluginService);
+        mentionRevisor = new MentionRevisor(pluginService);
+        floodRevisor = new FloodRevisor(pluginService);
+        wordRevisor = new WordRevisor(pluginService);
+        linkRevisor = new LinkRevisor(pluginService);
+        capsRevisor = new CapsRevisor(pluginService);
+        dotRevisor = new DotRevisor(pluginService);
     }
 
     public void setLevel(int level){

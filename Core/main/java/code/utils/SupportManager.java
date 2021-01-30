@@ -1,21 +1,21 @@
 package code.utils;
 
-import code.Manager;
+import code.PluginService;
 import code.utils.addons.VaultSupport;
 
 public class SupportManager {
 
-    private Manager manager;
+    private PluginService pluginService;
 
     private VaultSupport vaultSupport;
 
-    public SupportManager(Manager manager){
-        this.manager = manager;
+    public SupportManager(PluginService pluginService){
+        this.pluginService = pluginService;
         setup();
     }
 
     public void setup(){
-        vaultSupport = new VaultSupport(manager);
+        vaultSupport = new VaultSupport(pluginService);
     }
 
     public VaultSupport getVaultSupport() {

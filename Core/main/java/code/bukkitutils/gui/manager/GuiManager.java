@@ -1,8 +1,8 @@
 package code.bukkitutils.gui.manager;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.gui.SampleManager;
-import code.cache.UserData;
+import code.data.UserData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -12,15 +12,15 @@ import java.util.UUID;
 
 public class GuiManager {
 
-    private Manager manager;
+    private PluginService pluginService;
     private final Map<String, GuiData> inventoryManager;
 
     private final SampleManager sampleManager;
 
-    public GuiManager(Manager manager) {
-        this.manager = manager;
+    public GuiManager(PluginService pluginService) {
+        this.pluginService = pluginService;
         inventoryManager = new HashMap<>();
-        sampleManager = new SampleManager(manager);
+        sampleManager = new SampleManager(pluginService);
     }
 
     public void createInventory(String name, String title, int size) {
@@ -32,7 +32,7 @@ public class GuiManager {
         Player player = Bukkit.getPlayer(uuid);
 
         // User Cache
-        UserData userData = manager.getCache().getPlayerUUID().get(uuid);
+        UserData userData = pluginService.getCache().getPlayerUUID().get(uuid);
 
         player.openInventory(sampleManager.getClassHashMap().get(name).getPage(uuid, page).build());
         userData.setGUIGroup(name);

@@ -1,32 +1,31 @@
 package code.listeners.events;
 
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.SoundManager;
-import code.cache.UserData;
+import code.data.UserData;
 import code.events.SocialSpyEvent;
 import code.methods.player.PlayerMessage;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 public class SocialSpyListener implements Listener{
 
-    private Manager manager;
+    private PluginService pluginService;
 
-    public SocialSpyListener(Manager manager){
-        this.manager = manager;
+    public SocialSpyListener(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     @EventHandler
     public void onSocialSpy(SocialSpyEvent socialSpyEvent){
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        SoundManager soundManager = manager.getManagingCenter().getSoundManager();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        SoundManager soundManager = pluginService.getManagingCenter().getSoundManager();
 
         Bukkit.getServer().getOnlinePlayers().forEach(player -> {
-            UserData watcherSpy = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+            UserData watcherSpy = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
             if (!watcherSpy.isSocialSpyMode()) {
                 return;

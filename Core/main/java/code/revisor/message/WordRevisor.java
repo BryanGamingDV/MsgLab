@@ -1,6 +1,6 @@
 package code.revisor.message;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.RunnableManager;
 import code.methods.player.PlayerMessage;
 import code.methods.player.PlayerStatic;
@@ -12,22 +12,22 @@ import java.util.List;
 
 public class WordRevisor {
 
-    private Manager manager;
+    private PluginService pluginService;
 
     private RunnableManager runnableManager;
 
-    public WordRevisor(Manager manager) {
-        this.manager = manager;
+    public WordRevisor(PluginService pluginService) {
+        this.pluginService = pluginService;
 
-        this.runnableManager = manager.getManagingCenter().getRunnableManager();
+        this.runnableManager = pluginService.getManagingCenter().getRunnableManager();
     }
 
     public String check(Player player, String string) {
 
-        Configuration config = manager.getFiles().getConfig();
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration config = pluginService.getFiles().getConfig();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
         if (!(utils.getBoolean("utils.chat.security.bad-words.enabled"))) {
             return string;

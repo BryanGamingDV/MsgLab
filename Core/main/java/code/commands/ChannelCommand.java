@@ -1,18 +1,15 @@
 package code.commands;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.SoundManager;
-import code.cache.UserData;
+import code.data.UserData;
 import code.methods.GroupMethod;
 import code.methods.player.PlayerMessage;
-import code.registry.ConfigManager;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
-import me.fixeddev.commandflow.annotated.annotation.ArgOrSub;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
-import me.fixeddev.commandflow.annotated.annotation.Required;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.entity.Player;
 
@@ -21,7 +18,7 @@ import java.util.UUID;
 @Command(names = {"channel", "chn"})
 public class ChannelCommand implements CommandClass {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private final Configuration messages;
     private final Configuration command;
@@ -32,17 +29,17 @@ public class ChannelCommand implements CommandClass {
     private final GroupMethod groupChannel;
     private final ModuleCheck moduleCheck;
 
-    public ChannelCommand(Manager manager) {
-        this.manager = manager;
+    public ChannelCommand(PluginService pluginService) {
+        this.pluginService = pluginService;
 
-        this.messages = manager.getFiles().getMessages();
-        this.command = manager.getFiles().getCommand();
+        this.messages = pluginService.getFiles().getMessages();
+        this.command = pluginService.getFiles().getCommand();
 
-        this.sender = manager.getPlayerMethods().getSender();
-        this.sound = manager.getManagingCenter().getSoundManager();
+        this.sender = pluginService.getPlayerMethods().getSender();
+        this.sound = pluginService.getManagingCenter().getSoundManager();
 
-        this.groupChannel = manager.getPlayerMethods().getGroupMethod();
-        this.moduleCheck = manager.getPathManager();
+        this.groupChannel = pluginService.getPlayerMethods().getGroupMethod();
+        this.moduleCheck = pluginService.getPathManager();
     }
 
     @Command(names = {""})
@@ -61,7 +58,7 @@ public class ChannelCommand implements CommandClass {
     public boolean joinSubCommand(@Sender Player player, @OptArg String args){
 
         UUID playeruuid = player.getUniqueId();
-        UserData userData = manager.getCache().getPlayerUUID().get(playeruuid);
+        UserData userData = pluginService.getCache().getPlayerUUID().get(playeruuid);
 
         if (args == null){
             sender.sendMessage(player, messages.getString("error.no-arg")
@@ -109,7 +106,7 @@ public class ChannelCommand implements CommandClass {
     public boolean quitSubCommand(@Sender Player player) {
 
         UUID playeruuid = player.getUniqueId();
-        UserData userData = manager.getCache().getPlayerUUID().get(playeruuid);
+        UserData userData = pluginService.getCache().getPlayerUUID().get(playeruuid);
 
         if (userData.equalsChannelGroup("default")) {
             sender.sendMessage(player, messages.getString("error.channel.default"));

@@ -1,7 +1,7 @@
 package code.commands;
 
-import code.Manager;
-import code.bukkitutils.other.PageManager;
+import code.PluginService;
+import code.bukkitutils.pages.PageCreator;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MotdCommand implements CommandClass {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private final Configuration utils;
     private final Configuration command;
@@ -28,22 +28,22 @@ public class MotdCommand implements CommandClass {
     private final List<String> motd;
 
 
-    public MotdCommand(Manager manager) {
-        this.manager = manager;
+    public MotdCommand(PluginService pluginService) {
+        this.pluginService = pluginService;
 
-        this.utils = manager.getFiles().getBasicUtils();
-        this.command = manager.getFiles().getCommand();
-        this.messages = manager.getFiles().getMessages();
+        this.utils = pluginService.getFiles().getBasicUtils();
+        this.command = pluginService.getFiles().getCommand();
+        this.messages = pluginService.getFiles().getMessages();
 
-        this.sender = manager.getPlayerMethods().getSender();
-        this.moduleCheck = manager.getPathManager();
+        this.sender = pluginService.getPlayerMethods().getSender();
+        this.moduleCheck = pluginService.getPathManager();
         this.motd = utils.getStringList("utils.join.motd.format");
     }
 
     @Command(names = "")
     public boolean mainCommand(@Sender Player player, @OptArg("1") int page) {
 
-        StringFormat variable = manager.getStringFormat();
+        StringFormat variable = pluginService.getStringFormat();
 
         if (page <= 0){
             sender.sendMessage(player, messages.getString("error.motd.negative-number")
@@ -52,20 +52,20 @@ public class MotdCommand implements CommandClass {
             return true;
         }
 
-        PageManager pageManager = new PageManager(motd);
+        PageCreator pageCreator = new PageCreator(motd);
 
-        if (!pageManager.pageExists(page - 1)){
+        if (!pageCreator.pageExists(page - 1)){
             sender.sendMessage(player, messages.getString("error.motd.unknown-page")
                     .replace("%page%", String.valueOf(page)));
             return true;
         }
 
-        List<String> motdPage = pageManager.getHashString().get(page - 1);
+        List<String> motdPage = pageCreator.getHashString().get(page - 1);
         List<String> motdList = command.getStringList("commands.motd.list.message");
 
         motdList.replaceAll(text -> text
                                 .replace("%page%", String.valueOf(page))
-                                .replace("%maxpage%", String.valueOf(pageManager.getMaxPage())));
+                                .replace("%maxpage%", String.valueOf(pageCreator.getMaxPage())));
         motdPage.replaceAll(text -> variable.replacePlayerVariables(player, text));
 
         motdList.forEach(text -> sender.sendMessage(player, text));

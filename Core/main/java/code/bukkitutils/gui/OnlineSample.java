@@ -1,11 +1,11 @@
 package code.bukkitutils.gui;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.RunnableManager;
 import code.bukkitutils.gui.manager.GuiData;
 import code.bukkitutils.gui.manager.GuiManager;
-import code.bukkitutils.other.PageUUIDManager;
-import code.cache.UserData;
+import code.bukkitutils.pages.PageUUIDCreator;
+import code.data.UserData;
 import code.methods.player.PlayerStatic;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
@@ -19,27 +19,27 @@ import java.util.*;
 
 public class OnlineSample implements GuiSample{
 
-    private Manager manager;
+    private PluginService pluginService;
 
     private GuiData inventory;
     private List<UUID> listPlayers;
 
-    public OnlineSample(Manager manager) {
-        this.manager = manager;
+    public OnlineSample(PluginService pluginService) {
+        this.pluginService = pluginService;
     }
 
     public GuiData getPage(UUID sender, Integer page) {
 
-        GuiManager guiManager = manager.getManagingCenter().getGuiManager();
-        Configuration command = manager.getFiles().getCommand();
-        Configuration message = manager.getFiles().getMessages();
+        GuiManager guiManager = pluginService.getManagingCenter().getGuiManager();
+        Configuration command = pluginService.getFiles().getCommand();
+        Configuration message = pluginService.getFiles().getMessages();
 
-        PageUUIDManager pageUUIDManager = new PageUUIDManager(getOnlinePlayers());
-        listPlayers = pageUUIDManager.getHash().get(page);
+        PageUUIDCreator pageUUIDCreator = new PageUUIDCreator(getOnlinePlayers());
+        listPlayers = pageUUIDCreator.getHashMap().get(page);
 
         String titlename = PlayerStatic.setColor(command.getString("commands.msg-online.title")
                 .replace("%page%", String.valueOf(page + 1))
-                .replace("%max%", String.valueOf(pageUUIDManager.getMaxPage())));
+                .replace("%max%", String.valueOf(pageUUIDCreator.getMaxPage())));
 
         guiManager.createInventory("online", titlename , 5);
 
@@ -47,12 +47,6 @@ public class OnlineSample implements GuiSample{
 
         if (inventory.containsItems()) {
             inventory.reset();
-        }
-        String[] args = new String[3];
-
-        StringBuilder reason = new StringBuilder();
-        for (int i = 1; i < args.length; i++) {
-            reason.append(args[i]).append(" ");
         }
 
         String name;
@@ -107,12 +101,12 @@ public class OnlineSample implements GuiSample{
         }
 
         HumanEntity playersender = event.getWhoClicked();
-        UserData userData = manager.getCache().getPlayerUUID().get(playersender.getUniqueId());
+        UserData userData = pluginService.getCache().getPlayerUUID().get(playersender.getUniqueId());
 
         ItemMeta item = event.getCurrentItem().getItemMeta();
-        RunnableManager runnableManager = manager.getManagingCenter().getRunnableManager();
-        Configuration command = manager.getFiles().getCommand();
-        GuiManager guiManager = manager.getManagingCenter().getGuiManager();
+        RunnableManager runnableManager = pluginService.getManagingCenter().getRunnableManager();
+        Configuration command = pluginService.getFiles().getCommand();
+        GuiManager guiManager = pluginService.getManagingCenter().getGuiManager();
 
         String previousName = ChatColor.RESET + PlayerStatic.setColor(command.getString("commands.msg-online.previous-page.title"));
         String nextName = ChatColor.RESET + PlayerStatic.setColor(command.getString("commands.msg-online.next-page.title"));
@@ -147,6 +141,7 @@ public class OnlineSample implements GuiSample{
         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
             uuidList.add(player.getUniqueId());
         }
+
         return uuidList;
     }
 }

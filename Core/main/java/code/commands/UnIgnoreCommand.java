@@ -1,7 +1,6 @@
 package code.commands;
 
-import code.CacheManager;
-import code.Manager;
+import code.PluginService;
 import code.methods.commands.IgnoreMethod;
 import code.registry.ConfigManager;
 import code.bukkitutils.SoundManager;
@@ -23,20 +22,20 @@ import java.util.UUID;
 public class UnIgnoreCommand implements CommandClass{
 
 
-    private final Manager manager;
-    public UnIgnoreCommand(Manager manager){
-        this.manager = manager;
+    private final PluginService pluginService;
+    public UnIgnoreCommand(PluginService pluginService){
+        this.pluginService = pluginService;
 
     }
     @Command(names = "unignore")
     public boolean onCommand(@Sender Player player, @OptArg OfflinePlayer target) {
 
-        ConfigManager files = manager.getFiles();
-        IgnoreMethod ignoreMethod = manager.getPlayerMethods().getIgnoreMethod();
+        ConfigManager files = pluginService.getFiles();
+        IgnoreMethod ignoreMethod = pluginService.getPlayerMethods().getIgnoreMethod();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        ModuleCheck moduleCheck = manager.getPathManager();
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
 
         Configuration players = files.getPlayers();
         Configuration command = files.getCommand();
@@ -62,7 +61,7 @@ public class UnIgnoreCommand implements CommandClass{
         String targetname = target.getName();
         UUID playeruuid = player.getUniqueId();
 
-        Map<UUID, List<String>> ignorelist = manager.getCache().getIgnorelist();
+        Map<UUID, List<String>> ignorelist = pluginService.getCache().getIgnorelist();
 
         if (!(ignorelist.containsKey(playeruuid))){
             playersender.sendMessage(player, messages.getString("error.ignore.anybody"));

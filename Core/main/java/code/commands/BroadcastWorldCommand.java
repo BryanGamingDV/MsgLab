@@ -1,6 +1,6 @@
 package code.commands;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.SoundManager;
 import code.methods.click.ChatMethod;
 import code.methods.player.PlayerMessage;
@@ -13,31 +13,27 @@ import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
-import java.io.File;
 import java.util.UUID;
 
 public class BroadcastWorldCommand implements CommandClass {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public BroadcastWorldCommand(Manager manager) {
-        this.manager = manager;
+    public BroadcastWorldCommand(PluginService pluginService) {
+        this.pluginService = pluginService;
     }
 
     @Command(names = {"broadcastworld", "bcw", "bcworld"})
     public boolean onCommand(@Sender Player player, @OptArg("") @Text String args) {
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
-        ModuleCheck moduleCheck = manager.getPathManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
 
-        ConfigManager files = manager.getFiles();
+        ConfigManager files = pluginService.getFiles();
 
         Configuration config = files.getConfig();
         Configuration command = files.getCommand();
@@ -57,7 +53,7 @@ public class BroadcastWorldCommand implements CommandClass {
             return true;
         }
 
-        ChatMethod chatMethod = manager.getPlayerMethods().getChatMethod();
+        ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();
 
         if (args.equalsIgnoreCase("-click")) {
             chatMethod.activateChat(playeruuid, true);
@@ -67,7 +63,7 @@ public class BroadcastWorldCommand implements CommandClass {
         String message = String.join(" ", args);
 
         if (command.getBoolean("commands.broadcast.enable-revisor")){
-            RevisorManager revisorManager = manager.getRevisorManager();
+            RevisorManager revisorManager = pluginService.getRevisorManager();
             message = revisorManager.revisor(playeruuid, message);
 
             if (message == null){

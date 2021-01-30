@@ -1,8 +1,7 @@
 package code.listeners;
 
-import code.CacheManager;
-import code.Manager;
-import code.cache.UserData;
+import code.PluginService;
+import code.data.UserData;
 import code.methods.ListenerManaging;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
@@ -14,23 +13,23 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class QuitListener implements Listener{
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public QuitListener(Manager manager){
-        this.manager = manager;
+    public QuitListener(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
 
-        PlayerMessage player = manager.getPlayerMethods().getSender();
-        Configuration command = manager.getFiles().getCommand();
+        PlayerMessage player = pluginService.getPlayerMethods().getSender();
+        Configuration command = pluginService.getFiles().getCommand();
 
-        ModuleCheck moduleCheck = manager.getPathManager();
-        ListenerManaging listenerManaging = manager.getPlayerMethods().getListenerManaging();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
+        ListenerManaging listenerManaging = pluginService.getPlayerMethods().getListenerManaging();
 
         Player you = event.getPlayer();
-        UserData playerStatus = manager.getCache().getPlayerUUID().get(you.getUniqueId());
+        UserData playerStatus = pluginService.getCache().getPlayerUUID().get(you.getUniqueId());
 
         if (moduleCheck.isOptionEnabled("join_quit")){
             listenerManaging.setQuit(event);
@@ -41,7 +40,7 @@ public class QuitListener implements Listener{
                 return;
             }
 
-            UserData target = manager.getCache().getPlayerUUID().get(playerStatus.getRepliedPlayer());
+            UserData target = pluginService.getCache().getPlayerUUID().get(playerStatus.getRepliedPlayer());
 
             if (!target.hasRepliedPlayer()) {
                 return;

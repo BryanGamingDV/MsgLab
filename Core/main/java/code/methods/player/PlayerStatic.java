@@ -1,7 +1,7 @@
 package code.methods.player;
 
 import code.BasicMsg;
-import code.Manager;
+import code.PluginService;
 import code.utils.StringFormat;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.chat.*;
@@ -17,12 +17,12 @@ public class PlayerStatic {
 
     private static StringFormat variable;
     private static BasicMsg basicMsg;
-    private Manager manager;
+    private PluginService pluginService;
 
-    public PlayerStatic(Manager manager) {
-        this.manager = manager;
-        basicMsg = manager.getPlugin();
-        variable = manager.getStringFormat();
+    public PlayerStatic(PluginService pluginService) {
+        this.pluginService = pluginService;
+        basicMsg = pluginService.getPlugin();
+        variable = pluginService.getStringFormat();
     }
 
     public static String setColor(String path){

@@ -1,8 +1,8 @@
 package code.commands;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.SoundManager;
-import code.cache.UserData;
+import code.data.UserData;
 import code.methods.commands.StaffChatMethod;
 import code.methods.player.PlayerMessage;
 import code.registry.ConfigManager;
@@ -19,20 +19,20 @@ import java.util.UUID;
 
 public class StaffChatCommand  implements CommandClass{
 
-    private Manager manager;
+    private PluginService pluginService;
 
-    public StaffChatCommand(Manager manager){
-        this.manager = manager;
+    public StaffChatCommand(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     @Command(names = {"sc", "staffchat"})
     public boolean onCommand(@Sender Player player, @OptArg("") @Text String args){
-        ConfigManager files = manager.getFiles();
+        ConfigManager files = pluginService.getFiles();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        StaffChatMethod staffChatMethod = manager.getPlayerMethods().getStaffChatMethod();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        StaffChatMethod staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
 
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
 
         Configuration config = files.getConfig();
         Configuration command = files.getCommand();
@@ -53,7 +53,7 @@ public class StaffChatCommand  implements CommandClass{
             return true;
         }
 
-        UserData playerCache = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData playerCache = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
         if (args.equalsIgnoreCase("-on")){
             if (playerCache.isStaffchatMode()){

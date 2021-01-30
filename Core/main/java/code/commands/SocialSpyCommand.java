@@ -1,9 +1,9 @@
 package code.commands;
 
-import code.cache.UserData;
+import code.data.UserData;
 import code.methods.commands.SocialSpyMethod;
 import code.registry.ConfigManager;
-import code.Manager;
+import code.PluginService;
 import code.methods.player.PlayerMessage;
 import code.bukkitutils.SoundManager;
 import code.utils.module.ModuleCheck;
@@ -21,23 +21,23 @@ import java.util.List;
 
 public class SocialSpyCommand implements CommandClass{
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public SocialSpyCommand(Manager manager) {
-        this.manager = manager;
+    public SocialSpyCommand(PluginService pluginService) {
+        this.pluginService = pluginService;
 
     }
 
     @Command(names = {"socialspy", "spy"})
     public boolean onCommand(@Sender Player player, @OptArg String args, @OptArg OfflinePlayer target) {
 
-        SocialSpyMethod socialSpyMethod = manager.getPlayerMethods().getSocialSpyMethod();
+        SocialSpyMethod socialSpyMethod = pluginService.getPlayerMethods().getSocialSpyMethod();
 
-        ConfigManager files = manager.getFiles();
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        ConfigManager files = pluginService.getFiles();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
-        ModuleCheck moduleCheck = manager.getPathManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration config = files.getConfig();
         Configuration messages = files.getMessages();
@@ -57,13 +57,13 @@ public class SocialSpyCommand implements CommandClass{
             return true;
         }
 
-        UserData playerSpy = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData playerSpy = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
         if (args.equalsIgnoreCase("list")) {
 
             List<String> socialspyList = new ArrayList<>();
 
-            for (UserData cache : manager.getCache().getPlayerUUID().values()) {
+            for (UserData cache : pluginService.getCache().getPlayerUUID().values()) {
                 if (cache.isSocialSpyMode()) {
                     socialspyList.add(cache.getPlayer().getName());
                 }
@@ -103,7 +103,7 @@ public class SocialSpyCommand implements CommandClass{
                     return true;
                 }
 
-                UserData targetSpy = manager.getCache().getPlayerUUID().get(target.getUniqueId());
+                UserData targetSpy = pluginService.getCache().getPlayerUUID().get(target.getUniqueId());
                 String targetname = target.getName();
 
                 if (targetSpy.isSocialSpyMode()) {
@@ -142,7 +142,7 @@ public class SocialSpyCommand implements CommandClass{
             }
 
             String targetname = target.getName();
-            UserData targetSpy = manager.getCache().getPlayerUUID().get(target.getUniqueId());
+            UserData targetSpy = pluginService.getCache().getPlayerUUID().get(target.getUniqueId());
 
             if (!(targetSpy.isSocialSpyMode())){
                 playersender.sendMessage(player.getPlayer(), messages.getString("error.socialspy.arg-2-unactivated")

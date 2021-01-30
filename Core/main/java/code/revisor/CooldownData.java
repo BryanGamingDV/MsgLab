@@ -2,8 +2,8 @@ package code.revisor;
 
 import code.BasicMsg;
 import code.CacheManager;
-import code.Manager;
-import code.cache.UserData;
+import code.PluginService;
+import code.data.UserData;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
 
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class CooldownData {
 
-    private Manager manager;
+    private PluginService pluginService;
 
     private static BasicMsg plugin;
     private static CacheManager cache;
@@ -23,23 +23,23 @@ public class CooldownData {
     private static Configuration config;
     private static Configuration utils;
 
-    public CooldownData(Manager manager){
-        this.manager = manager;
+    public CooldownData(PluginService pluginService){
+        this.pluginService = pluginService;
 
-        plugin = manager.getPlugin();
+        plugin = pluginService.getPlugin();
 
-        config = manager.getFiles().getConfig();
-        utils = manager.getFiles().getBasicUtils();
+        config = pluginService.getFiles().getConfig();
+        utils = pluginService.getFiles().getBasicUtils();
 
-        cache = manager.getCache();
-        playersender = manager.getPlayerMethods().getSender();
-        manager.getListManager().getModules().add("cooldown");
+        cache = pluginService.getCache();
+        playersender = pluginService.getPlayerMethods().getSender();
+        pluginService.getListManager().getModules().add("cooldown");
 
     }
 
     public boolean isTextSpamming(UUID uuid){
 
-        if (!manager.getPathManager().isOptionEnabled("cooldown")){
+        if (!pluginService.getPathManager().isOptionEnabled("cooldown")){
             return false;
         }
 
@@ -74,7 +74,7 @@ public class CooldownData {
 
     public boolean isCmdSpamming(UUID uuid){
 
-        if (!manager.getPathManager().isOptionEnabled("cooldown")){
+        if (!pluginService.getPathManager().isOptionEnabled("cooldown")){
             return false;
         }
 

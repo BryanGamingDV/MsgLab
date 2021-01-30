@@ -1,8 +1,7 @@
 package code.commands;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.SoundManager;
-import code.methods.click.ChatMethod;
 import code.methods.player.PlayerMessage;
 import code.registry.ConfigManager;
 import code.revisor.RevisorManager;
@@ -20,21 +19,21 @@ import java.util.UUID;
 
 public class StreamCommand implements CommandClass {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public StreamCommand(Manager manager) {
-        this.manager = manager;
+    public StreamCommand(PluginService pluginService) {
+        this.pluginService = pluginService;
     }
 
     @Command(names = "stream")
     public boolean onCommand(@Sender Player player, @OptArg("") @Text String args){
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-        ModuleCheck moduleCheck = manager.getPathManager();
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
 
-        ConfigManager files = manager.getFiles();
+        ConfigManager files = pluginService.getFiles();
 
         Configuration config = files.getConfig();
         Configuration command = files.getCommand();
@@ -63,7 +62,7 @@ public class StreamCommand implements CommandClass {
                 for (String string : command.getStringList("commands.stream.allowed-links")) {
                     if (message.substring(8).startsWith(string)) {
                         allowmode = true;
-                        manager.getRevisorManager().setLevel(0);
+                        pluginService.getRevisorManager().setLevel(0);
                         break;
                     }
                 }
@@ -72,7 +71,7 @@ public class StreamCommand implements CommandClass {
                 for (String string : command.getStringList("commands.stream.allowed-links")) {
                     if (message.startsWith(string)) {
                         allowmode = true;
-                        manager.getRevisorManager().setLevel(0);
+                        pluginService.getRevisorManager().setLevel(0);
                         break;
                     }
                 }
@@ -87,7 +86,7 @@ public class StreamCommand implements CommandClass {
                 for (String string : command.getStringList("commands.stream.allowed-links")) {
                     if (message.contains(string)) {
                         allowmode = true;
-                        manager.getRevisorManager().setLevel(1);
+                        pluginService.getRevisorManager().setLevel(1);
                     }
                 }
             }
@@ -100,7 +99,7 @@ public class StreamCommand implements CommandClass {
         }
 
         if (command.getBoolean("commands.stream.enable-revisor")){
-            RevisorManager revisorManager = manager.getRevisorManager();
+            RevisorManager revisorManager = pluginService.getRevisorManager();
 
             message = revisorManager.revisor(playeruuid, message);
 

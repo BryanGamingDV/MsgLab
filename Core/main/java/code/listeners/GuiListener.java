@@ -1,22 +1,21 @@
 package code.listeners;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.gui.OnlineSample;
-import code.cache.UserData;
+import code.data.UserData;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class GuiListener implements Listener{
 
-    private Manager manager;
+    private PluginService pluginService;
 
-    public GuiListener(Manager manager){
-        this.manager = manager;
+    public GuiListener(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
 
@@ -24,9 +23,9 @@ public class GuiListener implements Listener{
     public void onOpenGUI(InventoryClickEvent event) {
         HumanEntity player = event.getWhoClicked();
 
-        UserData userData = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
-        OnlineSample onlineSample = manager.getManagingCenter().getGuiManager().getSampleManager().getOnlineSample();
+        OnlineSample onlineSample = pluginService.getManagingCenter().getGuiManager().getSampleManager().getOnlineSample();
 
         if (!userData.isGUISet()){
             return;
@@ -57,7 +56,7 @@ public class GuiListener implements Listener{
     public void onClose(InventoryCloseEvent event){
 
         HumanEntity player = event.getPlayer();
-        UserData userData = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
         if (userData.isChangingPage()){
             return;

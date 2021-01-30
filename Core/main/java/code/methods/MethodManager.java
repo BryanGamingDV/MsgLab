@@ -1,6 +1,6 @@
 package code.methods;
 
-import code.Manager;
+import code.PluginService;
 import code.methods.chat.RadialChatMethod;
 import code.methods.click.ChatMethod;
 import code.methods.commands.*;
@@ -27,31 +27,31 @@ public class MethodManager{
     private ReplyMethod replyMethod;
     private StaffChatMethod staffChatMethod;
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public MethodManager(Manager manager){
-        this.manager = manager;
+    public MethodManager(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     public void setup(){
 
-        chatMethod = new ChatMethod(manager);
-        listenerManaging = new ListenerManaging(manager);
-        groupMethod = new GroupMethod(manager);
-        radialChatMethod = new RadialChatMethod(manager);
+        chatMethod = new ChatMethod(pluginService);
+        listenerManaging = new ListenerManaging(pluginService);
+        groupMethod = new GroupMethod(pluginService);
+        radialChatMethod = new RadialChatMethod(pluginService);
 
-        playerStatic = new PlayerStatic(manager);
-        playerMessage = new PlayerMessage(manager);
+        playerStatic = new PlayerStatic(pluginService);
+        playerMessage = new PlayerMessage(pluginService);
 
-        staffChatMethod = new StaffChatMethod(manager);
-        helpOpMethod = new HelpOpMethod(manager);
-        ignoreMethod = new IgnoreMethod(manager);
-        socialSpyMethod = new SocialSpyMethod(manager);
+        staffChatMethod = new StaffChatMethod(pluginService);
+        helpOpMethod = new HelpOpMethod(pluginService);
+        ignoreMethod = new IgnoreMethod(pluginService);
+        socialSpyMethod = new SocialSpyMethod(pluginService);
 
-        replyMethod = new ReplyMethod(manager);
-        msgMethod = new MsgMethod(manager);
+        replyMethod = new ReplyMethod(pluginService);
+        msgMethod = new MsgMethod(pluginService);
 
-        manager.getLogs().log("Method registered");
+        pluginService.getLogs().log("Method registered");
 
     }
 

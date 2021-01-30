@@ -1,11 +1,10 @@
 package code.commands;
 
-import code.CacheManager;
-import code.cache.UserData;
+import code.data.UserData;
 import code.events.SocialSpyEvent;
 import code.methods.player.PlayerStatic;
 import code.registry.ConfigManager;
-import code.Manager;
+import code.PluginService;
 import code.methods.player.PlayerMessage;
 import code.bukkitutils.SoundManager;
 import code.revisor.RevisorManager;
@@ -16,7 +15,6 @@ import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import code.utils.Configuration;
@@ -26,20 +24,20 @@ import java.util.UUID;
 
 public class ReplyCommand implements CommandClass {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public ReplyCommand(Manager manager){
-        this.manager = manager;
+    public ReplyCommand(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     @Command(names = {"reply", "r"})
     public boolean onCommand(@Sender Player player, @OptArg("") @Text String message) {
 
-        ConfigManager files = manager.getFiles();
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        ConfigManager files = pluginService.getFiles();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
-        ModuleCheck moduleCheck = manager.getPathManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration players = files.getPlayers();
         Configuration config = files.getConfig();
@@ -56,7 +54,7 @@ public class ReplyCommand implements CommandClass {
             return true;
         }
 
-        UserData playerCache = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData playerCache = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
         if (!playerCache.hasRepliedPlayer()) {
             playersender.sendMessage(player, lang.getString("error.no-reply"));
@@ -76,7 +74,7 @@ public class ReplyCommand implements CommandClass {
         CommandSender targetsender = target.getPlayer();
 
         if (command.getBoolean("commands.msg-reply.enable-revisor")){
-            RevisorManager revisorManager = manager.getRevisorManager();
+            RevisorManager revisorManager = pluginService.getRevisorManager();
             message = revisorManager.revisor(playeruuid, message);
 
             if (message == null){
@@ -102,7 +100,7 @@ public class ReplyCommand implements CommandClass {
                             .replace("%arg-1%", target.getName()))
                             , message);
 
-            UserData targetCache = manager.getCache().getPlayerUUID().get(target.getUniqueId());
+            UserData targetCache = pluginService.getCache().getPlayerUUID().get(target.getUniqueId());
 
             targetCache.setRepliedPlayer(playeruuid);
             sound.setSound(player.getUniqueId(), "sounds.on-reply");

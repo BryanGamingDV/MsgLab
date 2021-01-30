@@ -1,7 +1,7 @@
 package code.methods.commands;
 
-import code.Manager;
-import code.cache.UserData;
+import code.PluginService;
+import code.data.UserData;
 import code.methods.MethodService;
 
 import java.util.Map;
@@ -9,14 +9,14 @@ import java.util.UUID;
 
 public class HelpOpMethod implements MethodService {
 
-    private final Manager manager;
+    private final PluginService pluginService;
     private final Map<UUID, UserData> cache;
 
     private String status;
 
-    public HelpOpMethod(Manager manager) {
-        this.manager = manager;
-        this.cache = manager.getCache().getPlayerUUID();
+    public HelpOpMethod(PluginService pluginService) {
+        this.pluginService = pluginService;
+        this.cache = pluginService.getCache().getPlayerUUID();
     }
     public String getStatus(){
         return status;
@@ -27,12 +27,12 @@ public class HelpOpMethod implements MethodService {
 
         if (usercache.isPlayerHelpOp()) {
             usercache.toggleHelpOp(false);
-            status = manager.getFiles().getCommand().getString("commands.helpop.player.variable-off");
+            status = pluginService.getFiles().getCommand().getString("commands.helpop.player.variable-off");
             return;
         }
 
         usercache.toggleHelpOp(true);
-        status = manager.getFiles().getCommand().getString("commands.helpop.player.variable-on");
+        status = pluginService.getFiles().getCommand().getString("commands.helpop.player.variable-on");
     }
 
     public void enableOption(UUID uuid){

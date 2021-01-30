@@ -1,6 +1,6 @@
 package code.revisor.message;
 
-import code.Manager;
+import code.PluginService;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
 import org.apache.commons.lang.StringUtils;
@@ -9,19 +9,19 @@ import org.bukkit.entity.Player;
 
 public class CapsRevisor {
 
-    private Manager manager;
+    private PluginService pluginService;
 
-    public CapsRevisor(Manager manager){
-        this.manager = manager;
+    public CapsRevisor(PluginService pluginService){
+        this.pluginService = pluginService;
 
     }
 
     public String check(Player player, String string){
 
-        Configuration config = manager.getFiles().getConfig();
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration config = pluginService.getFiles().getConfig();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
         if (!(utils.getBoolean("utils.chat.security.caps-module.enabled"))){
             return string;

@@ -1,37 +1,30 @@
 package code.utils;
 
-import code.Manager;
+import code.PluginService;
 import code.methods.player.PlayerMessage;
 import code.registry.ConfigManager;
-import com.mysql.jdbc.util.ServerController;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
-import net.minecraft.server.v1_16_R3.DataConverterObjectiveRenderType;
-import net.minecraft.server.v1_16_R3.ScoreboardServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 
 public class StringFormat {
 
     private final ConfigManager config;
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private static SupportManager supportManager;
 
-    public StringFormat(ConfigManager config, Manager manager){
+    public StringFormat(ConfigManager config, PluginService pluginService){
         this.config = config;
-        this.manager = manager;
-        supportManager = manager.getSupportManager();
+        this.pluginService = pluginService;
+        supportManager = pluginService.getSupportManager();
     }
 
     public void loopString(Player sender, Configuration config, String string){
-        PlayerMessage player = manager.getPlayerMethods().getSender();
+        PlayerMessage player = pluginService.getPlayerMethods().getSender();
         for (String msg : config.getStringList(string)){
             player.sendMessage(sender, msg);
         }

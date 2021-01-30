@@ -1,7 +1,7 @@
 package code.methods.commands;
 
-import code.Manager;
-import code.cache.UserData;
+import code.PluginService;
+import code.data.UserData;
 import code.methods.MethodService;
 import code.methods.click.ChatMethod;
 import code.methods.player.PlayerMessage;
@@ -10,21 +10,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
 public class StaffChatMethod implements MethodService {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private final Map<UUID, UserData> cache;
 
     private String status;
 
-    public StaffChatMethod(Manager manager) {
-        this.manager = manager;
-        this.cache = manager.getCache().getPlayerUUID();
+    public StaffChatMethod(PluginService pluginService) {
+        this.pluginService = pluginService;
+        this.cache = pluginService.getCache().getPlayerUUID();
     }
     public String getStatus(){
         return status;
@@ -35,12 +34,12 @@ public class StaffChatMethod implements MethodService {
 
         if (usercache.isStaffchatMode()) {
             usercache.toggleStaffChat(false);
-            status = manager.getFiles().getCommand().getString("commands.staff-chat.player.variable-off");
+            status = pluginService.getFiles().getCommand().getString("commands.staff-chat.player.variable-off");
             return;
         };
 
         usercache.toggleStaffChat(true);
-        status = manager.getFiles().getCommand().getString("commands.staff-chat.player.variable-on");
+        status = pluginService.getFiles().getCommand().getString("commands.staff-chat.player.variable-on");
     }
 
     public void enableOption(UUID uuid){
@@ -53,7 +52,7 @@ public class StaffChatMethod implements MethodService {
 
     public boolean isUsingStaffSymbol(AsyncPlayerChatEvent event) {
 
-        Configuration command = manager.getFiles().getCommand();
+        Configuration command = pluginService.getFiles().getCommand();
 
         Player player = event.getPlayer();
 
@@ -71,13 +70,13 @@ public class StaffChatMethod implements MethodService {
 
         Player player = event.getPlayer();
 
-        Configuration config = manager.getFiles().getConfig();
-        Configuration command = manager.getFiles().getCommand();
+        Configuration config = pluginService.getFiles().getConfig();
+        Configuration command = pluginService.getFiles().getCommand();
 
-        ChatMethod chatMethod = manager.getPlayerMethods().getChatMethod();
+        ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        UserData playerStatus = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        UserData playerStatus = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
         if (!player.hasPermission("config.perms.staff-chat")) {
             return;

@@ -1,35 +1,34 @@
 package code.api;
 
 import code.CacheManager;
-import code.Manager;
-import code.cache.UserData;
+import code.PluginService;
+import code.data.UserData;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 
 public class BasicAPImpl implements BasicAPI {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    private static CacheManager cache;
-    private static Map<UUID, UserData> userCacheMap;
-
-
-    private static final String pluginname = "BasicMsg";
-    private static final String pluginversion = "1.8.8";
-    private static final String pluginauthor = "BryanGaming";
+    private CacheManager cache;
+    private Map<UUID, UserData> userCacheMap;
 
 
-    public BasicAPImpl(Manager manager){
-        this.manager = manager;
+    private final String pluginname = "BasicMsg";
+    private final String pluginversion = "1.8.8";
+    private final String pluginauthor = "BryanGaming";
 
-        cache = manager.getCache();
-        userCacheMap = manager.getCache().getPlayerUUID();
+
+    public BasicAPImpl(PluginService pluginService){
+        this.pluginService = pluginService;
+
+        cache = pluginService.getCache();
+        userCacheMap = pluginService.getCache().getPlayerUUID();
     }
 
-    public static boolean isPlayerIgnored(UUID targetPlayer, UUID playerIgnored){
+    public boolean isPlayerIgnored(UUID targetPlayer, UUID playerIgnored){
         Player player = Bukkit.getPlayer(playerIgnored);
 
         if (player == null){
@@ -51,14 +50,14 @@ public class BasicAPImpl implements BasicAPI {
     }
 
 
-    public static List<String> getIgnoredPlayers(UUID uuid){
+    public List<String> getIgnoredPlayers(UUID uuid){
         if (!(cache.getIgnorelist().containsKey(uuid))){
             return null;
         }
         return cache.getIgnorelist().get(uuid);
     }
 
-    public static List<String> getSpyList(){
+    public List<String> getSpyList(){
         List<String> socialspyList = new ArrayList<>();
 
         for (UserData cache : userCacheMap.values()) {
@@ -70,7 +69,7 @@ public class BasicAPImpl implements BasicAPI {
 
     }
 
-    public static List<String> getMsgToggleList(){
+    public List<String> getMsgToggleList(){
         List<String> msgToggle = new ArrayList<>();
 
         for (UserData cache : userCacheMap.values()) {
@@ -82,23 +81,23 @@ public class BasicAPImpl implements BasicAPI {
         return msgToggle;
     }
 
-    public static UUID getRepliedPlayer(UUID uuid){
+    public UUID getRepliedPlayer(UUID uuid){
         return userCacheMap.get(uuid).getRepliedPlayer();
     }
 
-    public static String getDescription(){
+    public String getDescription(){
         return pluginname + "_" + pluginversion + "_" + pluginauthor;
     }
 
-    public static String getPluginName(){
+    public String getPluginName(){
         return pluginname;
     }
 
-    public static String getPluginVersion(){
+    public String getPluginVersion(){
         return pluginversion;
     }
 
-    public static String getPluginAuthor(){
+    public String getPluginAuthor(){
         return pluginauthor;
     }
 

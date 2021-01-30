@@ -1,8 +1,8 @@
 package code.listeners;
 
 import code.CacheManager;
-import code.Manager;
-import code.cache.UserData;
+import code.PluginService;
+import code.data.UserData;
 import code.methods.ListenerManaging;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
@@ -17,19 +17,19 @@ import java.util.UUID;
 
 public class JoinListener implements Listener {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private final Configuration players;
     private final Configuration sounds;
 
     private final CacheManager cache;
 
-    public JoinListener(Manager manager) {
-        this.manager = manager;
+    public JoinListener(PluginService pluginService) {
+        this.pluginService = pluginService;
         // All methods:
-        this.players = manager.getFiles().getPlayers();
-        this.sounds = manager.getFiles().getSounds();
-        this.cache = manager.getCache();
+        this.players = pluginService.getFiles().getPlayers();
+        this.sounds = pluginService.getFiles().getSounds();
+        this.cache = pluginService.getCache();
     }
 
     @EventHandler
@@ -38,10 +38,10 @@ public class JoinListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        ListenerManaging listenerManaging = manager.getPlayerMethods().getListenerManaging();
+        ListenerManaging listenerManaging = pluginService.getPlayerMethods().getListenerManaging();
 
-        Configuration config = manager.getFiles().getConfig();
-        ModuleCheck moduleCheck = manager.getPathManager();
+        Configuration config = pluginService.getFiles().getConfig();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
 
         if (moduleCheck.isOptionEnabled("join_quit")){
             listenerManaging.setJoin(event);

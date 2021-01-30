@@ -1,12 +1,12 @@
 package code.bukkitutils;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.gui.manager.GuiManager;
 
 public class ManagingCenter {
 
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private SoundManager soundManager;
     private WorldManager worldManager;
@@ -14,16 +14,16 @@ public class ManagingCenter {
     private GuiManager guiManager;
 
 
-    public ManagingCenter(Manager manager){
-        this.manager = manager;
+    public ManagingCenter(PluginService pluginService){
+        this.pluginService = pluginService;
         setup();
     }
 
     public void setup(){
-        soundManager = new SoundManager(manager);
-        worldManager = new WorldManager(manager);
-        guiManager = new GuiManager(manager);
-        runnableManager = new RunnableManager(manager);
+        soundManager = new SoundManager(pluginService);
+        worldManager = new WorldManager(pluginService);
+        guiManager = new GuiManager(pluginService);
+        runnableManager = new RunnableManager(pluginService);
 
     }
 

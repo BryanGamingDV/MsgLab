@@ -1,6 +1,6 @@
 package code.revisor.message;
 
-import code.Manager;
+import code.PluginService;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
@@ -8,21 +8,19 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.regex.Pattern;
 
 public class MentionRevisor {
 
-    private Manager manager;
+    private PluginService pluginService;
 
-    public MentionRevisor(Manager manager) {
-        this.manager = manager;
+    public MentionRevisor(PluginService pluginService) {
+        this.pluginService = pluginService;
     }
 
     public String check(Player player, String string) {
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        Configuration utils = manager.getFiles().getBasicUtils();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (!(utils.getBoolean("utils.chat.mentions.enabled"))) {
             return string;

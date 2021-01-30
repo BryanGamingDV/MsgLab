@@ -1,25 +1,20 @@
 package code.methods.player;
 
-import code.Manager;
-import code.bukkitutils.RunnableManager;
-import code.utils.StringFormat;
+import code.PluginService;
 import net.md_5.bungee.api.chat.BaseComponent;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 public class PlayerMessage{
 
-    private final Manager manager;
+    private final PluginService pluginService;
     private int pathLength = 45;
 
-    public PlayerMessage(Manager manager){
-        this.manager = manager;
+    public PlayerMessage(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     public void sendMessage(CommandSender sender, String path, String message) {
@@ -34,7 +29,7 @@ public class PlayerMessage{
 
     public void sendMessage(Player player, String path) {
 
-        Logger logger = manager.getPlugin().getLogger();
+        Logger logger = pluginService.getPlugin().getLogger();
         if (path == null){
             logger.info("Error - The path that should send you is null.");
             logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
@@ -57,14 +52,14 @@ public class PlayerMessage{
     }
 
     public BaseComponent[] getMessage(String message) {
-        message = manager.getStringFormat().replaceString(message);
+        message = pluginService.getStringFormat().replaceString(message);
         
         return PlayerStatic.convertText(PlayerStatic.setColor(message));
     }
 
 
     public BaseComponent[] getMessage(String path, String message) {
-        message = manager.getStringFormat().replaceString(message);
+        message = pluginService.getStringFormat().replaceString(message);
 
         return PlayerStatic.convertText(PlayerStatic.setColor(path)
                 .replace("%message%", message));
@@ -77,7 +72,7 @@ public class PlayerMessage{
     }
 
     public void sendLines(NullPointerException nullPointerException){
-        Logger logger = manager.getPlugin().getLogger();
+        Logger logger = pluginService.getPlugin().getLogger();
 
         logger.info("Main line: " + nullPointerException.getStackTrace()[0].toString());
         logger.info("Second line: " + nullPointerException.getStackTrace()[1].toString());

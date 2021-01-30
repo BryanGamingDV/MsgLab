@@ -1,11 +1,10 @@
 package code.bukkitutils;
 
 import code.BasicMsg;
-import code.Manager;
+import code.PluginService;
 import code.debug.DebugLogger;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -13,19 +12,19 @@ import java.util.*;
 
 public class WorldManager{
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private static BasicMsg plugin;
     private static DebugLogger debugLogger;
 
     private static Configuration utils;
 
-    public WorldManager(Manager manager){
-        this.manager = manager;
-        utils = manager.getFiles().getBasicUtils();
+    public WorldManager(PluginService pluginService){
+        this.pluginService = pluginService;
+        utils = pluginService.getFiles().getBasicUtils();
 
-        plugin = manager.getPlugin();
-        debugLogger = manager.getLogs();
+        plugin = pluginService.getPlugin();
+        debugLogger = pluginService.getLogs();
     }
 
     public static List<String> getWorldChat(Player player){

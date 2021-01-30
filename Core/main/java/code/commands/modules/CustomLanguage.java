@@ -1,25 +1,24 @@
 package code.commands.modules;
 
-import code.Manager;
+import code.PluginService;
 import code.utils.Configuration;
 import me.fixeddev.commandflow.Namespace;
 import me.fixeddev.commandflow.bukkit.BukkitDefaultTranslationProvider;
-import me.fixeddev.commandflow.translator.TranslationProvider;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomLanguage extends BukkitDefaultTranslationProvider {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     protected Map<String, String> translations;
 
     private final Configuration messages;
 
-    public CustomLanguage(Manager manager) {
-        this.manager = manager;
-        this.messages = manager.getFiles().getMessages();
+    public CustomLanguage(PluginService pluginService) {
+        this.pluginService = pluginService;
+        this.messages = pluginService.getFiles().getMessages();
         translations = new HashMap<>();
         setup();
     }
@@ -31,7 +30,7 @@ public class CustomLanguage extends BukkitDefaultTranslationProvider {
         translations.put("player.offline", "4. The player %s is offline!");
         translations.put("sender.unknown", "5. The sender for the command is unknown!");
         translations.put("sender.only-player", messages.getString("error.console"));
-        manager.getLogs().log("Translator created!");
+        pluginService.getLogs().log("Translator created!");
     }
 
     public String getTranslation(String key) {

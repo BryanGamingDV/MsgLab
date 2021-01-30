@@ -1,6 +1,5 @@
 package code.commands;
 
-import code.CacheManager;
 import code.methods.commands.IgnoreMethod;
 import code.registry.ConfigManager;
 import code.methods.player.PlayerMessage;
@@ -15,7 +14,7 @@ import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import code.utils.Configuration;
-import code.Manager;
+import code.PluginService;
 
 import java.util.List;
 import java.util.Map;
@@ -23,21 +22,21 @@ import java.util.UUID;
 
 public class IgnoreCommand implements CommandClass{
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public IgnoreCommand(Manager manager){
-        this.manager = manager;
+    public IgnoreCommand(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     @Command(names = "ignore")
     public boolean ignore(@Sender Player player, @OptArg OfflinePlayer target) {
 
-        ConfigManager files = manager.getFiles();
+        ConfigManager files = pluginService.getFiles();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
-        ModuleCheck moduleCheck = manager.getPathManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration players = files.getPlayers();
         Configuration command = files.getCommand();
@@ -52,7 +51,7 @@ public class IgnoreCommand implements CommandClass{
             return true;
         }
 
-        Map<UUID, List<String>> ignorelist = manager.getCache().getIgnorelist();
+        Map<UUID, List<String>> ignorelist = pluginService.getCache().getIgnorelist();
         List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
 
         if (target.getName().equalsIgnoreCase("-list")) {
@@ -85,7 +84,7 @@ public class IgnoreCommand implements CommandClass{
         }
 
         String targetname = target.getPlayer().getName();
-        IgnoreMethod ignoreMethod = manager.getPlayerMethods().getIgnoreMethod();
+        IgnoreMethod ignoreMethod = pluginService.getPlayerMethods().getIgnoreMethod();
 
         if (!ignorelist.containsKey(playeruuid)) {
             ignoreMethod.ignorePlayer(player, target.getUniqueId());

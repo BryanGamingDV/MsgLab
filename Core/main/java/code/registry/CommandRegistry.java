@@ -1,9 +1,8 @@
 package code.registry;
 
 import code.BasicMsg;
-import code.RecoverStats;
 import code.commands.*;
-import code.Manager;
+import code.PluginService;
 
 import code.commands.modules.CustomLanguage;
 import me.fixeddev.commandflow.CommandManager;
@@ -20,54 +19,54 @@ import me.fixeddev.commandflow.bukkit.factory.BukkitModule;
 public class CommandRegistry implements LoaderService{
 
 
-    private final Manager manager;
+    private final PluginService pluginService;
     private final BasicMsg plugin;
 
     private AnnotatedCommandTreeBuilder builder;
     private CommandManager commandManager;
 
-    public CommandRegistry(BasicMsg plugin, Manager manager){
+    public CommandRegistry(BasicMsg plugin, PluginService pluginService){
         this.plugin = plugin;
-        this.manager = manager;
+        this.pluginService = pluginService;
     }
 
 
     @Override
     public void setup() {
 
-        manager.getLogs().log("Loading CommandRegistry");
+        pluginService.getLogs().log("Loading CommandRegistry");
 
         createCommandManager();
 
-        commandManager.getTranslator().setProvider(new CustomLanguage(manager));
+        commandManager.getTranslator().setProvider(new CustomLanguage(pluginService));
 
-        registerCommands("bmsg", new BmsgCommand(plugin , manager));
-        registerCommands("msg", new MsgCommand(manager));
-        registerCommands("reply", new ReplyCommand(manager));
-        registerCommands("socialspy", new SocialSpyCommand(manager));
-        registerCommands("staffchat", new StaffChatCommand(manager));
-        registerCommands("helpop" , new HelpopCommand(manager));
-        registerCommands("ignore", new IgnoreCommand(manager));
-        registerCommands("unignore", new UnIgnoreCommand(manager));
-        registerCommands("chat" , new ChatCommand(plugin, manager));
-        registerCommands("broadcast", new BroadcastCommand(manager));
-        registerCommands("broadcastworld", new BroadcastWorldCommand(manager));
-        registerCommands("channel", new ChannelCommand(manager));
-        registerCommands("motd", new MotdCommand(manager));
-        registerCommands("stream", new StreamCommand(manager));
+        registerCommands("bmsg", new BmsgCommand(plugin , pluginService));
+        registerCommands("msg", new MsgCommand(pluginService));
+        registerCommands("reply", new ReplyCommand(pluginService));
+        registerCommands("socialspy", new SocialSpyCommand(pluginService));
+        registerCommands("staffchat", new StaffChatCommand(pluginService));
+        registerCommands("helpop" , new HelpopCommand(pluginService));
+        registerCommands("ignore", new IgnoreCommand(pluginService));
+        registerCommands("unignore", new UnIgnoreCommand(pluginService));
+        registerCommands("chat" , new ChatCommand(plugin, pluginService));
+        registerCommands("broadcast", new BroadcastCommand(pluginService));
+        registerCommands("broadcastworld", new BroadcastWorldCommand(pluginService));
+        registerCommands("channel", new ChannelCommand(pluginService));
+        registerCommands("motd", new MotdCommand(pluginService));
+        registerCommands("stream", new StreamCommand(pluginService));
 
-        manager.getLogs().log("Commands loaded!");
+        pluginService.getLogs().log("Commands loaded!");
         plugin.getLogger().info("Commands loaded!");
     }
 
     public void registerCommands(String commandName, CommandClass commandClass) {
-        if (manager.getPathManager().isCommandEnabled(commandName)) {
+        if (pluginService.getPathManager().isCommandEnabled(commandName)) {
             commandManager.registerCommands(builder.fromClass(commandClass));
-            manager.getLogs().log("Command: " + commandName + " loaded.");
+            pluginService.getLogs().log("Command: " + commandName + " loaded.");
         } else {
-            manager.getLogs().log("Command: " + commandName + " unloaded.", 0);
+            pluginService.getLogs().log("Command: " + commandName + " unloaded.", 0);
         }
-        manager.getListManager().getCommands().add(commandName);
+        pluginService.getListManager().getCommands().add(commandName);
     }
 
     private void createCommandManager() {

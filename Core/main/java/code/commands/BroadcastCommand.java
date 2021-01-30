@@ -1,6 +1,6 @@
 package code.commands;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.SoundManager;
 import code.methods.click.ChatMethod;
 import code.methods.player.PlayerMessage;
@@ -20,22 +20,22 @@ import java.util.UUID;
 
 public class BroadcastCommand implements CommandClass {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public BroadcastCommand(Manager manager){
-        this.manager = manager;
+    public BroadcastCommand(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
 
     @Command(names =  {"broadcast", "bc"})
     public boolean onCommand(@Sender Player player, @OptArg("") @Text String args){
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-        ModuleCheck moduleCheck = manager.getPathManager();
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
 
-        ConfigManager files = manager.getFiles();
+        ConfigManager files = pluginService.getFiles();
 
         Configuration config = files.getConfig();
         Configuration command = files.getCommand();
@@ -56,7 +56,7 @@ public class BroadcastCommand implements CommandClass {
         }
 
 
-        ChatMethod chatMethod = manager.getPlayerMethods().getChatMethod();
+        ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();
 
         if (args.equalsIgnoreCase("-click")) {
             chatMethod.activateChat(playeruuid, false);
@@ -66,7 +66,7 @@ public class BroadcastCommand implements CommandClass {
         String message = String.join(" ", args);
 
         if (command.getBoolean("commands.broadcast.enable-revisor")){
-            RevisorManager revisorManager = manager.getRevisorManager();
+            RevisorManager revisorManager = pluginService.getRevisorManager();
             message = revisorManager.revisor(playeruuid, message);
 
             if (message == null){

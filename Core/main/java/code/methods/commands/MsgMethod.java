@@ -1,6 +1,6 @@
 package code.methods.commands;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.SoundManager;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
@@ -11,19 +11,19 @@ import java.util.UUID;
 
 public class MsgMethod {
 
-    private Manager manager;
+    private PluginService pluginService;
 
-    public MsgMethod(Manager manager){
-        this.manager = manager;
+    public MsgMethod(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     public void sendPrivateMessage(Player player, Player target, String message){
 
-        Configuration command = manager.getFiles().getCommand();
-        Configuration players = manager.getFiles().getPlayers();
+        Configuration command = pluginService.getFiles().getCommand();
+        Configuration players = pluginService.getFiles().getPlayers();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
 
         String playerFormat = command.getString("commands.msg-reply.player")
                 .replace("%player%", player.getName())

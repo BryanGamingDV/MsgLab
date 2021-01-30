@@ -1,8 +1,8 @@
 package code.commands;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.SoundManager;
-import code.cache.UserData;
+import code.data.UserData;
 import code.methods.commands.HelpOpMethod;
 import code.methods.player.PlayerMessage;
 import code.registry.ConfigManager;
@@ -23,22 +23,22 @@ import java.util.UUID;
 
 public class HelpopCommand implements CommandClass{
 
-    private Manager manager;
+    private PluginService pluginService;
 
-    public HelpopCommand(Manager manager){
-        this.manager = manager;
+    public HelpopCommand(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     @Command(names =  {"helpop", "ac"})
     public boolean onCommand(@Sender Player player, @OptArg("") @Text String args){
 
-        ConfigManager files = manager.getFiles();
+        ConfigManager files = pluginService.getFiles();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        HelpOpMethod helpOpMethod = manager.getPlayerMethods().getHelpOpMethod();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        HelpOpMethod helpOpMethod = pluginService.getPlayerMethods().getHelpOpMethod();
 
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
-        ModuleCheck moduleCheck = manager.getPathManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration config = files.getConfig();
         Configuration command = files.getCommand();
@@ -59,7 +59,7 @@ public class HelpopCommand implements CommandClass{
             List<String> helpopList = new ArrayList<>();
 
             for (Player playeronline : Bukkit.getServer().getOnlinePlayers()) {
-                UserData onlineCache = manager.getCache().getPlayerUUID().get(playeronline.getUniqueId());
+                UserData onlineCache = pluginService.getCache().getPlayerUUID().get(playeronline.getUniqueId());
                 if (playeronline.hasPermission(config.getString("config.perms.helpop-watch")) && onlineCache.isPlayerHelpOp()){
                     helpopList.add(playeronline.getName());
                 }
@@ -80,7 +80,7 @@ public class HelpopCommand implements CommandClass{
             return true;
         }
 
-        UserData playerCache = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData playerCache = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
         if (args.equalsIgnoreCase("-on")){
             if (!(player.hasPermission(config.getString("config.perms.helpop-watch")))){
@@ -135,7 +135,7 @@ public class HelpopCommand implements CommandClass{
         String message = String.join(" ", args);
 
         if (command.getBoolean("commands.helpop.enable-revisor")){
-            RevisorManager revisorManager = manager.getRevisorManager();
+            RevisorManager revisorManager = pluginService.getRevisorManager();
             message = revisorManager.revisor(playeruuid, message);
 
             if (message == null){
@@ -146,7 +146,7 @@ public class HelpopCommand implements CommandClass{
         String finalMessage = message;
 
         Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-            UserData onlineCache = manager.getCache().getPlayerUUID().get(onlinePlayer.getUniqueId());
+            UserData onlineCache = pluginService.getCache().getPlayerUUID().get(onlinePlayer.getUniqueId());
 
             if (onlinePlayer.hasPermission(config.getString("config.perms.helpop-watch")) && onlineCache.isPlayerHelpOp()) {
                 return;

@@ -1,8 +1,7 @@
 package code.commands;
 
-import code.CacheManager;
 import code.bukkitutils.gui.manager.GuiManager;
-import code.cache.UserData;
+import code.data.UserData;
 import code.events.SocialSpyEvent;
 import code.methods.commands.MsgMethod;
 import code.methods.commands.ReplyMethod;
@@ -19,30 +18,29 @@ import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import code.utils.Configuration;
-import code.Manager;
+import code.PluginService;
 
 import java.util.UUID;
 
 public class MsgCommand implements CommandClass{
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public MsgCommand(Manager manager){
-        this.manager = manager;
+    public MsgCommand(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     @Command(names = {"msg", "pm", "tell", "t", "w", "whisper"})
 
     public boolean onCommand(@Sender Player player, @OptArg OfflinePlayer target, @OptArg("") @Text String msg) {
 
-        ConfigManager files = manager.getFiles();
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        ConfigManager files = pluginService.getFiles();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
-        ModuleCheck moduleCheck = manager.getPathManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration config = files.getConfig();
         Configuration command = files.getCommand();
@@ -71,12 +69,12 @@ public class MsgCommand implements CommandClass{
                 return true;
             }
 
-            GuiManager guiManager = manager.getManagingCenter().getGuiManager();
+            GuiManager guiManager = pluginService.getManagingCenter().getGuiManager();
             guiManager.openInventory(playeruuid, "online", 0);
             return true;
         }
 
-        UserData playerMsgToggle = manager.getCache().getPlayerUUID().get(playeruuid);
+        UserData playerMsgToggle = pluginService.getCache().getPlayerUUID().get(playeruuid);
 
         if (target.getName().equalsIgnoreCase("-toggle")) {
             if (msg.isEmpty()) {
@@ -105,7 +103,7 @@ public class MsgCommand implements CommandClass{
                 return true;
             }
 
-            UserData targetMsgToggle = manager.getCache().getPlayerUUID().get(you.getUniqueId());
+            UserData targetMsgToggle = pluginService.getCache().getPlayerUUID().get(you.getUniqueId());
 
             if (!(targetMsgToggle.isMsgtoggleMode())) {
                 targetMsgToggle.toggleMsg(true);
@@ -138,7 +136,7 @@ public class MsgCommand implements CommandClass{
 
         }
 
-        UserData targetToggled = manager.getCache().getPlayerUUID().get(targetuuid);
+        UserData targetToggled = pluginService.getCache().getPlayerUUID().get(targetuuid);
 
         if (targetToggled == null) {
             playersender.sendMessage(player, messages.getString("error.no-arg")
@@ -164,7 +162,7 @@ public class MsgCommand implements CommandClass{
         String message = String.join(" ", msg);
 
         if (command.getBoolean("commands.msg-reply.enable-revisor")){
-            RevisorManager revisorManager = manager.getRevisorManager();
+            RevisorManager revisorManager = pluginService.getRevisorManager();
             message = revisorManager.revisor(playeruuid, message);
 
             if (message == null){
@@ -176,7 +174,7 @@ public class MsgCommand implements CommandClass{
             message = PlayerStatic.setColor(msg);
         }
 
-        MsgMethod msgMethod = manager.getPlayerMethods().getMsgMethod();
+        MsgMethod msgMethod = pluginService.getPlayerMethods().getMsgMethod();
         Player targetplayer = target.getPlayer();
 
         msgMethod.sendPrivateMessage(player, targetplayer, message);
@@ -188,7 +186,7 @@ public class MsgCommand implements CommandClass{
 
         Bukkit.getPluginManager().callEvent(new SocialSpyEvent(socialspyFormat));
 
-        ReplyMethod reply = manager.getPlayerMethods().getReplyMethod();
+        ReplyMethod reply = pluginService.getPlayerMethods().getReplyMethod();
         reply.setReply(playeruuid, targetuuid);
         return true;
     }

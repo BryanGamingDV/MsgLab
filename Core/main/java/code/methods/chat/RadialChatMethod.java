@@ -1,28 +1,26 @@
 package code.methods.chat;
 
-import code.Manager;
+import code.PluginService;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.units.qual.A;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RadialChatMethod {
 
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public RadialChatMethod(Manager manager){
-        this.manager = manager;
+    public RadialChatMethod(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
 
     public List<Player> getRadialPlayers(Player player){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         int x = utils.getInt("utils.chat.radial-chat.x");
         int y = utils.getInt("utils.chat.radial-chat.y");
@@ -30,7 +28,7 @@ public class RadialChatMethod {
 
         ArrayList<Player> listPlayers = new ArrayList<>();
 
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(manager.getPlugin(), new Runnable() {
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
             @Override
             public void run() {
 

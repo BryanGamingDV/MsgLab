@@ -1,6 +1,6 @@
 package code;
 
-import code.cache.UserData;
+import code.data.UserData;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,17 +11,17 @@ import java.util.UUID;
 
 public class RecoverStats {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public RecoverStats(Manager manager){
-        this.manager = manager;
+    public RecoverStats(PluginService pluginService){
+        this.pluginService = pluginService;
         setup();
     }
 
 
     private void setup(){
-        Configuration players = manager.getFiles().getPlayers();
-        Map<UUID, UserData> hashMap = manager.getCache().getPlayerUUID();
+        Configuration players = pluginService.getFiles().getPlayers();
+        Map<UUID, UserData> hashMap = pluginService.getCache().getPlayerUUID();
 
         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 
@@ -35,7 +35,7 @@ public class RecoverStats {
             hashMap.put(playeruuid, new UserData(playeruuid));
 
 
-            Map<UUID, List<String>> playerIgnored = manager.getCache().getIgnorelist();
+            Map<UUID, List<String>> playerIgnored = pluginService.getCache().getIgnorelist();
             playerIgnored.put(playeruuid, ignoredlist);
         }
     }

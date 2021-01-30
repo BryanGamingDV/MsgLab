@@ -1,8 +1,7 @@
 package code.methods;
 
-import code.Manager;
+import code.PluginService;
 import code.debug.DebugLogger;
-import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
 import code.utils.addons.VaultSupport;
 import org.bukkit.Bukkit;
@@ -13,19 +12,19 @@ import java.util.Set;
 
 public class GroupMethod {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public GroupMethod(Manager manager){
-        this.manager = manager;
+    public GroupMethod(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     public Set<String> getGroup(){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         return utils.getConfigurationSection("utils.chat.format.groups").getKeys(false);
     }
     public String getPlayerGroup(Player player){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (player.isOp() || player.hasPermission("*")){
             if (utils.getConfigurationSection("utils.chat.format.op") == null){
@@ -44,18 +43,18 @@ public class GroupMethod {
             return "default";
         }
 
-        DebugLogger debugLogger = manager.getLogs();
+        DebugLogger debugLogger = pluginService.getLogs();
 
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")){
-            manager.getPlugin().getLogger().info("[ChatFormat] | Error: Vault isn't loaded..");
+            pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault isn't loaded..");
             debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
             return "default";
         }
 
-        VaultSupport vaultSupport = manager.getSupportManager().getVaultSupport();
+        VaultSupport vaultSupport = pluginService.getSupportManager().getVaultSupport();
 
         if (vaultSupport.getChat() == null || vaultSupport.getPermissions() == null){
-            manager.getPlugin().getLogger().info("[ChatFormat] | Error: Vault complement [LuckPerms, PermissionsEx..] isn't loaded..");
+            pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault complement [LuckPerms, PermissionsEx..] isn't loaded..");
             debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);;
             return "default";
         }
@@ -70,7 +69,7 @@ public class GroupMethod {
     }
 
     public String getPlayerFormat(Player player){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (getPlayerGroup(player).equalsIgnoreCase("default") ){
             return utils.getString("utils.chat.format." + getPlayerGroup(player) + ".format");
@@ -85,7 +84,7 @@ public class GroupMethod {
     }
 
     public List<String> getPlayerHover(Player player){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (getPlayerGroup(player).equalsIgnoreCase("default") ){
             return utils.getStringList("utils.chat.format." + getPlayerGroup(player) + ".hover");
@@ -98,7 +97,7 @@ public class GroupMethod {
     }
 
     public String getPlayerCmd(Player player){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (getPlayerGroup(player).equalsIgnoreCase("default") ){
             return utils.getString("utils.chat.format." + getPlayerGroup(player) + ".command");
@@ -112,14 +111,14 @@ public class GroupMethod {
     }
 
     public boolean channelNotExists(String group){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         return utils.getString("utils.chat.format.groups." + group) == null;
     }
 
 
     public boolean isChannelEnabled(String group){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (group.equalsIgnoreCase("default")){
             return true;
@@ -128,7 +127,7 @@ public class GroupMethod {
     }
 
     public boolean hasGroupPermission(Player player, String group){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (group.equalsIgnoreCase("default")){
             return true;

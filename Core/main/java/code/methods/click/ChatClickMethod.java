@@ -1,7 +1,7 @@
 package code.methods.click;
 
-import code.Manager;
-import code.cache.UserData;
+import code.PluginService;
+import code.data.UserData;
 import code.methods.commands.StaffChatMethod;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
@@ -14,10 +14,10 @@ import java.util.UUID;
 
 public class ChatClickMethod implements Listener {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public ChatClickMethod(Manager manager){
-        this.manager = manager;
+    public ChatClickMethod(PluginService pluginService){
+        this.pluginService = pluginService;
 
     }
     @EventHandler
@@ -25,24 +25,24 @@ public class ChatClickMethod implements Listener {
 
         UUID uuid = event.getPlayer().getUniqueId();
         
-        UserData userData = manager.getCache().getPlayerUUID().get(uuid);
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        UserData userData = pluginService.getCache().getPlayerUUID().get(uuid);
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
         if (!(userData.isClickMode())){
             return;
         }
 
         List<String> clickchat = userData.getClickChat();
-        ChatMethod chatMethod = manager.getPlayerMethods().getChatMethod();
+        ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();
 
-        Configuration command = manager.getFiles().getCommand();
+        Configuration command = pluginService.getFiles().getCommand();
 
         if (event.getMessage().startsWith("-cancel")) {
             chatMethod.unset(uuid);
             return;
         }
 
-        StaffChatMethod staffChatMethod = manager.getPlayerMethods().getStaffChatMethod();
+        StaffChatMethod staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
 
         if (staffChatMethod.isUsingStaffSymbol(event)) {
             staffChatMethod.getStaffSymbol(event);

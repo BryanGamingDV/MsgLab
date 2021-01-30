@@ -1,6 +1,6 @@
 package code.methods;
 
-import code.Manager;
+import code.PluginService;
 import code.methods.player.PlayerMessage;
 import code.methods.player.PlayerStatic;
 import code.utils.Configuration;
@@ -13,16 +13,16 @@ import java.util.List;
 
 public class ListenerManaging {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public ListenerManaging(Manager manager){
-        this.manager = manager;
-        manager.getListManager().getModules().add("join_quit");
-        manager.getListManager().getModules().add("motd");
+    public ListenerManaging(PluginService pluginService){
+        this.pluginService = pluginService;
+        pluginService.getListManager().getModules().add("join_quit");
+        pluginService.getListManager().getModules().add("motd");
     }
 
     public void setJoin(PlayerJoinEvent event){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (!(utils.getBoolean("utils.join.enabled"))){
             return;
@@ -33,21 +33,21 @@ public class ListenerManaging {
         event.setJoinMessage(PlayerStatic.setFormat(player, utils.getString("utils.join.format")
                 .replace("%player%", player.getName())));
 
-        if (manager.getPathManager().isOptionEnabled("motd")){
+        if (pluginService.getPathManager().isOptionEnabled("motd")){
             sendMotd(player);
         }
     }
 
     public void sendMotd(Player player){
 
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (!utils.getBoolean("utils.join.motd.enabled")){
             return;
         }
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        StringFormat variable = manager.getStringFormat();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        StringFormat variable = pluginService.getStringFormat();
 
         List<String> motd = utils.getStringList("utils.join.motd.format");
         motd.replaceAll(text -> variable.replacePlayerVariables(player, text));
@@ -62,7 +62,7 @@ public class ListenerManaging {
     }
 
     public void setQuit(PlayerQuitEvent event){
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (!(utils.getBoolean("utils.quit.enabled"))){
             return;

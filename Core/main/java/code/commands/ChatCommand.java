@@ -1,7 +1,7 @@
 package code.commands;
 
 import code.BasicMsg;
-import code.Manager;
+import code.PluginService;
 import code.methods.player.PlayerMessage;
 import code.registry.ConfigManager;
 import code.bukkitutils.SoundManager;
@@ -20,7 +20,7 @@ import java.util.UUID;
 @Command(names = {"chat"})
 public class ChatCommand implements CommandClass{
 
-    private final Manager manager;
+    private final PluginService pluginService;
     private final BasicMsg plugin;
 
     private final Configuration config;
@@ -30,23 +30,23 @@ public class ChatCommand implements CommandClass{
 
     private final PlayerMessage playersender;
 
-    public ChatCommand(BasicMsg plugin, Manager manager){
-        this.manager = manager;
+    public ChatCommand(BasicMsg plugin, PluginService pluginService){
+        this.pluginService = pluginService;
         this.plugin = plugin;
 
-        this.config = manager.getFiles().getConfig();
-        this.command = manager.getFiles().getCommand();
-        this.messages = manager.getFiles().getMessages();
-        this.utils = manager.getFiles().getBasicUtils();
+        this.config = pluginService.getFiles().getConfig();
+        this.command = pluginService.getFiles().getCommand();
+        this.messages = pluginService.getFiles().getMessages();
+        this.utils = pluginService.getFiles().getBasicUtils();
 
-        this.playersender = manager.getPlayerMethods().getSender();
+        this.playersender = pluginService.getPlayerMethods().getSender();
     }
 
     @Command(names = "")
     public boolean mainSubCommand(@Sender Player player) {
 
-        ModuleCheck moduleCheck = manager.getPathManager();
-        SoundManager sound = manager.getManagingCenter().getSoundManager();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
 
         UUID playeruuid = player.getUniqueId();
 
@@ -66,7 +66,7 @@ public class ChatCommand implements CommandClass{
     @Command(names = "help")
     public boolean helpSubCommand(@Sender Player player) {
 
-        StringFormat variable = manager.getStringFormat();
+        StringFormat variable = pluginService.getStringFormat();
         variable.loopString(player, command, "commands.chat.help");
         return true;
 
@@ -88,9 +88,9 @@ public class ChatCommand implements CommandClass{
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
-                PlayerMessage playersender = manager.getPlayerMethods().getSender();
+                PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-                ConfigManager files = manager.getFiles();
+                ConfigManager files = pluginService.getFiles();
                 files.getBasicUtils().reload();
                 playersender.sendMessage(sender, files.getCommand().getString("commands.bmsg.reload"));
             }

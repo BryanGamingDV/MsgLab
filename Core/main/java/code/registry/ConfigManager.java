@@ -1,7 +1,7 @@
 package code.registry;
 
 import code.BasicMsg;
-import code.Manager;
+import code.PluginService;
 import code.debug.DebugLogger;
 import code.utils.Configuration;
 
@@ -19,11 +19,11 @@ public class ConfigManager {
     private Configuration utils;
 
     private final BasicMsg plugin;
-    private final Manager manager;
+    private final PluginService pluginService;
 
-    public ConfigManager(BasicMsg plugin, Manager manager) {
+    public ConfigManager(BasicMsg plugin, PluginService pluginService) {
         this.plugin = plugin;
-        this.manager = manager;
+        this.pluginService = pluginService;
     }
 
     public void setup() {
@@ -39,8 +39,8 @@ public class ConfigManager {
 
     public Configuration setConfiguration(String string){
 
-        DebugLogger log = manager.getLogs();
-        Map<String, Configuration> configFiles = manager.getCache().getConfigFiles();
+        DebugLogger log = pluginService.getLogs();
+        Map<String, Configuration> configFiles = pluginService.getCache().getConfigFiles();
 
         Configuration config = new Configuration(plugin, string);
         configFiles.put(string.split("\\.")[0], config);

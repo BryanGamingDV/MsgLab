@@ -1,25 +1,25 @@
 package code.methods.commands;
 
 import code.CacheManager;
-import code.Manager;
-import code.cache.UserData;
+import code.PluginService;
+import code.data.UserData;
 
 import java.util.UUID;
 
 public class ReplyMethod{
 
-    private Manager manager;
+    private PluginService pluginService;
     private CacheManager cache;
 
-    public ReplyMethod(Manager manager) {
-        this.manager = manager;
-        this.cache = manager.getCache();
+    public ReplyMethod(PluginService pluginService) {
+        this.pluginService = pluginService;
+        this.cache = pluginService.getCache();
     }
 
     public void setReply(UUID player, UUID target){
 
-        UserData playerCache = manager.getCache().getPlayerUUID().get(player);
-        UserData targetCache = manager.getCache().getPlayerUUID().get(target);
+        UserData playerCache = pluginService.getCache().getPlayerUUID().get(player);
+        UserData targetCache = pluginService.getCache().getPlayerUUID().get(target);
 
         playerCache.setRepliedPlayer(target);
         targetCache.setRepliedPlayer(player);

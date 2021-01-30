@@ -1,6 +1,6 @@
 package code.revisor.message;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.RunnableManager;
 import code.methods.player.PlayerMessage;
 import code.methods.player.PlayerStatic;
@@ -12,19 +12,19 @@ import java.util.List;
 
 public class LinkRevisor {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private  RunnableManager runnableManager;
 
-    public LinkRevisor(Manager manager){
-        this.manager = manager;
-        this.runnableManager = manager.getManagingCenter().getRunnableManager();
+    public LinkRevisor(PluginService pluginService){
+        this.pluginService = pluginService;
+        this.runnableManager = pluginService.getManagingCenter().getRunnableManager();
 
     }
 
     public String check(Player player, String string){
 
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (!(utils.getBoolean("utils.chat.security.link-module.enabled"))){
             return string;
@@ -82,10 +82,10 @@ public class LinkRevisor {
 
     private void sendMessage(Player player, String blockedword) {
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-        Configuration config = manager.getFiles().getConfig();
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration config = pluginService.getFiles().getConfig();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
         playersender.sendMessage(player, utils.getString("utils.chat.security.link-module.message")
                 .replace("%player%", player.getName())

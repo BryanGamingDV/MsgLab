@@ -1,24 +1,23 @@
 package code.methods.commands;
 
-import code.Manager;
-import code.cache.UserData;
+import code.PluginService;
+import code.data.UserData;
 import code.methods.MethodService;
-import org.bukkit.Bukkit;
 
 import java.util.Map;
 import java.util.UUID;
 
 public class SocialSpyMethod implements MethodService {
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private final Map<UUID, UserData> cache;
 
     private String status;
 
-    public SocialSpyMethod(Manager manager) {
-        this.manager = manager;
-        this.cache = manager.getCache().getPlayerUUID();
+    public SocialSpyMethod(PluginService pluginService) {
+        this.pluginService = pluginService;
+        this.cache = pluginService.getCache().getPlayerUUID();
     }
     public String getStatus(){
         return status;
@@ -29,12 +28,12 @@ public class SocialSpyMethod implements MethodService {
 
         if (usercache.isSocialSpyMode()) {
             usercache.toggleSocialSpy(false);
-            status = manager.getFiles().getCommand().getString("commands.socialspy.player.variable-off");
+            status = pluginService.getFiles().getCommand().getString("commands.socialspy.player.variable-off");
             return;
         }
 
         usercache.toggleSocialSpy(true);
-        status = manager.getFiles().getCommand().getString("commands.socialspy.player.variable-on");
+        status = pluginService.getFiles().getCommand().getString("commands.socialspy.player.variable-on");
     }
 
     public void enableOption(UUID uuid){

@@ -7,12 +7,9 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
-import java.util.UUID;
-
 public class BasicMsg extends JavaPlugin {
 
-    private Manager basicMsg;
+    private PluginService basicMsg;
 
     private static BasicAPImpl api;
 
@@ -33,18 +30,17 @@ public class BasicMsg extends JavaPlugin {
 
     }
 
-    public static BasicAPImpl getAPI(){
+    public static BasicAPI getAPI(){
         return api;
     }
 
     public void onDisable() {
         getLogger().info("Thx for using this plugin <3.");
-        getDisableMessage();
     }
 
     public void registerManaging() {
 
-        basicMsg = new Manager(this);
+        basicMsg = new PluginService(this);
         basicMsg.getLogs().log("Loading API...");
         api = new BasicAPImpl(basicMsg);
         basicMsg.getLogs().log("Loaded.");
@@ -66,7 +62,7 @@ public class BasicMsg extends JavaPlugin {
         }
     }
 
-    public Manager getManager(){
+    public PluginService getManager(){
         return basicMsg;
     }
 
@@ -74,33 +70,13 @@ public class BasicMsg extends JavaPlugin {
         getLogger().info("Checking updating checker..");
         UpdateCheck.init(this, 84926);
     }
-    public void registerPlaceholders(){
+    public void registerPlaceholders() {
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             getLogger().info("PlaceholderAPI hooked!");
             basicMsg.getLogs().log("PlaceholderAPI loaded!");
-        }else{
+        } else {
             basicMsg.getLogs().log("PlaceholderAPI is not loaded !", 0);
         }
-    }
-    public void getDisableMessage(){
-        int number = (int) (Math.random() * 3 + 1);
-
-        if (number == 1) {
-            getLogger().info("Goodbye!");
-            return;
-        }
-
-        if (number == 2) {
-            getLogger().info("See you later!");
-            return;
-        }
-
-        if (number == 3) {
-            getLogger().info("Bye!");
-            return;
-        }
-
-        getLogger().info("You shouldn't watch this..");
     }
 }
 

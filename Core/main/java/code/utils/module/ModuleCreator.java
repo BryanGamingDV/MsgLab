@@ -1,19 +1,19 @@
 package code.utils.module;
 
-import code.Manager;
+import code.PluginService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleCreator {
 
-    private Manager manager;
+    private PluginService pluginService;
 
     private List<String> commandsList;
     private List<String> modulesList;
 
-    public ModuleCreator(Manager manager){
-        this.manager = manager;
+    public ModuleCreator(PluginService pluginService){
+        this.pluginService = pluginService;
         setup();
     }
 

@@ -1,9 +1,9 @@
 package code.methods.click;
 
-import code.Manager;
+import code.PluginService;
 import code.bukkitutils.RunnableManager;
 import code.bukkitutils.WorldManager;
-import code.cache.UserData;
+import code.data.UserData;
 import code.debug.ErrorManager;
 import code.methods.player.PlayerMessage;
 import code.methods.player.PlayerStatic;
@@ -19,11 +19,11 @@ import java.util.UUID;
 
 public class ChatMethod {
 
-    private Manager manager;
+    private PluginService pluginService;
     private Boolean worldtype;
 
-    public ChatMethod(Manager manager) {
-        this.manager = manager;
+    public ChatMethod(PluginService pluginService) {
+        this.pluginService = pluginService;
     }
 
     public void setAgain(UUID uuid) {
@@ -38,15 +38,15 @@ public class ChatMethod {
 
     private void setWorld(UUID uuid){
 
-        UserData userData = manager.getCache().getPlayerUUID().get(uuid);
+        UserData userData = pluginService.getCache().getPlayerUUID().get(uuid);
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
-        RunnableManager runnableManager = manager.getManagingCenter().getRunnableManager();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        RunnableManager runnableManager = pluginService.getManagingCenter().getRunnableManager();
 
         Player player = Bukkit.getPlayer(uuid);
 
-        Configuration command = manager.getFiles().getCommand();
-        Configuration messages = manager.getFiles().getMessages();
+        Configuration command = pluginService.getFiles().getCommand();
+        Configuration messages = pluginService.getFiles().getMessages();
 
         List<String> chatClick = userData.getClickChat();
 
@@ -95,13 +95,13 @@ public class ChatMethod {
 
 
     public void waitHover(Player player, int second){
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(manager.getPlugin(), new Runnable() {
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
             @Override
             public void run() {
 
-                Configuration command = manager.getFiles().getCommand();
+                Configuration command = pluginService.getFiles().getCommand();
 
-                UserData userData = manager.getCache().getPlayerUUID().get(player.getUniqueId());
+                UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
                 List<String> chatClick = userData.getClickChat();
 
                 HoverManager hover;
@@ -118,7 +118,7 @@ public class ChatMethod {
 
                 hover.setHover(command.getString("commands.broadcast.click_cmd.format"), "/" + chatClick.get(1), true);
 
-                Configuration utils = manager.getFiles().getBasicUtils();
+                Configuration utils = pluginService.getFiles().getBasicUtils();
 
                 if (worldtype) {
                     List<Player> worldList;
@@ -168,10 +168,10 @@ public class ChatMethod {
 
         Player player = Bukkit.getPlayer(uuid);
 
-        UserData userData = manager.getCache().getPlayerUUID().get(player.getUniqueId());
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-        Configuration command = manager.getFiles().getCommand();
+        Configuration command = pluginService.getFiles().getCommand();
 
         playersender.sendMessage(player, command.getString("commands.broadcast.mode.disabled"));
         userData.toggleClickMode(false);

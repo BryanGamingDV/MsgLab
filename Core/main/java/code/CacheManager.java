@@ -1,11 +1,8 @@
 package code;
 
-import code.cache.UserData;
+import code.data.UserData;
 import code.debug.DebugLogger;
 import code.utils.Configuration;
-import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_16_R3.ChatHexColor;
-import net.minecraft.server.v1_16_R3.IChatBaseComponent;
 
 
 import java.util.*;
@@ -16,13 +13,13 @@ public class CacheManager{
 
     private final Map<UUID, UserData> playeruuid = new HashMap<>();
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
 
-    public CacheManager(Manager manager){
+    public CacheManager(PluginService pluginService){
 
-        this.manager = manager;
-        DebugLogger debug = manager.getLogs();
+        this.pluginService = pluginService;
+        DebugLogger debug = pluginService.getLogs();
         debug.log("Configuration loaded!");
         debug.log("Playeruuid loaded!");
 

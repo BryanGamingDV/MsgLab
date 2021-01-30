@@ -1,6 +1,6 @@
 package code.methods.commands;
 
-import code.Manager;
+import code.PluginService;
 import code.CacheManager;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
@@ -19,7 +19,7 @@ public class IgnoreMethod{
     private final Configuration players;
     private final Configuration messages;
 
-    private final Manager manager;
+    private final PluginService pluginService;
 
     private final CacheManager cache;
 
@@ -27,13 +27,13 @@ public class IgnoreMethod{
 
 
 
-    public IgnoreMethod(Manager manager) {
-        this.manager = manager;
+    public IgnoreMethod(PluginService pluginService) {
+        this.pluginService = pluginService;
 
-        this.cache = manager.getCache();
+        this.cache = pluginService.getCache();
         this.ignorelist = cache.getIgnorelist();
-        this.players = manager.getFiles().getPlayers();
-        this.messages = manager.getFiles().getMessages();
+        this.players = pluginService.getFiles().getPlayers();
+        this.messages = pluginService.getFiles().getMessages();
 
     }
 
@@ -84,8 +84,8 @@ public class IgnoreMethod{
 
     public boolean playerIsIgnored(UUID sender, UUID playerIgnored) {
 
-        Configuration players = manager.getFiles().getPlayers();
-        ModuleCheck moduleCheck = manager.getPathManager();
+        Configuration players = pluginService.getFiles().getPlayers();
+        ModuleCheck moduleCheck = pluginService.getPathManager();
 
         String playerName = Bukkit.getPlayer(playerIgnored).getName();
 

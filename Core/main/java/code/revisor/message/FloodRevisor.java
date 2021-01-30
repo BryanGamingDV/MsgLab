@@ -1,30 +1,28 @@
 package code.revisor.message;
 
-import code.Manager;
+import code.PluginService;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
 import com.google.common.base.Strings;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 public class FloodRevisor {
 
-    private Manager manager;
+    private PluginService pluginService;
 
     public static final String LETTERS = "AaBbCcDdEeFfGgHhIiJjKkMmNnLlOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
 
-    public FloodRevisor(Manager manager){
-        this.manager = manager;
+    public FloodRevisor(PluginService pluginService){
+        this.pluginService = pluginService;
     }
 
     public String check(Player player, String string){
 
-        Configuration config = manager.getFiles().getConfig();
-        Configuration utils = manager.getFiles().getBasicUtils();
+        Configuration config = pluginService.getFiles().getConfig();
+        Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        PlayerMessage playersender = manager.getPlayerMethods().getSender();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
         if (!(utils.getBoolean("utils.chat.security.anti-flood.enabled"))){
             return string;
