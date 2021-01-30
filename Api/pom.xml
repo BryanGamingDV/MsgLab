@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>MsgLab</artifactId>
-        <groupId>bryangaming.code</groupId>
+        <groupId>org.bryangaming.msglab</groupId>
         <version>1.0</version>
     </parent>
 
