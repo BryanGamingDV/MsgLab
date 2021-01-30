@@ -46,7 +46,7 @@ public class SoundManager{
             return;
         }
 
-        debug.log("Using "+ versionname +", warning the default sounds are from 1.8, 1.9, disabling it", 0);
+        debug.log("Using "+ versionname +", warning the default sounds are from 1.8, 1.9, disabling it");
         debug.log("Modify the sound, to avoid errors");
 
         sound.set("sounds.enabled-all", false);
