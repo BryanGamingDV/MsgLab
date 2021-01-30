@@ -1,0 +1,56 @@
+#
+# Messages:
+#
+
+
+error:
+  console: "You can't use this command in the console."
+  player-offline: "%c &fThat player is not online."
+  nobody-offline: "%c &fNobody is connected, only you :c."
+  same-player: "%c &fYou cant talk to yourself."
+  no-arg: "%c &fUnknown argument. %newline%&8- &fUsage: &a%usage%"
+  command-disabled: "%c &fSrry &a%player%&f, the command &a%command% &fis disabled :(."
+  option-disabled: "%c &fSrry &a%player%&f,the option &a%option% &fis disabled :(."
+  unknown-arg: "%c &fUnknown args."
+  unknown-page: "%e &fUnknown page."
+  no-perms: "%c &fYou don't have permission to do this."
+  no-reply: "%c &fYou didn't talk with anyone."
+  no-sound: "%c &fYou can't use the sound option."
+
+  motd:
+    unknown-line: "%c &fUnknown line: &a%line%&f."
+    unknown-page: "%c &fUnknown page: &a%page%&f."
+    negative-number: "%c &fThe number is negative: &a%number%&f."
+  chat:
+    unknown-number: "%c &fYou didn't wrote a number. Number: &a%number%&f."
+  gui:
+    message: "&cYou can't talk yourself."
+  debug:
+    unknown-world: "%e &fUnknown world: &a%world%&f."
+  ignore:
+    already-unignored: "%e &fThe player was already unignored."
+    ignore-yourself: "%e &fYou can't ignore yourself."
+    anybody: "%e &fYou aren't ignore anybody."
+  stream:
+    valid-link: "%e &fPlease put a valid link. Message: &a%message%"
+  helpop:
+    activated: "%e &fYou already activated the helpop."
+    unactivated: "%e &fYou already unactivated the helpop."
+    anybody: "%e &fAnybody are watching helpop."
+  staff-chat:
+     activated: "%e &fYou already activated the staffchat."
+     unactivated: "%e &fYou already unactivated the staffchat."
+  socialspy:
+    activated: "%e &fYou already activated the socialspy."
+    unactivated: "%e &fYou already unactivated the socialspy."
+    arg-2-activated: "%e &c%arg-2% &fAlready activated the socialspy."
+    arg-2-unactivated: "%e &c%arg-2% &fAlready unactivated the socialspy."
+    anybody: "%e &fNobody have the socialspy activated."
+  sound:
+    no-exists: "%e &fThe sound no exists in that version :(."
+  channel:
+    no-exists: "%e &fThe channel no exists."
+    disabled: "%e &fThe channel is disabled."
+    joined: "%e &fYou already joined to &a%rank%&f."
+    dont-joined: "%e &fYou didn't joined to any group."
+    default: "%e &fAre you sure that you want to left to the default channel (?."

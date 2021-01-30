@@ -1,0 +1,8 @@
+main: code.BasicMsg
+name: BasicMsg
+version: 1.8.8
+author: BryanGaming
+softdepend: [PlaceholderAPI, Multiverse-Core, Vault]
+api-version: 1.16
+
+commands:
