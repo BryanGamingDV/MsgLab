@@ -25,29 +25,37 @@ error:
     unknown-number: "%c &fYou didn't wrote a number. Number: &a%number%&f."
   gui:
     message: "&cYou can't talk yourself."
+
   debug:
     unknown-world: "%e &fUnknown world: &a%world%&f."
+
   ignore:
     already-unignored: "%e &fThe player was already unignored."
     ignore-yourself: "%e &fYou can't ignore yourself."
     anybody: "%e &fYou aren't ignore anybody."
+
   stream:
     valid-link: "%e &fPlease put a valid link. Message: &a%message%"
+
   helpop:
     activated: "%e &fYou already activated the helpop."
     unactivated: "%e &fYou already unactivated the helpop."
     anybody: "%e &fAnybody are watching helpop."
+
   staff-chat:
      activated: "%e &fYou already activated the staffchat."
      unactivated: "%e &fYou already unactivated the staffchat."
+
   socialspy:
     activated: "%e &fYou already activated the socialspy."
     unactivated: "%e &fYou already unactivated the socialspy."
     arg-2-activated: "%e &c%arg-2% &fAlready activated the socialspy."
     arg-2-unactivated: "%e &c%arg-2% &fAlready unactivated the socialspy."
     anybody: "%e &fNobody have the socialspy activated."
+
   sound:
     no-exists: "%e &fThe sound no exists in that version :(."
+
   channel:
     no-exists: "%e &fThe channel no exists."
     disabled: "%e &fThe channel is disabled."

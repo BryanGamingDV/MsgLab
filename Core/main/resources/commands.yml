@@ -48,6 +48,7 @@ commands:
     arg-1: "%c &f%player% &8> &fYou &8: &f%message%"
     talked: "%c &fYou talked with &a%player%"
 
+
   # When you use /msg -toggle
   msg-toggle:
     player:

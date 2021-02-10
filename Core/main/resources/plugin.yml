@@ -1,6 +1,6 @@
-main: code.BasicMsg
-name: BasicMsg
-version: 1.8.8
+main: code.MsgLab
+name: MsgLab
+version: 1.9
 author: BryanGaming
 softdepend: [PlaceholderAPI, Multiverse-Core, Vault]
 api-version: 1.16
