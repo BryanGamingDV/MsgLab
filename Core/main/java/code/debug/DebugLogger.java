@@ -60,6 +60,7 @@ public class DebugLogger{
 
     private void getLogger(String string, String mode){
         Date now = new Date();
+
         try{
             FileWriter fw = new FileWriter(plugin.getDataFolder() + "/logs.yml", true);
             BufferedWriter writer = new BufferedWriter(fw);

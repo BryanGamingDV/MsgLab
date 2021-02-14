@@ -84,7 +84,7 @@ public class StaffChatCommand  implements CommandClass{
         String message = String.join(" ", args);
         Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
 
-            if (playerMethod.hasPermission(onlinePlayer, "commands.staffchat.main")) {
+            if (!playerMethod.hasPermission(onlinePlayer, "commands.staffchat.main")) {
                 return;
             }
 

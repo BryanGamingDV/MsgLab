@@ -16,13 +16,11 @@ public class MsgLab extends JavaPlugin {
     @Override
     public void onEnable() {
 
-
-        Bukkit.getServer().getName();
         registerManaging();
         registerPlaceholders();
         recoverStats();
 
-        getLogger().info("Plugin created by "+getDescription().getAuthors() + "");
+        getLogger().info("Plugin created by " + getDescription().getAuthors() + "");
         getLogger().info("You are using version " + getDescription().getVersion() + ".");
         getLogger().info("If you want support, you can join in: https://discord.gg/wpSh4Bf4Es");
 
@@ -35,15 +33,23 @@ public class MsgLab extends JavaPlugin {
     }
 
     public void onDisable() {
-        getLogger().info("Thx for using this plugin <3.");
+        getLogger().info("Thx for using this plugin <3. Goodbye!");
     }
 
     public void registerManaging() {
 
         basicMsg = new PluginService(this);
         basicMsg.getLogs().log("Loading API...");
+
         api = new BasicAPI(basicMsg);
+
         basicMsg.getLogs().log("Loaded.");
+
+        if (!basicMsg.getFiles().getConfig().getString("version", "1.0").equalsIgnoreCase(getDescription().getVersion())){
+            getLogger().info("Error - Please reload the configuration!");
+            getLogger().info("Error - You are using the last version with a path outdated.");
+            getLogger().info("Error - This would cause bugs..");
+        }
 
         if (basicMsg.getFiles().getConfig().getBoolean("config.metrics")) {
             Metrics metrics = new Metrics(this, 10107);

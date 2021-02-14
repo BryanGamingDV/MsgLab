@@ -32,7 +32,8 @@ public class StringFormat {
 
     public String replaceString(String string){
         for (String keys : config.getConfig().getConfigurationSection("options.replacer").getKeys(false)){
-            string = string.replace(config.getConfig().getString("options.replacer." + keys + ".variable"), config.getConfig().getString("options.replacer." + keys + ".format"));
+            string = string.replace(config.getConfig().getString("options.replacer." + keys + ".variable"),
+                    config.getConfig().getString("options.replacer." + keys + ".format"));
         }
 
         return string
@@ -57,14 +58,19 @@ public class StringFormat {
         return number;
     }
 
+
+
     public int countRepeatedCharacters(String string, char character){
+
+        int counted = 0;
         int count = 0;
 
-        for (int i = 0; i < string.length(); i++) {
-            if (string.charAt(i) == character) {
-                count++;
-            }
+        while (string.indexOf(character, count) != -1){
+
+            counted = string.indexOf(character, counted + 1);
+            count++;
         }
+
         return count;
     }
 
@@ -77,9 +83,9 @@ public class StringFormat {
            return string;
         }
 
-        return ChatColor.translateAlternateColorCodes('&', string.replace("%prefix%", chat.getPlayerPrefix(player)
+        return string.replace("%prefix%", chat.getPlayerPrefix(player)
                 .replace("%suffix%", chat.getPlayerSuffix(player))
-                .replace("%group%", permission.getPrimaryGroup(player))));
+                .replace("%group%", permission.getPrimaryGroup(player)));
     }
 
     public String replacePlayerVariables(Player player, String string){

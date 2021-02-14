@@ -126,6 +126,10 @@ public class GroupMethod {
     public boolean channelNotExists(String group){
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
+        if (group.equalsIgnoreCase("default")){
+            return false;
+        }
+
         return utils.getString("chat.format.groups." + group) == null;
     }
 
@@ -136,6 +140,7 @@ public class GroupMethod {
         if (group.equalsIgnoreCase("default")){
             return true;
         }
+
         return utils.getBoolean("chat.format.groups." + group + ".channel");
     }
 

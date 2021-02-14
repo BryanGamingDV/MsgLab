@@ -19,7 +19,7 @@ import java.util.*;
 
 public class OnlineSample implements GuiSample{
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     private List<UUID> listPlayers;
 
@@ -54,7 +54,7 @@ public class OnlineSample implements GuiSample{
         for (UUID uuid : listPlayers) {
             Player player = Bukkit.getPlayer(uuid);
 
-            name = ChatColor.RESET + PlayerStatic.setFormat(player, command.getString("commands.msg-online.player.title")
+            name = ChatColor.RESET + PlayerStatic.setVariables(player, command.getString("commands.msg-online.player.title")
                     .replace("%playername%", player.getName())
                     .replace("%number%", String.valueOf(number)));
 
@@ -92,7 +92,7 @@ public class OnlineSample implements GuiSample{
         return inventory;
     }
 
-    public void getOnlineClickEvent(InventoryClickEvent event){
+    public void getClickEvent(InventoryClickEvent event){
 
         if (event.getClick().isLeftClick()){
             event.setCancelled(true);
@@ -131,7 +131,7 @@ public class OnlineSample implements GuiSample{
 
             if (item.getDisplayName().contains(online.getName())){
                 event.getWhoClicked().closeInventory();
-                runnableManager.sendCommand(event.getWhoClicked(), "msg " + player.getName() + " Hello!");
+                runnableManager.sendCommand(event.getWhoClicked(), "msg " + online.getName() + " Hello!");
             }
         }
     }

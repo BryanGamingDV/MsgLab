@@ -72,7 +72,7 @@ public class IgnoreCommand implements CommandClass{
         }
 
         if (!target.isOnline()) {
-            playerMethod.sendMessage(sender, messages.getString("error.sender-offline"));
+            playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
             sound.setSound(playeruuid, "sounds.error");
             return true;
         }
@@ -89,23 +89,23 @@ public class IgnoreCommand implements CommandClass{
 
         if (!ignorelist.containsKey(playeruuid)) {
             ignoreMethod.ignorePlayer(sender, target.getUniqueId());
-            playerMethod.sendMessage(sender, command.getString("commands.ignore.sender-ignored")
-                    .replace("%sender%", targetname));
+            playerMethod.sendMessage(sender, command.getString("commands.ignore.player-ignored")
+                    .replace("%player%", targetname));
             sound.setSound(target.getPlayer().getUniqueId(), "sounds.on-ignore");
             return true;
         }
 
         if (!(ignoredlist.contains(targetname))) {
             ignoreMethod.ignorePlayer(sender, target.getUniqueId());
-            playerMethod.sendMessage(sender, command.getString("commands.ignore.sender-ignored")
-                    .replace("%sender%", targetname));
+            playerMethod.sendMessage(sender, command.getString("commands.ignore.player-ignored")
+                    .replace("%player%", targetname));
             sound.setSound(target.getPlayer().getUniqueId(), "sounds.on-ignore");
             return true;
         }
 
         ignoreMethod.unignorePlayer(sender, target.getUniqueId());
-        playerMethod.sendMessage(sender, command.getString("commands.ignore.sender-unignored")
-                .replace("%sender%", targetname));
+        playerMethod.sendMessage(sender, command.getString("commands.ignore.player-unignored")
+                .replace("%player%", targetname));
         sound.setSound(target.getPlayer().getUniqueId(), "sounds.on-unignore");
         return true;
 

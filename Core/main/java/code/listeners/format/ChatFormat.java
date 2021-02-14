@@ -14,6 +14,7 @@ import code.revisor.RevisorManager;
 import code.utils.Configuration;
 import code.utils.HoverManager;
 import code.utils.StringFormat;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -42,7 +43,6 @@ public class ChatFormat implements Listener {
 
         Player player = event.getPlayer();
 
-        Configuration config = pluginService.getFiles().getConfig();
         Configuration command = pluginService.getFiles().getCommand();
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
@@ -73,7 +73,7 @@ public class ChatFormat implements Listener {
                     chatMethod.unset(player.getUniqueId());
                 }
 
-               Bukkit.getServer().getOnlinePlayers().forEach(playeronline -> {
+                Bukkit.getServer().getOnlinePlayers().forEach(playeronline -> {
 
                     UserData onlineCache = pluginService.getCache().getPlayerUUID().get(playeronline.getUniqueId());
 
@@ -99,13 +99,13 @@ public class ChatFormat implements Listener {
 
         RevisorManager revisorManager = pluginService.getRevisorManager();
 
-        if (revisorManager.getAntiRepeatRevisor().isTextSpamming(player.getUniqueId())){
+        if (revisorManager.getAntiRepeatRevisor().isTextSpamming(player.getUniqueId())) {
             return;
         }
 
         String message = event.getMessage();
 
-        if (utils.getBoolean("chat.allow-revisor")){
+        if (utils.getBoolean("chat.allow-revisor")) {
             message = revisorManager.revisor(event.getPlayer().getUniqueId(), event.getMessage());
         }
 
@@ -113,7 +113,16 @@ public class ChatFormat implements Listener {
 
         String utilspath = groupChannel.getPlayerFormat(player);
 
-        if (playerMethod.hasPermission(player, "color.chat")){
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            utilspath = PlayerStatic.setVariables(player, utilspath);
+        }
+
+        if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+            utilspath = StringFormat.replaceVault(player, utilspath);
+        }
+
+
+        if (playerMethod.hasPermission(player, "color.chat")) {
             message = PlayerStatic.setColor(utilspath
                     .replace("%world%", player.getWorld().getName())
                     .replace("%player%", player.getName())
@@ -121,17 +130,8 @@ public class ChatFormat implements Listener {
 
         } else {
             message = PlayerStatic.setColor(utilspath
-                            .replace("%world%", player.getWorld().getName())
-                            .replace("%player%", player.getName())
-                    , message);
-        }
-
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            message = PlayerStatic.setFormat(player, message);
-        }
-
-        if (Bukkit.getPluginManager().isPluginEnabled("Vault")){
-            message = StringFormat.replaceVault(player, message);
+                    .replace("%world%", player.getWorld().getName())
+                    .replace("%player%", player.getName()), message);
         }
 
         List<String> utilshover = groupChannel.getPlayerHover(player);
@@ -145,9 +145,9 @@ public class ChatFormat implements Listener {
 
         List<Player> playerList = null;
 
-        if (utils.getBoolean("chat.per-world-chat.enabled")) {
-            event.getRecipients().clear();
+        event.getRecipients().clear();
 
+        if (utils.getBoolean("chat.per-world-chat.enabled")) {
             if (utils.getBoolean("chat.per-world-chat.all-worlds")) {
                 for (String worldname : WorldData.getAllWorldChat()) {
                     if (player.getWorld().getName().equalsIgnoreCase(worldname)) {
@@ -159,37 +159,22 @@ public class ChatFormat implements Listener {
 
             } else {
                 playerList = new ArrayList<>();
-                for (String worldname : WorldData.getWorldChat(player)){
+                for (String worldname : WorldData.getWorldChat(player)) {
                     World world = Bukkit.getWorld(worldname);
                     playerList.addAll(world.getPlayers());
                 }
             }
-        }else{
+        } else {
             playerList = new ArrayList<>(Bukkit.getServer().getOnlinePlayers());
         }
 
-        if (playerList == null){
+        if (playerList == null) {
             pluginService.getPlugin().getLogger().info("How you came here?" +
                     utils.getBoolean("chat.per-world-chat.enabled"));
             return;
         }
 
         RadialChatMethod radialChatMethod = pluginService.getPlayerMethods().getRadialChatMethod();
-
-        Iterator<Player> playerIterator = playerList.iterator();
-        while (playerIterator.hasNext()){
-           Player playerChannel = playerIterator.next();
-           UserData playerCache = pluginService.getCache().getPlayerUUID().get(playerChannel.getUniqueId());
-
-           if (!playerCache.equalsChannelGroup(playerStatus.getChannelGroup())) {
-               playerIterator.remove();
-           }
-
-           if (ignoreMethod.playerIsIgnored(playerChannel.getUniqueId(), player.getUniqueId())){
-               playerIterator.remove();
-
-           }
-        }
 
         if (utils.getBoolean("chat.radial-chat.enabled")) {
 
@@ -206,6 +191,24 @@ public class ChatFormat implements Listener {
                 radialPlayerList.remove(player);
             }
         }
+
+        Iterator<Player> playerIterator = playerList.iterator();
+        while (playerIterator.hasNext()){
+           Player playerChannel = playerIterator.next();
+           UserData playerCache = pluginService.getCache().getPlayerUUID().get(playerChannel.getUniqueId());
+
+
+           if (!playerCache.equalsChannelGroup(playerStatus.getChannelGroup())) {
+               playerIterator.remove();
+           }
+
+           if (ignoreMethod.playerIsIgnored(playerChannel.getUniqueId(), player.getUniqueId())){
+               playerIterator.remove();
+
+           }
+        }
+
+
         event.getRecipients().addAll(playerList);
 
         for (Player recipient : event.getRecipients()) {
@@ -216,10 +219,10 @@ public class ChatFormat implements Listener {
 
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event){
+
         RevisorManager revisorManager = pluginService.getRevisorManager();
 
-        Configuration config = pluginService.getFiles().getConfig();
-
+        Configuration messages = pluginService.getFiles().getMessages();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
 
@@ -230,19 +233,31 @@ public class ChatFormat implements Listener {
             return;
         }
 
+        StringFormat stringFormat = pluginService.getStringFormat();
 
-        if (pluginService.getPathManager().isPluginCommand(event.getMessage())){
+        String command = event.getMessage().substring(stringFormat.countRepeatedCharacters(event.getMessage(), '/')).split(" ")[0];
+
+        if (command == null){
             return;
         }
 
-        if (!pluginService.getPathManager().isCommandEnabled(event.getMessage())){
+        if (!pluginService.getPathManager().isPluginCommand(command)){
+            return;
+        }
+
+        if (!pluginService.getPathManager().isCommandEnabled(command)){
+
+            if (!pluginService.getPathManager().IsCommandEnabledInMc(command)){
+                return;
+            }
+
             pluginService.getPathManager().sendDisableMessage(event.getPlayer(), event.getMessage());
             event.setCancelled(true);
             return;
         }
 
-        if (playerMethod.hasPermission(event.getPlayer(), "commands." + event.getMessage())) {
-            playerMethod.sendMessage(event.getPlayer(), config.getString("error.no-perms"));
+        if (!playerMethod.hasPermission(event.getPlayer(), "commands." + command  + ".main")) {
+            playerMethod.sendMessage(event.getPlayer(), messages.getString("error.no-perms"));
             event.setCancelled(true);
         }
 

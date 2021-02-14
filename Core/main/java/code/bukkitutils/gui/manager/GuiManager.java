@@ -1,10 +1,12 @@
 package code.bukkitutils.gui.manager;
 
 import code.PluginService;
+import code.bukkitutils.gui.GuiSample;
 import code.bukkitutils.gui.SampleManager;
 import code.data.UserData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +28,13 @@ public class GuiManager {
     public void createInventory(String name, String title, int size) {
         inventoryManager.put(name, new GuiData(title, size * 9));
     }
+    public GuiData getInventory(String name){
+        return inventoryManager.get(name);
+    }
+
+    public GuiSample getData(String name){
+        return sampleManager.getClassHashMap().get(name);
+    }
 
     public void openInventory(UUID uuid, String name, int page) {
 
@@ -34,17 +43,9 @@ public class GuiManager {
         // User Cache
         UserData userData = pluginService.getCache().getPlayerUUID().get(uuid);
 
-        player.openInventory(sampleManager.getClassHashMap().get(name).getPage(uuid, page).build());
+        player.openInventory(getData(name).getPage(uuid, page).build());
         userData.setGUIGroup(name);
     }
 
-    public GuiData getInventory(String name) {
-        return inventoryManager.get(name);
-
-    }
-
-    public SampleManager getSampleManager(){
-        return sampleManager;
-    }
 
 }

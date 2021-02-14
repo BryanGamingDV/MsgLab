@@ -4,6 +4,7 @@ import code.MsgLab;
 import code.debug.DebugLogger;
 import code.listeners.*;
 import code.PluginService;
+import code.listeners.events.SocialSpyListener;
 import code.listeners.format.ChatFormat;
 import code.methods.click.ChatClickMethod;
 import org.bukkit.Bukkit;
@@ -34,6 +35,8 @@ public class EventManager {
         debug.log("ChatClickMethod loaded!");
         pl.registerEvents(new GuiListener(pluginService), plugin);
         debug.log("GuiListener loaded!");
+        pl.registerEvents(new SocialSpyListener(pluginService), plugin);
+        debug.log("SocialSpyListener loaded!");
 
         plugin.getLogger().info("Events loaded!");
     }

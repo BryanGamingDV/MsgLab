@@ -6,9 +6,7 @@ import java.util.HashMap;
 
 public class SampleManager {
 
-    private OnlineSample onlineSample;
-
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     private final HashMap<String, GuiSample> classHashMap = new HashMap<>();
 
@@ -23,10 +21,6 @@ public class SampleManager {
 
     public HashMap<String, GuiSample> getClassHashMap() {
         return classHashMap;
-    }
-
-    public OnlineSample getOnlineSample() {
-        return onlineSample;
     }
 }
 

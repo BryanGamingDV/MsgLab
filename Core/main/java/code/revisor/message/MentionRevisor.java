@@ -17,7 +17,7 @@ public class MentionRevisor {
         this.pluginService = pluginService;
     }
 
-    public String check(Player player, String string) {
+    public String check(String string) {
 
         PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
         Configuration utils = pluginService.getFiles().getBasicUtils();

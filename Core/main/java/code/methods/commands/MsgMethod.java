@@ -40,13 +40,16 @@ public class MsgMethod {
 
         List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
 
-        if (!(ignoredlist.contains(target.getName()))) {
-            UUID targetuuid = target.getUniqueId();
-
-            playersender.sendMessage(target , targetFormat , message);
-            sound.setSound(targetuuid, "sounds.on-receive.msg");
+        if (ignoredlist.contains(target.getName())){
+            return;
         }
 
+        UUID targetuuid = target.getUniqueId();
+
+        playersender.sendMessage(target , targetFormat , message);
+        sound.setSound(targetuuid, "sounds.on-receive.msg");
+
     }
+
 
 }

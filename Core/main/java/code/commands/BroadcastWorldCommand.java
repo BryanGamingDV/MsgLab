@@ -50,7 +50,7 @@ public class BroadcastWorldCommand implements CommandClass {
         ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();
 
         if (args.equalsIgnoreCase("-click")) {
-            if (!playerMethod.hasPermission(sender, "commands.broadcast-world.click")){
+            if (!playerMethod.hasPermission(sender, "commands.broadcastworld.click")){
                 playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
                 return true;
             }
@@ -73,7 +73,7 @@ public class BroadcastWorldCommand implements CommandClass {
         for (Player onlinePlayer : chatMethod.getWorldChat(sender)) {
             playerMethod.sendMessage(onlinePlayer, command.getString("commands.broadcast.text.world")
                     .replace("%world%", sender.getWorld().getName())
-                    .replace("%sender%", sender.getName())
+                    .replace("%player%", sender.getName())
                     .replace("%message%", message));
             sound.setSound(onlinePlayer.getUniqueId(), "sounds.on-receive.broadcast-world");
         }

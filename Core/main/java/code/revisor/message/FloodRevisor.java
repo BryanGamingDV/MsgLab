@@ -19,7 +19,6 @@ public class FloodRevisor {
 
     public String check(Player player, String string){
 
-        Configuration config = pluginService.getFiles().getConfig();
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();

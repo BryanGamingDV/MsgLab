@@ -1,11 +1,14 @@
 package code.methods.player;
 
 import code.PluginService;
+import code.bukkitutils.SoundCreator;
 import code.utils.Configuration;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.checkerframework.org.apache.bcel.generic.StackProducer;
 
 import java.util.logging.Logger;
 
@@ -20,28 +23,47 @@ public class PlayerMessage{
         this.config = pluginService.getFiles().getConfig();
     }
 
-    public void sendMessage(CommandSender sender, String path, String message) {
+    public boolean sendSound(Player player, String path){
 
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            path = getPlaceholders(sender, path);
+        SoundCreator soundCreator = pluginService.getManagingCenter().getSoundManager();
+        Logger logger = pluginService.getPlugin().getLogger();
+
+        try{
+            logger.info("Error - The path that should send you is null.");
+            logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
+            config.getConfigurationSection(path);
+
+        } catch (NullPointerException nullPointerException){
+            sendLines(nullPointerException);
+
         }
 
-        sender.spigot().sendMessage(getMessage(path, message));
+        soundCreator.setSound(player.getUniqueId(), "sounds." + path);
+        return false;
     }
+
 
     public boolean hasPermission(Player player, String path){
 
         Logger logger = pluginService.getPlugin().getLogger();
         String permission = config.getString("perms." + path);
 
-        if (permission == null){
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
-                logger.info("Please change the configuration section! Your config is old.");
-            } else {
-                logger.info("Error - The path that should send you is null.");
-                logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
+        if (permission == null) {
 
+            if (config.getString("perms." + StringUtils.remove(path, ".main")) == null) {
+
+                if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+                    logger.info("Please change the configuration section! Your config is old.");
+
+                } else {
+                    logger.info("Error - The path that should send you is null.");
+                    logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
+
+                }
+            }else{
+                permission = config.getString("perms." + StringUtils.remove(path, ".main"));
             }
+
         }else{
             if (permission.equalsIgnoreCase("none")){
                 return true;
@@ -51,10 +73,40 @@ public class PlayerMessage{
 
         try{
             return player.hasPermission(permission);
+
+        } catch (NullPointerException nullPointerException){
+            sendLines(nullPointerException);
+
+        }
+        return false;
+    }
+
+    public void sendMessage(CommandSender sender, String path, String message) {
+        Logger logger = pluginService.getPlugin().getLogger();
+        if (path == null) {
+            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+                logger.info("Please change the configuration section! Your config is old.");
+            } else {
+                logger.info("Error - The path that should send you is null.");
+                logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
+
+            }
+        }
+
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            try{
+                path = getPlaceholders(sender, path);
+            } catch (NullPointerException nullPointerException){
+                sendLines(nullPointerException);
+                return;
+            }
+        }
+
+        try{
+            sender.spigot().sendMessage(getMessage(path, message));
         } catch (NullPointerException nullPointerException){
             sendLines(nullPointerException);
         }
-        return false;
     }
 
     public void sendMessage(Player player, String path) {
@@ -94,10 +146,10 @@ public class PlayerMessage{
 
 
     public BaseComponent[] getMessage(String path, String message) {
+        path = pluginService.getStringFormat().replaceString(path);
         message = pluginService.getStringFormat().replaceString(message);
 
-        return PlayerStatic.convertText(PlayerStatic.setColor(path)
-                .replace("%message%", message));
+        return PlayerStatic.convertText(PlayerStatic.setColor(path, message));
     }
 
     private String getPlaceholders(CommandSender sender, String path){
@@ -109,9 +161,21 @@ public class PlayerMessage{
     public void sendLines(NullPointerException nullPointerException){
         Logger logger = pluginService.getPlugin().getLogger();
 
-        logger.info("Main line: " + nullPointerException.getStackTrace()[0].toString());
-        logger.info("Second line: " + nullPointerException.getStackTrace()[1].toString());
-        logger.info("Third line: " + nullPointerException.getStackTrace()[2].toString());
-        logger.info("Fourth line: " + nullPointerException.getStackTrace()[3].toString());
+        logger.info("Code line:");
+        for (StackTraceElement stackTraceElement : nullPointerException.getStackTrace()){
+
+            String errorLine = stackTraceElement.toString();
+
+            if (errorLine.contains("java.")){
+                break;
+            }
+
+            if (!errorLine.contains("code.")){
+                continue;
+            }
+
+            logger.info("- " + stackTraceElement.toString());
+
+        }
     }
 }

@@ -20,11 +20,9 @@ public class IgnoreMethod{
     private final Configuration messages;
 
     private final PluginService pluginService;
-
     private final CacheManager cache;
 
     private final Map<UUID, List<String>> ignorelist;
-
 
 
     public IgnoreMethod(PluginService pluginService) {
@@ -36,7 +34,6 @@ public class IgnoreMethod{
         this.messages = pluginService.getFiles().getMessages();
 
     }
-
 
     public void ignorePlayer(CommandSender sender, UUID uuid) {
 
@@ -59,7 +56,6 @@ public class IgnoreMethod{
         players.set("players." + playeruuid + ".players-ignored", ignoredPlayers);
 
         players.save();
-
 
     }
 
@@ -84,20 +80,20 @@ public class IgnoreMethod{
 
     public boolean playerIsIgnored(UUID sender, UUID playerIgnored) {
 
-        Configuration players = pluginService.getFiles().getPlayers();
         ModuleCheck moduleCheck = pluginService.getPathManager();
 
+        if (!moduleCheck.isCommandEnabled("ignore")) {
+            return false;
+        }
+
+        Configuration players = pluginService.getFiles().getPlayers();
         String playerName = Bukkit.getPlayer(playerIgnored).getName();
 
-        if (moduleCheck.isCommandEnabled("ignore")) {
+        if (!(players.contains("players"))) return false;
 
-            if (!(players.contains("players"))) return false;
+        List<String> ignorelist = players
+                .getStringList("players." + sender.toString() + ".players-ignored");
 
-            List<String> ignorelist = players
-                    .getStringList("players." + sender.toString() + ".players-ignored");
-
-            return ignorelist.contains(playerName);
-        }
-        return false;
+        return ignorelist.contains(playerName);
     }
 }

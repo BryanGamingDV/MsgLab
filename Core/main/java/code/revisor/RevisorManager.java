@@ -60,7 +60,7 @@ public class RevisorManager{
 
         Player player = Bukkit.getPlayer(uuid);
 
-        message = getMentionRevisor().check(player, message);
+        message = getMentionRevisor().check(message);
         message = getBadWordsRevisor().check(player, message);
         message = getAntiFloodRevisor().check(player, message);
         message = getCapsRevisor().check(player, message);

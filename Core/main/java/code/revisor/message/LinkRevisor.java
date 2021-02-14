@@ -94,7 +94,7 @@ public class LinkRevisor {
             return;
         }
 
-        runnableManager.sendCommand(Bukkit.getServer().getConsoleSender(), PlayerStatic.setFormat(player, utils.getString("revisor.link-module.command.format")
+        runnableManager.sendCommand(Bukkit.getServer().getConsoleSender(), PlayerStatic.setVariables(player, utils.getString("revisor.link-module.command.format")
                     .replace("%player%", player.getName())
                     .replace("%blockedword%", blockedword)));
 

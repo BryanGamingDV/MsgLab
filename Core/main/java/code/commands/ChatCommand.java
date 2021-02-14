@@ -49,8 +49,8 @@ public class ChatCommand implements CommandClass{
         UUID playeruuid = sender.getUniqueId();
 
         if (!(utils.getBoolean("chat.enabled"))) {
-            playerMethod.sendMessage(sender, messages.getString("error.option-disabled")
-                    .replace("%sender%", sender.getName())
+            playerMethod.sendMessage(sender, messages.getString("error.modules.option-disabled")
+                    .replace("%player%", sender.getName())
                     .replace("%option%", "ChatManagement"));
             return true;
         }

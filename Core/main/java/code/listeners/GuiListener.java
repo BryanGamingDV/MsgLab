@@ -2,6 +2,7 @@ package code.listeners;
 
 import code.PluginService;
 import code.bukkitutils.gui.OnlineSample;
+import code.bukkitutils.gui.manager.GuiManager;
 import code.data.UserData;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -24,8 +25,7 @@ public class GuiListener implements Listener{
         HumanEntity player = event.getWhoClicked();
 
         UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
-
-        OnlineSample onlineSample = pluginService.getManagingCenter().getGuiManager().getSampleManager().getOnlineSample();
+        GuiManager guiManager = pluginService.getManagingCenter().getGuiManager();
 
         if (!userData.isGUISet()){
             return;
@@ -47,9 +47,11 @@ public class GuiListener implements Listener{
             return;
         }
 
-        if (userData.equalsGUIGroup("online")){
-            onlineSample.getOnlineClickEvent(event);
+        if (userData.equalsGUIGroup("default")){
+            return;
         }
+
+        guiManager.getData(userData.getGUIGroup()).getClickEvent(event);
     }
 
     @EventHandler

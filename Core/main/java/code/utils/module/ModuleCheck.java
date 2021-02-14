@@ -5,6 +5,8 @@ import code.PluginService;
 import code.bukkitutils.SoundCreator;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
@@ -19,11 +21,12 @@ public class ModuleCheck {
         this.pluginService = pluginService;
         this.config = pluginService.getFiles().getConfig();
     }
+
     public boolean isPluginCommand(String commandName){
         boolean bmsgCommand = false;
 
         for (String allCommands : pluginService.getListManager().getCommands()){
-            if (allCommands.equalsIgnoreCase(commandName)){
+            if (allCommands.equalsIgnoreCase(StringUtils.remove(commandName, "/"))){
                 bmsgCommand = true;
                 break;
             }
@@ -37,7 +40,7 @@ public class ModuleCheck {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
         for (String disabledCmds : utils.getStringList("chat.cooldown.cmd.disabled-cmds")){
-            if (("/" + disabledCmds).equalsIgnoreCase(message)) {
+            if (disabledCmds.equalsIgnoreCase(StringUtils.remove(message, "/"))){
                 return true;
             }
         }
@@ -48,7 +51,17 @@ public class ModuleCheck {
 
         List<String> commandFile = config.getStringList("config.modules.enabled-commands");
         for (String commandEnabledCmds : commandFile) {
-            if (commandEnabledCmds.equalsIgnoreCase(commandName)) {
+            if (commandEnabledCmds.equalsIgnoreCase(StringUtils.remove(commandName, "/"))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean IsCommandEnabledInMc(String commandName){
+
+        for (String commands : pluginService.getListManager().getCommands()){
+            if (commandName.equalsIgnoreCase(commandName)){
                 return true;
             }
         }
@@ -62,7 +75,7 @@ public class ModuleCheck {
 
         Configuration messages = pluginService.getFiles().getMessages();
 
-        sender.sendMessage(player, messages.getString("error.command-disabled")
+        sender.sendMessage(player, messages.getString("error.module.command-disabled")
                 .replace("%player%", player.getName())
                 .replace("%command%", command));
         sender.sendMessage(player, "&e[!] &8| &fYou need to restart the server to activate o unactivate the command.");

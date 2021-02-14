@@ -42,11 +42,11 @@ public class GuiData {
     }
 
     public void addHead(Player owner, String name, List<String> lore){
+
         String version = Bukkit.getServer().getClass().getName();
+        String versionname = version.split("\\.")[3].substring(1).replace("_", ".");
 
-        String versionname = version.split("\\.")[3];
-
-        if (versionname.contains("1_8") || versionname.contains("1_9") || versionname.contains("1_10") || versionname.contains("1_11") || versionname.contains("1_12") || versionname.contains("1_13")){
+        if (versionname.startsWith("1.8") || versionname.startsWith("1.9") || versionname.startsWith("1.10") || versionname.startsWith("1.11") || versionname.startsWith("1.12") || versionname.startsWith("1.13")){
             nmsHandler.addHead(inv, owner, name, lore);
             return;
         }

@@ -32,7 +32,7 @@ public class ListenerManaging {
 
         Player player = event.getPlayer();
 
-        event.setJoinMessage(PlayerStatic.setFormat(player, utils.getString("join.format")
+        event.setJoinMessage(PlayerStatic.setVariables(player, utils.getString("join.format")
                 .replace("%player%", player.getName())));
         StringFormat variable = pluginService.getStringFormat();
         if (pluginService.getPathManager().isOptionEnabled("motd")){
@@ -92,7 +92,7 @@ public class ListenerManaging {
 
         Player player = event.getPlayer();
 
-        event.setQuitMessage(PlayerStatic.setFormat(player, utils.getString("quit.format")
+        event.setQuitMessage(PlayerStatic.setVariables(player, utils.getString("quit.format")
                 .replace("%player%", player.getName())));
 
         sendCommands(player, "quit");

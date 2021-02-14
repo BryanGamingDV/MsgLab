@@ -16,6 +16,7 @@ public class UserData implements DataModel {
 
     private String guiGroup = "default";
     private int guipage = 0;
+
     private boolean changinginv = false;
 
     private boolean socialspyMode = false;
@@ -110,13 +111,19 @@ public class UserData implements DataModel {
     public void setChangeInv(Boolean status){
         changinginv = status;
     }
+
     public void setGUIGroup(String string){
         guiGroup = string;
+    }
+
+    public String getGUIGroup(){
+        return guiGroup;
     }
 
     public void changePage(int page){
         guipage = page;
     }
+
     public void setChannelGroup(String group){
         channelgroup = group;
     }

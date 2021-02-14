@@ -57,7 +57,7 @@ public class MsgCommand implements CommandClass{
         UUID targetuuid = target.getUniqueId();
 
         if (target.getName().equalsIgnoreCase("-all")){
-            playerMethod.sendMessage(sender, "%p &fEmmm, use /broadcast or the chat.");
+            playerMethod.sendMessage(sender, "%c &fEmmm, use /broadcast or the chat.");
             playerMethod.sendMessage(sender, "&8- EasterEgg #3");
             return true;
         }
@@ -78,33 +78,28 @@ public class MsgCommand implements CommandClass{
 
         if (target.getName().equalsIgnoreCase("-toggle")) {
 
-            if (!playerMethod.hasPermission(sender, "commands.msg.toggle")){
-                playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-                return true;
-            }
-
-            if (msg.isEmpty()) {
-                if (!(playerMsgToggle.isSocialSpyMode())) {
-                    playerMsgToggle.toggleSocialSpy(true);
-                    playerMethod.sendMessage(sender, command.getString("commands.msg-toggle.sender.activated"));
-                    return true;
-                }
-
-                playerMsgToggle.toggleSocialSpy(false);
-                playerMethod.sendMessage(sender, command.getString("commands.msg-toggle.sender.unactivated"));
-                return true;
-            }
-
             if (!(playerMethod.hasPermission(sender, "commands.msg.toggle"))) {
                 playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
                 sound.setSound(playeruuid, "sounds.error");
                 return true;
             }
 
+            if (msg.isEmpty()) {
+                if (!(playerMsgToggle.isSocialSpyMode())) {
+                    playerMsgToggle.toggleSocialSpy(true);
+                    playerMethod.sendMessage(sender, command.getString("commands.msg-toggle.player.activated"));
+                    return true;
+                }
+
+                playerMsgToggle.toggleSocialSpy(false);
+                playerMethod.sendMessage(sender, command.getString("commands.msg-toggle.player.unactivated"));
+                return true;
+            }
+
             Player you = Bukkit.getPlayer(msg);
 
             if (you == null) {
-                playerMethod.sendMessage(sender, messages.getString("error.sender-offline"));
+                playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
                 sound.setSound(playeruuid, "sounds.error");
                 return true;
             }
@@ -115,13 +110,13 @@ public class MsgCommand implements CommandClass{
                 targetMsgToggle.toggleMsg(true);
                 playerMethod.sendMessage(sender, command.getString("commands.msg-toggle.arg-1.activated")
                         .replace("%arg-1%", you.getName()));
-                playerMethod.sendMessage(you, command.getString("commands.msg-toggle.sender.activated"));
+                playerMethod.sendMessage(you, command.getString("commands.msg-toggle.player.activated"));
 
             } else {
                 targetMsgToggle.toggleMsg(false);
                 playerMethod.sendMessage(sender, command.getString("commands.msg-toggle.arg-1.unactivated")
                         .replace("%arg-1%", you.getName()));
-                playerMethod.sendMessage(you, command.getString("commands.msg-toggle.sender.unactivated"));
+                playerMethod.sendMessage(you, command.getString("commands.msg-toggle.player.unactivated"));
             }
             sound.setSound(sender.getUniqueId(), "sounds.on-togglepm");
             return true;
@@ -129,14 +124,14 @@ public class MsgCommand implements CommandClass{
 
 
         if (!(target.isOnline())) {
-            playerMethod.sendMessage(sender, messages.getString("error.sender-offline"));
+            playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
             sound.setSound(playeruuid, "sounds.error");
             return true;
         }
 
         if (target.getName().equalsIgnoreCase(sender.getName())) {
-            playerMethod.sendMessage(sender, messages.getString("error.same-sender")
-                    .replace("%sender%", sender.getName()));
+            playerMethod.sendMessage(sender, messages.getString("error.same-player")
+                    .replace("%player%", sender.getName()));
             sound.setSound(playeruuid, "sounds.error");
             return true;
 
@@ -153,7 +148,7 @@ public class MsgCommand implements CommandClass{
 
         if (targetToggled.isMsgtoggleMode()) {
             playerMethod.sendMessage(sender, command.getString("commands.msg-toggle.msg")
-                    .replace("%sender%", target.getName()));
+                    .replace("%player%", target.getName()));
             return true;
         }
 
@@ -186,7 +181,7 @@ public class MsgCommand implements CommandClass{
         msgMethod.sendPrivateMessage(sender, targetplayer, message);
 
         String socialspyFormat = command.getString("commands.socialspy.spy")
-                .replace("%sender%", sender.getName())
+                .replace("%player%", sender.getName())
                 .replace("%arg-1%", target.getName())
                 .replace("%message%", message);
 

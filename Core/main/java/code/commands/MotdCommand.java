@@ -148,16 +148,21 @@ public class MotdCommand implements CommandClass {
     }
 
     @Command(names = {"setline"})
-    public boolean setLine(@Sender Player sender, int page, @OptArg("") @Text String text) {
+    public boolean setLine(@Sender Player sender, @OptArg("-1") int page, @OptArg("") @Text String text) {
 
         if (!playerMethod.hasPermission(sender, "commands.motd.admin")){
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
             return true;
         }
+        if (page < 0) {
+            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+                    .replace("%usage%", moduleCheck.getUsage("motd", "setline", "<page>", "<text>")));
+            return true;
+        }
 
         if (text.isEmpty()){
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage( "motd", "addline/removeline/setline")));
+                    .replace("%usage%", moduleCheck.getUsage( "motd", "setline", "<page>", "<text>")));
             return true;
         }
 
@@ -176,7 +181,7 @@ public class MotdCommand implements CommandClass {
         }
         motd.set(page - 1, messagePath);
 
-        playerMethod.sendMessage(sender, command.getString("commands.motd.enableOption-line")
+        playerMethod.sendMessage(sender, command.getString("commands.motd.set-line")
                 .replace("%beforeline%", linePath)
                 .replace("%line%", motd.get(page - 1))
                 .replace("%number%", String.valueOf(page)));

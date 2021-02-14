@@ -76,7 +76,7 @@ public class BroadcastCommand implements CommandClass {
 
         for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()){
             playerMethod.sendMessage(onlinePlayer, command.getString("commands.broadcast.text.global")
-                    .replace("%sender%", sender.getName())
+                    .replace("%player%", sender.getName())
                     .replace("%message%", message));
             sound.setSound(onlinePlayer.getUniqueId(), "sounds.on-receive.broadcast");
         }

@@ -60,6 +60,7 @@ public class StaffChatMethod implements MethodService {
         if (event.getMessage().startsWith(command.getString("commands.staff-chat.symbol"))){
             return playerMethod.hasPermission(player, "commands.staffchat.watch");
         }
+
         return false;
     }
 
@@ -70,8 +71,6 @@ public class StaffChatMethod implements MethodService {
         }
 
         Player player = event.getPlayer();
-
-        Configuration config = pluginService.getFiles().getConfig();
         Configuration command = pluginService.getFiles().getCommand();
 
         ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();

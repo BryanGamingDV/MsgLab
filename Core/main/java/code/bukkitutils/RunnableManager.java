@@ -56,13 +56,7 @@ public class RunnableManager{
     public void sendCommand(CommandSender sender, String path){
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
 
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                Bukkit.dispatchCommand(sender, PlayerStatic.setFormat(player, path));
-                return;
-            }
-
-            Bukkit.dispatchCommand(sender, PlayerStatic.setColor(path));
+            Bukkit.dispatchCommand(sender, PlayerStatic.setColor(PlayerStatic.setPluginVariables(path)));
 
         }, 20L);
     }

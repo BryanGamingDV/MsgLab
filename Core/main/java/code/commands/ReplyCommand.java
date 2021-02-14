@@ -65,7 +65,7 @@ public class ReplyCommand implements CommandClass {
 
         if (message.equalsIgnoreCase("-sender")){
             playerMethod.sendMessage(sender, command.getString("commands.msg-reply.talked")
-                    .replace("%sender%", target.getName()));
+                    .replace("%player%", target.getName()));
             sound.setSound(sender.getUniqueId(), "sounds.on-reply-sender");
             return true;
         }
@@ -85,17 +85,17 @@ public class ReplyCommand implements CommandClass {
             message = PlayerStatic.setColor(message);
         }
 
-        playerMethod.sendMessage(sender, PlayerStatic.setColor(command.getString("commands.msg-reply.sender")
-                    .replace("%sender%", sender.getName())
-                    .replace("%arg-1%", target.getName()))
+        playerMethod.sendMessage(sender, command.getString("commands.msg-reply.player")
+                    .replace("%player%", sender.getName())
+                    .replace("%arg-1%", target.getName())
                     , message);
         sound.setSound(sender.getUniqueId(), "sounds.on-reply");
 
         List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
 
         if (!(ignoredlist.contains(target.getName()))) {
-            playerMethod.sendMessage(targetsender, PlayerStatic.setColor(command.getString("commands.msg-reply.sender")
-                            .replace("%sender%", sender.getName())
+            playerMethod.sendMessage(targetsender, PlayerStatic.setColor(command.getString("commands.msg-reply.player")
+                            .replace("%player%", sender.getName())
                             .replace("%arg-1%", target.getName()))
                             , message);
 
@@ -106,7 +106,7 @@ public class ReplyCommand implements CommandClass {
         }
 
         String socialspyFormat = command.getString("commands.socialspy.spy")
-                .replace("%sender%", sender.getName())
+                .replace("%player%", sender.getName())
                 .replace("%arg-1%", target.getName())
                 .replace("%message%", message);
 

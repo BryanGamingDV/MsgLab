@@ -94,7 +94,7 @@ public class HelpopCommand implements CommandClass{
             }
 
             helpOpMethod.enableOption(playeruuid);
-            playerMethod.sendMessage(sender, command.getString("commands.helpop.sender.enabled"));
+            playerMethod.sendMessage(sender, command.getString("commands.helpop.player.enabled"));
             sound.setSound(playeruuid, "sounds.on-helpop.enable");
             return true;
         }
@@ -111,7 +111,7 @@ public class HelpopCommand implements CommandClass{
             }
 
             helpOpMethod.disableOption(playeruuid);
-            playerMethod.sendMessage(sender, command.getString("commands.helpop.sender.disabled"));
+            playerMethod.sendMessage(sender, command.getString("commands.helpop.player.disabled"));
             sound.setSound(playeruuid, "sounds.on-helpop.disable");
             return true;
         }
@@ -123,7 +123,7 @@ public class HelpopCommand implements CommandClass{
             }
 
             helpOpMethod.toggleOption(playeruuid);
-            playerMethod.sendMessage(sender, command.getString("commands.helpop.sender.toggle")
+            playerMethod.sendMessage(sender, command.getString("commands.helpop.player.toggle")
                         .replace("%mode%", helpOpMethod.getStatus()));
             sound.setSound(playeruuid, "sounds.on-helpop.toggle");
             return true;
@@ -131,7 +131,7 @@ public class HelpopCommand implements CommandClass{
 
 
         playerMethod.sendMessage(sender, command.getString("commands.helpop.received")
-                .replace("%sender%", sender.getName()));
+                .replace("%player%", sender.getName()));
 
         String message = String.join(" ", args);
 
@@ -147,14 +147,15 @@ public class HelpopCommand implements CommandClass{
         String finalMessage = message;
 
         Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
+
             UserData onlineCache = pluginService.getCache().getPlayerUUID().get(onlinePlayer.getUniqueId());
 
-            if (!playerMethod.hasPermission(onlinePlayer, "commands.helpop.watch") && onlineCache.isPlayerHelpOp()) {
+            if (!playerMethod.hasPermission(onlinePlayer, "commands.helpop.watch") || !onlineCache.isPlayerHelpOp()) {
                 return;
             }
 
             playerMethod.sendMessage(onlinePlayer, command.getString("commands.helpop.message")
-                    .replace("%sender%", sender.getName())
+                    .replace("%player%", sender.getName())
                     .replace("%message%", finalMessage));
             sound.setSound(playeruuid, "sounds.on-helpop.receive-msg");
         });

@@ -46,8 +46,10 @@ public class ChatClickMethod implements Listener {
 
         if (staffChatMethod.isUsingStaffSymbol(event)) {
             staffChatMethod.getStaffSymbol(event);
-                return;
+            return;
         }
+
+        event.setCancelled(true);
 
         if (clickchat.size() < 1) {
             clickchat.add(event.getMessage());
@@ -67,17 +69,19 @@ public class ChatClickMethod implements Listener {
 
         if (clickchat.size() < 3){
 
-            playersender.sendMessage(event.getPlayer(), command.getString("commands.broadcast.mode.selected.cooldown")
-                    .replace("%cooldown%", clickchat.get(2)));
-
             if (event.getMessage().startsWith("-now")) {
                 clickchat.add("1");
             } else {
                 clickchat.add(event.getMessage());
             }
 
+            playersender.sendMessage(event.getPlayer(), command.getString("commands.broadcast.mode.selected.cooldown")
+                    .replace("%cooldown%", clickchat.get(2)));
+
+
             userData.toggleClickMode(false);
             chatMethod.setAgain(uuid);
+
         }
 
     }

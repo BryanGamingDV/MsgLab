@@ -11,6 +11,7 @@ import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -48,46 +49,46 @@ public class ChannelCommand implements CommandClass {
         UUID playeruuid = player.getUniqueId();
 
         playerMethod.sendMessage(player, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("channel", "join, quit, list")));
+                .replace("%usage%", moduleCheck.getUsage("channel", "join, quit, list, move")));
         sound.setSound(playeruuid, "sounds.error");
         return true;
 
     }
 
     @Command(names = {"join"})
-    public boolean joinSubCommand(@Sender Player player, @OptArg String args){
+    public boolean joinSubCommand(@Sender Player player, @OptArg String args) {
 
         UUID playeruuid = player.getUniqueId();
         UserData userData = pluginService.getCache().getPlayerUUID().get(playeruuid);
 
-        if (args == null){
+        if (args == null) {
             playerMethod.sendMessage(player, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("channel" , "join", "<channel>")));
+                    .replace("%usage%", moduleCheck.getUsage("channel", "join", "<channel>")));
             sound.setSound(playeruuid, "sounds.error");
             return true;
         }
 
-        if (groupChannel.channelNotExists(args)){
+        if (groupChannel.channelNotExists(args)) {
             playerMethod.sendMessage(player, messages.getString("error.channel.no-exists"));
             sound.setSound(playeruuid, "sounds.error");
             return true;
         }
 
-        if (!(groupChannel.isChannelEnabled(args))){
+        if (!(groupChannel.isChannelEnabled(args))) {
             playerMethod.sendMessage(player, messages.getString("error.channel.disabled"));
             sound.setSound(playeruuid, "sounds.error");
             return true;
         }
 
 
-        if (userData.equalsChannelGroup(args)){
+        if (userData.equalsChannelGroup(args)) {
             playerMethod.sendMessage(player, messages.getString("error.channel.joined")
-                    .replace("%rank%", userData.getChannelGroup()));
+                    .replace("%channel%", userData.getChannelGroup()));
             sound.setSound(playeruuid, "sounds.error");
             return true;
         }
 
-        if (!(groupChannel.hasGroupPermission(player, args))){
+        if (!(groupChannel.hasGroupPermission(player, args))) {
             playerMethod.sendMessage(player, messages.getString("error.no-perms"));
             return true;
         }
@@ -126,24 +127,81 @@ public class ChannelCommand implements CommandClass {
         playerMethod.sendMessage(player, command.getString("commands.channel.list.message"));
         playerMethod.sendMessage(player, command.getString("commands.channel.list.space"));
 
+        playerMethod.sendMessage(player, command.getString("commands.channel.list.format")
+                .replace("%channel%", "default")
+                .replace("%mode%", "&e[Default]"));
+
         for (String group : groupChannel.getGroup()) {
-            if (group.equalsIgnoreCase("default")) {
-                playerMethod.sendMessage(player, command.getString("commands.channel.list.format")
-                        .replace("%group%", group)
-                        .replace("%mode%", "&e[Default]"));
-                continue;
-            }
             if (groupChannel.isChannelEnabled(group)) {
                 playerMethod.sendMessage(player, command.getString("commands.channel.list.format")
-                        .replace("%group%", group)
+                        .replace("%channel%", group)
                         .replace("%mode%", "&a[Enabled]"));
             } else {
                 playerMethod.sendMessage(player, command.getString("commands.channel.list.format")
-                        .replace("%group%", group)
+                        .replace("%channel%", group)
                         .replace("%mode%", "&c[Disabled]"));
             }
         }
         playerMethod.sendMessage(player, command.getString("commands.channel.list.space"));
+        return true;
+    }
+
+    @Command(names = {"move"})
+    public boolean moveSubCommand(@Sender Player sender, @OptArg OfflinePlayer target, @OptArg("") String channel) {
+
+        if (!playerMethod.hasPermission(sender, "commands.channel.move")) {
+            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
+            return true;
+        }
+
+        if (target == null) {
+            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+                    .replace("%usage%", moduleCheck.getUsage("channel", "move", "<player>", "<channel>")));
+            return true;
+        }
+
+        if (!(target.isOnline())) {
+            playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
+            sound.setSound(sender.getUniqueId(), "sounds.error");
+            return true;
+        }
+
+        UUID targetuuid = target.getUniqueId();
+        UserData userData = pluginService.getCache().getPlayerUUID().get(targetuuid);
+
+        if (channel.isEmpty()) {
+            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+                    .replace("%usage%", moduleCheck.getUsage("channel", "move", "<player>", "<channel>")));
+            return true;
+        }
+
+        if (groupChannel.channelNotExists(channel)) {
+            playerMethod.sendMessage(target.getPlayer(), messages.getString("error.channel.no-exists"));
+            sound.setSound(targetuuid, "sounds.error");
+            return true;
+        }
+
+        if (!(groupChannel.isChannelEnabled(channel))) {
+            playerMethod.sendMessage(target.getPlayer(), messages.getString("error.channel.disabled"));
+            sound.setSound(targetuuid, "sounds.error");
+            return true;
+        }
+
+        if (userData.equalsChannelGroup(channel)) {
+            playerMethod.sendMessage(sender, messages.getString("error.channel.arg2-joined")
+                    .replace("%arg-2%", target.getName())
+                    .replace("%channel%", userData.getChannelGroup()));
+            sound.setSound(sender.getUniqueId(), "sounds.error");
+            return true;
+        }
+
+        playerMethod.sendMessage(sender, command.getString("commands.channel.player.move.sender")
+                .replace("%player%", sender.getName())
+                .replace("%channel%", channel));
+
+        userData.setChannelGroup(channel);
+        playerMethod.sendMessage(target.getPlayer(), command.getString("commands.channel.player.move.target")
+                .replace("%channel%", channel));
         return true;
     }
 }
