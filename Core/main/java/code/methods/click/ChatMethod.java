@@ -54,21 +54,21 @@ public class ChatMethod {
             userData.toggleClickMode(true);
             playersender.sendMessage(player, command.getString("commands.broadcast.mode.load"));
             playersender.sendMessage(player, command.getString("commands.broadcast.mode.select.message"));
-            playersender.sendMessage(player, "&ePut &6\"-cancel\" &eto cancel the clickchat mode.");
+            playersender.sendMessage(player, "&eUse &6\"-cancel\" &eto cancel the clickchat mode.");
             return;
         }
 
         if (chatClick.size() < 2){
             runnableManager.waitSecond(player, 1,
                     command.getString("commands.broadcast.mode.select.command"),
-                    "&aYou dont need to put '/' in this case." );
+                    "&aYou don't need to use '/' in this case." );
             return;
         }
 
         if (chatClick.size() < 3){
             runnableManager.waitSecond(player, 1,
                     command.getString("commands.broadcast.mode.select.cooldown"),
-                    "&aIf you want now, use &8[&f-now&8]&a." );
+                    "&aIf you want to broadcast now, use &8[&f-now&8]&a." );
             return;
         }
 

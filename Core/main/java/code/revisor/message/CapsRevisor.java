@@ -29,7 +29,7 @@ public class CapsRevisor {
         int mayuscount = 0;
 
         if (mayusmin < 0){
-            playerMethod.sendMessage(player, "%p &fEmmm, or you didn't put anything in the config, or you are trying to detect invisible mayus?");
+            playerMethod.sendMessage(player, "%p &fEmmm, you either didn't put anything in the config, or you are trying to detect invisible mayus?");
             playerMethod.sendMessage(player, "EasterEgg #4");
         }
 

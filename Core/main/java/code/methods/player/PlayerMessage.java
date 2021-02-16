@@ -29,7 +29,7 @@ public class PlayerMessage{
         Logger logger = pluginService.getPlugin().getLogger();
 
         try{
-            logger.info("Error - The path that should send you is null.");
+            logger.info("Error - Could not find option in config.");
             logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
             config.getConfigurationSection(path);
 
@@ -56,7 +56,7 @@ public class PlayerMessage{
                     logger.info("Please change the configuration section! Your config is old.");
 
                 } else {
-                    logger.info("Error - The path that should send you is null.");
+                    logger.info("Error - Could not find option in config.");
                     logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
 
                 }
@@ -87,7 +87,7 @@ public class PlayerMessage{
             if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
             } else {
-                logger.info("Error - The path that should send you is null.");
+                logger.info("Error - Could not find option in config..");
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
 
             }
@@ -116,7 +116,7 @@ public class PlayerMessage{
             if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
             } else {
-                logger.info("Error - The path that should send you is null.");
+                logger.info("Error - Could not find option in config.");
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
 
             }

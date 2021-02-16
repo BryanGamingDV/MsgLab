@@ -170,7 +170,7 @@ public final class UpdateCheck {
      * @return the UpdateChecker instance
      */
     public static UpdateCheck get() {
-        Preconditions.checkState(instance != null, "Instance has not yet been initialized. Be sure #init() has been invoked");
+        Preconditions.checkState(instance != null, "Instance has not yet been initialized. Make sure #init() has been invoked");
         return instance;
     }
 

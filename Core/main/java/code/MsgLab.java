@@ -24,7 +24,7 @@ public class MsgLab extends JavaPlugin {
         getLogger().info("You are using version " + getDescription().getVersion() + ".");
         getLogger().info("If you want support, you can join in: https://discord.gg/wpSh4Bf4Es");
 
-        basicMsg.getLogs().log("- Plugin successfull loaded.", 2);
+        basicMsg.getLogs().log("- Plugin successfully loaded.", 2);
 
     }
 
@@ -47,8 +47,8 @@ public class MsgLab extends JavaPlugin {
 
         if (!basicMsg.getFiles().getConfig().getString("version", "1.0").equalsIgnoreCase(getDescription().getVersion())){
             getLogger().info("Error - Please reload the configuration!");
-            getLogger().info("Error - You are using the last version with a path outdated.");
-            getLogger().info("Error - This would cause bugs..");
+            getLogger().info("Error - You are using the latest version with an outdated path.");
+            getLogger().info("Error - This can cause bugs..");
         }
 
         if (basicMsg.getFiles().getConfig().getBoolean("config.metrics")) {
@@ -63,7 +63,7 @@ public class MsgLab extends JavaPlugin {
     public void recoverStats(){
         if (Bukkit.getServer().getOnlinePlayers().size() > 0){
             basicMsg.getLogs().log("The plugin was reloaded with /reload", 1);
-            getLogger().info("Please don't use /reload to reload plugin, it can cause serious errors!");
+            getLogger().info("Please don't use /reload to reload plugins, it can cause serious errors!");
             RecoverStats recoverStats = new RecoverStats(basicMsg);
         }
     }

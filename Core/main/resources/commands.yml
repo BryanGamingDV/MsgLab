@@ -10,8 +10,8 @@
 commands:
   channel:
     player:
-      join: "%c &fYou joined to channel &a%channel%&f."
-      left: "%c &fYou left to channel &a%beforechannel%&f. Now you are in the %afterchannel% channel."
+      join: "%c &fYou have joined channel &a%channel%&f."
+      left: "%c &fYou have left channel &a%beforechannel%&f. Now you are in the %afterchannel% channel."
     list:
       message: "&fList of channels:"
       space: "&8->"
@@ -25,7 +25,7 @@ commands:
       title: "&2%number%. &a%playername%"
       lore:
         - ""
-        - "&a-> &fClick to chat with him!"
+        - "&a-> &fClick to chat with them!"
     next-page:
       id_name: "barrier"
       title: "&cNext page"
@@ -52,14 +52,14 @@ commands:
   # When you use /msg -toggle
   msg-toggle:
     player:
-      activated: "%c &fNow nobody can't messaging you."
-      unactivated: "%c &fNow everyone can messaing you."
+      activated: "%c &fNow nobody can't message you."
+      unactivated: "%c &fNow everyone can message you."
     arg-1:
-      activated: "%c &fNow nobody can messaging &a%arg-1%&f."
-      unactivated: "%c &fNow everyone can messaging &a%arg-1%&f."
+      activated: "%c &fNow nobody can message &a%arg-1%&f."
+      unactivated: "%c &fNow everyone can message &a%arg-1%&f."
 
-    msg: "%c &fSrry, &a%player% &fhas the pm disabled."
-    left: "%c &fDear %player%, &fthe player &a(%arg-1%) &fthat you talked or talked with you, left the game."
+    msg: "%c &fSorry, &a%player%&f's pms are disabled."
+    left: "%c &fDear %player%, &fthe player &a(%arg-1%) &fthat you talked with or talked with you left the game."
 
   broadcast:
     enable-revisor: true
@@ -81,7 +81,7 @@ commands:
         message: "&d[Mode] &8| &fSelected message &d%message%&f."
         command: "&c[Mode] &8| &fSelected command &c%command%&f."
         cooldown: "&e[Mode] &8| &fSelected cooldown &e%cooldown%&f."
-      hover: "%c &fHover created successfully!"
+      hover: "%c &fHover successfully created!"
       disabled: "%c &fOption disabled!"
 
   stream:
@@ -100,11 +100,11 @@ commands:
     help:
       pages:
         - "%c &fList of subcommands:"
-        - "&8- &f/bmsg commands &8: &fTo watch all commands of the plugin."
+        - "&8- &f/bmsg commands &8: &fTo watch all plugin commands."
         - "&8- &f/bmsg reload [all/<file>] &8: &fTo reload the plugin."
-        - "&8- &f/bmsg debug [pwc] &8| &fTo saw a debug."
-        - "&8- &f/bmsg sounds [on/off] &8| &fTo activate sounds."
-        - "&8- &f/bmsg support &8| &fto go to discord support."
+        - "&8- &f/bmsg debug [pwc] &8| &fTo see a debug."
+        - "&8- &f/bmsg sounds [on/off] &8| &fTo turn on/off sounds."
+        - "&8- &f/bmsg support &8| &fTo get to discord support."
         - "&8- &f/bmsg reset [commands/modules] &8| &fTo reset the configuration. &8|"
     commands:
       format: "%c &fList of commands &8- &a%page%&8/&a%max_page%&8:"
@@ -115,14 +115,14 @@ commands:
           - "&8- &f/chat reload &8: &fTo reload the chat."
           - "&8- &f/msg [<player>] [<message>] &8: &fTo send a private message."
           - "&8- &f/reply [<message>] &8: &fTo reply."
-          - "&8- &f/socialspy [on/off] [<player>]: &fTo activate the socialspy."
+          - "&8- &f/socialspy [on/off] [<player>]: &fTo activate socialspy."
           - "&8- &f/ignore [<player>] &8: &fTo ignore a player"
-          - "&8- &f/unignore [<player>] &8: &fTo unignore a player."
+          - "&8- &f/unignore [<player>] &8: &fTo stop ignoring a player."
         2:
           - "&8- &8/broadcast [<message>] &8: &fTo broadcast a message."
-          - "&8- &f/sc [on/off] or /sc [<message>] &8: &fTo send a staff chat."
+          - "&8- &f/sc [on/off] or /sc [<message>] &8: &fTo send a message to staff."
           - "&8- &f/helpop [<message>] &8: &fTo send a help chat."
-          - "&8- &f/motd [addline/removeline/seline] [id/<text>] [<text>] &8: &fTo watch or modify the motd of the server."
+          - "&8- &f/motd [addline/removeline/seline] [id/<text>] [<text>] &8: &fTo watch or modify the server motd."
     load: "%c &fReloading plugin..."
     load-file: "%c &fReloading file.."
     reload: "%c &fPlugin reloaded!"
@@ -140,8 +140,8 @@ commands:
       worldpath-info: "%c &fInfo of &a%world%&f:"
 
     sounds:
-      enabled: "%c &fNow you can hear the sounds of the plugin."
-      disabled: "%c &fNow you can't hear the sounds of the plugin."
+      enabled: "%c &fNow you can hear the plugin sounds."
+      disabled: "%c &fNow you can't hear the plugin sounds."
 
   motd:
     list:
@@ -163,16 +163,16 @@ commands:
 
   socialspy:
     player:
-      enabled: "%c &fSocialspy activated"
+      enabled: "%c &fSocialspy enabled"
       disabled: "%c &fSocialspy disabled"
       toggle: "%c &fSocialspy %mode%"
 
       # Optional (Only if you use %mode%)
-      variable-on: "activated"
+      variable-on: "enabled"
       variable-off: "disabled"
 
     arg-2:
-      enabled: "%c &fSocialspy activated from &c%arg-2%"
+      enabled: "%c &fSocialspy enabled from &c%arg-2%"
       disabled: "%c &fSocialspy disabled from &c%arg-2%"
     spy: "&a[SocialSpy] &8| &f%player% &8> &f%arg-1% &8: &f%message%"
 
@@ -180,17 +180,17 @@ commands:
 
   helpop:
     player:
-      enabled: "%c &fHelpop activated"
-      disabled: "%c &fHelpop unactivated"
+      enabled: "%c &fHelpop enabled"
+      disabled: "%c &fHelpop disabled"
       toggle: "%c &fHelpop %mode%"
 
       # Optional (Only if you use %mode%)
 
-      variable-on: "activated"
+      variable-on: "enabled"
       variable-off: "disabled"
 
     enable-revisor: true
-    received: "&c[HelOP] &8| &fMessage recevied! Thanks &a%player%&f."
+    received: "&c[HelOP] &8| &fMessage received! Thanks &a%player%&f."
     message: "&c[HelpOP] &8| &f%player% &8: &f%message%"
 
     list-helpop: "&8->%newline%&fList of players that can watch helpop%newline%&8->"
@@ -199,13 +199,13 @@ commands:
     symbol: "$"
 
     player:
-      enabled: "%c &fStaffchat activated"
-      disabled: "%c &fStaffchat unactivated"
+      enabled: "%c &fStaffchat enabled"
+      disabled: "%c &fStaffchat disabled"
       toggle: "%c &fStaffchat %mode%"
 
       # Optional (Only if you use %mode%)
 
-      variable-on: "activated"
+      variable-on: "enabled"
       variable-off: "disabled"
 
     message: "&d[StaffChat] &8| &f%player% &8: &f%message%"

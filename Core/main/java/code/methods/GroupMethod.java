@@ -55,7 +55,7 @@ public class GroupMethod {
         VaultSupport vaultSupport = pluginService.getSupportManager().getVaultSupport();
 
         if (vaultSupport.getChat() == null || vaultSupport.getPermissions() == null){
-            pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault complement [LuckPerms, PermissionsEx..] isn't loaded..");
+            pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
             debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
             return "default";
         }

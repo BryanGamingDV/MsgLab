@@ -169,7 +169,7 @@ public class ChatFormat implements Listener {
         }
 
         if (playerList == null) {
-            pluginService.getPlugin().getLogger().info("How you came here?" +
+            pluginService.getPlugin().getLogger().info("How did you get here?" +
                     utils.getBoolean("chat.per-world-chat.enabled"));
             return;
         }
