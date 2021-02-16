@@ -145,7 +145,7 @@ public class PlayerStatic {
                 try {
                     ClickEvent.Action.valueOf(componentCommand[0].toUpperCase());
                 }catch (IllegalArgumentException illegalArgumentException){
-                    msgLab.getLogger().info("ERROR: The action value that you put is null");
+                    msgLab.getLogger().info("ERROR: The declared action value is null");
                     return baseComponentList.toArray(new BaseComponent[size]);
                 }
 

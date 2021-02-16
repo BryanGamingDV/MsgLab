@@ -33,10 +33,10 @@ public class VaultSupport {
         RegisteredServiceProvider<Chat> rspC = Bukkit.getServer().getServicesManager().getRegistration(Chat.class);
 
         if (rspC == null){
-            pluginService.getPlugin().getLogger().info("Error - You need to have a vault implementation plugin to use the provider.");
+            pluginService.getPlugin().getLogger().info("Error - You need to have a Vault implementation plugin to use the provider.");
             pluginService.getPlugin().getLogger().info("Example - LuckPerms, UltraPermissions");
             pluginService.getPlugin().getLogger().info("Addons - Disabling support..");
-            pluginService.getLogs().log("Error - Vault implementation not enableOption! Disabling support..", 0);
+            pluginService.getLogs().log("Error - Vault implementation not enabled! Disabling support..", 0);
             return;
         }
 

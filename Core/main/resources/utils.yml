@@ -99,13 +99,13 @@ chat:
       text:
         enabled: true
         seconds: 2
-        message: "%c &fSrry, please, wait &a%seconds% &fseconds."
+        message: "%c &fSorry, please, wait &a%seconds% &fseconds."
 
       # If the message is a command.
       cmd:
         enabled: true
         seconds: 2
-        message: "%c &fSrry, please, wait &a%seconds% &fseconds."
+        message: "%c &fSorry, please, wait &a%seconds% &fseconds."
 
         # Commands that obiously bypass the cooldown.
         disabled-cmds:
@@ -123,11 +123,11 @@ revisor:
     enabled: true
 
     min-chars: 2
-    message: "%c &fPlease, don't do flood."
+    message: "%c &fPlease, don't flood."
 
     warning:
       enabled: true
-      text: "&e[Revisor] &8| &e%player% &fwas doing flood."
+      text: "&e[Revisor] &8| &e%player% &fwas flooding."
 
   # Words module (If player put a bad word):
   words-module:
@@ -138,7 +138,7 @@ revisor:
       idiot: "idiot"
       shit: "good"
 
-    message: "%c &fPls don't do that, &a%player%&f."
+    message: "%c &fPlease don't do that, &a%player%&f."
     word-list:
       enabled: true
       format: "%c &fYou said &a%words% &fobscene words."
@@ -185,11 +185,11 @@ revisor:
 
     # Note: This replace the link or point (if you enabled this).
     replace-link: " "
-    message: "%c &fPls dont use this &a%player%&f. Blocked word: &a%blockedword%&f."
+    message: "%c &fPlease don't use this &a%player%&f. Blocked word: &a%blockedword%&f."
 
     command:
       enabled: true
-      format: "kick %player% %c &fPls dont use this %player%. Blocked word: %blockedword%."
+      format: "kick %player% %c &fPlease don't use this %player%. Blocked word: %blockedword%."
 
     warning:
       enabled: true
@@ -205,12 +205,12 @@ join:
     loop-blank: 50
     format:
       - "&fWelcome &a%player% &fto the server."
-      - "&fHere were &f%online% &fplayers in the server."
+      - "&fThere are &f%online% &fplayers in the server."
 
   commands:
     enabled: true
     commands:
-      - broadcast %player% join
+      - broadcast %player% joined
 
 # Quit:
 quit:

@@ -32,7 +32,7 @@ public class WorldData {
         Set<String> pwcKeys = utils.getConfigurationSection("chat.per-world-chat.worlds").getKeys(false);
 
         if (pwcKeys.isEmpty()){
-            plugin.getLogger().info("Ummm if you don't want to use the perworldchat for groups, i will activate the all-worlds, for you.");
+            plugin.getLogger().info("Ummm if you don't want to use perworldchat per groups, I will activate all-worlds, for you.");
             plugin.getLogger().info("- EasterEgg #1");
             utils.set("chat.per-world-chat.all-worlds", true);
             utils.reload();
@@ -60,7 +60,7 @@ public class WorldData {
 
         Set<String> pwcKeys = utils.getConfigurationSection("chat.per-world-chat.worlds").getKeys(false);
         if (pwcKeys.isEmpty()){
-            plugin.getLogger().info("Ummm if you don't want to use the perworldchat for groups, i will activate the all-worlds, for you.");
+            plugin.getLogger().info("Ummm if you don't want to use perworldchat per groups, I will activate all-worlds, for you.");
             plugin.getLogger().info("- EasterEgg #1");
             utils.set("chat.per-world-chat.all-worlds", true);
             utils.reload();

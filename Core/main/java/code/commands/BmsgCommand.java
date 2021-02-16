@@ -121,7 +121,7 @@ public class BmsgCommand implements CommandClass {
     public boolean supportSubCommand(@Sender Player sender){
 
         if (config.getBoolean("config.allow-support")) {
-            playerMethod.sendMessage(sender, "&b[Server] &8| &fIf you want support of the plugin:");
+            playerMethod.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
             playerMethod.sendMessage(sender, "&8- &fJoin: &ahttps://discord.gg/wpSh4Bf4E");
             return true;
         }

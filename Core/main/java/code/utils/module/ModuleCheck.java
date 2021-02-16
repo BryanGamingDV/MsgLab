@@ -78,7 +78,7 @@ public class ModuleCheck {
         sender.sendMessage(player, messages.getString("error.module.command-disabled")
                 .replace("%player%", player.getName())
                 .replace("%command%", command));
-        sender.sendMessage(player, "&e[!] &8| &fYou need to restart the server to activate o unactivate the command.");
+        sender.sendMessage(player, "&e[!] &8| &fYou need to restart the server to activate o deactivate the command.");
         sound.setSound(player.getUniqueId(), "sounds.error");
 
     }
