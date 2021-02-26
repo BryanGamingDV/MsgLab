@@ -23,12 +23,12 @@ public class CustomLanguage extends BukkitDefaultTranslationProvider {
         setup();
     }
 
-    public void setup(){
+    public void setup() {
         translations.put("command.subcommand.invalid", "1. The subcommand %s doesn't exist!");
         translations.put("command.no-permission", "2. No permission.");
-        translations.put("argument.no-more","3. No more arguments were found, size: %s position: %s");
+        translations.put("argument.no-more", "3. No more arguments were found, size: %s position: %s");
         translations.put("player.offline", "4. The player %s is offline!");
-        translations.put("sender.unknown", "5. Uknown command sender!");
+        translations.put("sender.unknown", "5. Unknown command sender!");
         translations.put("sender.only-player", messages.getString("error.console"));
         pluginService.getLogs().log("Translator created!");
     }
@@ -38,7 +38,7 @@ public class CustomLanguage extends BukkitDefaultTranslationProvider {
     }
 
     @Override
-    public String getTranslation(Namespace namespace, String key){
+    public String getTranslation(Namespace namespace, String key) {
         return getTranslation(key);
     }
 }

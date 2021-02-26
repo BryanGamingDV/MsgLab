@@ -3,11 +3,14 @@ package code;
 import code.data.UserData;
 import code.debug.DebugLogger;
 import code.utils.Configuration;
+import org.bukkit.Bukkit;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-import java.util.*;
-
-public class CacheManager{
+public class CacheManager {
     private final Map<UUID, List<String>> ignoreCache = new HashMap<>();
     private final Map<String, Configuration> config = new HashMap<>();
 
@@ -15,8 +18,7 @@ public class CacheManager{
 
     private final PluginService pluginService;
 
-
-    public CacheManager(PluginService pluginService){
+    public CacheManager(PluginService pluginService) {
 
         this.pluginService = pluginService;
         DebugLogger debug = pluginService.getLogs();
@@ -24,15 +26,16 @@ public class CacheManager{
         debug.log("Playeruuid loaded!");
 
     }
+
     public Map<UUID, UserData> getPlayerUUID() {
         return playeruuid;
     }
 
-    public Map<UUID, List<String>> getIgnorelist(){
+    public Map<UUID, List<String>> getIgnorelist() {
         return ignoreCache;
     }
 
-    public Map<String, Configuration> getConfigFiles(){
+    public Map<String, Configuration> getConfigFiles() {
         return config;
     }
 

@@ -13,11 +13,11 @@ public class MsgMethod {
 
     private PluginService pluginService;
 
-    public MsgMethod(PluginService pluginService){
+    public MsgMethod(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
-    public void sendPrivateMessage(Player player, Player target, String message){
+    public void sendPrivateMessage(Player player, Player target, String message) {
 
         Configuration command = pluginService.getFiles().getCommand();
         Configuration players = pluginService.getFiles().getPlayers();
@@ -35,18 +35,18 @@ public class MsgMethod {
 
         UUID playeruuid = player.getUniqueId();
 
-        playersender.sendMessage(player, playerFormat , message);
+        playersender.sendMessage(player, playerFormat, message);
         sound.setSound(playeruuid, "sounds.on-message");
 
         List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
 
-        if (ignoredlist.contains(target.getName())){
+        if (ignoredlist.contains(target.getName())) {
             return;
         }
 
         UUID targetuuid = target.getUniqueId();
 
-        playersender.sendMessage(target , targetFormat , message);
+        playersender.sendMessage(target, targetFormat, message);
         sound.setSound(targetuuid, "sounds.on-receive.msg");
 
     }

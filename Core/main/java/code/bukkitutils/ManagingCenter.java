@@ -14,12 +14,12 @@ public class ManagingCenter {
     private GuiManager guiManager;
 
 
-    public ManagingCenter(PluginService pluginService){
+    public ManagingCenter(PluginService pluginService) {
         this.pluginService = pluginService;
         setup();
     }
 
-    public void setup(){
+    public void setup() {
         soundCreator = new SoundCreator(pluginService);
         worldData = new WorldData(pluginService);
         guiManager = new GuiManager(pluginService);

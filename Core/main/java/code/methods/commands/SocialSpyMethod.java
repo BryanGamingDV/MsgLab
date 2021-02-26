@@ -19,11 +19,12 @@ public class SocialSpyMethod implements MethodService {
         this.pluginService = pluginService;
         this.cache = pluginService.getCache().getPlayerUUID();
     }
-    public String getStatus(){
+
+    public String getStatus() {
         return status;
     }
 
-    public void toggleOption(UUID uuid){
+    public void toggleOption(UUID uuid) {
         UserData usercache = cache.get(uuid);
 
         if (usercache.isSocialSpyMode()) {
@@ -36,11 +37,11 @@ public class SocialSpyMethod implements MethodService {
         status = pluginService.getFiles().getCommand().getString("commands.socialspy.player.variable-on");
     }
 
-    public void enableOption(UUID uuid){
+    public void enableOption(UUID uuid) {
         cache.get(uuid).toggleSocialSpy(true);
     }
 
-    public void disableOption(UUID uuid){
+    public void disableOption(UUID uuid) {
         cache.get(uuid).toggleSocialSpy(false);
     }
 

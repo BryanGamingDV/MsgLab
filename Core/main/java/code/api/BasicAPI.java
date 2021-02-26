@@ -6,7 +6,10 @@ import code.data.UserData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class BasicAPI implements BasicAPIDesc {
 
@@ -20,28 +23,28 @@ public class BasicAPI implements BasicAPIDesc {
     private final String pluginauthor = "BryanGaming";
 
 
-    public BasicAPI(PluginService pluginService){
+    public BasicAPI(PluginService pluginService) {
         this.pluginService = pluginService;
 
         cache = pluginService.getCache();
         userCacheMap = pluginService.getCache().getPlayerUUID();
     }
 
-    public boolean isPlayerIgnored(UUID targetPlayer, UUID playerIgnored){
+    public boolean isPlayerIgnored(UUID targetPlayer, UUID playerIgnored) {
         Player player = Bukkit.getPlayer(playerIgnored);
 
-        if (player == null){
+        if (player == null) {
             return false;
         }
 
         Map<UUID, List<String>> ignorelist = cache.getIgnorelist();
-        if (ignorelist.containsKey(targetPlayer)){
+        if (ignorelist.containsKey(targetPlayer)) {
             return false;
         }
         List<String> ignoredplayers = ignorelist.get(targetPlayer);
 
-        for(String ignoreplayers : ignoredplayers){
-            if (ignoreplayers.contains(player.getName())){
+        for (String ignoreplayers : ignoredplayers) {
+            if (ignoreplayers.contains(player.getName())) {
                 return true;
             }
         }
@@ -49,14 +52,14 @@ public class BasicAPI implements BasicAPIDesc {
     }
 
 
-    public List<String> getIgnoredPlayers(UUID uuid){
-        if (!(cache.getIgnorelist().containsKey(uuid))){
+    public List<String> getIgnoredPlayers(UUID uuid) {
+        if (!(cache.getIgnorelist().containsKey(uuid))) {
             return null;
         }
         return cache.getIgnorelist().get(uuid);
     }
 
-    public List<String> getSpyList(){
+    public List<String> getSpyList() {
         List<String> socialspyList = new ArrayList<>();
 
         for (UserData cache : userCacheMap.values()) {
@@ -68,7 +71,7 @@ public class BasicAPI implements BasicAPIDesc {
 
     }
 
-    public List<String> getMsgToggleList(){
+    public List<String> getMsgToggleList() {
         List<String> msgToggle = new ArrayList<>();
 
         for (UserData cache : userCacheMap.values()) {
@@ -80,26 +83,25 @@ public class BasicAPI implements BasicAPIDesc {
         return msgToggle;
     }
 
-    public UUID getRepliedPlayer(UUID uuid){
+    public UUID getRepliedPlayer(UUID uuid) {
         return userCacheMap.get(uuid).getRepliedPlayer();
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return pluginname + "_" + pluginversion + "_" + pluginauthor;
     }
 
-    public String getPluginName(){
+    public String getPluginName() {
         return pluginname;
     }
 
-    public String getPluginVersion(){
+    public String getPluginVersion() {
         return pluginversion;
     }
 
-    public String getPluginAuthor(){
+    public String getPluginAuthor() {
         return pluginauthor;
     }
-
 
 
 }

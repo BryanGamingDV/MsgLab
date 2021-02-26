@@ -1,15 +1,17 @@
 package code.commands;
 
+import code.PluginService;
+import code.bukkitutils.SoundCreator;
 import code.bukkitutils.gui.manager.GuiManager;
 import code.data.UserData;
 import code.events.SocialSpyEvent;
 import code.methods.commands.MsgMethod;
 import code.methods.commands.ReplyMethod;
+import code.methods.player.PlayerMessage;
 import code.methods.player.PlayerStatic;
 import code.registry.ConfigManager;
-import code.methods.player.PlayerMessage;
-import code.bukkitutils.SoundCreator;
 import code.revisor.RevisorManager;
+import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -19,16 +21,14 @@ import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import code.utils.Configuration;
-import code.PluginService;
 
 import java.util.UUID;
 
-public class MsgCommand implements CommandClass{
+public class MsgCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    public MsgCommand(PluginService pluginService){
+    public MsgCommand(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
@@ -56,7 +56,7 @@ public class MsgCommand implements CommandClass{
 
         UUID targetuuid = target.getUniqueId();
 
-        if (target.getName().equalsIgnoreCase("-all")){
+        if (target.getName().equalsIgnoreCase("-all")) {
             playerMethod.sendMessage(sender, "%c &fEmmm, use /broadcast or the chat.");
             playerMethod.sendMessage(sender, "&8- EasterEgg #3");
             return true;
@@ -162,17 +162,17 @@ public class MsgCommand implements CommandClass{
 
         String message = String.join(" ", msg);
 
-        if (command.getBoolean("commands.msg-reply.enable-revisor")){
+        if (command.getBoolean("commands.msg-reply.enable-revisor")) {
             RevisorManager revisorManager = pluginService.getRevisorManager();
             message = revisorManager.revisor(playeruuid, message);
 
-            if (message == null){
+            if (message == null) {
                 return true;
             }
         }
 
-        if (playerMethod.hasPermission(sender, "color.commands")){
-            message = PlayerStatic.setColor(msg);
+        if (!playerMethod.hasPermission(sender, "color.commands")) {
+            message = "<pre>" + message + "</pre>";
         }
 
         MsgMethod msgMethod = pluginService.getPlayerMethods().getMsgMethod();

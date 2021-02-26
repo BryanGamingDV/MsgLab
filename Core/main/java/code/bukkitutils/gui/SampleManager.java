@@ -10,13 +10,13 @@ public class SampleManager {
 
     private final HashMap<String, GuiSample> classHashMap = new HashMap<>();
 
-    public SampleManager(PluginService pluginService){
+    public SampleManager(PluginService pluginService) {
         this.pluginService = pluginService;
         setup();
     }
 
-    public void setup(){
-       classHashMap.put("online", new OnlineSample(pluginService));
+    public void setup() {
+        classHashMap.put("online", new OnlineSample(pluginService));
     }
 
     public HashMap<String, GuiSample> getClassHashMap() {

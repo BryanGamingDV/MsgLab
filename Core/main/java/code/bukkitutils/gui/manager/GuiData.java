@@ -4,10 +4,8 @@ import bryangaming.code.api.LegacyHandler;
 import bryangaming.code.api.NMSHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,17 +18,17 @@ public class GuiData {
     private final NMSHandler nmsHandler = new LegacyHandler();
     private final Inventory inv;
 
-    public GuiData(String title, int size){
+    public GuiData(String title, int size) {
         inv = Bukkit.createInventory(null, size, title);
 
     }
 
-    public boolean containsItems(){
+    public boolean containsItems() {
         return inv.getContents() != null;
     }
 
-    public String getTitle(InventoryClickEvent event){
-        return  event.getView().getTitle();
+    public String getTitle(InventoryClickEvent event) {
+        return event.getView().getTitle();
     }
 
     public void addItem(String item, String name, List<String> lore) {
@@ -41,12 +39,12 @@ public class GuiData {
         inv.addItem(createItem(Material.valueOf(item.toUpperCase()), name));
     }
 
-    public void addHead(Player owner, String name, List<String> lore){
+    public void addHead(Player owner, String name, List<String> lore) {
 
         String version = Bukkit.getServer().getClass().getName();
         String versionname = version.split("\\.")[3].substring(1).replace("_", ".");
 
-        if (versionname.startsWith("1.8") || versionname.startsWith("1.9") || versionname.startsWith("1.10") || versionname.startsWith("1.11") || versionname.startsWith("1.12") || versionname.startsWith("1.13")){
+        if (versionname.startsWith("1.8") || versionname.startsWith("1.9") || versionname.startsWith("1.10") || versionname.startsWith("1.11") || versionname.startsWith("1.12") || versionname.startsWith("1.13")) {
             nmsHandler.addHead(inv, owner, name, lore);
             return;
         }
@@ -54,7 +52,7 @@ public class GuiData {
         inv.addItem(createHead(owner, name, lore));
     }
 
-    public ItemStack createHead(Player owner, String name, List<String> lore){
+    public ItemStack createHead(Player owner, String name, List<String> lore) {
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
 
         SkullMeta itemMeta = (SkullMeta) skull.getItemMeta();
@@ -68,7 +66,7 @@ public class GuiData {
         return skull;
     }
 
-    public void setItem(int id, String item, String name, List<String> lore){
+    public void setItem(int id, String item, String name, List<String> lore) {
         if (lore != null) {
             inv.setItem(id, createItem(Material.valueOf(item.toUpperCase()), name, lore));
         } else {
@@ -76,15 +74,15 @@ public class GuiData {
         }
     }
 
-    public int getSize(){
+    public int getSize() {
         return inv.getSize();
     }
 
-    public void reset(){
+    public void reset() {
         inv.clear();
     }
 
-    public ItemStack createItem(Material material, String name){
+    public ItemStack createItem(Material material, String name) {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
 
@@ -94,7 +92,7 @@ public class GuiData {
         return item;
     }
 
-    public ItemStack createItem(Material material, String name, List<String> lore){
+    public ItemStack createItem(Material material, String name, List<String> lore) {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
 
@@ -105,7 +103,7 @@ public class GuiData {
         return item;
     }
 
-    public Inventory build(){
+    public Inventory build() {
         return inv;
     }
 }

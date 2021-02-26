@@ -13,13 +13,13 @@ public class RecoverStats {
 
     private final PluginService pluginService;
 
-    public RecoverStats(PluginService pluginService){
+    public RecoverStats(PluginService pluginService) {
         this.pluginService = pluginService;
         setup();
     }
 
 
-    private void setup(){
+    private void setup() {
         Configuration players = pluginService.getFiles().getPlayers();
         Map<UUID, UserData> hashMap = pluginService.getCache().getPlayerUUID();
 
@@ -28,7 +28,7 @@ public class RecoverStats {
             UUID playeruuid = player.getUniqueId();
             List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
 
-            if (ignoredlist.isEmpty()){
+            if (ignoredlist.isEmpty()) {
                 return;
             }
 

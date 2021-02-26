@@ -6,7 +6,7 @@ import code.data.UserData;
 
 import java.util.UUID;
 
-public class ReplyMethod{
+public class ReplyMethod {
 
     private PluginService pluginService;
     private CacheManager cache;
@@ -16,7 +16,7 @@ public class ReplyMethod{
         this.cache = pluginService.getCache();
     }
 
-    public void setReply(UUID player, UUID target){
+    public void setReply(UUID player, UUID target) {
 
         UserData playerCache = pluginService.getCache().getPlayerUUID().get(player);
         UserData targetCache = pluginService.getCache().getPlayerUUID().get(target);

@@ -2,17 +2,20 @@ package code.debug;
 
 import code.MsgLab;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DebugLogger{
+public class DebugLogger {
 
     private final MsgLab plugin;
 
     private File file;
 
-    public DebugLogger(MsgLab plugin){
+    public DebugLogger(MsgLab plugin) {
         this.plugin = plugin;
         setup();
         log("Loading plugin..");
@@ -37,18 +40,18 @@ public class DebugLogger{
         }
     }
 
-    public void setup(){
-        file = new File(plugin.getDataFolder() ,"logs.yml");
+    public void setup() {
+        file = new File(plugin.getDataFolder(), "logs.yml");
         file.mkdirs();
 
-        if (file.exists()){
+        if (file.exists()) {
             file.delete();
         }
-        try{
+        try {
             file.createNewFile();
-            plugin.getLogger().info( "Logs created!");
+            plugin.getLogger().info("Logs created!");
 
-        }catch(IOException ioException){
+        } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
@@ -58,10 +61,10 @@ public class DebugLogger{
     }
 
 
-    private void getLogger(String string, String mode){
+    private void getLogger(String string, String mode) {
         Date now = new Date();
 
-        try{
+        try {
             FileWriter fw = new FileWriter(plugin.getDataFolder() + "/logs.yml", true);
             BufferedWriter writer = new BufferedWriter(fw);
             SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
@@ -71,7 +74,7 @@ public class DebugLogger{
             writer.flush();
             writer.close();
 
-        }catch (IOException io){
+        } catch (IOException io) {
             io.printStackTrace();
 
         }

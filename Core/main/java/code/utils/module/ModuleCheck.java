@@ -6,9 +6,7 @@ import code.bukkitutils.SoundCreator;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import java.util.List;
 
@@ -22,11 +20,11 @@ public class ModuleCheck {
         this.config = pluginService.getFiles().getConfig();
     }
 
-    public boolean isPluginCommand(String commandName){
+    public boolean isPluginCommand(String commandName) {
         boolean bmsgCommand = false;
 
-        for (String allCommands : pluginService.getListManager().getCommands()){
-            if (allCommands.equalsIgnoreCase(StringUtils.remove(commandName, "/"))){
+        for (String allCommands : pluginService.getListManager().getCommands()) {
+            if (allCommands.equalsIgnoreCase(StringUtils.remove(commandName, "/"))) {
                 bmsgCommand = true;
                 break;
             }
@@ -35,40 +33,41 @@ public class ModuleCheck {
         return bmsgCommand;
     }
 
-    public boolean isCommandDisabledInCooldown(String message){
+    public boolean isCommandDisabledInCooldown(String message) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        for (String disabledCmds : utils.getStringList("chat.cooldown.cmd.disabled-cmds")){
-            if (disabledCmds.equalsIgnoreCase(StringUtils.remove(message, "/"))){
+        for (String disabledCmds : utils.getStringList("chat.cooldown.cmd.disabled-cmds")) {
+            if (disabledCmds.equalsIgnoreCase(StringUtils.remove(message, "/"))) {
                 return true;
             }
         }
 
         return false;
     }
+
     public boolean isCommandEnabled(String commandName) {
 
         List<String> commandFile = config.getStringList("config.modules.enabled-commands");
         for (String commandEnabledCmds : commandFile) {
-            if (commandEnabledCmds.equalsIgnoreCase(StringUtils.remove(commandName, "/"))){
+            if (commandEnabledCmds.equalsIgnoreCase(StringUtils.remove(commandName, "/"))) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean IsCommandEnabledInMc(String commandName){
+    public boolean IsCommandEnabledInMc(String commandName) {
 
-        for (String commands : pluginService.getListManager().getCommands()){
-            if (commandName.equalsIgnoreCase(commandName)){
+        for (String commands : pluginService.getListManager().getCommands()) {
+            if (commandName.equalsIgnoreCase(commandName)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void sendDisableMessage(Player player, String command){
+    public void sendDisableMessage(Player player, String command) {
 
         PlayerMessage sender = pluginService.getPlayerMethods().getSender();
         SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
@@ -93,10 +92,10 @@ public class ModuleCheck {
         return false;
     }
 
-    public String getUsage(String command, String... args){
+    public String getUsage(String command, String... args) {
 
         StringBuilder message = new StringBuilder();
-        for (String arg : args){
+        for (String arg : args) {
             if (!(arg.contains(","))) {
                 message.append(arg).append(" ");
                 continue;
@@ -105,7 +104,7 @@ public class ModuleCheck {
             message.append("[").append(arg).append("] ");
         }
 
-        return "/" +  command + " " + message.toString();
+        return "/" + command + " " + message.toString();
 
     }
 }

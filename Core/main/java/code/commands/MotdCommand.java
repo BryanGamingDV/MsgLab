@@ -4,10 +4,12 @@ import code.PluginService;
 import code.bukkitutils.pages.PageCreator;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
-import code.utils.module.ModuleCheck;
 import code.utils.StringFormat;
+import code.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
-import me.fixeddev.commandflow.annotated.annotation.*;
+import me.fixeddev.commandflow.annotated.annotation.Command;
+import me.fixeddev.commandflow.annotated.annotation.OptArg;
+import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.entity.Player;
 
@@ -44,10 +46,9 @@ public class MotdCommand implements CommandClass {
     public boolean mainCommand(@Sender Player sender, @OptArg("1") int page) {
 
 
-
         StringFormat variable = pluginService.getStringFormat();
 
-        if (page <= 0){
+        if (page <= 0) {
             playerMethod.sendMessage(sender, messages.getString("error.motd.negative-number")
                     .replace("%number%", String.valueOf(page)));
 
@@ -56,7 +57,7 @@ public class MotdCommand implements CommandClass {
 
         PageCreator pageCreator = new PageCreator(motd);
 
-        if (!pageCreator.pageExists(page - 1)){
+        if (!pageCreator.pageExists(page - 1)) {
             playerMethod.sendMessage(sender, messages.getString("error.motd.unknown-page")
                     .replace("%page%", String.valueOf(page)));
             return true;
@@ -66,8 +67,8 @@ public class MotdCommand implements CommandClass {
         List<String> motdList = command.getStringList("commands.motd.list.message");
 
         motdList.replaceAll(text -> text
-                                .replace("%page%", String.valueOf(page))
-                                .replace("%maxpage%", String.valueOf(pageCreator.getMaxPage())));
+                .replace("%page%", String.valueOf(page))
+                .replace("%maxpage%", String.valueOf(pageCreator.getMaxPage())));
         motdPage.replaceAll(text -> variable.replacePlayerVariables(sender, text));
 
         motdList.forEach(text -> playerMethod.sendMessage(sender, text));
@@ -82,21 +83,21 @@ public class MotdCommand implements CommandClass {
     @Command(names = "addline")
     public boolean addLine(@Sender Player sender, @OptArg("") @Text String text) {
 
-        if (!playerMethod.hasPermission(sender, "commands.motd.admin")){
+        if (!playerMethod.hasPermission(sender, "commands.motd.admin")) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
             return true;
         }
 
-        if (text.isEmpty()){
+        if (text.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%",moduleCheck.getUsage( "motd", "addline/removeline/setline")));
+                    .replace("%usage%", moduleCheck.getUsage("motd", "addline/removeline/setline")));
             return true;
         }
 
         String message = String.join(" ", text);
 
         playerMethod.sendMessage(sender, command.getString("commands.motd.add-line")
-                    .replace("%line%", message));
+                .replace("%line%", message));
 
         motd.add(message);
         utils.set("utils.join.motd.format", motd);
@@ -109,7 +110,7 @@ public class MotdCommand implements CommandClass {
     @Command(names = "removeline")
     public boolean removeLine(@Sender Player sender, @OptArg("1") int page) {
 
-        if (!playerMethod.hasPermission(sender, "commands.motd.admin")){
+        if (!playerMethod.hasPermission(sender, "commands.motd.admin")) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
             return true;
         }
@@ -150,7 +151,7 @@ public class MotdCommand implements CommandClass {
     @Command(names = {"setline"})
     public boolean setLine(@Sender Player sender, @OptArg("-1") int page, @OptArg("") @Text String text) {
 
-        if (!playerMethod.hasPermission(sender, "commands.motd.admin")){
+        if (!playerMethod.hasPermission(sender, "commands.motd.admin")) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
             return true;
         }
@@ -160,9 +161,9 @@ public class MotdCommand implements CommandClass {
             return true;
         }
 
-        if (text.isEmpty()){
+        if (text.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage( "motd", "setline", "<page>", "<text>")));
+                    .replace("%usage%", moduleCheck.getUsage("motd", "setline", "<page>", "<text>")));
             return true;
         }
 

@@ -1,13 +1,14 @@
 package code.commands;
 
+import code.PluginService;
+import code.bukkitutils.SoundCreator;
 import code.data.UserData;
 import code.events.SocialSpyEvent;
+import code.methods.player.PlayerMessage;
 import code.methods.player.PlayerStatic;
 import code.registry.ConfigManager;
-import code.PluginService;
-import code.methods.player.PlayerMessage;
-import code.bukkitutils.SoundCreator;
 import code.revisor.RevisorManager;
+import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -15,9 +16,7 @@ import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import code.utils.Configuration;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,7 +25,7 @@ public class ReplyCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    public ReplyCommand(PluginService pluginService){
+    public ReplyCommand(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
@@ -47,7 +46,7 @@ public class ReplyCommand implements CommandClass {
 
         if (message.isEmpty()) {
             playerMethod.sendMessage(sender, lang.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage( "reply",  "<message>")));
+                    .replace("%usage%", moduleCheck.getUsage("reply", "<message>")));
             sound.setSound(sender.getUniqueId(), "sounds.error");
 
             return true;
@@ -63,41 +62,39 @@ public class ReplyCommand implements CommandClass {
 
         Player target = Bukkit.getPlayer(playerCache.getRepliedPlayer());
 
-        if (message.equalsIgnoreCase("-sender")){
+        if (message.equalsIgnoreCase("-sender")) {
             playerMethod.sendMessage(sender, command.getString("commands.msg-reply.talked")
                     .replace("%player%", target.getName()));
             sound.setSound(sender.getUniqueId(), "sounds.on-reply-sender");
             return true;
         }
 
-        CommandSender targetsender = target.getPlayer();
-
-        if (command.getBoolean("commands.msg-reply.enable-revisor")){
+        if (command.getBoolean("commands.msg-reply.enable-revisor")) {
             RevisorManager revisorManager = pluginService.getRevisorManager();
             message = revisorManager.revisor(playeruuid, message);
 
-            if (message == null){
+            if (message == null) {
                 return true;
             }
         }
 
-        if (playerMethod.hasPermission(sender, "color.commands")){
-            message = PlayerStatic.setColor(message);
+        if (!playerMethod.hasPermission(sender, "color.commands")) {
+            message = "<pre>" + message + "</pre>";
         }
 
         playerMethod.sendMessage(sender, command.getString("commands.msg-reply.player")
-                    .replace("%player%", sender.getName())
-                    .replace("%arg-1%", target.getName())
-                    , message);
+                        .replace("%player%", sender.getName())
+                        .replace("%arg-1%", target.getName())
+                , message);
         sound.setSound(sender.getUniqueId(), "sounds.on-reply");
 
         List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
 
         if (!(ignoredlist.contains(target.getName()))) {
-            playerMethod.sendMessage(targetsender, PlayerStatic.setColor(command.getString("commands.msg-reply.player")
+            playerMethod.sendMessage(target, PlayerStatic.setColor(command.getString("commands.msg-reply.player")
                             .replace("%player%", sender.getName())
                             .replace("%arg-1%", target.getName()))
-                            , message);
+                    , message);
 
             UserData targetCache = pluginService.getCache().getPlayerUUID().get(target.getUniqueId());
 

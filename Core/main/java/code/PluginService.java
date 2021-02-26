@@ -1,31 +1,35 @@
 package code;
 
 import code.bukkitutils.ManagingCenter;
+import code.data.ServerData;
 import code.debug.DebugLogger;
+import code.utils.SupportManager;
 import code.methods.MethodManager;
+
 import code.registry.CommandRegistry;
 import code.registry.ConfigManager;
 import code.registry.EventManager;
+
 import code.revisor.RevisorManager;
-import code.utils.SupportManager;
-import code.utils.module.ModuleCreator;
-import code.utils.module.ModuleCheck;
 import code.utils.StringFormat;
+import code.utils.module.ModuleCheck;
+import code.utils.module.ModuleCreator;
 
 
 public class PluginService {
 
     private final MsgLab plugin;
 
+    private ServerData serverData;
+
     private StringFormat variables;
     private MethodManager methodManager;
-    private SupportManager supportManager;
-
     private DebugLogger debug;
 
     private ModuleCreator moduleCreator;
     private ModuleCheck pathmanager;
 
+    private SupportManager supportManager;
     private CommandRegistry commandRegistry;
     private EventManager eventManager;
     private ConfigManager configManager;
@@ -41,7 +45,9 @@ public class PluginService {
         setup();
     }
 
-    public void setup(){
+    public void setup() {
+
+        serverData = new ServerData();
 
         debug = new DebugLogger(plugin);
 
@@ -73,7 +79,11 @@ public class PluginService {
 
     }
 
-    public RevisorManager getRevisorManager(){
+    public ServerData getServerData() {
+        return serverData;
+    }
+
+    public RevisorManager getRevisorManager() {
         return revisorManager;
     }
 
@@ -81,23 +91,23 @@ public class PluginService {
         return managingCenter;
     }
 
-    public ModuleCreator getListManager(){
+    public ModuleCreator getListManager() {
         return moduleCreator;
     }
 
-    public ModuleCheck getPathManager(){
+    public ModuleCheck getPathManager() {
         return pathmanager;
     }
 
-    public DebugLogger getLogs(){
+    public DebugLogger getLogs() {
         return debug;
     }
 
-    public StringFormat getStringFormat(){
+    public StringFormat getStringFormat() {
         return variables;
     }
 
-    public CacheManager getCache(){
+    public CacheManager getCache() {
         return cache;
     }
 
@@ -105,15 +115,15 @@ public class PluginService {
         return supportManager;
     }
 
-    public MethodManager getPlayerMethods(){
+    public MethodManager getPlayerMethods() {
         return methodManager;
     }
 
-    public ConfigManager getFiles(){
+    public ConfigManager getFiles() {
         return configManager;
     }
 
-    public MsgLab getPlugin(){
+    public MsgLab getPlugin() {
         return plugin;
     }
 

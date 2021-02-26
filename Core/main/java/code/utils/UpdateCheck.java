@@ -1,5 +1,13 @@
 package code.utils;
 
+import com.google.common.base.Preconditions;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+import org.apache.commons.lang.math.NumberUtils;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -7,15 +15,6 @@ import java.net.URL;
 import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.google.common.base.Preconditions;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-
-import org.apache.commons.lang.math.NumberUtils;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * A utility class to assist in checking for updates for plugins uploaded to
@@ -131,12 +130,11 @@ public final class UpdateCheck {
      * of UpdateChecker has already been initialized, this method will act similarly to {@link #get()}
      * (which is recommended after initialization).
      *
-     * @param plugin the plugin for which to check updates. Cannot be null
-     * @param pluginID the ID of the plugin as identified in the SpigotMC resource link. For example,
-     * "https://www.spigotmc.org/resources/veinminer.<b>12038</b>/" would expect "12038" as a value. The
-     * value must be greater than 0
+     * @param plugin        the plugin for which to check updates. Cannot be null
+     * @param pluginID      the ID of the plugin as identified in the SpigotMC resource link. For example,
+     *                      "https://www.spigotmc.org/resources/veinminer.<b>12038</b>/" would expect "12038" as a value. The
+     *                      value must be greater than 0
      * @param versionScheme a custom version scheme parser. Cannot be null
-     *
      * @return the UpdateChecker instance
      */
     public static UpdateCheck init(JavaPlugin plugin, int pluginID, VersionScheme versionScheme) {
@@ -152,11 +150,10 @@ public final class UpdateCheck {
      * of UpdateChecker has already been initialized, this method will act similarly to {@link #get()}
      * (which is recommended after initialization).
      *
-     * @param plugin the plugin for which to check updates. Cannot be null
+     * @param plugin   the plugin for which to check updates. Cannot be null
      * @param pluginID the ID of the plugin as identified in the SpigotMC resource link. For example,
-     * "https://www.spigotmc.org/resources/veinminer.<b>12038</b>/" would expect "12038" as a value. The
-     * value must be greater than 0
-     *
+     *                 "https://www.spigotmc.org/resources/veinminer.<b>12038</b>/" would expect "12038" as a value. The
+     *                 value must be greater than 0
      * @return the UpdateChecker instance
      */
     public static UpdateCheck init(JavaPlugin plugin, int pluginID) {
@@ -195,9 +192,8 @@ public final class UpdateCheck {
          * Compare two versions and return the higher of the two. If null is returned, it is assumed
          * that at least one of the two versions are unsupported by this version scheme parser.
          *
-         * @param first the first version to check
+         * @param first  the first version to check
          * @param second the second version to check
-         *
          * @return the greater of the two versions. null if unsupported version schemes
          */
         public String compareVersions(String first, String second);

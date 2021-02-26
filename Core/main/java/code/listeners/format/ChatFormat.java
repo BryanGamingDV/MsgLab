@@ -1,22 +1,18 @@
 package code.listeners.format;
 
 import code.PluginService;
-import code.bukkitutils.WorldData;
 import code.data.UserData;
-import code.methods.GroupMethod;
-import code.methods.chat.RadialChatMethod;
-import code.methods.commands.IgnoreMethod;
+import code.methods.HoverMethod;
+import code.methods.RecipientMethod;
+import code.methods.click.ClickChatMethod;
 import code.methods.commands.StaffChatMethod;
-import code.methods.click.ChatMethod;
 import code.methods.player.PlayerMessage;
-import code.methods.player.PlayerStatic;
 import code.revisor.RevisorManager;
 import code.utils.Configuration;
-import code.utils.HoverManager;
 import code.utils.StringFormat;
-import org.apache.commons.lang.StringUtils;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,8 +20,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class ChatFormat implements Listener {
@@ -50,17 +44,16 @@ public class ChatFormat implements Listener {
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
         StaffChatMethod staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
-        IgnoreMethod ignoreMethod = pluginService.getPlayerMethods().getIgnoreMethod();
+        HoverMethod hoverMethod = pluginService.getPlayerMethods().getHoverMethod();
 
         event.setCancelled(true);
-
 
         if (playerStatus.isClickMode()) {
             return;
         }
 
         if (pluginService.getPathManager().isCommandEnabled("staffchat")) {
-            ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();
+            ClickChatMethod clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
 
             if (staffChatMethod.isUsingStaffSymbol(event)) {
                 staffChatMethod.getStaffSymbol(event);
@@ -70,7 +63,7 @@ public class ChatFormat implements Listener {
             if (playerStatus.isStaffchatMode()) {
 
                 if (playerStatus.isClickMode()) {
-                    chatMethod.unset(player.getUniqueId());
+                    clickChatMethod.unset(player.getUniqueId());
                 }
 
                 Bukkit.getServer().getOnlinePlayers().forEach(playeronline -> {
@@ -109,124 +102,30 @@ public class ChatFormat implements Listener {
             message = revisorManager.revisor(event.getPlayer().getUniqueId(), event.getMessage());
         }
 
-        GroupMethod groupChannel = pluginService.getPlayerMethods().getGroupMethod();
+        RecipientMethod recipientMethod = pluginService.getPlayerMethods().getRecipientMethod();
 
-        String utilspath = groupChannel.getPlayerFormat(player);
-
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            utilspath = PlayerStatic.setVariables(player, utilspath);
-        }
-
-        if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-            utilspath = StringFormat.replaceVault(player, utilspath);
-        }
-
-
-        if (playerMethod.hasPermission(player, "color.chat")) {
-            message = PlayerStatic.setColor(utilspath
-                    .replace("%world%", player.getWorld().getName())
-                    .replace("%player%", player.getName())
-                    .replace("%message%", message));
-
-        } else {
-            message = PlayerStatic.setColor(utilspath
-                    .replace("%world%", player.getWorld().getName())
-                    .replace("%player%", player.getName()), message);
-        }
-
-        List<String> utilshover = groupChannel.getPlayerHover(player);
-
-        HoverManager hover = new HoverManager(message);
-        String hovertext = hover.hoverMessage(player, utilshover);
-
-        String commandtext = groupChannel.getPlayerCmd(player)
-                .replace("%player%", player.getName());
-        hover.setHover(hovertext, commandtext);
-
-        List<Player> playerList = null;
-
-        event.getRecipients().clear();
-
-        if (utils.getBoolean("chat.per-world-chat.enabled")) {
-            if (utils.getBoolean("chat.per-world-chat.all-worlds")) {
-                for (String worldname : WorldData.getAllWorldChat()) {
-                    if (player.getWorld().getName().equalsIgnoreCase(worldname)) {
-                        World world = Bukkit.getWorld(worldname);
-                        playerList = new ArrayList<>(world.getPlayers());
-
-                    }
-                }
-
-            } else {
-                playerList = new ArrayList<>();
-                for (String worldname : WorldData.getWorldChat(player)) {
-                    World world = Bukkit.getWorld(worldname);
-                    playerList.addAll(world.getPlayers());
-                }
-            }
-        } else {
-            playerList = new ArrayList<>(Bukkit.getServer().getOnlinePlayers());
-        }
-
-        if (playerList == null) {
-            pluginService.getPlugin().getLogger().info("How did you get here?" +
-                    utils.getBoolean("chat.per-world-chat.enabled"));
-            return;
-        }
-
-        RadialChatMethod radialChatMethod = pluginService.getPlayerMethods().getRadialChatMethod();
-
-        if (utils.getBoolean("chat.radial-chat.enabled")) {
-
-            Iterator<Player> playerRadialIterator = playerList.iterator();
-            List<Player> radialPlayerList = radialChatMethod.getRadialPlayers(player);
-
-            while (playerRadialIterator.hasNext()){
-                Player playerRadial = playerRadialIterator.next();
-
-                if (radialPlayerList.contains(playerRadial)){
-                    continue;
-                }
-
-                radialPlayerList.remove(player);
-            }
-        }
-
-        Iterator<Player> playerIterator = playerList.iterator();
-        while (playerIterator.hasNext()){
-           Player playerChannel = playerIterator.next();
-           UserData playerCache = pluginService.getCache().getPlayerUUID().get(playerChannel.getUniqueId());
-
-
-           if (!playerCache.equalsChannelGroup(playerStatus.getChannelGroup())) {
-               playerIterator.remove();
-           }
-
-           if (ignoreMethod.playerIsIgnored(playerChannel.getUniqueId(), player.getUniqueId())){
-               playerIterator.remove();
-
-           }
-        }
-
-
+        List<Player> playerList = recipientMethod.getRecipients(event);
         event.getRecipients().addAll(playerList);
 
+        Component baseComponent = hoverMethod.convertBaseComponent(player, message);
+
         for (Player recipient : event.getRecipients()) {
-            recipient.spigot().sendMessage(hover.getTextComponent());
+            BukkitAudiences bukkitAudiences = pluginService.getPlugin().getBukkitAudiences();
+
+            bukkitAudiences.player(recipient).sendMessage(baseComponent);
         }
     }
 
 
     @EventHandler
-    public void onCommand(PlayerCommandPreprocessEvent event){
+    public void onCommand(PlayerCommandPreprocessEvent event) {
 
         RevisorManager revisorManager = pluginService.getRevisorManager();
 
         Configuration messages = pluginService.getFiles().getMessages();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-
-        if (revisorManager.getAntiRepeatRevisor().isCmdSpamming(event.getPlayer().getUniqueId())){
+        if (revisorManager.getAntiRepeatRevisor().isCmdSpamming(event.getPlayer().getUniqueId())) {
             if (!pluginService.getPathManager().isCommandDisabledInCooldown(event.getMessage())) {
                 event.setCancelled(true);
             }
@@ -235,19 +134,22 @@ public class ChatFormat implements Listener {
 
         StringFormat stringFormat = pluginService.getStringFormat();
 
-        String command = event.getMessage().substring(stringFormat.countRepeatedCharacters(event.getMessage(), '/')).split(" ")[0];
+        String command = event.getMessage().substring(stringFormat.countRepeatedCharacters(event.getMessage(), '/')).split(" ")[0].toLowerCase();
 
-        if (command == null){
+        String commandRevisor = revisorManager.revisorCMD(event.getPlayer().getUniqueId(), event.getMessage().replace("/", "").split(" ")[0].toLowerCase());
+
+        if (commandRevisor == null){
+            event.setCancelled(true);
             return;
         }
 
-        if (!pluginService.getPathManager().isPluginCommand(command)){
+        if (!pluginService.getPathManager().isPluginCommand(command)) {
             return;
         }
 
-        if (!pluginService.getPathManager().isCommandEnabled(command)){
+        if (!pluginService.getPathManager().isCommandEnabled(command)) {
 
-            if (!pluginService.getPathManager().IsCommandEnabledInMc(command)){
+            if (!pluginService.getPathManager().IsCommandEnabledInMc(command)) {
                 return;
             }
 
@@ -256,7 +158,7 @@ public class ChatFormat implements Listener {
             return;
         }
 
-        if (!playerMethod.hasPermission(event.getPlayer(), "commands." + command  + ".main")) {
+        if (!playerMethod.hasPermission(event.getPlayer(), "commands." + command + ".main")) {
             playerMethod.sendMessage(event.getPlayer(), messages.getString("error.no-perms"));
             event.setCancelled(true);
         }

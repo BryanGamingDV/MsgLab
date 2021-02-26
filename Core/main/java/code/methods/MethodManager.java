@@ -2,23 +2,29 @@ package code.methods;
 
 import code.PluginService;
 import code.methods.chat.RadialChatMethod;
-import code.methods.click.ChatMethod;
+import code.methods.click.ClickChatMethod;
 import code.methods.commands.*;
 import code.methods.player.PlayerMessage;
 import code.methods.player.PlayerStatic;
 
-public class MethodManager{
+public class MethodManager {
 
 
     private PlayerMessage playerMessage;
 
     private PlayerStatic playerStatic;
 
+
     private ListenerManaging listenerManaging;
-    private ChatMethod chatMethod;
+    private ClickChatMethod chatManagent;
     private GroupMethod groupMethod;
     private RadialChatMethod radialChatMethod;
 
+    private HoverMethod hoverMethod;
+    private RecipientMethod recipientMethod;
+    private FitlerMethod fitlerMethod;
+
+    private ChatMethod chatMethod;
     private HelpOpMethod helpOpMethod;
     private SocialSpyMethod socialSpyMethod;
     private IgnoreMethod ignoreMethod;
@@ -29,20 +35,26 @@ public class MethodManager{
 
     private final PluginService pluginService;
 
-    public MethodManager(PluginService pluginService){
+    public MethodManager(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
-    public void setup(){
+    public void setup() {
 
-        chatMethod = new ChatMethod(pluginService);
-        listenerManaging = new ListenerManaging(pluginService);
+        chatManagent = new ClickChatMethod(pluginService);
         groupMethod = new GroupMethod(pluginService);
+        listenerManaging = new ListenerManaging(pluginService);
         radialChatMethod = new RadialChatMethod(pluginService);
 
-        playerStatic = new PlayerStatic(pluginService);
-        playerMessage = new PlayerMessage(pluginService);
+        recipientMethod = new RecipientMethod(pluginService);
+        hoverMethod = new HoverMethod(pluginService);
 
+
+        playerMessage = new PlayerMessage(pluginService);
+        chatMethod = new ChatMethod(pluginService);
+        playerStatic = new PlayerStatic(pluginService);
+
+        fitlerMethod = new FitlerMethod(pluginService);
         staffChatMethod = new StaffChatMethod(pluginService);
         helpOpMethod = new HelpOpMethod(pluginService);
         ignoreMethod = new IgnoreMethod(pluginService);
@@ -55,39 +67,63 @@ public class MethodManager{
 
     }
 
-    public ChatMethod getChatMethod() {
-        return chatMethod;
-    }
-    public ListenerManaging getListenerManaging() {
-        return listenerManaging;
-    }
     public GroupMethod getGroupMethod() {
         return groupMethod;
     }
+
+    public ClickChatMethod getChatManagent() {
+        return chatManagent;
+    }
+
+    public ListenerManaging getListenerManaging() {
+        return listenerManaging;
+    }
+
     public RadialChatMethod getRadialChatMethod() {
         return radialChatMethod;
     }
 
-    public PlayerMessage getSender(){
+    public HoverMethod getHoverMethod() {
+        return hoverMethod;
+    }
+
+    public RecipientMethod getRecipientMethod() {
+        return recipientMethod;
+    }
+
+    public PlayerMessage getSender() {
         return playerMessage;
     }
 
-    public StaffChatMethod getStaffChatMethod(){
+    public StaffChatMethod getStaffChatMethod() {
         return staffChatMethod;
     }
-    public SocialSpyMethod getSocialSpyMethod(){
+
+    public SocialSpyMethod getSocialSpyMethod() {
         return socialSpyMethod;
     }
-    public HelpOpMethod getHelpOpMethod(){
+
+    public HelpOpMethod getHelpOpMethod() {
         return helpOpMethod;
     }
-    public IgnoreMethod getIgnoreMethod(){
+
+    public IgnoreMethod getIgnoreMethod() {
         return ignoreMethod;
     }
-    public ReplyMethod getReplyMethod(){
+
+    public ReplyMethod getReplyMethod() {
         return replyMethod;
     }
-    public MsgMethod getMsgMethod(){
+
+    public MsgMethod getMsgMethod() {
         return msgMethod;
+    }
+
+    public ChatMethod getChatMethod() {
+        return chatMethod;
+    }
+
+    public FitlerMethod getFitlerMethod() {
+        return fitlerMethod;
     }
 }

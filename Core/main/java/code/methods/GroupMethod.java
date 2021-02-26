@@ -5,6 +5,7 @@ import code.bukkitutils.WorldData;
 import code.debug.DebugLogger;
 import code.utils.Configuration;
 import code.utils.addons.VaultSupport;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -15,27 +16,28 @@ public class GroupMethod {
 
     private final PluginService pluginService;
 
-    public GroupMethod(PluginService pluginService){
+    public GroupMethod(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
-    public Set<String> getGroup(){
+    public Set<String> getGroup() {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
         return utils.getConfigurationSection("chat.format.groups").getKeys(false);
     }
-    public String getPlayerGroup(Player player){
+
+    public String getPlayerGroup(Player player) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (player.isOp() || player.hasPermission("*")){
-            if (utils.getConfigurationSection("chat.format.op") == null){
+        if (player.isOp() || player.hasPermission("*")) {
+            if (utils.getConfigurationSection("chat.format.op") == null) {
                 return "default";
             }
 
             return "op";
         }
 
-        if (utils.getString("chat.format.group-access", "gr").equalsIgnoreCase("permission")) {
+        if (utils.getString("chat.format.group-access").equalsIgnoreCase("permission")) {
             for (String group : getGroup()) {
                 if (player.hasPermission(utils.getString("chat.format.groups." + group + ".permission"))) {
                     return group;
@@ -46,7 +48,7 @@ public class GroupMethod {
 
         DebugLogger debugLogger = pluginService.getLogs();
 
-        if (!Bukkit.getPluginManager().isPluginEnabled("Vault")){
+        if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault isn't loaded..");
             debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
             return "default";
@@ -54,79 +56,166 @@ public class GroupMethod {
 
         VaultSupport vaultSupport = pluginService.getSupportManager().getVaultSupport();
 
-        if (vaultSupport.getChat() == null || vaultSupport.getPermissions() == null){
+        if (vaultSupport.getChat() == null || vaultSupport.getPermissions() == null) {
             pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
             debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
             return "default";
         }
 
         for (String group : getGroup()) {
-            if (vaultSupport.getChat().playerInGroup(player, group)){
-                return "group";
+            if (vaultSupport.getChat().playerInGroup(player, group)) {
+                return group;
             }
         }
 
         return "default";
     }
 
-    public String getPlayerFormat(Player player){
+
+    public String getPlayerFormat(Player player, String format) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")){
-            return utils.getString("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.format");
+        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
+            return utils.getString("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format. " + format + ". format");
         }
 
-        if (getPlayerGroup(player).equalsIgnoreCase("default") ){
-            return utils.getString("chat.format." + getPlayerGroup(player) + ".format");
+        if (getPlayerGroup(player).equalsIgnoreCase("default")) {
+            return utils.getString("chat.format." + getPlayerGroup(player) + ".bases." + format + ".format");
+        }
+        if (getPlayerGroup(player).equalsIgnoreCase("op")) {
+            return utils.getString("chat.format." + getPlayerGroup(player) + ".bases." + format + ".format");
         }
 
-        if (getPlayerGroup(player).equalsIgnoreCase("op") ){
-            return utils.getString("chat.format." + getPlayerGroup(player) + ".format");
-        }
-
-        return utils.getString("chat.format.groups." + getPlayerGroup(player) + ".format");
+        return utils.getString("chat.format.groups." + getPlayerGroup(player) + ".bases." + format + ".format");
 
     }
 
-    public List<String> getPlayerHover(Player player){
+    public String getGroupPermission(String channel) {
+
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")){
-            return utils.getStringList("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.hover");
+        if (channel.equalsIgnoreCase("default")) {
+            return "default";
         }
 
-        if (getPlayerGroup(player).equalsIgnoreCase("default") ){
-            return utils.getStringList("chat.format." + getPlayerGroup(player) + ".hover");
+        if (channel.equalsIgnoreCase("op")) {
+            return "op";
         }
-        if (getPlayerGroup(player).equalsIgnoreCase("op") ){
-            return utils.getStringList("chat.format." + getPlayerGroup(player) + ".hover");
+
+        return utils.getString("chat.format.groups." + channel + ".permission");
+    }
+
+    public Set<String> getJQGroups(String format) {
+        Configuration utils = pluginService.getFiles().getBasicUtils();
+
+        return utils.getConfigurationSection(format + ".format.groups").getKeys(false);
+    }
+
+    public String getJQGroup(Player player, String mode) {
+
+        Configuration utils = pluginService.getFiles().getBasicUtils();
+        DebugLogger debugLogger = pluginService.getLogs();
+
+        if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+            pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault isn't loaded..");
+            debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
+            return "default";
         }
-        return utils.getStringList("chat.format.groups." + getPlayerGroup(player) + ".hover");
+
+        VaultSupport vaultSupport = pluginService.getSupportManager().getVaultSupport();
+
+        if (vaultSupport.getChat() == null || vaultSupport.getPermissions() == null) {
+            pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault complement [LuckPerms, PermissionsEx..] isn't loaded..");
+            debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
+            return "default";
+        }
+
+        if (utils.getString(mode + ".format.group-access").equalsIgnoreCase("permission")) {
+            for (String group : getJQGroups(mode)) {
+                if (player.hasPermission(utils.getString(mode + ".format.groups." + group + ".permission"))) {
+                    return group;
+                }
+            }
+            return "default";
+        }
+
+        for (String group : getJQGroups(mode)) {
+            if (vaultSupport.getChat().playerInGroup(player, group)) {
+                return group;
+            }
+        }
+
+        return "default";
+    }
+
+    public String getJQFormat(Player player, String format) {
+        Configuration utils = pluginService.getFiles().getBasicUtils();
+
+        if (getJQGroup(player, format).equalsIgnoreCase("default")) {
+            return utils.getString(format + ".format.default");
+        }
+
+        return utils.getString(format + ".format.groups." + getJQGroup(player, format) + ".format");
 
     }
 
-    public String getPlayerCmd(Player player){
+    public List<String> getPlayerHover(Player player, String format) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")){
-            return utils.getString("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.command");
+        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
+            return utils.getStringList("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".bases." + format + ".format.hover");
         }
 
-        if (getPlayerGroup(player).equalsIgnoreCase("default") ){
-            return utils.getString("chat.format." + getPlayerGroup(player) + ".command");
+        if (getPlayerGroup(player).equalsIgnoreCase("default")) {
+            return utils.getStringList("chat.format." + getPlayerGroup(player) + ".bases." + format + ".hover");
         }
-        if (getPlayerGroup(player).equalsIgnoreCase("op") ){
-            return utils.getString("chat.format." + getPlayerGroup(player) + ".command");
+        if (getPlayerGroup(player).equalsIgnoreCase("op")) {
+            return utils.getStringList("chat.format." + getPlayerGroup(player) + ".bases." + format + ".hover");
         }
-
-        return utils.getString("chat.groups.format." + getPlayerGroup(player) + ".command");
+        return utils.getStringList("chat.format.groups." + getPlayerGroup(player) + ".bases." + format + ".hover");
 
     }
 
-    public boolean channelNotExists(String group){
+    public Set<String> getConfigSection(Player player) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (group.equalsIgnoreCase("default")){
+        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
+            return utils.getConfigurationSection("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".bases").getKeys(false);
+        }
+
+        if (getPlayerGroup(player).equalsIgnoreCase("default")) {
+            return utils.getConfigurationSection("chat.format." + getPlayerGroup(player) + ".bases").getKeys(false);
+        }
+        if (getPlayerGroup(player).equalsIgnoreCase("op")) {
+            return utils.getConfigurationSection("chat.format." + getPlayerGroup(player) + ".bases").getKeys(false);
+
+        }
+        return utils.getConfigurationSection("chat.format.groups." + getPlayerGroup(player) + ".bases").getKeys(false);
+
+    }
+
+    public String getPlayerCmd(Player player, String format) {
+        Configuration utils = pluginService.getFiles().getBasicUtils();
+
+        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
+            return utils.getString("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".bases." + format + ".format.command");
+        }
+
+        if (getPlayerGroup(player).equalsIgnoreCase("default")) {
+            return utils.getString("chat.format." + getPlayerGroup(player) + ".bases." + format + ".command");
+        }
+        if (getPlayerGroup(player).equalsIgnoreCase("op")) {
+            return utils.getString("chat.format." + getPlayerGroup(player) + ".bases." + format + ".command");
+        }
+
+        return utils.getString("chat.groups.format." + getPlayerGroup(player) + ".bases." + format + ".command");
+
+    }
+
+    public boolean channelNotExists(String group) {
+        Configuration utils = pluginService.getFiles().getBasicUtils();
+
+        if (group.equalsIgnoreCase("default")) {
             return false;
         }
 
@@ -134,25 +223,61 @@ public class GroupMethod {
     }
 
 
-    public boolean isChannelEnabled(String group){
+    public boolean isChannelEnabled(String group) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (group.equalsIgnoreCase("default")){
+        if (group.equalsIgnoreCase("default")) {
             return true;
         }
 
         return utils.getBoolean("chat.format.groups." + group + ".channel");
     }
 
-    public boolean hasGroupPermission(Player player, String group){
+    public boolean hasGroupPermission(Player player, String group) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
+        VaultSupport vaultSupport = pluginService.getSupportManager().getVaultSupport();
 
-        if (group.equalsIgnoreCase("default")){
+        if (group.equalsIgnoreCase("default")) {
             return true;
         }
 
-        return player.hasPermission(utils.getString("chat.format.groups." + group + ".permission"));
+        if (player.isOp() || player.hasPermission("*")) {
+            return true;
+        }
+
+        if (utils.getString("chat.format.group-access").equalsIgnoreCase("permission")) {
+            return player.hasPermission(utils.getString("chat.format.groups." + group + ".permission"));
+        }
+
+        return vaultSupport.getChat().playerInGroup(player, group);
 
     }
 
+    public String getFitlerGroup(Player player) {
+
+        Configuration utils = pluginService.getFiles().getBasicUtils();
+        DebugLogger debugLogger = pluginService.getLogs();
+
+        if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+            pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault isn't loaded..");
+            debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
+            return "default";
+        }
+
+        VaultSupport vaultSupport = pluginService.getSupportManager().getVaultSupport();
+
+        if (vaultSupport.getChat() == null || vaultSupport.getPermissions() == null) {
+            pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
+            debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
+            return "default";
+        }
+
+        for (String group : utils.getStringList("fitler-cmd.groups")) {
+            if (vaultSupport.getChat().playerInGroup(player, group)) {
+                return group;
+            }
+        }
+
+        return "default";
+    }
 }

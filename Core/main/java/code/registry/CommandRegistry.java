@@ -1,9 +1,8 @@
 package code.registry;
 
 import code.MsgLab;
-import code.commands.*;
 import code.PluginService;
-
+import code.commands.*;
 import code.commands.modules.CustomLanguage;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
@@ -11,12 +10,11 @@ import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilderImpl;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.part.PartInjector;
 import me.fixeddev.commandflow.annotated.part.defaults.DefaultsModule;
-
 import me.fixeddev.commandflow.bukkit.BukkitCommandManager;
 import me.fixeddev.commandflow.bukkit.factory.BukkitModule;
 
 
-public class CommandRegistry implements LoaderService{
+public class CommandRegistry implements LoaderService {
 
 
     private final PluginService pluginService;
@@ -25,7 +23,7 @@ public class CommandRegistry implements LoaderService{
     private AnnotatedCommandTreeBuilder builder;
     private CommandManager commandManager;
 
-    public CommandRegistry(MsgLab plugin, PluginService pluginService){
+    public CommandRegistry(MsgLab plugin, PluginService pluginService) {
         this.plugin = plugin;
         this.pluginService = pluginService;
     }
@@ -40,15 +38,15 @@ public class CommandRegistry implements LoaderService{
 
         commandManager.getTranslator().setProvider(new CustomLanguage(pluginService));
 
-        registerCommands("bmsg", new BmsgCommand(plugin , pluginService));
+        registerCommands("bmsg", new BmsgCommand(plugin, pluginService));
         registerCommands("msg", new MsgCommand(pluginService));
         registerCommands("reply", new ReplyCommand(pluginService));
         registerCommands("socialspy", new SocialSpyCommand(pluginService));
         registerCommands("staffchat", new StaffChatCommand(pluginService));
-        registerCommands("helpop" , new HelpopCommand(pluginService));
+        registerCommands("helpop", new HelpopCommand(pluginService));
         registerCommands("ignore", new IgnoreCommand(pluginService));
         registerCommands("unignore", new UnIgnoreCommand(pluginService));
-        registerCommands("chat" , new ChatCommand(plugin, pluginService));
+        registerCommands("chat", new ChatCommand(plugin, pluginService));
         registerCommands("broadcast", new BroadcastCommand(pluginService));
         registerCommands("broadcastworld", new BroadcastWorldCommand(pluginService));
         registerCommands("channel", new ChannelCommand(pluginService));

@@ -29,17 +29,17 @@ public class PageUUIDCreator {
             count++;
         }
 
-        if (count > 0){
+        if (count > 0) {
             hashString.put(pagenumber, page);
         }
     }
 
-    public Map<Integer, List<UUID>> getHashMap(){
+    public Map<Integer, List<UUID>> getHashMap() {
         return hashString;
 
     }
 
-    public Integer getMaxPage(){
+    public Integer getMaxPage() {
         return hashString.size();
     }
 }

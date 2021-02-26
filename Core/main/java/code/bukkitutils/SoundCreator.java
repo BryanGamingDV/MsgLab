@@ -22,7 +22,7 @@ public class SoundCreator {
     private final CacheManager cache;
     private final DebugLogger debug;
 
-    public SoundCreator(PluginService pluginService){
+    public SoundCreator(PluginService pluginService) {
         this.pluginService = pluginService;
         this.cache = pluginService.getCache();
         this.sound = pluginService.getFiles().getSounds();
@@ -41,11 +41,11 @@ public class SoundCreator {
         }
 
         if (versionname.startsWith("v1_9")) {
-            debug.log("Using "+ versionname +", enabling sounds. Version:" + versionname);
+            debug.log("Using " + versionname + ", enabling sounds. Version:" + versionname);
             return;
         }
 
-        debug.log("Using "+ versionname +", warning the default sounds are from 1.8, 1.9, disabling it", 0);
+        debug.log("Using " + versionname + ", warning the default sounds are from 1.8, 1.9, disabling it", 0);
         debug.log("Modify the sound, to avoid errors");
 
         sound.set("sounds.enabled-all", false);
@@ -53,17 +53,17 @@ public class SoundCreator {
 
     }
 
-    public void setSound(UUID target, String path){
+    public void setSound(UUID target, String path) {
         OfflinePlayer player = Bukkit.getPlayer(target);
 
         Location location = player.getPlayer().getLocation();
 
-        if (!(sound.getBoolean("sounds.enabled-all"))){
+        if (!(sound.getBoolean("sounds.enabled-all"))) {
             return;
         }
 
         UserData playerMsgToggle = pluginService.getCache().getPlayerUUID().get(target);
-        if (!(playerMsgToggle.isPlayersoundMode())){
+        if (!(playerMsgToggle.isPlayersoundMode())) {
             return;
         }
 
@@ -96,14 +96,15 @@ public class SoundCreator {
         }
 
     }
-    private Sound getSound(String path){
+
+    private Sound getSound(String path) {
         try {
             return Sound.valueOf(sound.getString(path));
 
-        }catch( IllegalArgumentException io){
+        } catch (IllegalArgumentException io) {
             pluginService.getLogs().log("Sound_Error" + io.getCause());
 
-            for (StackTraceElement stack : io.getStackTrace()){
+            for (StackTraceElement stack : io.getStackTrace()) {
                 pluginService.getLogs().log(stack.toString());
             }
 

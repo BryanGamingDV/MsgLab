@@ -15,9 +15,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
-public class OnlineSample implements GuiSample{
+public class OnlineSample implements GuiSample {
 
     private final PluginService pluginService;
 
@@ -40,7 +43,7 @@ public class OnlineSample implements GuiSample{
                 .replace("%page%", String.valueOf(page + 1))
                 .replace("%max%", String.valueOf(pageUUIDCreator.getMaxPage())));
 
-        guiManager.createInventory("online", titlename , 5);
+        guiManager.createInventory("online", titlename, 5);
         GuiData inventory = guiManager.getInventory("online");
 
         if (inventory.containsItems()) {
@@ -69,6 +72,7 @@ public class OnlineSample implements GuiSample{
             number++;
         }
 
+        Player player = Bukkit.getPlayer(sender);
         int pagegui = inventory.getSize();
 
         String previousName = ChatColor.RESET + PlayerStatic.setColor(command.getString("commands.msg-online.previous-page.title"));
@@ -92,9 +96,9 @@ public class OnlineSample implements GuiSample{
         return inventory;
     }
 
-    public void getClickEvent(InventoryClickEvent event){
+    public void getClickEvent(InventoryClickEvent event) {
 
-        if (event.getClick().isLeftClick()){
+        if (event.getClick().isLeftClick()) {
             event.setCancelled(true);
             return;
         }
@@ -110,7 +114,7 @@ public class OnlineSample implements GuiSample{
         String previousName = ChatColor.RESET + PlayerStatic.setColor(command.getString("commands.msg-online.previous-page.title"));
         String nextName = ChatColor.RESET + PlayerStatic.setColor(command.getString("commands.msg-online.next-page.title"));
 
-        if (item.getDisplayName().equalsIgnoreCase(previousName)){
+        if (item.getDisplayName().equalsIgnoreCase(previousName)) {
             userData.setChangeInv(true);
             event.getWhoClicked().closeInventory();
             userData.changePage(userData.getPage() - 1);
@@ -118,7 +122,7 @@ public class OnlineSample implements GuiSample{
             userData.setChangeInv(false);
         }
 
-        if (item.getDisplayName().equalsIgnoreCase(nextName)){
+        if (item.getDisplayName().equalsIgnoreCase(nextName)) {
             userData.setChangeInv(true);
             event.getWhoClicked().closeInventory();
             userData.changePage(userData.getPage() + 1);
@@ -129,7 +133,7 @@ public class OnlineSample implements GuiSample{
         for (UUID uuid : listPlayers) {
             Player online = Bukkit.getPlayer(uuid);
 
-            if (item.getDisplayName().contains(online.getName())){
+            if (item.getDisplayName().contains(online.getName())) {
                 event.getWhoClicked().closeInventory();
                 runnableManager.sendCommand(event.getWhoClicked(), "msg " + online.getName() + " Hello!");
             }

@@ -10,16 +10,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class SocialSpyListener implements Listener{
+public class SocialSpyListener implements Listener {
 
     private PluginService pluginService;
 
-    public SocialSpyListener(PluginService pluginService){
+    public SocialSpyListener(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
     @EventHandler
-    public void onSocialSpy(SocialSpyEvent socialSpyEvent){
+    public void onSocialSpy(SocialSpyEvent socialSpyEvent) {
 
         PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
         SoundCreator soundCreator = pluginService.getManagingCenter().getSoundManager();

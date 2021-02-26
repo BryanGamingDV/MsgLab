@@ -11,17 +11,17 @@ public class DotRevisor {
 
     private PluginService pluginService;
 
-    public DotRevisor(PluginService pluginService){
+    public DotRevisor(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
-    public String check(Player player, String string){
+    public String check(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-        if (!(utils.getBoolean("revisor.dot-module.enabled"))){
+        if (!(utils.getBoolean("revisor.dot-module.enabled"))) {
             return string;
         }
 
@@ -33,16 +33,14 @@ public class DotRevisor {
 
         string = string + ".";
 
-        if (!utils.getBoolean("revisor.dot-module.warning.enabled")) {
-            return string;
+        if (utils.getBoolean("revisor.dot-module.warning.enabled")) {
+            Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
+                if (playerMethod.hasPermission(onlinePlayer, "revisor")) {
+                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.dot-module.warning.text")
+                            .replace("%player%", player.getName()));
+                }
+            });
         }
-
-        Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-            if (playerMethod.hasPermission(onlinePlayer, "revisor")){
-                playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.dot-module.warning.text")
-                        .replace("%player%", player.getName()));
-            }
-        });
 
         return string;
     }

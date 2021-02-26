@@ -3,7 +3,10 @@ package code.data;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public class UserData implements DataModel {
 
@@ -30,7 +33,9 @@ public class UserData implements DataModel {
     private boolean staffchatMode = false;
 
     private boolean clickMode = false;
+
     private final List<String> clickChat;
+    private final HashMap<String, String> hashMap = new HashMap<>();
 
     public UserData(UUID uuid) {
         this.uuid = uuid;
@@ -44,11 +49,11 @@ public class UserData implements DataModel {
         return player;
     }
 
-    public boolean hasRepliedPlayer(){
+    public boolean hasRepliedPlayer() {
         return repliedPlayer != null;
     }
 
-    public boolean hasRepliedPlayer(UUID uuid){
+    public boolean hasRepliedPlayer(UUID uuid) {
         return repliedPlayer == uuid;
     }
 
@@ -68,7 +73,7 @@ public class UserData implements DataModel {
         return playercooldownMode;
     }
 
-    public boolean isCooldownCmdMode(){
+    public boolean isCooldownCmdMode() {
         return playercooldownCmdMode;
     }
 
@@ -84,47 +89,52 @@ public class UserData implements DataModel {
         return staffchatMode;
     }
 
-    public boolean equalsChannelGroup(String group){
+    public boolean equalsChannelGroup(String group) {
         return channelgroup.equalsIgnoreCase(group);
     }
 
-    public boolean isGUISet(){
+    public boolean isGUISet() {
         return !guiGroup.equalsIgnoreCase("default");
     }
 
-    public String getChannelGroup(){
+    public HashMap<String, String> getHashMap() {
+        return hashMap;
+    }
+
+
+    public String getChannelGroup() {
         return channelgroup;
     }
 
-    public boolean equalsGUIGroup(String string){
+    public boolean equalsGUIGroup(String string) {
         return guiGroup.equalsIgnoreCase(string);
     }
 
-    public int getPage(){
+    public int getPage() {
         return guipage;
     }
 
-    public boolean isChangingPage(){
+    public boolean isChangingPage() {
         return changinginv;
     }
 
-    public void setChangeInv(Boolean status){
+    public void setChangeInv(Boolean status) {
         changinginv = status;
     }
 
-    public void setGUIGroup(String string){
+    public void setGUIGroup(String string) {
         guiGroup = string;
     }
 
-    public String getGUIGroup(){
+    public String getGUIGroup() {
         return guiGroup;
     }
 
-    public void changePage(int page){
+    public void changePage(int page) {
         guipage = page;
     }
 
-    public void setChannelGroup(String group){
+    public void setChannelGroup(String group) {
         channelgroup = group;
     }
 
@@ -132,11 +142,11 @@ public class UserData implements DataModel {
         return clickChat;
     }
 
-    public UUID getRepliedPlayer(){
+    public UUID getRepliedPlayer() {
         return repliedPlayer;
     }
 
-    public void setRepliedPlayer(UUID uuid){
+    public void setRepliedPlayer(UUID uuid) {
         repliedPlayer = uuid;
     }
 
@@ -144,11 +154,11 @@ public class UserData implements DataModel {
         clickMode = status;
     }
 
-    public void toggleHelpOp(Boolean status){
+    public void toggleHelpOp(Boolean status) {
         playerhelpopMode = status;
     }
 
-    public void toggleStaffChat(Boolean status){
+    public void toggleStaffChat(Boolean status) {
         staffchatMode = status;
     }
 
@@ -164,7 +174,7 @@ public class UserData implements DataModel {
         playercooldownMode = status;
     }
 
-    public void setCooldownCmdMode(Boolean status){
+    public void setCooldownCmdMode(Boolean status) {
         playercooldownCmdMode = status;
     }
 
@@ -172,7 +182,10 @@ public class UserData implements DataModel {
         socialspyMode = status;
     }
 
-    public void resetStats(){
+    public void resetStats() {
+
+
+        if (!(getHashMap().size() > 0)) getHashMap().clear();
         if (isChangingPage()) setChangeInv(false);
         if (getPage() > 0) changePage(0);
         if (isGUISet()) setGUIGroup("default");

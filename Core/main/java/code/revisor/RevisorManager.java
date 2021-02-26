@@ -2,6 +2,7 @@ package code.revisor;
 
 import code.MsgLab;
 import code.PluginService;
+import code.revisor.commands.BlockRevisor;
 import code.revisor.message.*;
 import code.utils.module.ModuleCheck;
 import org.bukkit.Bukkit;
@@ -9,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class RevisorManager{
+public class RevisorManager {
 
 
     private PluginService pluginService;
@@ -25,6 +26,8 @@ public class RevisorManager{
     private CapsRevisor capsRevisor;
     private DotRevisor dotRevisor;
 
+    private BlockRevisor blockRevisor;
+
     private int revisorLevel = 2;
 
     public RevisorManager(PluginService pluginService) {
@@ -35,7 +38,7 @@ public class RevisorManager{
         setup();
     }
 
-    private void setup(){
+    private void setup() {
         cooldownData = new CooldownData(pluginService);
         mentionRevisor = new MentionRevisor(pluginService);
         floodRevisor = new FloodRevisor(pluginService);
@@ -43,18 +46,21 @@ public class RevisorManager{
         linkRevisor = new LinkRevisor(pluginService);
         capsRevisor = new CapsRevisor(pluginService);
         dotRevisor = new DotRevisor(pluginService);
+
+        blockRevisor = new BlockRevisor(pluginService);
+
     }
 
-    public void setLevel(int level){
+    public void setLevel(int level) {
         revisorLevel = level;
     }
 
     public String revisor(UUID uuid, String message) {
-        if (!(path.isOptionEnabled("chat_revisor"))){
+        if (!(path.isOptionEnabled("chat_revisor"))) {
             return message;
         }
 
-        if (revisorLevel == 0){
+        if (revisorLevel == 0) {
             return message;
         }
 
@@ -72,6 +78,22 @@ public class RevisorManager{
 
         revisorLevel = 2;
         return getDotRevisor().check(player, message);
+    }
+
+    public String revisorCMD(UUID uuid, String command){
+        Player player = Bukkit.getPlayer(uuid);
+
+        command = blockRevisor.revisor(player, command);
+
+        if (command == null){
+            return null;
+        }
+
+        return command;
+    }
+
+    public BlockRevisor getBlockRevisor() {
+        return blockRevisor;
     }
 
     public MentionRevisor getMentionRevisor() {

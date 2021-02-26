@@ -1,25 +1,21 @@
 package code.commands;
 
-import code.data.UserData;
-import code.registry.ConfigManager;
+import code.MsgLab;
 import code.PluginService;
-import code.methods.player.PlayerMessage;
 import code.bukkitutils.SoundCreator;
-
-import code.utils.module.ModuleCreator;
+import code.data.UserData;
+import code.methods.player.PlayerMessage;
+import code.registry.ConfigManager;
+import code.utils.Configuration;
+import code.utils.StringFormat;
 import code.utils.module.ModuleCheck;
+import code.utils.module.ModuleCreator;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
-
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import code.MsgLab;
-import code.utils.Configuration;
-import code.utils.StringFormat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +39,7 @@ public class BmsgCommand implements CommandClass {
     private final PlayerMessage playerMethod;
     private final SoundCreator sound;
 
-    public BmsgCommand(MsgLab plugin, PluginService pluginService){
+    public BmsgCommand(MsgLab plugin, PluginService pluginService) {
         this.plugin = plugin;
         this.pluginService = pluginService;
 
@@ -92,9 +88,9 @@ public class BmsgCommand implements CommandClass {
     }
 
     @Command(names = "reload")
-    public boolean reloadSubCommand(@Sender Player sender, @OptArg("") String file){
+    public boolean reloadSubCommand(@Sender Player sender, @OptArg("") String file) {
 
-        if (!(playerMethod.hasPermission(sender, "commands.bmsg.reload"))){
+        if (!(playerMethod.hasPermission(sender, "commands.bmsg.reload"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
             return true;
         }
@@ -107,18 +103,16 @@ public class BmsgCommand implements CommandClass {
         }
 
         if (file.equalsIgnoreCase("all")) {
-            playerMethod.sendMessage(sender, command.getString("commands.bmsg.load"));
             this.getReloadEvent(sender, "all");
             return true;
         }
 
-        playerMethod.sendMessage(sender, command.getString("commands.bmsg.load-file"));
         this.getReloadEvent(sender, file);
         return true;
     }
 
     @Command(names = "support")
-    public boolean supportSubCommand(@Sender Player sender){
+    public boolean supportSubCommand(@Sender Player sender) {
 
         if (config.getBoolean("config.allow-support")) {
             playerMethod.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
@@ -190,7 +184,7 @@ public class BmsgCommand implements CommandClass {
 
             List<String> worldname = utils.getStringList("chat.per-world-chat.worlds." + arg2);
 
-            if (worldname.isEmpty()){
+            if (worldname.isEmpty()) {
                 playerMethod.sendMessage(sender, messages.getString("error.debug.unknown-world")
                         .replace("%world%", arg2));
                 sound.setSound(sender.getUniqueId(), "sounds.error");
@@ -244,22 +238,23 @@ public class BmsgCommand implements CommandClass {
             return true;
         }
 
-        if (type.isEmpty()){
+        if (type.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage( "bmsg", "restore", "commands, modules")));
+                    .replace("%usage%", moduleCheck.getUsage("bmsg", "restore", "commands, modules")));
             sound.setSound(sender.getUniqueId(), "sounds.error");
             return true;
         }
 
         ModuleCreator moduleCreator = pluginService.getListManager();
 
-        if (type.equalsIgnoreCase("commands")){
+        if (type.equalsIgnoreCase("commands")) {
             config.set("config.modules.enabled-commands", moduleCreator.getCommands());
             config.save();
             playerMethod.sendMessage(sender, command.getString("commands.bmsg.restore.commands"));
             return true;
 
-        }if (type.equalsIgnoreCase("modules")){
+        }
+        if (type.equalsIgnoreCase("modules")) {
             config.set("config.modules.enabled-options", moduleCreator.getModules());
             config.save();
             playerMethod.sendMessage(sender, command.getString("commands.bmsg.restore.commands"));
@@ -273,45 +268,40 @@ public class BmsgCommand implements CommandClass {
         return true;
     }
 
-    public void getReloadEvent(Player player, String string){
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
+    public void getReloadEvent(Player player, String string) {
 
-                PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
-                ConfigManager files = pluginService.getFiles();
-                SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
+        ConfigManager files = pluginService.getFiles();
+        SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
 
-                Map<String, Configuration> fileMap = pluginService.getCache().getConfigFiles();
+        Map<String, Configuration> fileMap = pluginService.getCache().getConfigFiles();
 
-                if (string.equalsIgnoreCase("you")){
-                    playersender.sendMessage(player, "%p &fEmmm, you are not a plugin. But symbolically, you can change your future. Be positive!");
-                    playersender.sendMessage(player, "&8- &fEasterEgg #2");
-                }
+        if (string.equalsIgnoreCase("you")) {
+            playersender.sendMessage(player, "%p &fEmmm, you are not a plugin. But symbolically, you can change your future. Be positive!");
+            playersender.sendMessage(player, "&8- &fEasterEgg #2");
+        }
 
-                if (string.equalsIgnoreCase("all")) {
-                    for (Configuration config : fileMap.values()){
-                        config.reload();
-                    }
-                    playersender.sendMessage(player, files.getCommand().getString("commands.bmsg.reload"));
-                    return;
-                }
-
-                if (fileMap.get(string) == null) {
-                    playersender.sendMessage(player, files.getMessages().getString("error.unknown-arg"));
-                    playersender.sendMessage(player, "&8- &fFiles: &a[commands, config, messages, players, sounds, utils]");
-                    sound.setSound(player.getUniqueId(), "sounds.error");
-                    return;
-                }
-
-                fileMap.get(string).reload();
-                playersender.sendMessage(player, files.getCommand().getString("commands.bmsg.reload-file")
-                        .replace("%file%", StringUtils.capitalize(string)));
-                sound.setSound(player.getUniqueId(), "sounds.on-reload");
-
+        if (string.equalsIgnoreCase("all")) {
+            for (Configuration config : fileMap.values()) {
+                config.reload();
             }
-        }, 20L * 3);
+            playersender.sendMessage(player, files.getCommand().getString("commands.bmsg.reload"));
+            return;
+        }
+
+        if (fileMap.get(string) == null) {
+            playersender.sendMessage(player, files.getMessages().getString("error.unknown-arg"));
+            playersender.sendMessage(player, "&8- &fFiles: &a[commands, config, messages, players, sounds, utils]");
+            sound.setSound(player.getUniqueId(), "sounds.error");
+            return;
+        }
+
+        fileMap.get(string).reload();
+        playersender.sendMessage(player, files.getCommand().getString("commands.bmsg.reload-file")
+                .replace("%file%", StringUtils.capitalize(string)));
+        sound.setSound(player.getUniqueId(), "sounds.on-reload");
+
     }
 
     public Integer getMaxPage() {
@@ -320,8 +310,8 @@ public class BmsgCommand implements CommandClass {
         return maxpages.size();
     }
 
-    public Set<String> getHelp(){
-         Configuration commands = pluginService.getFiles().getCommand();
-         return commands.getConfigurationSection("commands.bmsg.commands.pages").getKeys(true);
+    public Set<String> getHelp() {
+        Configuration commands = pluginService.getFiles().getCommand();
+        return commands.getConfigurationSection("commands.bmsg.commands.pages").getKeys(true);
     }
 }

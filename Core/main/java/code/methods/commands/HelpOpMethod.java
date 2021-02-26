@@ -18,11 +18,12 @@ public class HelpOpMethod implements MethodService {
         this.pluginService = pluginService;
         this.cache = pluginService.getCache().getPlayerUUID();
     }
-    public String getStatus(){
+
+    public String getStatus() {
         return status;
     }
 
-    public void toggleOption(UUID uuid){
+    public void toggleOption(UUID uuid) {
         UserData usercache = cache.get(uuid);
 
         if (usercache.isPlayerHelpOp()) {
@@ -35,11 +36,11 @@ public class HelpOpMethod implements MethodService {
         status = pluginService.getFiles().getCommand().getString("commands.helpop.player.variable-on");
     }
 
-    public void enableOption(UUID uuid){
+    public void enableOption(UUID uuid) {
         cache.get(uuid).toggleHelpOp(true);
     }
 
-    public void disableOption(UUID uuid){
+    public void disableOption(UUID uuid) {
         cache.get(uuid).toggleHelpOp(false);
     }
 

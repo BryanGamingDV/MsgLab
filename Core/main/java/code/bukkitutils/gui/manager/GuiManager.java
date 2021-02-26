@@ -6,7 +6,6 @@ import code.bukkitutils.gui.SampleManager;
 import code.data.UserData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,11 +27,12 @@ public class GuiManager {
     public void createInventory(String name, String title, int size) {
         inventoryManager.put(name, new GuiData(title, size * 9));
     }
-    public GuiData getInventory(String name){
+
+    public GuiData getInventory(String name) {
         return inventoryManager.get(name);
     }
 
-    public GuiSample getData(String name){
+    public GuiSample getData(String name) {
         return sampleManager.getClassHashMap().get(name);
     }
 

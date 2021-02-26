@@ -1,11 +1,12 @@
 package code.commands;
 
+import code.PluginService;
+import code.bukkitutils.SoundCreator;
 import code.data.UserData;
 import code.methods.commands.SocialSpyMethod;
-import code.registry.ConfigManager;
-import code.PluginService;
 import code.methods.player.PlayerMessage;
-import code.bukkitutils.SoundCreator;
+import code.registry.ConfigManager;
+import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -13,13 +14,12 @@ import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import code.utils.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class SocialSpyCommand implements CommandClass{
+public class SocialSpyCommand implements CommandClass {
 
     private final PluginService pluginService;
 
@@ -80,7 +80,7 @@ public class SocialSpyCommand implements CommandClass{
 
         if (args.equalsIgnoreCase("on")) {
             if (target == null) {
-                if (playerSpy.isSocialSpyMode()){
+                if (playerSpy.isSocialSpyMode()) {
                     playersender.sendMessage(player.getPlayer(), messages.getString("error.socialspy.activated"));
                     sound.setSound(player.getUniqueId(), "sounds.error");
                     return true;
@@ -115,9 +115,9 @@ public class SocialSpyCommand implements CommandClass{
         }
 
         if (args.equalsIgnoreCase("off")) {
-            if (target == null){
+            if (target == null) {
 
-                if (!(playerSpy.isSocialSpyMode())){
+                if (!(playerSpy.isSocialSpyMode())) {
                     playersender.sendMessage(player.getPlayer(), messages.getString("error.socialspy.unactivated"));
                     sound.setSound(player.getUniqueId(), "sounds.error");
                     return true;
@@ -137,7 +137,7 @@ public class SocialSpyCommand implements CommandClass{
             String targetname = target.getName();
             UserData targetSpy = pluginService.getCache().getPlayerUUID().get(target.getUniqueId());
 
-            if (!(targetSpy.isSocialSpyMode())){
+            if (!(targetSpy.isSocialSpyMode())) {
                 playersender.sendMessage(player.getPlayer(), messages.getString("error.socialspy.arg-2-unactivated")
                         .replace("%arg-2%", targetname));
                 sound.setSound(player.getUniqueId(), "sounds.error");
@@ -154,7 +154,7 @@ public class SocialSpyCommand implements CommandClass{
         }
 
         playersender.sendMessage(player, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage( "socialspy",  "on, off, list", "<player>")));
+                .replace("%usage%", moduleCheck.getUsage("socialspy", "on, off, list", "<player>")));
         sound.setSound(player.getUniqueId(), "sounds.error");
 
         return true;

@@ -17,54 +17,70 @@ public class ListenerManaging {
 
     private final PluginService pluginService;
 
-    public ListenerManaging(PluginService pluginService){
+    public ListenerManaging(PluginService pluginService) {
         this.pluginService = pluginService;
         pluginService.getListManager().getModules().add("join_quit");
         pluginService.getListManager().getModules().add("motd");
     }
 
-    public void setJoin(PlayerJoinEvent event){
+    public void setJoin(PlayerJoinEvent event) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (!(utils.getBoolean("join.enabled"))){
+        if (!(utils.getBoolean("join.enabled"))) {
             return;
         }
 
         Player player = event.getPlayer();
+        sendJoinMessage(event);
 
-        event.setJoinMessage(PlayerStatic.setVariables(player, utils.getString("join.format")
-                .replace("%player%", player.getName())));
-        StringFormat variable = pluginService.getStringFormat();
-        if (pluginService.getPathManager().isOptionEnabled("motd")){
+        if (pluginService.getPathManager().isOptionEnabled("motd")) {
             sendMotd(player);
         }
 
         sendCommands(player, "join");
     }
 
-    public void sendCommands(Player player, String status){
+    public void sendJoinMessage(PlayerJoinEvent event){
+
+        GroupMethod groupMethod = pluginService.getPlayerMethods().getGroupMethod();
+        Player player = event.getPlayer();
+
+        if (groupMethod.getJQGroup(player, "join").equalsIgnoreCase("silent")){
+            event.setJoinMessage(null);
+        }
+
+        if (groupMethod.getJQGroup(player, "join").equalsIgnoreCase("none")) {
+            return;
+        }
+
+        event.setJoinMessage(PlayerStatic.setFormat(player, groupMethod.getJQFormat(player, "join")
+                    .replace("%player%", player.getName())));
+    }
+
+    public void sendCommands(Player player, String status) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (!utils.getBoolean(status + ".commands.enabled")){
+        if (!utils.getBoolean(status + ".commands.enabled")) {
             return;
         }
 
         StringFormat variable = pluginService.getStringFormat();
         RunnableManager runnableManager = pluginService.getManagingCenter().getRunnableManager();
 
-        List<String> commands = utils.getStringList(status +".motd.commands");
+        List<String> commands = utils.getStringList(status + ".motd.commands");
         commands.replaceAll(text -> variable.replacePlayerVariables(player, text));
 
-        for (String command : commands){
+        for (String command : commands) {
             runnableManager.sendCommand(Bukkit.getConsoleSender(), command);
         }
     }
-    public void sendMotd(Player player){
+
+    public void sendMotd(Player player) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (!utils.getBoolean("join.motd.enabled")){
+        if (!utils.getBoolean("join.motd.enabled")) {
             return;
         }
 
@@ -74,28 +90,42 @@ public class ListenerManaging {
         List<String> motd = utils.getStringList("join.motd.format");
         motd.replaceAll(text -> variable.replacePlayerVariables(player, text));
 
-        for (int i = 0; i < utils.getInt("join.motd.loop-blank"); i++){
+        for (int i = 0; i < utils.getInt("join.motd.loop-blank"); i++) {
             playersender.sendMessage(player, "");
         }
 
-        for (String motdPath : motd){
+        for (String motdPath : motd) {
             playersender.sendMessage(player, motdPath);
         }
     }
 
-    public void setQuit(PlayerQuitEvent event){
+    public void setQuit(PlayerQuitEvent event) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (!(utils.getBoolean("quit.enabled"))){
+        if (!(utils.getBoolean("quit.enabled"))) {
             return;
         }
 
         Player player = event.getPlayer();
 
-        event.setQuitMessage(PlayerStatic.setVariables(player, utils.getString("quit.format")
-                .replace("%player%", player.getName())));
-
+        sendQuitMessage(event);
         sendCommands(player, "quit");
     }
 
+    public void sendQuitMessage(PlayerQuitEvent event){
+
+        GroupMethod groupMethod = pluginService.getPlayerMethods().getGroupMethod();
+        Player player = event.getPlayer();
+
+        if (groupMethod.getJQGroup(player, "quit").equalsIgnoreCase("silent")){
+            event.setQuitMessage(null);
+        }
+
+        if (groupMethod.getJQGroup(player, "quit").equalsIgnoreCase("none")) {
+            return;
+        }
+
+        event.setQuitMessage(PlayerStatic.setFormat(player, groupMethod.getJQFormat(player, "join")
+                .replace("%player%", player.getName())));
+    }
 }

@@ -12,20 +12,21 @@ public class ModuleCreator {
     private List<String> commandsList;
     private List<String> modulesList;
 
-    public ModuleCreator(PluginService pluginService){
+    public ModuleCreator(PluginService pluginService) {
         this.pluginService = pluginService;
         setup();
     }
 
-    public void setup(){
+    public void setup() {
         commandsList = new ArrayList<>();
         modulesList = new ArrayList<>();
     }
-    public List<String> getCommands(){
+
+    public List<String> getCommands() {
         return commandsList;
     }
 
-    public List<String> getModules(){
+    public List<String> getModules() {
         return modulesList;
     }
 }

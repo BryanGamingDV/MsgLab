@@ -44,19 +44,19 @@ public class JoinListener implements Listener {
 
         ModuleCheck moduleCheck = pluginService.getPathManager();
 
-        if (moduleCheck.isOptionEnabled("join_quit")){
-            listenerManaging.setJoin(event);
-        }
-
-        if (cache.getPlayerUUID().get(uuid) == null){
+        if (cache.getPlayerUUID().get(uuid) == null) {
             cache.getPlayerUUID().put(uuid, new UserData(uuid));
         }
 
-        if (playerMethod.hasPermission(player, "commands.helpop.watch")){
+        if (playerMethod.hasPermission(player, "commands.helpop.watch")) {
             cache.getPlayerUUID().get(uuid).toggleHelpOp(true);
         }
 
-        if (moduleCheck.isCommandEnabled("ignore")){
+        if (moduleCheck.isOptionEnabled("join_quit")) {
+            listenerManaging.setJoin(event);
+        }
+
+        if (moduleCheck.isCommandEnabled("ignore")) {
             Map<UUID, List<String>> ignorelist = cache.getIgnorelist();
             List<String> playerlist = players.getStringList("players." + player.getUniqueId().toString() + ".players-ignored");
 

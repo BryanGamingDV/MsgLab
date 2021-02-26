@@ -3,7 +3,7 @@ package code.methods;
 
 import java.util.UUID;
 
-public interface MethodService{
+public interface MethodService {
 
     void enableOption(UUID uuid);
 

@@ -11,11 +11,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class QuitListener implements Listener{
+public class QuitListener implements Listener {
 
     private final PluginService pluginService;
 
-    public QuitListener(PluginService pluginService){
+    public QuitListener(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
@@ -31,7 +31,7 @@ public class QuitListener implements Listener{
         Player you = event.getPlayer();
         UserData playerStatus = pluginService.getCache().getPlayerUUID().get(you.getUniqueId());
 
-        if (moduleCheck.isOptionEnabled("join_quit")){
+        if (moduleCheck.isOptionEnabled("join_quit")) {
             listenerManaging.setQuit(event);
         }
 

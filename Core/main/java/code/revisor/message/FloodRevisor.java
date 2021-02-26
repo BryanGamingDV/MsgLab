@@ -13,17 +13,17 @@ public class FloodRevisor {
 
     public static final String LETTERS = "AaBbCcDdEeFfGgHhIiJjKkMmNnLlOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
 
-    public FloodRevisor(PluginService pluginService){
+    public FloodRevisor(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
-    public String check(Player player, String string){
+    public String check(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-        if (!(utils.getBoolean("revisor.anti-flood.enabled"))){
+        if (!(utils.getBoolean("revisor.anti-flood.enabled"))) {
             return string;
         }
 
@@ -31,27 +31,27 @@ public class FloodRevisor {
         int floodstatus = 0;
         int minflood = Math.max(0, utils.getInt("revisor.anti-flood.min-chars"));
 
-        for (char letter : LETTERS.toCharArray()){
+        for (char letter : LETTERS.toCharArray()) {
 
-            for(int count = 50; count > minflood; count--){
+            for (int count = 50; count > minflood; count--) {
 
                 String letterchanged = String.valueOf(letter);
 
                 if (string.contains(Strings.repeat(letterchanged, count))) {
 
                     if (floodstatus < 1) {
-                        playerMethod.sendMessage(player, utils.getString("revisor.anti-flood.message"));
-
-                        if (!utils.getBoolean("revisor.anti-flood.warning.enabled")) {
-                            continue;
+                        if (utils.getBoolean("revisor.anti-flood.message.enabled")) {
+                            playerMethod.sendMessage(player, utils.getString("revisor.anti-flood.message.format"));
                         }
 
-                        Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                            if (playerMethod.hasPermission(onlinePlayer, "revisor")){
-                                playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.anti-flood.warning.text")
-                                        .replace("%player%", player.getName()));
-                            }
-                        });
+                        if (utils.getBoolean("revisor.anti-flood.warning.enabled")) {
+                            Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
+                                if (playerMethod.hasPermission(onlinePlayer, "revisor")) {
+                                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.anti-flood.warning.text")
+                                            .replace("%player%", player.getName()));
+                                }
+                            });
+                        }
                     }
 
                     string = string

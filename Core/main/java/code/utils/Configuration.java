@@ -2,9 +2,7 @@ package code.utils;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;

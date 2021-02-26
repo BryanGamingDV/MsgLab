@@ -17,16 +17,16 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class StaffChatCommand  implements CommandClass{
+public class StaffChatCommand implements CommandClass {
 
     private PluginService pluginService;
 
-    public StaffChatCommand(PluginService pluginService){
+    public StaffChatCommand(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
     @Command(names = {"sc", "staffchat"})
-    public boolean onCommand(@Sender Player player, @OptArg("") @Text String args){
+    public boolean onCommand(@Sender Player player, @OptArg("") @Text String args) {
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
         StaffChatMethod staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
@@ -49,8 +49,8 @@ public class StaffChatCommand  implements CommandClass{
 
         UserData playerCache = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
-        if (args.equalsIgnoreCase("-on")){
-            if (playerCache.isStaffchatMode()){
+        if (args.equalsIgnoreCase("-on")) {
+            if (playerCache.isStaffchatMode()) {
                 playerMethod.sendMessage(player, messages.getString("error.staff-chat.activated"));
                 return true;
             }
@@ -61,8 +61,8 @@ public class StaffChatCommand  implements CommandClass{
             return true;
         }
 
-        if (args.equalsIgnoreCase("-off")){
-            if (!(playerCache.isStaffchatMode())){
+        if (args.equalsIgnoreCase("-off")) {
+            if (!(playerCache.isStaffchatMode())) {
                 playerMethod.sendMessage(player, messages.getString("error.staff-chat.unactivated"));
                 return true;
             }
@@ -73,7 +73,7 @@ public class StaffChatCommand  implements CommandClass{
             return true;
         }
 
-        if (args.equalsIgnoreCase("-toggle")){
+        if (args.equalsIgnoreCase("-toggle")) {
             staffChatMethod.toggleOption(playeruuid);
             playerMethod.sendMessage(player, command.getString("commands.staff-chat.player.toggle")
                     .replace("%mode%", staffChatMethod.getStatus()));

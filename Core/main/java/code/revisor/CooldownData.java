@@ -1,12 +1,11 @@
 package code.revisor;
 
-import code.MsgLab;
 import code.CacheManager;
+import code.MsgLab;
 import code.PluginService;
 import code.data.UserData;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -23,7 +22,7 @@ public class CooldownData {
     private final Configuration config;
     private final Configuration utils;
 
-    public CooldownData(PluginService pluginService){
+    public CooldownData(PluginService pluginService) {
         this.pluginService = pluginService;
 
         this.plugin = pluginService.getPlugin();
@@ -35,28 +34,29 @@ public class CooldownData {
         this.playerMethod = pluginService.getPlayerMethods().getSender();
         pluginService.getListManager().getModules().add("cooldown");
 
+        int seconds = utils.getInt("chat.cooldown.text.seconds");
+        pluginService.getServerData().setServerCooldown(seconds);
     }
+    public boolean isTextSpamming(UUID uuid) {
 
-    public boolean isTextSpamming(UUID uuid){
-
-        if (!pluginService.getPathManager().isOptionEnabled("cooldown")){
+        if (!pluginService.getPathManager().isOptionEnabled("cooldown")) {
             return false;
         }
 
-        if (!(utils.getBoolean("chat.cooldown.text.enabled"))){
+        if (!(utils.getBoolean("chat.cooldown.text.enabled"))) {
             return false;
         }
 
         Player player = Bukkit.getPlayer(uuid);
         UserData playerCooldown = cache.getPlayerUUID().get(uuid);
 
-        if (playerMethod.hasPermission(player, "cooldown.chat-bypass")){
+        if (playerMethod.hasPermission(player, "cooldown.chat-bypass")) {
             return false;
         }
 
         if (playerCooldown.isCooldownMode()) {
             playerMethod.sendMessage(player, utils.getString("chat.cooldown.text.message")
-                    .replace("%seconds%", utils.getString("chat.cooldown.text.seconds")));
+                    .replace("%seconds%", pluginService.getServerData().getServerTextCooldown()));
             return true;
         }
 
@@ -67,31 +67,31 @@ public class CooldownData {
             public void run() {
                 playerCooldown.setCooldownMode(false);
             }
-        },20L * utils.getInt("chat.cooldown.text.seconds"));
+        }, 20L * pluginService.getServerData().getServerCooldown());
 
         return false;
     }
 
-    public boolean isCmdSpamming(UUID uuid){
+    public boolean isCmdSpamming(UUID uuid) {
 
-        if (!pluginService.getPathManager().isOptionEnabled("cooldown")){
+        if (!pluginService.getPathManager().isOptionEnabled("cooldown")) {
             return false;
         }
 
-        if (!(utils.getBoolean("chat.cooldown.cmd.enabled"))){
+        if (!(utils.getBoolean("chat.cooldown.cmd.enabled"))) {
             return false;
         }
 
         Player player = Bukkit.getPlayer(uuid);
         UserData playerCooldown = cache.getPlayerUUID().get(uuid);
 
-        if (playerMethod.hasPermission(player, "cooldown.cmd-bypass")){
+        if (playerMethod.hasPermission(player, "cooldown.cmd-bypass")) {
             return false;
         }
 
         if (playerCooldown.isCooldownCmdMode()) {
             playerMethod.sendMessage(player, utils.getString("chat.cooldown.cmd.message")
-                    .replace("%seconds%", utils.getString("chat.cooldown.cmd.seconds")));
+                    .replace("%seconds%", pluginService.getServerData().getServerTextCooldown()));
             return true;
         }
 
@@ -102,7 +102,8 @@ public class CooldownData {
             public void run() {
                 playerCooldown.setCooldownCmdMode(false);
             }
-        },20L * utils.getInt("chat.cooldown.cmd.seconds"));
+
+        }, 20L * utils.getInt("chat.cooldown.cmd.seconds"));
 
         return false;
     }

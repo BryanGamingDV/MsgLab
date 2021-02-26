@@ -8,7 +8,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 public class WorldData {
 
@@ -19,7 +22,7 @@ public class WorldData {
 
     private static Configuration utils;
 
-    public WorldData(PluginService pluginService){
+    public WorldData(PluginService pluginService) {
         this.pluginService = pluginService;
         utils = pluginService.getFiles().getBasicUtils();
 
@@ -27,11 +30,11 @@ public class WorldData {
         debugLogger = pluginService.getLogs();
     }
 
-    public static List<String> getWorldChat(Player player){
+    public static List<String> getWorldChat(Player player) {
 
         Set<String> pwcKeys = utils.getConfigurationSection("chat.per-world-chat.worlds").getKeys(false);
 
-        if (pwcKeys.isEmpty()){
+        if (pwcKeys.isEmpty()) {
             plugin.getLogger().info("Ummm if you don't want to use perworldchat per groups, I will activate all-worlds, for you.");
             plugin.getLogger().info("- EasterEgg #1");
             utils.set("chat.per-world-chat.all-worlds", true);
@@ -39,11 +42,11 @@ public class WorldData {
             return getAllWorldChat();
         }
 
-        for (String id : pwcKeys){
+        for (String id : pwcKeys) {
             List<String> worldData = new ArrayList<>(utils.getStringList("chat.per-world-chat.worlds." + id + ".worlds"));
 
             for (String world : worldData) {
-                if (player.getWorld().getName().equalsIgnoreCase(world)){
+                if (player.getWorld().getName().equalsIgnoreCase(world)) {
                     return worldData;
                 }
             }
@@ -52,14 +55,14 @@ public class WorldData {
         return getAllWorldChat();
     }
 
-    public static String getWorldID(Player player){
+    public static String getWorldID(Player player) {
 
-        if (!utils.getBoolean("chat.per-world-chat.enabled")){
+        if (!utils.getBoolean("chat.per-world-chat.enabled")) {
             return null;
         }
 
         Set<String> pwcKeys = utils.getConfigurationSection("chat.per-world-chat.worlds").getKeys(false);
-        if (pwcKeys.isEmpty()){
+        if (pwcKeys.isEmpty()) {
             plugin.getLogger().info("Ummm if you don't want to use perworldchat per groups, I will activate all-worlds, for you.");
             plugin.getLogger().info("- EasterEgg #1");
             utils.set("chat.per-world-chat.all-worlds", true);
@@ -67,11 +70,11 @@ public class WorldData {
             return null;
         }
 
-        for (String id : pwcKeys){
+        for (String id : pwcKeys) {
             List<String> worldData = new ArrayList<>(utils.getStringList("chat.per-world-chat.worlds." + id + ".worlds"));
 
             for (String world : worldData) {
-                if (player.getWorld().getName().equalsIgnoreCase(world)){
+                if (player.getWorld().getName().equalsIgnoreCase(world)) {
                     return id;
                 }
             }
@@ -80,31 +83,31 @@ public class WorldData {
         return null;
     }
 
-    public static List<String> getAllWorldChat(){
+    public static List<String> getAllWorldChat() {
 
         List<String> worldNames = new ArrayList<>();
 
         List<String> exceptfolders = Arrays.asList("plugins", "logs", "cache");
 
 
-        for (File file : Bukkit.getServer().getWorldContainer().listFiles()){
+        for (File file : Bukkit.getServer().getWorldContainer().listFiles()) {
 
             if (!file.isDirectory()) {
                 continue;
             }
 
             boolean status = false;
-            for (String folders : exceptfolders){
-                if (folders.equalsIgnoreCase(file.getName())){
+            for (String folders : exceptfolders) {
+                if (folders.equalsIgnoreCase(file.getName())) {
                     status = true;
                     break;
                 }
             }
 
-            if (status){
+            if (status) {
                 continue;
             }
-            
+
             worldNames.add(file.getName());
         }
 

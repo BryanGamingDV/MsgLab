@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class HelpopCommand implements CommandClass{
+public class HelpopCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    public HelpopCommand(PluginService pluginService){
+    public HelpopCommand(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
-    @Command(names =  {"helpop", "ac"})
-    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String args){
+    @Command(names = {"helpop", "ac"})
+    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String args) {
 
         ConfigManager files = pluginService.getFiles();
 
@@ -48,12 +48,12 @@ public class HelpopCommand implements CommandClass{
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage( "helpop", "<message>")));
+                    .replace("%usage%", moduleCheck.getUsage("helpop", "<message>")));
             sound.setSound(playeruuid, "sounds.error");
             return true;
         }
 
-        if (args.equalsIgnoreCase("-list")){
+        if (args.equalsIgnoreCase("-list")) {
 
             List<String> helpopList = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class HelpopCommand implements CommandClass{
 
                 UserData onlineCache = pluginService.getCache().getPlayerUUID().get(playeronline.getUniqueId());
 
-                if (playerMethod.hasPermission(sender, "commands.helpop.watch") && onlineCache.isPlayerHelpOp()){
+                if (playerMethod.hasPermission(sender, "commands.helpop.watch") && onlineCache.isPlayerHelpOp()) {
                     helpopList.add(playeronline.getName());
                 }
             }
@@ -83,12 +83,12 @@ public class HelpopCommand implements CommandClass{
 
         UserData playerCache = pluginService.getCache().getPlayerUUID().get(sender.getUniqueId());
 
-        if (args.equalsIgnoreCase("-on")){
-            if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))){
+        if (args.equalsIgnoreCase("-on")) {
+            if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))) {
                 playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
                 return true;
             }
-            if (playerCache.isPlayerHelpOp()){
+            if (playerCache.isPlayerHelpOp()) {
                 playerMethod.sendMessage(sender, messages.getString("error.helpop.activated"));
                 return true;
             }
@@ -99,13 +99,13 @@ public class HelpopCommand implements CommandClass{
             return true;
         }
 
-        if (args.equalsIgnoreCase("-off")){
-            if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))){
+        if (args.equalsIgnoreCase("-off")) {
+            if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))) {
                 playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
                 return true;
             }
 
-            if (!(playerCache.isPlayerHelpOp())){
+            if (!(playerCache.isPlayerHelpOp())) {
                 playerMethod.sendMessage(sender, messages.getString("error.helpop.unactivated"));
                 return true;
             }
@@ -116,15 +116,15 @@ public class HelpopCommand implements CommandClass{
             return true;
         }
 
-        if (args.equalsIgnoreCase("-toggle")){
-            if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))){
+        if (args.equalsIgnoreCase("-toggle")) {
+            if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))) {
                 playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
                 return true;
             }
 
             helpOpMethod.toggleOption(playeruuid);
             playerMethod.sendMessage(sender, command.getString("commands.helpop.player.toggle")
-                        .replace("%mode%", helpOpMethod.getStatus()));
+                    .replace("%mode%", helpOpMethod.getStatus()));
             sound.setSound(playeruuid, "sounds.on-helpop.toggle");
             return true;
         }
@@ -135,11 +135,11 @@ public class HelpopCommand implements CommandClass{
 
         String message = String.join(" ", args);
 
-        if (command.getBoolean("commands.helpop.enable-revisor")){
+        if (command.getBoolean("commands.helpop.enable-revisor")) {
             RevisorManager revisorManager = pluginService.getRevisorManager();
             message = revisorManager.revisor(playeruuid, message);
 
-            if (message == null){
+            if (message == null) {
                 return true;
             }
         }

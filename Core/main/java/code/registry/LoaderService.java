@@ -1,6 +1,6 @@
 package code.registry;
 
-public interface LoaderService{
+public interface LoaderService {
 
     void setup();
 }

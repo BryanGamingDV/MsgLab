@@ -14,12 +14,12 @@ public class RadialChatMethod {
 
     private final PluginService pluginService;
 
-    public RadialChatMethod(PluginService pluginService){
+    public RadialChatMethod(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
 
-    public List<Player> getRadialPlayers(Player player){
+    public List<Player> getRadialPlayers(Player player) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
         int x = utils.getInt("chat.radial-chat.x");
@@ -32,14 +32,14 @@ public class RadialChatMethod {
             @Override
             public void run() {
 
-                for (Entity entity : player.getWorld().getNearbyEntities(player.getLocation(), x, y , z)){
-                    if (!(entity instanceof Player)){
+                for (Entity entity : player.getWorld().getNearbyEntities(player.getLocation(), x, y, z)) {
+                    if (!(entity instanceof Player)) {
                         continue;
                     }
 
                     Player online = (Player) entity;
 
-                    if (online.getName().equalsIgnoreCase(player.getName())){
+                    if (online.getName().equalsIgnoreCase(player.getName())) {
                         continue;
                     }
 
@@ -48,7 +48,7 @@ public class RadialChatMethod {
                 }
 
             }
-        },0);
+        }, 0);
         return listPlayers;
     }
 }

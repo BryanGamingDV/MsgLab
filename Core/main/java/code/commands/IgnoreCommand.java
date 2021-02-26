@@ -1,30 +1,28 @@
 package code.commands;
 
-import code.methods.commands.IgnoreMethod;
-import code.registry.ConfigManager;
-import code.methods.player.PlayerMessage;
+import code.PluginService;
 import code.bukkitutils.SoundCreator;
+import code.methods.commands.IgnoreMethod;
+import code.methods.player.PlayerMessage;
+import code.registry.ConfigManager;
+import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
-
-
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import code.utils.Configuration;
-import code.PluginService;
 
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class IgnoreCommand implements CommandClass{
+public class IgnoreCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    public IgnoreCommand(PluginService pluginService){
+    public IgnoreCommand(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
@@ -108,8 +106,6 @@ public class IgnoreCommand implements CommandClass{
                 .replace("%player%", targetname));
         sound.setSound(target.getPlayer().getUniqueId(), "sounds.on-unignore");
         return true;
-
-
 
 
     }

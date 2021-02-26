@@ -2,7 +2,7 @@ package code.commands;
 
 import code.PluginService;
 import code.bukkitutils.SoundCreator;
-import code.methods.click.ChatMethod;
+import code.methods.click.ClickChatMethod;
 import code.methods.player.PlayerMessage;
 import code.registry.ConfigManager;
 import code.revisor.RevisorManager;
@@ -42,35 +42,35 @@ public class BroadcastWorldCommand implements CommandClass {
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage( "broadcastworld", "<message>")));
+                    .replace("%usage%", moduleCheck.getUsage("broadcastworld", "<message>")));
             sound.setSound(playeruuid, "sounds.error");
             return true;
         }
 
-        ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();
+        ClickChatMethod clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
 
         if (args.equalsIgnoreCase("-click")) {
-            if (!playerMethod.hasPermission(sender, "commands.broadcastworld.click")){
+            if (!playerMethod.hasPermission(sender, "commands.broadcastworld.click")) {
                 playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
                 return true;
             }
 
-            chatMethod.activateChat(playeruuid, true);
+            clickChatMethod.activateChat(playeruuid, true);
             return true;
         }
 
         String message = String.join(" ", args);
 
-        if (command.getBoolean("commands.broadcast.enable-revisor")){
+        if (command.getBoolean("commands.broadcast.enable-revisor")) {
             RevisorManager revisorManager = pluginService.getRevisorManager();
             message = revisorManager.revisor(playeruuid, message);
 
-            if (message == null){
+            if (message == null) {
                 return true;
             }
         }
 
-        for (Player onlinePlayer : chatMethod.getWorldChat(sender)) {
+        for (Player onlinePlayer : clickChatMethod.getWorldChat(sender)) {
             playerMethod.sendMessage(onlinePlayer, command.getString("commands.broadcast.text.world")
                     .replace("%world%", sender.getWorld().getName())
                     .replace("%player%", sender.getName())

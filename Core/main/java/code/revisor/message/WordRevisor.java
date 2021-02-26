@@ -36,7 +36,7 @@ public class WordRevisor {
 
         if (!utils.getConfigurationSection("revisor.words-module.list-words").getKeys(false).isEmpty() || utils.getConfigurationSection("revisor.bad-words.list-words") != null) {
             badwordslist = new ArrayList<>(utils.getConfigurationSection("revisor.words-module.list-words").getKeys(false));
-        }else{
+        } else {
             badwordslist = utils.getStringList("revisor.words-module.list-words");
         }
 
@@ -49,25 +49,25 @@ public class WordRevisor {
             }
 
             if (words < 1) {
-                playerMethod.sendMessage(player, utils.getString("revisor.words-module.message")
-                        .replace("%player%", player.getName()));
+                if (utils.getBoolean("revisor.words-module.message.enabled")) {
+                    playerMethod.sendMessage(player, utils.getString("revisor.words-module.message.format")
+                            .replace("%player%", player.getName()));
+                }
 
-                if (utils.getBoolean("revisor.words-module.command.enabled")){
+                if (utils.getBoolean("revisor.words-module.command.enabled")) {
                     runnableManager.sendCommand(Bukkit.getConsoleSender(), PlayerStatic.setVariables(player, utils.getString("revisor.words-module.command.format")
-                                .replace("%player%", player.getName())));
+                            .replace("%player%", player.getName())));
                 }
                 bwstatus = true;
 
-                if (!utils.getBoolean("revisor.words-module.warning.enabled")) {
-                    continue;
+                if (utils.getBoolean("revisor.words-module.warning.enabled")) {
+                    Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
+                        if (playerMethod.hasPermission(onlinePlayer, "revisor")) {
+                            playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.words-module.warning.text")
+                                    .replace("%player%", player.getName()));
+                        }
+                    });
                 }
-
-                Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                    if (playerMethod.hasPermission(onlinePlayer, "revisor")){
-                        playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.words-module.warning.text")
-                                .replace("%player%", player.getName()));
-                    }
-                });
             }
 
             if (utils.getString("revisor.words-module.word-replaced") != null) {
@@ -75,6 +75,7 @@ public class WordRevisor {
             } else {
                 string = string.replace(badword, utils.getString("revisor.words-module.list-words." + badword));
             }
+
             words++;
         }
 
@@ -83,9 +84,7 @@ public class WordRevisor {
                 playerMethod.sendMessage(player, utils.getString("revisor.words-module.word-list.format")
                         .replace("%words%", String.valueOf(words)));
             }
-
         }
-
 
 
         return string;

@@ -3,7 +3,7 @@ package code.methods.commands;
 import code.PluginService;
 import code.data.UserData;
 import code.methods.MethodService;
-import code.methods.click.ChatMethod;
+import code.methods.click.ClickChatMethod;
 import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
@@ -25,28 +25,30 @@ public class StaffChatMethod implements MethodService {
         this.pluginService = pluginService;
         this.cache = pluginService.getCache().getPlayerUUID();
     }
-    public String getStatus(){
+
+    public String getStatus() {
         return status;
     }
 
-    public void toggleOption(UUID uuid){
+    public void toggleOption(UUID uuid) {
         UserData usercache = cache.get(uuid);
 
         if (usercache.isStaffchatMode()) {
             usercache.toggleStaffChat(false);
             status = pluginService.getFiles().getCommand().getString("commands.staff-chat.player.variable-off");
             return;
-        };
+        }
+        ;
 
         usercache.toggleStaffChat(true);
         status = pluginService.getFiles().getCommand().getString("commands.staff-chat.player.variable-on");
     }
 
-    public void enableOption(UUID uuid){
+    public void enableOption(UUID uuid) {
         cache.get(uuid).toggleStaffChat(true);
     }
 
-    public void disableOption(UUID uuid){
+    public void disableOption(UUID uuid) {
         cache.get(uuid).toggleStaffChat(false);
     }
 
@@ -57,23 +59,23 @@ public class StaffChatMethod implements MethodService {
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
         Player player = event.getPlayer();
 
-        if (event.getMessage().startsWith(command.getString("commands.staff-chat.symbol"))){
+        if (event.getMessage().startsWith(command.getString("commands.staff-chat.symbol"))) {
             return playerMethod.hasPermission(player, "commands.staffchat.watch");
         }
 
         return false;
     }
 
-    public void getStaffSymbol(AsyncPlayerChatEvent event){
+    public void getStaffSymbol(AsyncPlayerChatEvent event) {
 
-        if (!(event.isCancelled())){
+        if (!(event.isCancelled())) {
             event.setCancelled(true);
         }
 
         Player player = event.getPlayer();
         Configuration command = pluginService.getFiles().getCommand();
 
-        ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();
+        ClickChatMethod clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
         UserData playerStatus = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
@@ -83,7 +85,7 @@ public class StaffChatMethod implements MethodService {
         }
 
         if (playerStatus.isClickMode()) {
-            chatMethod.unset(player.getUniqueId());
+            clickChatMethod.unset(player.getUniqueId());
         }
 
         for (Player playeronline : Bukkit.getServer().getOnlinePlayers()) {

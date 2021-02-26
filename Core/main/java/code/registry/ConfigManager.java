@@ -4,11 +4,7 @@ import code.MsgLab;
 import code.PluginService;
 import code.debug.DebugLogger;
 import code.utils.Configuration;
-import org.bukkit.Bukkit;
-import org.bukkit.util.FileUtil;
 
-import java.io.File;
-import java.lang.reflect.Method;
 import java.util.Map;
 
 public class ConfigManager {
@@ -41,7 +37,7 @@ public class ConfigManager {
         plugin.getLogger().info("Config loaded!");
     }
 
-    public Configuration setConfiguration(String string){
+    public Configuration setConfiguration(String string) {
 
         DebugLogger log = pluginService.getLogs();
         Map<String, Configuration> configFiles = pluginService.getCache().getConfigFiles();
@@ -57,7 +53,7 @@ public class ConfigManager {
         return config;
     }
 
-    public Configuration getBasicUtils(){
+    public Configuration getBasicUtils() {
         return utils;
     }
 
@@ -69,11 +65,11 @@ public class ConfigManager {
         return players;
     }
 
-    public Configuration getMessages(){
+    public Configuration getMessages() {
         return messages;
     }
 
-    public Configuration getSounds(){
+    public Configuration getSounds() {
         return sounds;
     }
 }

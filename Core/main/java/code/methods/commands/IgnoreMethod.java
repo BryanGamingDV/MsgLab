@@ -1,7 +1,7 @@
 package code.methods.commands;
 
-import code.PluginService;
 import code.CacheManager;
+import code.PluginService;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
 import org.bukkit.Bukkit;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class IgnoreMethod{
+public class IgnoreMethod {
 
     private final Configuration players;
     private final Configuration messages;
@@ -59,7 +59,7 @@ public class IgnoreMethod{
 
     }
 
-    public void unignorePlayer(CommandSender sender, UUID uuid){
+    public void unignorePlayer(CommandSender sender, UUID uuid) {
 
         Player you = (Player) sender;
         UUID playeruuid = you.getUniqueId();
@@ -71,7 +71,7 @@ public class IgnoreMethod{
         players.set("players." + playeruuid + ".players-ignored", ignoredPlayers);
         players.save();
 
-        if (players.getStringList("players." + playeruuid + ".players-ignored").isEmpty()){
+        if (players.getStringList("players." + playeruuid + ".players-ignored").isEmpty()) {
             players.set("players." + uuid, null);
             players.save();
         }

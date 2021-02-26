@@ -1,8 +1,9 @@
 package code;
 
-import code.api.BasicAPIDesc;
 import code.api.BasicAPI;
+import code.api.BasicAPIDesc;
 import code.utils.UpdateCheck;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,11 +12,14 @@ public class MsgLab extends JavaPlugin {
 
     private PluginService basicMsg;
 
+    private BukkitAudiences bukkitAudiences;
+
     private static BasicAPI api;
 
     @Override
     public void onEnable() {
 
+        loadKyori();
         registerManaging();
         registerPlaceholders();
         recoverStats();
@@ -24,16 +28,25 @@ public class MsgLab extends JavaPlugin {
         getLogger().info("You are using version " + getDescription().getVersion() + ".");
         getLogger().info("If you want support, you can join in: https://discord.gg/wpSh4Bf4Es");
 
-        basicMsg.getLogs().log("- Plugin successfully loaded.", 2);
+        basicMsg.getLogs().log("- Plugin successfull loaded.", 2);
 
     }
 
-    public static BasicAPIDesc getAPI(){
+    public void loadKyori(){
+        bukkitAudiences = BukkitAudiences.create(this);
+    }
+
+    public BukkitAudiences getBukkitAudiences(){
+        return bukkitAudiences;
+    }
+
+    public static BasicAPIDesc getAPI() {
         return api;
     }
 
     public void onDisable() {
         getLogger().info("Thx for using this plugin <3. Goodbye!");
+        bukkitAudiences.close();
     }
 
     public void registerManaging() {
@@ -45,7 +58,7 @@ public class MsgLab extends JavaPlugin {
 
         basicMsg.getLogs().log("Loaded.");
 
-        if (!basicMsg.getFiles().getConfig().getString("version", "1.0").equalsIgnoreCase(getDescription().getVersion())){
+        if (!basicMsg.getFiles().getConfig().getString("version", "1.0").equalsIgnoreCase(getDescription().getVersion())) {
             getLogger().info("Error - Please reload the configuration!");
             getLogger().info("Error - You are using the latest version with an outdated path.");
             getLogger().info("Error - This can cause bugs..");
@@ -54,28 +67,29 @@ public class MsgLab extends JavaPlugin {
         if (basicMsg.getFiles().getConfig().getBoolean("config.metrics")) {
             Metrics metrics = new Metrics(this, 10107);
         }
-        if (basicMsg.getFiles().getConfig().getBoolean("config.update-check")){
+        if (basicMsg.getFiles().getConfig().getBoolean("config.update-check")) {
             getUpdateChecker();
         }
 
     }
 
-    public void recoverStats(){
-        if (Bukkit.getServer().getOnlinePlayers().size() > 0){
+    public void recoverStats() {
+        if (Bukkit.getServer().getOnlinePlayers().size() > 0) {
             basicMsg.getLogs().log("The plugin was reloaded with /reload", 1);
             getLogger().info("Please don't use /reload to reload plugins, it can cause serious errors!");
             RecoverStats recoverStats = new RecoverStats(basicMsg);
         }
     }
 
-    public PluginService getManager(){
+    public PluginService getManager() {
         return basicMsg;
     }
 
-    public void getUpdateChecker(){
+    public void getUpdateChecker() {
         getLogger().info("Checking updating checker..");
         UpdateCheck.init(this, 84926);
     }
+
     public void registerPlaceholders() {
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             getLogger().info("PlaceholderAPI hooked!");

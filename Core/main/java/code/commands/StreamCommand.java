@@ -26,7 +26,7 @@ public class StreamCommand implements CommandClass {
     }
 
     @Command(names = "stream")
-    public boolean onCommand(@Sender Player player, @OptArg("") @Text String args){
+    public boolean onCommand(@Sender Player player, @OptArg("") @Text String args) {
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
@@ -40,7 +40,7 @@ public class StreamCommand implements CommandClass {
 
         UUID playeruuid = player.getUniqueId();
 
-        if (args.isEmpty()){
+        if (args.isEmpty()) {
             playerMethod.sendMessage(player, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("stream", "<message>")));
             sound.setSound(playeruuid, "sounds.error");
@@ -71,11 +71,11 @@ public class StreamCommand implements CommandClass {
                 }
             }
 
-            if (message.split(" ").length > 1){
+            if (message.split(" ").length > 1) {
                 allowmode = false;
             }
 
-        }else{
+        } else {
             if (message.contains(".")) {
                 for (String string : command.getStringList("commands.stream.allowed-links")) {
                     if (message.contains(string)) {
@@ -86,23 +86,23 @@ public class StreamCommand implements CommandClass {
             }
         }
 
-        if (!allowmode){
+        if (!allowmode) {
             playerMethod.sendMessage(player, messages.getString("error.stream.valid-link")
                     .replace("%message%", message));
             return true;
         }
 
-        if (command.getBoolean("commands.stream.enable-revisor")){
+        if (command.getBoolean("commands.stream.enable-revisor")) {
             RevisorManager revisorManager = pluginService.getRevisorManager();
 
             message = revisorManager.revisor(playeruuid, message);
 
-            if (message == null){
+            if (message == null) {
                 return true;
             }
         }
 
-        for (Player playerOnline : Bukkit.getServer().getOnlinePlayers()){
+        for (Player playerOnline : Bukkit.getServer().getOnlinePlayers()) {
             playerMethod.sendMessage(playerOnline, command.getString("commands.stream.text")
                     .replace("%player%", player.getName())
                     .replace("%message%", message));

@@ -2,7 +2,7 @@ package code.commands;
 
 import code.PluginService;
 import code.bukkitutils.SoundCreator;
-import code.methods.click.ChatMethod;
+import code.methods.click.ClickChatMethod;
 import code.methods.player.PlayerMessage;
 import code.registry.ConfigManager;
 import code.revisor.RevisorManager;
@@ -22,13 +22,13 @@ public class BroadcastCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    public BroadcastCommand(PluginService pluginService){
+    public BroadcastCommand(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
 
-    @Command(names =  {"broadcast", "bc"})
-    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String args){
+    @Command(names = {"broadcast", "bc"})
+    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String args) {
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
@@ -42,7 +42,7 @@ public class BroadcastCommand implements CommandClass {
 
         UUID playeruuid = sender.getUniqueId();
 
-        if (args.isEmpty()){
+        if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("broadcast", "<message>")));
             sound.setSound(playeruuid, "sounds.error");
@@ -50,31 +50,31 @@ public class BroadcastCommand implements CommandClass {
         }
 
 
-        ChatMethod chatMethod = pluginService.getPlayerMethods().getChatMethod();
+        ClickChatMethod clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
 
         if (args.equalsIgnoreCase("-click")) {
 
-            if (!playerMethod.hasPermission(sender, "commands.broadcast.click")){
+            if (!playerMethod.hasPermission(sender, "commands.broadcast.click")) {
                 playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
                 return true;
             }
 
-            chatMethod.activateChat(playeruuid, false);
+            clickChatMethod.activateChat(playeruuid, false);
             return true;
         }
 
         String message = String.join(" ", args);
 
-        if (command.getBoolean("commands.broadcast.enable-revisor")){
+        if (command.getBoolean("commands.broadcast.enable-revisor")) {
             RevisorManager revisorManager = pluginService.getRevisorManager();
             message = revisorManager.revisor(playeruuid, message);
 
-            if (message == null){
+            if (message == null) {
                 return true;
             }
         }
 
-        for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()){
+        for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
             playerMethod.sendMessage(onlinePlayer, command.getString("commands.broadcast.text.global")
                     .replace("%player%", sender.getName())
                     .replace("%message%", message));
