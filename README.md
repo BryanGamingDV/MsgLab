@@ -1,2 +1,4 @@
 # MsgLab
-A advanced message, chat plugin.
+A advanced message, chat plugin. 
+
+Coming soon..
