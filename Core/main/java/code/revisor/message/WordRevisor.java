@@ -2,14 +2,16 @@ package code.revisor.message;
 
 import code.PluginService;
 import code.bukkitutils.RunnableManager;
-import code.methods.player.PlayerMessage;
-import code.methods.player.PlayerStatic;
+import code.managers.player.PlayerMessage;
+import code.managers.player.PlayerStatic;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class WordRevisor {
 
@@ -42,6 +44,20 @@ public class WordRevisor {
 
         int words = 0;
         boolean bwstatus = false;
+
+        Pattern pattern;
+        for (String regex : utils.getStringList("revisor.words-module.regex")){
+            pattern = Pattern.compile(regex.split(";")[0]);
+
+            Matcher matcher = pattern.matcher(string);
+
+            while (matcher.find()){
+                String replaced = string.substring(matcher.start(), matcher.end());
+
+                string = string.replace(replaced, regex.split(";")[1]);
+                matcher = pattern.matcher(string);
+            }
+        }
 
         for (String badword : badwordslist) {
             if (!string.contains(badword)) {

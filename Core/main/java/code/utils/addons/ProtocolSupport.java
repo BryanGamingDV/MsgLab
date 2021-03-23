@@ -3,10 +3,7 @@ package code.utils.addons;
 import code.PluginService;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class ProtocolSupport {
 
@@ -26,8 +23,9 @@ public class ProtocolSupport {
             return;
         }
 
-        protocolSupport = ProtocolLibrary.getProtocolManager();
         pluginService.getPlugin().getLogger().info("Addons - Loading ProtocolLib..");
+        protocolSupport = ProtocolLibrary.getProtocolManager();
+
         pluginService.getPlugin().getLogger().info("Addons - ProtocolLib enabled! Enabling support..");
         pluginService.getLogs().log("Addons - ProtocolLib enabled! Enabling support...");
     }

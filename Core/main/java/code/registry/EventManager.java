@@ -7,9 +7,11 @@ import code.listeners.GuiListener;
 import code.listeners.JoinListener;
 import code.listeners.QuitListener;
 import code.listeners.TabListener;
+import code.listeners.events.CommandSpyListener;
 import code.listeners.events.SocialSpyListener;
 import code.listeners.format.ChatFormat;
-import code.methods.click.ChatClickEvent;
+import code.managers.click.ChatClickEvent;
+import code.revisor.tabcomplete.BlockRevisor;
 import code.utils.StringFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -42,11 +44,15 @@ public class EventManager {
         debug.log("GuiListener loaded!");
         pl.registerEvents(new SocialSpyListener(pluginService), plugin);
         debug.log("SocialSpyListener loaded!");
+        pl.registerEvents(new CommandSpyListener(pluginService), plugin);
+        debug.log("CommandSpyListener loaded!");
 
-        if (stringFormat.containsVersion(stringFormat.getVersion(Bukkit.getServer()), "1.12", "1.13", "1.14", "1.15", "1.16")){
+        if (stringFormat.containsVersion(stringFormat.getVersion(Bukkit.getServer()), "1.12", "1.13", "1.14", "1.15", "1.16")) {
             pl.registerEvents(new TabListener(pluginService), plugin);
             debug.log("TabListener loaded!");
         }
+        BlockRevisor blockRevisor = new BlockRevisor(pluginService);
+
         plugin.getLogger().info("Events loaded!");
     }
 

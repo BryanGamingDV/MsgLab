@@ -1,17 +1,14 @@
 package code.revisor.tabcomplete;
 
 import code.PluginService;
-import code.methods.player.PlayerMessage;
+import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
-import code.utils.SupportManager;
-import code.utils.addons.ProtocolSupport;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-
 import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;
@@ -20,59 +17,73 @@ public class BlockRevisor {
 
     private PluginService pluginService;
 
-    public BlockRevisor(PluginService pluginService){
+    public BlockRevisor(PluginService pluginService) {
         this.pluginService = pluginService;
         setup();
     }
 
-    public void setup(){
+    public void setup() {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
-
         ProtocolManager protocolManager = pluginService.getSupportManager().getProtocolSupport().getManager();
-
         Logger logger = pluginService.getPlugin().getLogger();
-        if (protocolManager == null){
+
+        if (protocolManager == null) {
             logger.info("Error you don't have ProtocolLib installed");
             return;
         }
 
-        protocolManager.addPacketListener(new PacketAdapter(pluginService.getPlugin(), ListenerPriority.HIGHEST, new PacketType[]{PacketType.Play.Client.TAB_COMPLETE}){
+        protocolManager.addPacketListener(new PacketAdapter(pluginService.getPlugin(), ListenerPriority.HIGHEST, new PacketType[]{PacketType.Play.Client.TAB_COMPLETE}) {
             @Override
             public void onPacketReceiving(PacketEvent event) {
-                if (event.getPacketType() != PacketType.Play.Client.TAB_COMPLETE){
+                if (event.getPacketType() != PacketType.Play.Client.TAB_COMPLETE) {
                     return;
                 }
 
                 Player player = event.getPlayer();
 
+                if (!utils.getBoolean("revisor-cmd.tab-module.enabled")) {
+                    return;
+                }
+
                 PacketContainer packet = event.getPacket();
                 String command = packet.getSpecificModifier(String.class).read(0).toLowerCase();
 
-                if (utils.getBoolean("revisor.tab-module.block-empty")){
-                    if (command.equalsIgnoreCase("/")){
+                if (utils.getBoolean("revisor-cmd.tab-module.block-empty")) {
+                    if (!command.contains(" ")) {
                         event.setCancelled(true);
                         sendMessage(player);
+                        return;
                     }
                 }
 
-                for (String commands : utils.getStringList("revisor.tab-module.commands")){
-                    if (command.equalsIgnoreCase(commands)){
-                        event.setCancelled(true);
-                        sendMessage(player);
-                    }
+                if (!command.contains(" ")) {
+                    return;
                 }
+
+                for (String commands : utils.getStringList("revisor-cmd.tab-module.commands")) {
+
+                    if (!command.split(" ")[0].startsWith(commands)) {
+                        continue;
+                    }
+
+                    event.setCancelled(true);
+                    sendMessage(player);
+                    return;
+                }
+
+                event.setCancelled(false);
 
             }
         });
     }
 
-    public void sendMessage(Player player){
+    public void sendMessage(Player player) {
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (!utils.getBoolean("revisor.tab-module.message.enabled")){
+        if (!utils.getBoolean("revisor.tab-module.message.enabled")) {
             return;
         }
 

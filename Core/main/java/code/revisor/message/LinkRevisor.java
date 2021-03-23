@@ -2,8 +2,8 @@ package code.revisor.message;
 
 import code.PluginService;
 import code.bukkitutils.RunnableManager;
-import code.methods.player.PlayerMessage;
-import code.methods.player.PlayerStatic;
+import code.managers.player.PlayerMessage;
+import code.managers.player.PlayerStatic;
 import code.utils.Configuration;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
@@ -25,7 +25,6 @@ public class LinkRevisor {
 
     public String check(Player player, String string) {
 
-        List<BaseComponent[]> test =
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (!(utils.getBoolean("revisor.link-module.enabled"))) {

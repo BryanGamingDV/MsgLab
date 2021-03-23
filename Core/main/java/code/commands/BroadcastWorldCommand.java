@@ -1,10 +1,9 @@
 package code.commands;
 
 import code.PluginService;
-import code.bukkitutils.SoundCreator;
-import code.methods.click.ClickChatMethod;
-import code.methods.player.PlayerMessage;
-import code.registry.ConfigManager;
+import code.bukkitutils.sound.SoundEnum;
+import code.managers.click.ClickChatMethod;
+import code.managers.player.PlayerMessage;
 import code.revisor.RevisorManager;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
@@ -15,47 +14,38 @@ import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.entity.Player;
 
-import java.util.UUID;
-
+@Command(names = {"broadcastworld", "bcw", "bcworld"})
 public class BroadcastWorldCommand implements CommandClass {
 
     private final PluginService pluginService;
 
+    private final ClickChatMethod clickChatMethod;
+    private final PlayerMessage playerMethod;
+
+    private final ModuleCheck moduleCheck;
+
+    private final Configuration command;
+    private final Configuration messages;
+
     public BroadcastWorldCommand(PluginService pluginService) {
         this.pluginService = pluginService;
+
+        this.playerMethod = pluginService.getPlayerMethods().getSender();
+        this.clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
+
+        this.moduleCheck = pluginService.getPathManager();
+
+        this.command = pluginService.getFiles().getCommand();
+        this.messages = pluginService.getFiles().getMessages();
     }
 
-    @Command(names = {"broadcastworld", "bcw", "bcworld"})
-    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String args) {
-
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
-
-        SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
-        ModuleCheck moduleCheck = pluginService.getPathManager();
-
-        ConfigManager files = pluginService.getFiles();
-
-        Configuration command = files.getCommand();
-        Configuration messages = files.getMessages();
-
-        UUID playeruuid = sender.getUniqueId();
+    @Command(names = "")
+    public boolean onMainSubCommand(@Sender Player sender, @OptArg("") @Text String args) {
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("broadcastworld", "<message>")));
-            sound.setSound(playeruuid, "sounds.error");
-            return true;
-        }
-
-        ClickChatMethod clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
-
-        if (args.equalsIgnoreCase("-click")) {
-            if (!playerMethod.hasPermission(sender, "commands.broadcastworld.click")) {
-                playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-                return true;
-            }
-
-            clickChatMethod.activateChat(playeruuid, true);
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -63,7 +53,7 @@ public class BroadcastWorldCommand implements CommandClass {
 
         if (command.getBoolean("commands.broadcast.enable-revisor")) {
             RevisorManager revisorManager = pluginService.getRevisorManager();
-            message = revisorManager.revisor(playeruuid, message);
+            message = revisorManager.revisor(sender.getUniqueId(), message);
 
             if (message == null) {
                 return true;
@@ -75,9 +65,22 @@ public class BroadcastWorldCommand implements CommandClass {
                     .replace("%world%", sender.getWorld().getName())
                     .replace("%player%", sender.getName())
                     .replace("%message%", message));
-            sound.setSound(onlinePlayer.getUniqueId(), "sounds.on-receive.broadcast-world");
+            playerMethod.sendSound(sender, SoundEnum.RECEIVE_BROADCASTWORLD);
         }
         return true;
+    }
+
+    @Command(names = "-click")
+    public boolean onClickSubCommand(@Sender Player sender) {
+
+        if (!playerMethod.hasPermission(sender, "commands.broadcastworld.click")) {
+            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
+            return true;
+        }
+
+        clickChatMethod.activateChat(sender.getUniqueId(), true);
+        return true;
+
     }
 
 }

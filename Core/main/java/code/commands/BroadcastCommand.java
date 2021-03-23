@@ -1,10 +1,9 @@
 package code.commands;
 
 import code.PluginService;
-import code.bukkitutils.SoundCreator;
-import code.methods.click.ClickChatMethod;
-import code.methods.player.PlayerMessage;
-import code.registry.ConfigManager;
+import code.bukkitutils.sound.SoundEnum;
+import code.managers.click.ClickChatMethod;
+import code.managers.player.PlayerMessage;
 import code.revisor.RevisorManager;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
@@ -18,48 +17,36 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+@Command(names = {"broadcast", "bc"})
 public class BroadcastCommand implements CommandClass {
 
     private final PluginService pluginService;
 
+    private final PlayerMessage playerMethod;
+    private final ModuleCheck moduleCheck;
+
+    private final Configuration command;
+    private final Configuration messages;
+
     public BroadcastCommand(PluginService pluginService) {
         this.pluginService = pluginService;
+
+        this.playerMethod = pluginService.getPlayerMethods().getSender();
+        this.moduleCheck = pluginService.getPathManager();
+
+        this.command = pluginService.getFiles().getCommand();
+        this.messages = pluginService.getFiles().getMessages();
     }
 
-
-    @Command(names = {"broadcast", "bc"})
-    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String args) {
-
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
-
-        ModuleCheck moduleCheck = pluginService.getPathManager();
-        SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
-
-        ConfigManager files = pluginService.getFiles();
-
-        Configuration command = files.getCommand();
-        Configuration messages = files.getMessages();
+    @Command(names = "")
+    public boolean onMainCommand(@Sender Player sender, @OptArg("") @Text String args) {
 
         UUID playeruuid = sender.getUniqueId();
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("broadcast", "<message>")));
-            sound.setSound(playeruuid, "sounds.error");
-            return true;
-        }
-
-
-        ClickChatMethod clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
-
-        if (args.equalsIgnoreCase("-click")) {
-
-            if (!playerMethod.hasPermission(sender, "commands.broadcast.click")) {
-                playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-                return true;
-            }
-
-            clickChatMethod.activateChat(playeruuid, false);
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -78,9 +65,24 @@ public class BroadcastCommand implements CommandClass {
             playerMethod.sendMessage(onlinePlayer, command.getString("commands.broadcast.text.global")
                     .replace("%player%", sender.getName())
                     .replace("%message%", message));
-            sound.setSound(onlinePlayer.getUniqueId(), "sounds.on-receive.broadcast");
+            playerMethod.sendSound(sender, SoundEnum.RECEIVE_BROADCAST);
+        }
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "broadcast");
+        return true;
+    }
+
+    @Command(names = "-click")
+    public boolean onClickSubCommand(@Sender Player sender) {
+        ClickChatMethod clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
+
+        if (!playerMethod.hasPermission(sender, "commands.broadcast.click")) {
+            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            return true;
         }
 
+        clickChatMethod.activateChat(sender.getUniqueId(), false);
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "broadcast -click");
         return true;
     }
 

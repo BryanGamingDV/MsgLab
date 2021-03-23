@@ -3,15 +3,13 @@ package code;
 import code.bukkitutils.ManagingCenter;
 import code.data.ServerData;
 import code.debug.DebugLogger;
-import code.utils.SupportManager;
-import code.methods.MethodManager;
-
+import code.managers.MethodManager;
 import code.registry.CommandRegistry;
 import code.registry.ConfigManager;
 import code.registry.EventManager;
-
 import code.revisor.RevisorManager;
 import code.utils.StringFormat;
+import code.utils.SupportManager;
 import code.utils.module.ModuleCheck;
 import code.utils.module.ModuleCreator;
 
@@ -127,4 +125,7 @@ public class PluginService {
         return plugin;
     }
 
+    public CommandRegistry getCommandRegistry() {
+        return commandRegistry;
+    }
 }

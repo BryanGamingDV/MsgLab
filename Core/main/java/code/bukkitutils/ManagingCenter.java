@@ -2,13 +2,14 @@ package code.bukkitutils;
 
 import code.PluginService;
 import code.bukkitutils.gui.manager.GuiManager;
+import code.bukkitutils.sound.SoundManager;
 
 public class ManagingCenter {
 
 
     private final PluginService pluginService;
 
-    private SoundCreator soundCreator;
+    private SoundManager soundManager;
     private WorldData worldData;
     private RunnableManager runnableManager;
     private GuiManager guiManager;
@@ -20,7 +21,7 @@ public class ManagingCenter {
     }
 
     public void setup() {
-        soundCreator = new SoundCreator(pluginService);
+        soundManager = new SoundManager(pluginService);
         worldData = new WorldData(pluginService);
         guiManager = new GuiManager(pluginService);
         runnableManager = new RunnableManager(pluginService);
@@ -31,8 +32,8 @@ public class ManagingCenter {
         return runnableManager;
     }
 
-    public SoundCreator getSoundManager() {
-        return soundCreator;
+    public SoundManager getSoundManager() {
+        return soundManager;
     }
 
     public WorldData getWorldManager() {

@@ -1,12 +1,15 @@
 package code.listeners.format;
 
 import code.PluginService;
+import code.data.ServerData;
 import code.data.UserData;
-import code.methods.HoverMethod;
-import code.methods.RecipientMethod;
-import code.methods.click.ClickChatMethod;
-import code.methods.commands.StaffChatMethod;
-import code.methods.player.PlayerMessage;
+import code.events.CommandSpyEvent;
+import code.events.SocialSpyEvent;
+import code.managers.HoverMethod;
+import code.managers.RecipientMethod;
+import code.managers.click.ClickChatMethod;
+import code.managers.commands.StaffChatMethod;
+import code.managers.player.PlayerMessage;
 import code.revisor.RevisorManager;
 import code.utils.Configuration;
 import code.utils.StringFormat;
@@ -19,6 +22,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.server.ServerCommandEvent;
 
 import java.util.List;
 
@@ -39,6 +43,7 @@ public class ChatFormat implements Listener {
 
         Configuration command = pluginService.getFiles().getCommand();
         Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration messages = pluginService.getFiles().getMessages();
 
         UserData playerStatus = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
 
@@ -90,10 +95,18 @@ public class ChatFormat implements Listener {
             return;
         }
 
+        ServerData serverData = pluginService.getServerData();
         RevisorManager revisorManager = pluginService.getRevisorManager();
 
         if (revisorManager.getAntiRepeatRevisor().isTextSpamming(player.getUniqueId())) {
             return;
+        }
+
+        if (serverData.isMuted()) {
+            if (!playerMethod.hasPermission(player, "chat.muted-bypass")) {
+                playerMethod.sendMessage(player, messages.getString("error.chat.muted"));
+                return;
+            }
         }
 
         String message = event.getMessage();
@@ -118,6 +131,15 @@ public class ChatFormat implements Listener {
 
 
     @EventHandler
+    public void onServerCommand(ServerCommandEvent event){
+        StringFormat stringFormat = pluginService.getStringFormat();
+
+        String command = event.getCommand().substring(stringFormat.countRepeatedCharacters(event.getCommand(), '/')).toLowerCase();
+
+        Bukkit.getPluginManager().callEvent(new CommandSpyEvent("Console", command));
+
+    }
+    @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event) {
 
         RevisorManager revisorManager = pluginService.getRevisorManager();
@@ -136,25 +158,18 @@ public class ChatFormat implements Listener {
 
         String command = event.getMessage().substring(stringFormat.countRepeatedCharacters(event.getMessage(), '/')).split(" ")[0].toLowerCase();
 
+
+        System.out.println("command: " + command);
+        Bukkit.getPluginManager().callEvent(new CommandSpyEvent(event.getPlayer().getName(), event.getMessage().substring(stringFormat.countRepeatedCharacters(event.getMessage(), '/')).toLowerCase()));
+
         String commandRevisor = revisorManager.revisorCMD(event.getPlayer().getUniqueId(), event.getMessage().replace("/", "").split(" ")[0].toLowerCase());
 
-        if (commandRevisor == null){
+        if (commandRevisor == null) {
             event.setCancelled(true);
             return;
         }
 
         if (!pluginService.getPathManager().isPluginCommand(command)) {
-            return;
-        }
-
-        if (!pluginService.getPathManager().isCommandEnabled(command)) {
-
-            if (!pluginService.getPathManager().IsCommandEnabledInMc(command)) {
-                return;
-            }
-
-            pluginService.getPathManager().sendDisableMessage(event.getPlayer(), event.getMessage());
-            event.setCancelled(true);
             return;
         }
 

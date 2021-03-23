@@ -32,11 +32,11 @@ public class MsgLab extends JavaPlugin {
 
     }
 
-    public void loadKyori(){
+    public void loadKyori() {
         bukkitAudiences = BukkitAudiences.create(this);
     }
 
-    public BukkitAudiences getBukkitAudiences(){
+    public BukkitAudiences getBukkitAudiences() {
         return bukkitAudiences;
     }
 

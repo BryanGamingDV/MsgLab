@@ -1,8 +1,9 @@
 package code.commands;
 
 import code.PluginService;
-import code.bukkitutils.SoundCreator;
-import code.methods.player.PlayerMessage;
+import code.bukkitutils.sound.SoundEnum;
+import code.bukkitutils.sound.SoundManager;
+import code.managers.player.PlayerMessage;
 import code.registry.ConfigManager;
 import code.revisor.RevisorManager;
 import code.utils.Configuration;
@@ -31,7 +32,7 @@ public class StreamCommand implements CommandClass {
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
         ModuleCheck moduleCheck = pluginService.getPathManager();
-        SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
 
         ConfigManager files = pluginService.getFiles();
 
@@ -43,7 +44,7 @@ public class StreamCommand implements CommandClass {
         if (args.isEmpty()) {
             playerMethod.sendMessage(player, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("stream", "<message>")));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
@@ -89,6 +90,7 @@ public class StreamCommand implements CommandClass {
         if (!allowmode) {
             playerMethod.sendMessage(player, messages.getString("error.stream.valid-link")
                     .replace("%message%", message));
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
@@ -106,10 +108,10 @@ public class StreamCommand implements CommandClass {
             playerMethod.sendMessage(playerOnline, command.getString("commands.stream.text")
                     .replace("%player%", player.getName())
                     .replace("%message%", message));
-            sound.setSound(playerOnline.getUniqueId(), "sounds.on-receive.stream");
+            playerMethod.sendSound(playerOnline, SoundEnum.RECEIVE_STREAM);
         }
 
-
+        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "stream");
         return true;
     }
 

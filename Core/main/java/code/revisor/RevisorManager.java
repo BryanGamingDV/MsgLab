@@ -80,12 +80,12 @@ public class RevisorManager {
         return getDotRevisor().check(player, message);
     }
 
-    public String revisorCMD(UUID uuid, String command){
+    public String revisorCMD(UUID uuid, String command) {
         Player player = Bukkit.getPlayer(uuid);
 
         command = blockRevisor.revisor(player, command);
 
-        if (command == null){
+        if (command == null) {
             return null;
         }
 

@@ -32,6 +32,8 @@ public class UserData implements DataModel {
     private boolean playerhelpopMode = false;
     private boolean staffchatMode = false;
 
+    private boolean commandspyMode = false;
+
     private boolean clickMode = false;
 
     private final List<String> clickChat;
@@ -89,6 +91,10 @@ public class UserData implements DataModel {
         return staffchatMode;
     }
 
+    public boolean isCommandspyMode() {
+        return commandspyMode;
+    }
+
     public boolean equalsChannelGroup(String group) {
         return channelgroup.equalsIgnoreCase(group);
     }
@@ -97,7 +103,7 @@ public class UserData implements DataModel {
         return !guiGroup.equalsIgnoreCase("default");
     }
 
-    public HashMap<String, String> getHashMap() {
+    public HashMap<String, String> gethashTags() {
         return hashMap;
     }
 
@@ -182,10 +188,13 @@ public class UserData implements DataModel {
         socialspyMode = status;
     }
 
+    public void setCommandspyMode(boolean commandspyMode) {
+        this.commandspyMode = commandspyMode;
+    }
+
     public void resetStats() {
 
-
-        if (!(getHashMap().size() > 0)) getHashMap().clear();
+        if (!(gethashTags().size() > 0)) gethashTags().clear();
         if (isChangingPage()) setChangeInv(false);
         if (getPage() > 0) changePage(0);
         if (isGUISet()) setGUIGroup("default");
@@ -197,6 +206,7 @@ public class UserData implements DataModel {
 
         if (isCooldownMode()) setCooldownMode(false);
         if (isCooldownCmdMode()) setCooldownCmdMode(false);
+        if (isCommandspyMode()) setCommandspyMode(false);
 
         if (isPlayersoundMode()) setPlayersoundMode(true);
         if (isStaffchatMode()) toggleStaffChat(false);

@@ -1,9 +1,10 @@
 package code.commands;
 
 import code.PluginService;
-import code.bukkitutils.SoundCreator;
-import code.methods.commands.IgnoreMethod;
-import code.methods.player.PlayerMessage;
+import code.bukkitutils.sound.SoundEnum;
+import code.bukkitutils.sound.SoundManager;
+import code.managers.commands.IgnoreMethod;
+import code.managers.player.PlayerMessage;
 import code.registry.ConfigManager;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
@@ -27,13 +28,13 @@ public class IgnoreCommand implements CommandClass {
     }
 
     @Command(names = "ignore")
-    public boolean ignore(@Sender Player sender, @OptArg OfflinePlayer target) {
+    public boolean onIgnoreCommand(@Sender Player sender, @OptArg OfflinePlayer target) {
 
         ConfigManager files = pluginService.getFiles();
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-        SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
         ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration players = files.getPlayers();
@@ -45,7 +46,7 @@ public class IgnoreCommand implements CommandClass {
         if (target == null) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("ignore", "<sender>")));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -56,7 +57,7 @@ public class IgnoreCommand implements CommandClass {
 
             if (ignorelist.containsKey(playeruuid) || ignoredlist.isEmpty()) {
                 playerMethod.sendMessage(sender, messages.getString("error.ignore.anybody"));
-                sound.setSound(playeruuid, "sounds.error");
+                playerMethod.sendSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
@@ -65,20 +66,20 @@ public class IgnoreCommand implements CommandClass {
                 playerMethod.sendMessage(sender, "&8- &a" + playersignored);
             }
 
-            sound.setSound(playeruuid, "sounds.on-list");
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "ignore");
             return true;
         }
 
         if (!target.isOnline()) {
             playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
 
         if (target.getName().equalsIgnoreCase(sender.getName())) {
             playerMethod.sendMessage(sender, messages.getString("error.ignore.ignore-yourself"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -89,7 +90,7 @@ public class IgnoreCommand implements CommandClass {
             ignoreMethod.ignorePlayer(sender, target.getUniqueId());
             playerMethod.sendMessage(sender, command.getString("commands.ignore.player-ignored")
                     .replace("%player%", targetname));
-            sound.setSound(target.getPlayer().getUniqueId(), "sounds.on-ignore");
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "ignore");
             return true;
         }
 
@@ -97,14 +98,14 @@ public class IgnoreCommand implements CommandClass {
             ignoreMethod.ignorePlayer(sender, target.getUniqueId());
             playerMethod.sendMessage(sender, command.getString("commands.ignore.player-ignored")
                     .replace("%player%", targetname));
-            sound.setSound(target.getPlayer().getUniqueId(), "sounds.on-ignore");
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "ignore");
             return true;
         }
 
         ignoreMethod.unignorePlayer(sender, target.getUniqueId());
         playerMethod.sendMessage(sender, command.getString("commands.ignore.player-unignored")
                 .replace("%player%", targetname));
-        sound.setSound(target.getPlayer().getUniqueId(), "sounds.on-unignore");
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "ignore");
         return true;
 
 

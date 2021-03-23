@@ -1,14 +1,14 @@
 package code.commands;
 
 import code.PluginService;
-import code.bukkitutils.SoundCreator;
 import code.bukkitutils.gui.manager.GuiManager;
+import code.bukkitutils.sound.SoundEnum;
+import code.bukkitutils.sound.SoundManager;
 import code.data.UserData;
 import code.events.SocialSpyEvent;
-import code.methods.commands.MsgMethod;
-import code.methods.commands.ReplyMethod;
-import code.methods.player.PlayerMessage;
-import code.methods.player.PlayerStatic;
+import code.managers.commands.MsgMethod;
+import code.managers.commands.ReplyMethod;
+import code.managers.player.PlayerMessage;
 import code.registry.ConfigManager;
 import code.revisor.RevisorManager;
 import code.utils.Configuration;
@@ -39,7 +39,7 @@ public class MsgCommand implements CommandClass {
         ConfigManager files = pluginService.getFiles();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-        SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
+        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
         ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration command = files.getCommand();
@@ -50,7 +50,7 @@ public class MsgCommand implements CommandClass {
         if (target == null) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("msg", "<player>", "<message>")));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -80,7 +80,7 @@ public class MsgCommand implements CommandClass {
 
             if (!(playerMethod.hasPermission(sender, "commands.msg.toggle"))) {
                 playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-                sound.setSound(playeruuid, "sounds.error");
+                playerMethod.sendSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
@@ -100,7 +100,7 @@ public class MsgCommand implements CommandClass {
 
             if (you == null) {
                 playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-                sound.setSound(playeruuid, "sounds.error");
+                playerMethod.sendSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
@@ -118,21 +118,21 @@ public class MsgCommand implements CommandClass {
                         .replace("%arg-1%", you.getName()));
                 playerMethod.sendMessage(you, command.getString("commands.msg-toggle.player.unactivated"));
             }
-            sound.setSound(sender.getUniqueId(), "sounds.on-togglepm");
+            playerMethod.sendSound(you, SoundEnum.ARGUMENT, "msg -toggle");
             return true;
         }
 
 
         if (!(target.isOnline())) {
             playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (target.getName().equalsIgnoreCase(sender.getName())) {
             playerMethod.sendMessage(sender, messages.getString("error.same-player")
                     .replace("%player%", sender.getName()));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
 
         }
@@ -142,13 +142,14 @@ public class MsgCommand implements CommandClass {
         if (targetToggled == null) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("msg", "<player>", "<message>")));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (targetToggled.isMsgtoggleMode()) {
             playerMethod.sendMessage(sender, command.getString("commands.msg-toggle.msg")
                     .replace("%player%", target.getName()));
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -156,7 +157,7 @@ public class MsgCommand implements CommandClass {
         if (msg.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("msg", "<player>", "<message>")));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 

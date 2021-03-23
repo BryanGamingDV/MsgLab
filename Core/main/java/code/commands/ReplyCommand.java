@@ -1,11 +1,11 @@
 package code.commands;
 
 import code.PluginService;
-import code.bukkitutils.SoundCreator;
+import code.bukkitutils.sound.SoundEnum;
 import code.data.UserData;
 import code.events.SocialSpyEvent;
-import code.methods.player.PlayerMessage;
-import code.methods.player.PlayerStatic;
+import code.managers.player.PlayerMessage;
+import code.managers.player.PlayerStatic;
 import code.registry.ConfigManager;
 import code.revisor.RevisorManager;
 import code.utils.Configuration;
@@ -35,7 +35,6 @@ public class ReplyCommand implements CommandClass {
         ConfigManager files = pluginService.getFiles();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-        SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
         ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration players = files.getPlayers();
@@ -47,8 +46,7 @@ public class ReplyCommand implements CommandClass {
         if (message.isEmpty()) {
             playerMethod.sendMessage(sender, lang.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("reply", "<message>")));
-            sound.setSound(sender.getUniqueId(), "sounds.error");
-
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -56,7 +54,7 @@ public class ReplyCommand implements CommandClass {
 
         if (!playerCache.hasRepliedPlayer()) {
             playerMethod.sendMessage(sender, lang.getString("error.no-reply"));
-            sound.setSound(sender.getUniqueId(), "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -65,7 +63,7 @@ public class ReplyCommand implements CommandClass {
         if (message.equalsIgnoreCase("-sender")) {
             playerMethod.sendMessage(sender, command.getString("commands.msg-reply.talked")
                     .replace("%player%", target.getName()));
-            sound.setSound(sender.getUniqueId(), "sounds.on-reply-sender");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -86,7 +84,7 @@ public class ReplyCommand implements CommandClass {
                         .replace("%player%", sender.getName())
                         .replace("%arg-1%", target.getName())
                 , message);
-        sound.setSound(sender.getUniqueId(), "sounds.on-reply");
+        playerMethod.sendSound(sender, SoundEnum.RECEIVE_MSG);
 
         List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
 
@@ -99,7 +97,7 @@ public class ReplyCommand implements CommandClass {
             UserData targetCache = pluginService.getCache().getPlayerUUID().get(target.getUniqueId());
 
             targetCache.setRepliedPlayer(playeruuid);
-            sound.setSound(sender.getUniqueId(), "sounds.on-reply");
+            playerMethod.sendSound(sender, SoundEnum.RECEIVE_MSG);
         }
 
         String socialspyFormat = command.getString("commands.socialspy.spy")

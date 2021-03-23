@@ -1,15 +1,13 @@
 package code.utils;
 
 import code.PluginService;
-import code.methods.player.PlayerMessage;
+import code.managers.player.PlayerMessage;
 import code.registry.ConfigManager;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
-
-import javax.xml.stream.util.EventReaderDelegate;
 
 
 public class StringFormat {
@@ -43,15 +41,15 @@ public class StringFormat {
 
     }
 
-    public String getVersion(Server server){
+    public String getVersion(Server server) {
         String version = server.getClass().getPackage().getName().split("\\.")[3];
 
-        return version.replace("_",".").substring(1, version.length() - 3);
+        return version.replace("_", ".").substring(1, version.length() - 3);
     }
 
-    public boolean containsVersion(String version, String... versions){
-        for (String versionPath : versions){
-            if (version.equalsIgnoreCase(versionPath)){
+    public boolean containsVersion(String version, String... versions) {
+        for (String versionPath : versions) {
+            if (version.equalsIgnoreCase(versionPath)) {
                 return true;
             }
         }

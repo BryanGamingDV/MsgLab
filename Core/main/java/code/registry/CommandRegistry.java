@@ -52,6 +52,7 @@ public class CommandRegistry implements LoaderService {
         registerCommands("channel", new ChannelCommand(pluginService));
         registerCommands("motd", new MotdCommand(pluginService));
         registerCommands("stream", new StreamCommand(pluginService));
+        registerCommands("commandspy", new CommandSpyCommand(pluginService));
 
         pluginService.getLogs().log("Commands loaded!");
         plugin.getLogger().info("Commands loaded!");
@@ -64,7 +65,6 @@ public class CommandRegistry implements LoaderService {
         } else {
             pluginService.getLogs().log("Command: " + commandName + " unloaded.", 0);
         }
-        pluginService.getListManager().getCommands().add(commandName);
     }
 
     private void createCommandManager() {
@@ -75,5 +75,13 @@ public class CommandRegistry implements LoaderService {
         injector.install(new BukkitModule());
 
         builder = new AnnotatedCommandTreeBuilderImpl(injector);
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
+    }
+
+    public AnnotatedCommandTreeBuilder getBuilder() {
+        return builder;
     }
 }

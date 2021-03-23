@@ -4,7 +4,7 @@ import code.CacheManager;
 import code.MsgLab;
 import code.PluginService;
 import code.data.UserData;
-import code.methods.player.PlayerMessage;
+import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -34,16 +34,19 @@ public class CooldownData {
         this.playerMethod = pluginService.getPlayerMethods().getSender();
         pluginService.getListManager().getModules().add("cooldown");
 
-        int seconds = utils.getInt("chat.cooldown.text.seconds");
+        int seconds = utils.getInt("chat.format.cooldown.text.seconds");
         pluginService.getServerData().setServerCooldown(seconds);
     }
+
     public boolean isTextSpamming(UUID uuid) {
+
 
         if (!pluginService.getPathManager().isOptionEnabled("cooldown")) {
             return false;
         }
 
-        if (!(utils.getBoolean("chat.cooldown.text.enabled"))) {
+
+        if (!(utils.getBoolean("chat.format.cooldown.text.enabled"))) {
             return false;
         }
 
@@ -55,7 +58,7 @@ public class CooldownData {
         }
 
         if (playerCooldown.isCooldownMode()) {
-            playerMethod.sendMessage(player, utils.getString("chat.cooldown.text.message")
+            playerMethod.sendMessage(player, utils.getString("chat.format.cooldown.text.message")
                     .replace("%seconds%", pluginService.getServerData().getServerTextCooldown()));
             return true;
         }
@@ -78,7 +81,7 @@ public class CooldownData {
             return false;
         }
 
-        if (!(utils.getBoolean("chat.cooldown.cmd.enabled"))) {
+        if (!(utils.getBoolean("chat.format.cooldown.cmd.enabled"))) {
             return false;
         }
 
@@ -90,7 +93,7 @@ public class CooldownData {
         }
 
         if (playerCooldown.isCooldownCmdMode()) {
-            playerMethod.sendMessage(player, utils.getString("chat.cooldown.cmd.message")
+            playerMethod.sendMessage(player, utils.getString("chat.format.cooldown.cmd.message")
                     .replace("%seconds%", pluginService.getServerData().getServerTextCooldown()));
             return true;
         }
@@ -103,7 +106,7 @@ public class CooldownData {
                 playerCooldown.setCooldownCmdMode(false);
             }
 
-        }, 20L * utils.getInt("chat.cooldown.cmd.seconds"));
+        }, 20L * utils.getInt("chat.format.cooldown.cmd.seconds"));
 
         return false;
     }

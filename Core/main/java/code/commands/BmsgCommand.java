@@ -2,14 +2,16 @@ package code.commands;
 
 import code.MsgLab;
 import code.PluginService;
-import code.bukkitutils.SoundCreator;
+import code.bukkitutils.sound.SoundEnum;
+import code.bukkitutils.sound.SoundManager;
 import code.data.UserData;
-import code.methods.player.PlayerMessage;
+import code.managers.player.PlayerMessage;
 import code.registry.ConfigManager;
 import code.utils.Configuration;
 import code.utils.StringFormat;
 import code.utils.module.ModuleCheck;
 import code.utils.module.ModuleCreator;
+import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -37,7 +39,7 @@ public class BmsgCommand implements CommandClass {
 
     private final ModuleCheck moduleCheck;
     private final PlayerMessage playerMethod;
-    private final SoundCreator sound;
+    private final SoundManager sound;
 
     public BmsgCommand(MsgLab plugin, PluginService pluginService) {
         this.plugin = plugin;
@@ -58,7 +60,7 @@ public class BmsgCommand implements CommandClass {
     public boolean onCommand(@Sender Player sender) {
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                 .replace("%usage%", moduleCheck.getUsage("bmsg", "help, reload, commands, support, sounds, debug, restore")));
-        sound.setSound(sender.getUniqueId(), "sounds.error");
+        playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
 
@@ -67,6 +69,8 @@ public class BmsgCommand implements CommandClass {
 
         StringFormat variable = pluginService.getStringFormat();
         variable.loopString(sender, command, "commands.bmsg.help.pages");
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg help");
+
         return true;
 
     }
@@ -76,6 +80,7 @@ public class BmsgCommand implements CommandClass {
 
         if (!(getHelp().contains(page))) {
             playerMethod.sendMessage(sender, messages.getString("error.unknown-page"));
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -84,6 +89,7 @@ public class BmsgCommand implements CommandClass {
                 .replace("%max_page%", String.valueOf(getMaxPage())));
         command.getStringList("commands.bmsg.commands.pages." + page)
                 .forEach(text -> playerMethod.sendMessage(sender, text));
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg commands");
         return true;
     }
 
@@ -92,13 +98,14 @@ public class BmsgCommand implements CommandClass {
 
         if (!(playerMethod.hasPermission(sender, "commands.bmsg.reload"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (file.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("bmsg", "reload", "all, <file>")));
-            sound.setSound(sender.getUniqueId(), "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -117,12 +124,13 @@ public class BmsgCommand implements CommandClass {
         if (config.getBoolean("config.allow-support")) {
             playerMethod.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
             playerMethod.sendMessage(sender, "&8- &fJoin: &ahttps://discord.gg/wpSh4Bf4E");
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg support");
             return true;
         }
 
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                 .replace("%usage%", moduleCheck.getUsage("bmsg", "help, reload, commands, support, sounds, debug, restore")));
-        sound.setSound(sender.getUniqueId(), "sounds.error");
+        playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
 
     }
@@ -133,19 +141,20 @@ public class BmsgCommand implements CommandClass {
 
         if (!(soundfile.getBoolean("sounds.enabled-all"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-sound"));
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (playerSound.isPlayersoundMode()) {
             playerSound.setPlayersoundMode(false);
             playerMethod.sendMessage(sender, command.getString("commands.bmsg.sounds.disabled"));
-            sound.setSound(sender.getUniqueId(), "sounds.enable-mode");
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg sounds on");
             return true;
         }
 
         playerSound.setPlayersoundMode(true);
         playerMethod.sendMessage(sender, command.getString("commands.bmsg.sounds.enabled"));
-
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg sounds off");
         return true;
     }
 
@@ -154,13 +163,14 @@ public class BmsgCommand implements CommandClass {
 
         if (!(playerMethod.hasPermission(sender, "commands.bmsg.debug"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (arg1.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("bmsg", "debug", "pwc, commands, modules")));
-            sound.setSound(sender.getUniqueId(), "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -170,15 +180,18 @@ public class BmsgCommand implements CommandClass {
             if (arg2.isEmpty()) {
                 playerMethod.sendMessage(sender, messages.getString("error.unknown-arg"));
                 playerMethod.sendMessage(sender, "&8- &fWorlds: " + String.join(", ", worldlist), "or -all");
-                sound.setSound(sender.getUniqueId(), "sounds.error");
+                playerMethod.sendSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
             if (arg2.equalsIgnoreCase("-all")) {
                 playerMethod.sendMessage(sender, command.getString("commands.bmsg.debug.list.worlds"));
+
                 for (String worldname : worldlist) {
                     playerMethod.sendMessage(sender, "&8- &f " + worldname);
                 }
+
+                playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg debug pwc -all");
                 return true;
             }
 
@@ -187,7 +200,7 @@ public class BmsgCommand implements CommandClass {
             if (worldname.isEmpty()) {
                 playerMethod.sendMessage(sender, messages.getString("error.debug.unknown-world")
                         .replace("%world%", arg2));
-                sound.setSound(sender.getUniqueId(), "sounds.error");
+                playerMethod.sendSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
@@ -197,7 +210,7 @@ public class BmsgCommand implements CommandClass {
             for (String worldnamelist : worldname) {
                 playerMethod.sendMessage(sender, "&8- &f" + worldnamelist);
             }
-
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg debug pwc");
             return true;
         }
         if (arg2.equalsIgnoreCase("commands")) {
@@ -209,6 +222,7 @@ public class BmsgCommand implements CommandClass {
                     playerMethod.sendMessage(sender, "&8- &f" + commandName + " &c[Disabled]");
                 }
             }
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg debug commands");
             return true;
         }
         if (arg2.equalsIgnoreCase("modules")) {
@@ -220,13 +234,14 @@ public class BmsgCommand implements CommandClass {
                     playerMethod.sendMessage(sender, "&8- &f" + moduleName + " &c[Disabled]");
                 }
             }
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg debug modules");
             return true;
 
         }
 
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                 .replace("%usage%", moduleCheck.getUsage("bmsg", arg1, "commands, modules")));
-        sound.setSound(sender.getUniqueId(), "sounds.error");
+        playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
 
@@ -235,13 +250,14 @@ public class BmsgCommand implements CommandClass {
 
         if (!(playerMethod.hasPermission(sender, "commands.bmsg.restore"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (type.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("bmsg", "restore", "commands, modules")));
-            sound.setSound(sender.getUniqueId(), "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -251,6 +267,7 @@ public class BmsgCommand implements CommandClass {
             config.set("config.modules.enabled-commands", moduleCreator.getCommands());
             config.save();
             playerMethod.sendMessage(sender, command.getString("commands.bmsg.restore.commands"));
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg restore commands");
             return true;
 
         }
@@ -258,49 +275,53 @@ public class BmsgCommand implements CommandClass {
             config.set("config.modules.enabled-options", moduleCreator.getModules());
             config.save();
             playerMethod.sendMessage(sender, command.getString("commands.bmsg.restore.commands"));
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg restore modules");
             return true;
 
         }
 
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                 .replace("%usage%", moduleCheck.getUsage("bmsg", "restore", "commands, modules")));
-        sound.setSound(sender.getUniqueId(), "sounds.error");
+        playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
 
     public void getReloadEvent(Player player, String string) {
 
-        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
-
         ConfigManager files = pluginService.getFiles();
-        SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
 
         Map<String, Configuration> fileMap = pluginService.getCache().getConfigFiles();
 
         if (string.equalsIgnoreCase("you")) {
-            playersender.sendMessage(player, "%p &fEmmm, you are not a plugin. But symbolically, you can change your future. Be positive!");
-            playersender.sendMessage(player, "&8- &fEasterEgg #2");
+            playerMethod.sendMessage(player, "%p &fEmmm, you are not a plugin. But symbolically, you can change your future. Be positive!");
+            playerMethod.sendMessage(player, "&8- &fEasterEgg #2");
         }
 
         if (string.equalsIgnoreCase("all")) {
             for (Configuration config : fileMap.values()) {
                 config.reload();
             }
-            playersender.sendMessage(player, files.getCommand().getString("commands.bmsg.reload"));
+            checkCommands();
+            playerMethod.sendMessage(player, files.getCommand().getString("commands.bmsg.reload"));
+            playerMethod.sendSound(player, SoundEnum.ARGUMENT, "bmsg reload all");
             return;
         }
 
         if (fileMap.get(string) == null) {
-            playersender.sendMessage(player, files.getMessages().getString("error.unknown-arg"));
-            playersender.sendMessage(player, "&8- &fFiles: &a[commands, config, messages, players, sounds, utils]");
-            sound.setSound(player.getUniqueId(), "sounds.error");
+            playerMethod.sendMessage(player, files.getMessages().getString("error.unknown-arg"));
+            playerMethod.sendMessage(player, "&8- &fFiles: &a[commands, config, messages, players, sounds, utils]");
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return;
         }
 
         fileMap.get(string).reload();
-        playersender.sendMessage(player, files.getCommand().getString("commands.bmsg.reload-file")
+        if (string.equalsIgnoreCase("config")) {
+            checkCommands();
+        }
+
+        playerMethod.sendMessage(player, files.getCommand().getString("commands.bmsg.reload-file")
                 .replace("%file%", StringUtils.capitalize(string)));
-        sound.setSound(player.getUniqueId(), "sounds.on-reload");
+        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "bmsg reload");
 
     }
 
@@ -308,6 +329,14 @@ public class BmsgCommand implements CommandClass {
         List<String> maxpages = new ArrayList<>(getHelp());
 
         return maxpages.size();
+    }
+
+    public void checkCommands() {
+
+        CommandManager commandManager = pluginService.getCommandRegistry().getCommandManager();
+        commandManager.unregisterAll();
+
+        pluginService.getCommandRegistry().setup();
     }
 
     public Set<String> getHelp() {

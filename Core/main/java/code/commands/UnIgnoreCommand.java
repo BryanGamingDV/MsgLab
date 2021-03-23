@@ -1,9 +1,9 @@
 package code.commands;
 
 import code.PluginService;
-import code.bukkitutils.SoundCreator;
-import code.methods.commands.IgnoreMethod;
-import code.methods.player.PlayerMessage;
+import code.bukkitutils.sound.SoundEnum;
+import code.managers.commands.IgnoreMethod;
+import code.managers.player.PlayerMessage;
 import code.registry.ConfigManager;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
@@ -35,7 +35,6 @@ public class UnIgnoreCommand implements CommandClass {
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
         ModuleCheck moduleCheck = pluginService.getPathManager();
-        SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
 
         ConfigManager files = pluginService.getFiles();
 
@@ -46,18 +45,19 @@ public class UnIgnoreCommand implements CommandClass {
         if (target == null) {
             playerMethod.sendMessage(player, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("unignore", "<player>")));
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
         if (!(target.isOnline())) {
             playerMethod.sendMessage(player, messages.getString("error.player-offline"));
-            sound.setSound(player.getUniqueId(), "sounds.error");
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
         if (target.getName().equalsIgnoreCase(player.getName())) {
             playerMethod.sendMessage(player, messages.getString("error.ignore.ignore-yourself"));
-            sound.setSound(player.getUniqueId(), "sounds.error");
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
@@ -68,7 +68,7 @@ public class UnIgnoreCommand implements CommandClass {
 
         if (!(ignorelist.containsKey(playeruuid))) {
             playerMethod.sendMessage(player, messages.getString("error.ignore.anybody"));
-            sound.setSound(player.getUniqueId(), "sounds.error");
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
@@ -77,14 +77,14 @@ public class UnIgnoreCommand implements CommandClass {
 
         if (!(ignoredlist.contains(targetname))) {
             playerMethod.sendMessage(player, messages.getString("error.ignore.already-unignored"));
-            sound.setSound(player.getUniqueId(), "sounds.error");
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
         ignoreMethod.unignorePlayer(player, targetuuid);
         playerMethod.sendMessage(player, command.getString("commands.ignore.player-unignored")
                 .replace("%player%", targetname));
-        sound.setSound(target.getPlayer().getUniqueId(), "sounds.on-unignore");
+        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "ignore");
         return true;
     }
 }

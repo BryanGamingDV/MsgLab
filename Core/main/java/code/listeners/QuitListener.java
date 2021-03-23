@@ -2,8 +2,8 @@ package code.listeners;
 
 import code.PluginService;
 import code.data.UserData;
-import code.methods.ListenerManaging;
-import code.methods.player.PlayerMessage;
+import code.managers.ListenerManaging;
+import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
 import org.bukkit.entity.Player;

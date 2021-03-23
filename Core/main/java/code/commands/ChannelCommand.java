@@ -1,10 +1,11 @@
 package code.commands;
 
 import code.PluginService;
-import code.bukkitutils.SoundCreator;
+import code.bukkitutils.sound.SoundEnum;
+import code.bukkitutils.sound.SoundManager;
 import code.data.UserData;
-import code.methods.GroupMethod;
-import code.methods.player.PlayerMessage;
+import code.managers.GroupMethod;
+import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -26,7 +27,7 @@ public class ChannelCommand implements CommandClass {
     private final Configuration command;
 
     private final PlayerMessage playerMethod;
-    private final SoundCreator sound;
+    private final SoundManager sound;
 
     private final GroupMethod groupChannel;
     private final ModuleCheck moduleCheck;
@@ -51,7 +52,7 @@ public class ChannelCommand implements CommandClass {
 
         playerMethod.sendMessage(player, messages.getString("error.no-arg")
                 .replace("%usage%", moduleCheck.getUsage("channel", "join, quit, list, info, move")));
-        sound.setSound(playeruuid, "sounds.error");
+        playerMethod.sendSound(player, SoundEnum.ERROR);
         return true;
 
     }
@@ -65,19 +66,19 @@ public class ChannelCommand implements CommandClass {
         if (args == null) {
             playerMethod.sendMessage(player, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("channel", "join", "<channel>")));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
         if (groupChannel.channelNotExists(args)) {
             playerMethod.sendMessage(player, messages.getString("error.channel.no-exists"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
         if (!(groupChannel.isChannelEnabled(args))) {
             playerMethod.sendMessage(player, messages.getString("error.channel.disabled"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
@@ -85,12 +86,13 @@ public class ChannelCommand implements CommandClass {
         if (userData.equalsChannelGroup(args)) {
             playerMethod.sendMessage(player, messages.getString("error.channel.joined")
                     .replace("%channel%", userData.getChannelGroup()));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
         if (!(groupChannel.hasGroupPermission(player, args))) {
             playerMethod.sendMessage(player, messages.getString("error.no-perms"));
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
@@ -101,6 +103,7 @@ public class ChannelCommand implements CommandClass {
         userData.setChannelGroup(args);
         playerMethod.sendMessage(player, command.getString("commands.channel.player.join")
                 .replace("%channel%", userData.getChannelGroup()));
+        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "channel join");
         return true;
     }
 
@@ -112,14 +115,17 @@ public class ChannelCommand implements CommandClass {
 
         if (userData.equalsChannelGroup("default")) {
             playerMethod.sendMessage(player, messages.getString("error.channel.default"));
+            playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
         String beforechannel = userData.getChannelGroup();
         userData.setChannelGroup("default");
+
         playerMethod.sendMessage(player, command.getString("commands.channel.player.left")
                 .replace("%beforechannel%", beforechannel)
                 .replace("%afterchannel%", userData.getChannelGroup()));
+        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "channel quit");
         return true;
     }
 
@@ -147,30 +153,29 @@ public class ChannelCommand implements CommandClass {
         }
 
         playerMethod.sendMessage(player, command.getString("commands.channel.list.space"));
+        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "channel list");
         return true;
     }
 
     @Command(names = {"move"})
     public boolean moveSubCommand(@Sender Player sender, @OptArg OfflinePlayer target, @OptArg("") String channel) {
 
-        UUID playeruuid = sender.getUniqueId();
-
         if (!playerMethod.hasPermission(sender, "commands.channel.move")) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (target == null) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("channel", "move", "<player>", "<channel>")));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (!(target.isOnline())) {
             playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -180,19 +185,19 @@ public class ChannelCommand implements CommandClass {
         if (channel.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("channel", "move", "<player>", "<channel>")));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (groupChannel.channelNotExists(channel)) {
             playerMethod.sendMessage(sender, messages.getString("error.channel.no-exists"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (!(groupChannel.isChannelEnabled(channel))) {
             playerMethod.sendMessage(target.getPlayer(), messages.getString("error.channel.disabled"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -200,7 +205,7 @@ public class ChannelCommand implements CommandClass {
             playerMethod.sendMessage(sender, messages.getString("error.channel.arg2-joined")
                     .replace("%arg-2%", target.getName())
                     .replace("%channel%", userData.getChannelGroup()));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -211,18 +216,18 @@ public class ChannelCommand implements CommandClass {
         userData.setChannelGroup(channel);
         playerMethod.sendMessage(target.getPlayer(), command.getString("commands.channel.player.move.target")
                 .replace("%channel%", channel));
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "channel move");
         return true;
     }
 
     @Command(names = {"info"})
     public boolean infoSubCommand(@Sender Player sender, @OptArg("") String channel) {
 
-
         UUID playeruuid = sender.getUniqueId();
 
         if (!playerMethod.hasPermission(sender, "commands.channel.info")) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -232,18 +237,19 @@ public class ChannelCommand implements CommandClass {
         if (channel.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
                     .replace("%usage%", moduleCheck.getUsage("channel", "move", "<player>", "<channel>")));
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (groupChannel.channelNotExists(channel)) {
             playerMethod.sendMessage(sender, messages.getString("error.channel.no-exists"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (!(groupChannel.isChannelEnabled(channel))) {
             playerMethod.sendMessage(sender, messages.getString("error.channel.disabled"));
-            sound.setSound(playeruuid, "sounds.error");
+            playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -285,6 +291,7 @@ public class ChannelCommand implements CommandClass {
                     .replace("%condition_ans%", conditionAns)
                     .replace("%status%", status));
         }
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "channel status");
         return true;
     }
 }

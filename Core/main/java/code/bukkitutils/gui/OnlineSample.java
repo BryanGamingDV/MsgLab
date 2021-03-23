@@ -6,7 +6,7 @@ import code.bukkitutils.gui.manager.GuiData;
 import code.bukkitutils.gui.manager.GuiManager;
 import code.bukkitutils.pages.PageUUIDCreator;
 import code.data.UserData;
-import code.methods.player.PlayerStatic;
+import code.managers.player.PlayerStatic;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

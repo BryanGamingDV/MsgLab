@@ -1,6 +1,7 @@
 package code.events;
 
 
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

@@ -1,7 +1,7 @@
 package code.revisor.message;
 
 import code.PluginService;
-import code.methods.player.PlayerMessage;
+import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

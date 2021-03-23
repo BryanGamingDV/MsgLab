@@ -1,7 +1,8 @@
 package code.revisor.message;
 
 import code.PluginService;
-import code.methods.player.PlayerMessage;
+
+import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -13,7 +14,6 @@ public class CapsRevisor {
 
     public CapsRevisor(PluginService pluginService) {
         this.pluginService = pluginService;
-
     }
 
     public String check(Player player, String string) {

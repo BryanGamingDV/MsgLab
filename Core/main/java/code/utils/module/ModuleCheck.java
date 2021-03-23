@@ -2,11 +2,8 @@ package code.utils.module;
 
 
 import code.PluginService;
-import code.bukkitutils.SoundCreator;
-import code.methods.player.PlayerMessage;
 import code.utils.Configuration;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -46,40 +43,14 @@ public class ModuleCheck {
         return false;
     }
 
-    public boolean isCommandEnabled(String commandName) {
-
+    public boolean isCommandEnabled(String optionName) {
         List<String> commandFile = config.getStringList("config.modules.enabled-commands");
-        for (String commandEnabledCmds : commandFile) {
-            if (commandEnabledCmds.equalsIgnoreCase(StringUtils.remove(commandName, "/"))) {
+        for (String command : commandFile) {
+            if (command.equalsIgnoreCase(optionName)) {
                 return true;
             }
         }
         return false;
-    }
-
-    public boolean IsCommandEnabledInMc(String commandName) {
-
-        for (String commands : pluginService.getListManager().getCommands()) {
-            if (commandName.equalsIgnoreCase(commandName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void sendDisableMessage(Player player, String command) {
-
-        PlayerMessage sender = pluginService.getPlayerMethods().getSender();
-        SoundCreator sound = pluginService.getManagingCenter().getSoundManager();
-
-        Configuration messages = pluginService.getFiles().getMessages();
-
-        sender.sendMessage(player, messages.getString("error.module.command-disabled")
-                .replace("%player%", player.getName())
-                .replace("%command%", command));
-        sender.sendMessage(player, "&e[!] &8| &fYou need to restart the server to activate o deactivate the command.");
-        sound.setSound(player.getUniqueId(), "sounds.error");
-
     }
 
     public boolean isOptionEnabled(String optionName) {

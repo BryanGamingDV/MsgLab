@@ -1,11 +1,9 @@
 package code.revisor.commands;
 
 import code.PluginService;
-import code.methods.player.PlayerMessage;
+import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import org.bukkit.entity.Player;
-
-import javax.swing.plaf.synth.SynthDesktopIconUI;
 
 public class BlockRevisor {
 

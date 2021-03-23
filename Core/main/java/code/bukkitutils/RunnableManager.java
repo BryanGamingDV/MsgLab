@@ -1,8 +1,8 @@
 package code.bukkitutils;
 
 import code.PluginService;
-import code.methods.player.PlayerMessage;
-import code.methods.player.PlayerStatic;
+import code.managers.player.PlayerMessage;
+import code.managers.player.PlayerStatic;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
