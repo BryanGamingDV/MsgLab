@@ -51,7 +51,7 @@ public class CooldownData {
         }
 
         Player player = Bukkit.getPlayer(uuid);
-        UserData playerCooldown = cache.getPlayerUUID().get(uuid);
+        UserData playerCooldown = cache.getUserDatas().get(uuid);
 
         if (playerMethod.hasPermission(player, "cooldown.chat-bypass")) {
             return false;
@@ -86,7 +86,7 @@ public class CooldownData {
         }
 
         Player player = Bukkit.getPlayer(uuid);
-        UserData playerCooldown = cache.getPlayerUUID().get(uuid);
+        UserData playerCooldown = cache.getUserDatas().get(uuid);
 
         if (playerMethod.hasPermission(player, "cooldown.cmd-bypass")) {
             return false;

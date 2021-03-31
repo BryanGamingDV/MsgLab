@@ -4,7 +4,7 @@ import code.PluginService;
 import code.bukkitutils.WorldData;
 import code.debug.DebugLogger;
 import code.utils.Configuration;
-import code.utils.addons.VaultSupport;
+import code.utils.hooks.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -53,16 +53,16 @@ public class GroupMethod {
             return "default";
         }
 
-        VaultSupport vaultSupport = pluginService.getSupportManager().getVaultSupport();
+        VaultHook vaultHook = pluginService.getSupportManager().getVaultSupport();
 
-        if (vaultSupport.getChat() == null || vaultSupport.getPermissions() == null) {
+        if (vaultHook.getChat() == null || vaultHook.getPermissions() == null) {
             pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
             debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
             return "default";
         }
 
         for (String group : getGroup()) {
-            if (vaultSupport.getChat().playerInGroup(player, group)) {
+            if (vaultHook.getChat().playerInGroup(player, group)) {
                 return group;
             }
         }
@@ -110,7 +110,7 @@ public class GroupMethod {
         return utils.getConfigurationSection(format + ".format.groups").getKeys(false);
     }
 
-    public String getJQGroup(Player player, String mode) {
+    public String getJQGroup(Player player) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
         DebugLogger debugLogger = pluginService.getLogs();
@@ -121,25 +121,29 @@ public class GroupMethod {
             return "default";
         }
 
-        VaultSupport vaultSupport = pluginService.getSupportManager().getVaultSupport();
+        VaultHook vaultHook = pluginService.getSupportManager().getVaultSupport();
 
-        if (vaultSupport.getChat() == null || vaultSupport.getPermissions() == null) {
+        if (vaultHook.getChat() == null || vaultHook.getPermissions() == null) {
             pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault complement [LuckPerms, PermissionsEx..] isn't loaded..");
             debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
             return "default";
         }
 
-        if (utils.getString(mode + ".format.group-access").equalsIgnoreCase("permission")) {
-            for (String group : getJQGroups(mode)) {
-                if (player.hasPermission(utils.getString(mode + ".format.groups." + group + ".permission"))) {
+        if (utils.getString("lobby.group-access").equalsIgnoreCase("permission")) {
+            for (String group : utils.getConfigurationSection("lobby.formats").getKeys(true)) {
+                if (utils.getString("lobby.formats." + group + ".permission") == null){
+                    continue;
+                }
+
+                if (player.hasPermission(utils.getString("lobby.formats." + group + ".permission"))){
                     return group;
                 }
             }
             return "default";
         }
 
-        for (String group : getJQGroups(mode)) {
-            if (vaultSupport.getChat().playerInGroup(player, group)) {
+        for (String group : utils.getConfigurationSection("lobby.formats").getKeys(true)) {
+            if (vaultHook.getChat().playerInGroup(player, group)) {
                 return group;
             }
         }
@@ -147,16 +151,6 @@ public class GroupMethod {
         return "default";
     }
 
-    public String getJQFormat(Player player, String format) {
-        Configuration utils = pluginService.getFiles().getBasicUtils();
-
-        if (getJQGroup(player, format).equalsIgnoreCase("default")) {
-            return utils.getString(format + ".format.default");
-        }
-
-        return utils.getString(format + ".format.groups." + getJQGroup(player, format) + ".format");
-
-    }
 
     public List<String> getPlayerHover(Player player, String format) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
@@ -234,7 +228,7 @@ public class GroupMethod {
 
     public boolean hasGroupPermission(Player player, String group) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
-        VaultSupport vaultSupport = pluginService.getSupportManager().getVaultSupport();
+        VaultHook vaultHook = pluginService.getSupportManager().getVaultSupport();
 
         if (group.equalsIgnoreCase("default")) {
             return true;
@@ -248,7 +242,7 @@ public class GroupMethod {
             return player.hasPermission(utils.getString("chat.format.groups." + group + ".permission"));
         }
 
-        return vaultSupport.getChat().playerInGroup(player, group);
+        return vaultHook.getChat().playerInGroup(player, group);
 
     }
 
@@ -263,16 +257,16 @@ public class GroupMethod {
             return "default";
         }
 
-        VaultSupport vaultSupport = pluginService.getSupportManager().getVaultSupport();
+        VaultHook vaultHook = pluginService.getSupportManager().getVaultSupport();
 
-        if (vaultSupport.getChat() == null || vaultSupport.getPermissions() == null) {
+        if (vaultHook.getChat() == null || vaultHook.getPermissions() == null) {
             pluginService.getPlugin().getLogger().info("[ChatFormat] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
             debugLogger.log("[ChatFormat] | Vault isn't loaded..", 2);
             return "default";
         }
 
         for (String group : utils.getStringList("fitler-cmd.groups")) {
-            if (vaultSupport.getChat().playerInGroup(player, group)) {
+            if (vaultHook.getChat().playerInGroup(player, group)) {
                 return group;
             }
         }

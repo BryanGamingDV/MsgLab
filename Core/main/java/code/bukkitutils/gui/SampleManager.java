@@ -1,6 +1,7 @@
 package code.bukkitutils.gui;
 
 import code.PluginService;
+import code.bukkitutils.gui.sample.OnlineSample;
 
 import java.util.HashMap;
 

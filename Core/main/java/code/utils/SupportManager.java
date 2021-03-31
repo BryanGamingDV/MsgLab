@@ -1,15 +1,15 @@
 package code.utils;
 
 import code.PluginService;
-import code.utils.addons.ProtocolSupport;
-import code.utils.addons.VaultSupport;
+import code.utils.hooks.ProtocolHook;
+import code.utils.hooks.VaultHook;
 
 public class SupportManager {
 
     private PluginService pluginService;
 
-    private VaultSupport vaultSupport;
-    private ProtocolSupport protocolSupport;
+    private VaultHook vaultHook;
+    private ProtocolHook protocolHook;
 
     public SupportManager(PluginService pluginService) {
         this.pluginService = pluginService;
@@ -17,15 +17,15 @@ public class SupportManager {
     }
 
     public void setup() {
-        vaultSupport = new VaultSupport(pluginService);
-        protocolSupport = new ProtocolSupport(pluginService);
+        vaultHook = new VaultHook(pluginService);
+        protocolHook = new ProtocolHook(pluginService);
     }
 
-    public VaultSupport getVaultSupport() {
-        return vaultSupport;
+    public VaultHook getVaultSupport() {
+        return vaultHook;
     }
 
-    public ProtocolSupport getProtocolSupport() {
-        return protocolSupport;
+    public ProtocolHook getProtocolSupport() {
+        return protocolHook;
     }
 }

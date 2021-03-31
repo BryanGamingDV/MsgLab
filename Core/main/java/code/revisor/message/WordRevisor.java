@@ -71,7 +71,7 @@ public class WordRevisor {
                 }
 
                 if (utils.getBoolean("revisor.words-module.command.enabled")) {
-                    runnableManager.sendCommand(Bukkit.getConsoleSender(), PlayerStatic.setVariables(player, utils.getString("revisor.words-module.command.format")
+                    runnableManager.sendCommand(Bukkit.getConsoleSender(), PlayerStatic.convertText(player, utils.getString("revisor.words-module.command.format")
                             .replace("%player%", player.getName())));
                 }
                 bwstatus = true;

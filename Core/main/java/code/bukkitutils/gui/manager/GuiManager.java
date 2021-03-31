@@ -41,7 +41,7 @@ public class GuiManager {
         Player player = Bukkit.getPlayer(uuid);
 
         // User Cache
-        UserData userData = pluginService.getCache().getPlayerUUID().get(uuid);
+        UserData userData = pluginService.getCache().getUserDatas().get(uuid);
 
         player.openInventory(getData(name).getPage(uuid, page).build());
         userData.setGUIGroup(name);

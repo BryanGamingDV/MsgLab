@@ -6,6 +6,8 @@ import code.managers.click.ClickChatMethod;
 import code.managers.commands.*;
 import code.managers.player.PlayerMessage;
 import code.managers.player.PlayerStatic;
+import code.utils.string.StringUtils;
+import code.utils.string.VariableUtils;
 
 public class MethodManager {
 
@@ -15,7 +17,6 @@ public class MethodManager {
     private PlayerStatic playerStatic;
 
 
-    private ListenerManaging listenerManaging;
     private ClickChatMethod chatManagent;
     private GroupMethod groupMethod;
     private RadialChatMethod radialChatMethod;
@@ -33,6 +34,9 @@ public class MethodManager {
     private ReplyMethod replyMethod;
     private StaffChatMethod staffChatMethod;
 
+    private VariableUtils variableUtils;
+    private StringUtils stringUtils;
+
     private final PluginService pluginService;
 
     public MethodManager(PluginService pluginService) {
@@ -43,7 +47,6 @@ public class MethodManager {
 
         chatManagent = new ClickChatMethod(pluginService);
         groupMethod = new GroupMethod(pluginService);
-        listenerManaging = new ListenerManaging(pluginService);
         radialChatMethod = new RadialChatMethod(pluginService);
 
         recipientMethod = new RecipientMethod(pluginService);
@@ -63,6 +66,9 @@ public class MethodManager {
         replyMethod = new ReplyMethod(pluginService);
         msgMethod = new MsgMethod(pluginService);
 
+        variableUtils = new VariableUtils(pluginService);
+        stringUtils = new StringUtils(pluginService);
+
         pluginService.getLogs().log("Method registered");
 
     }
@@ -73,10 +79,6 @@ public class MethodManager {
 
     public ClickChatMethod getChatManagent() {
         return chatManagent;
-    }
-
-    public ListenerManaging getListenerManaging() {
-        return listenerManaging;
     }
 
     public RadialChatMethod getRadialChatMethod() {

@@ -39,9 +39,9 @@ public class HoverMethod {
             String textPath = groupMethod.getPlayerFormat(player, format);
 
             if (textPath.contains("%message%")) {
-                textPath = PlayerStatic.setFormat(player, textPath, message);
+                textPath = PlayerStatic.convertText(player, textPath, message);
             } else {
-                textPath = PlayerStatic.setFormat(player, textPath);
+                textPath = PlayerStatic.convertText(player, textPath);
             }
 
             Component newComponent = miniMessage.parse(textPath);
@@ -50,8 +50,9 @@ public class HoverMethod {
             String textCommand = groupMethod.getPlayerCmd(player, format);
 
             if (!textHover.isEmpty()) {
-                textHover = PlayerStatic.setFormatList(player, textHover);
-                newComponent = newComponent.hoverEvent(HoverEvent.showText(miniMessage.parse(PlayerStatic.listToString(textHover))));
+                textHover.replaceAll(string -> PlayerStatic.convertText(player, string));
+
+                newComponent = newComponent.hoverEvent(HoverEvent.showText(miniMessage.parse(String.join("\n", textHover))));
                 newComponent = newComponent.clickEvent(ClickEvent.clickEvent(ClickEvent.Action.SUGGEST_COMMAND, textCommand
                         .replace("%player%", player.getName())));
             }

@@ -18,8 +18,8 @@ public class ReplyMethod {
 
     public void setReply(UUID player, UUID target) {
 
-        UserData playerCache = pluginService.getCache().getPlayerUUID().get(player);
-        UserData targetCache = pluginService.getCache().getPlayerUUID().get(target);
+        UserData playerCache = pluginService.getCache().getUserDatas().get(player);
+        UserData targetCache = pluginService.getCache().getUserDatas().get(target);
 
         playerCache.setRepliedPlayer(target);
         targetCache.setRepliedPlayer(player);

@@ -6,9 +6,11 @@ import code.bukkitutils.sound.SoundEnum;
 import code.bukkitutils.sound.SoundManager;
 import code.utils.Configuration;
 import code.utils.StringFormat;
+import com.sun.org.apache.xpath.internal.operations.VariableSafeAbsRef;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -84,25 +86,11 @@ public class PlayerMessage {
             }
         }
 
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            try {
-                path = PlayerStatic.setVariables(sender, path);
-            } catch (NullPointerException nullPointerException) {
-                sendLines(nullPointerException);
-                return;
-            }
-        }
+
+        Audience player = pluginService.getPlugin().getBukkitAudiences().player(sender);
 
         try {
-
-            Audience player = pluginService.getPlugin().getBukkitAudiences().player(sender);
-
-
-            path = pluginService.getStringFormat().replaceString(path);
-            path = PlayerStatic.setFormat(sender, path);
-
-
-            player.sendMessage(getMessage(path));
+            player.sendMessage(PlayerStatic.convertTextToComponent(sender, path));
         } catch (NullPointerException nullPointerException) {
             sendLines(nullPointerException);
         }
@@ -121,10 +109,8 @@ public class PlayerMessage {
         }
 
         Audience player = pluginService.getPlugin().getBukkitAudiences().player(sender);
-        path = PlayerStatic.setFormat(sender, path, message);
-
         try {
-            player.sendMessage(getMessage(path, message));
+            player.sendMessage(PlayerStatic.convertTextToComponent(sender, path, message));
         } catch (NullPointerException nullPointerException) {
             sendLines(nullPointerException);
         }
@@ -142,12 +128,10 @@ public class PlayerMessage {
             }
         }
 
-        StringFormat stringFormat = pluginService.getStringFormat();
         Audience player = pluginService.getPlugin().getBukkitAudiences().player(sender);
         try {
-            messages.replaceAll(message -> message = stringFormat.replaceString(message));
-            messages.replaceAll(message ->
-                    message = PlayerStatic.setFormat(sender, message));
+            messages
+                    .replaceAll(message -> PlayerStatic.convertText(sender, message));
 
         } catch (NullPointerException nullPointerException) {
             sendLines(nullPointerException);
@@ -155,7 +139,7 @@ public class PlayerMessage {
         }
 
         for (String message : messages){
-            player.sendMessage(getMessage(message));
+            player.sendMessage(MiniMessage.get().parse(message));
         }
     }
 
@@ -243,19 +227,6 @@ public class PlayerMessage {
         runnableManager.sendCommand(player, command);
     }
 
-    private Component getMessage(String message) {
-        return PlayerStatic.convertText(message);
-    }
-
-
-    private Component getMessage(String path, String message) {
-        path = pluginService.getStringFormat().replaceString(path);
-        path = PlayerStatic.setColor(path);
-        ;
-
-        return PlayerStatic.convertText(path
-                .replace("%message%", message));
-    }
 
     private void sendLines(NullPointerException nullPointerException) {
         Logger logger = pluginService.getPlugin().getLogger();

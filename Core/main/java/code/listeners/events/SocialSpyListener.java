@@ -3,7 +3,6 @@ package code.listeners.events;
 
 import code.PluginService;
 import code.bukkitutils.sound.SoundEnum;
-import code.bukkitutils.sound.SoundManager;
 import code.data.UserData;
 import code.events.SocialSpyEvent;
 import code.managers.player.PlayerMessage;
@@ -25,7 +24,7 @@ public class SocialSpyListener implements Listener {
         PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
         Bukkit.getServer().getOnlinePlayers().forEach(player -> {
-            UserData watcherSpy = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+            UserData watcherSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
             if (!watcherSpy.isSocialSpyMode()) {
                 return;

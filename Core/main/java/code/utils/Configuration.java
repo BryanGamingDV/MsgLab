@@ -1,11 +1,15 @@
 package code.utils;
 
+import code.managers.player.PlayerStatic;
+import code.utils.string.StringUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 public final class Configuration extends YamlConfiguration {
@@ -75,4 +79,15 @@ public final class Configuration extends YamlConfiguration {
         }
     }
 
+    public String getColoredString(String path){
+        return StringUtils.setColor(getString(path));
+    }
+
+    public List<String> getColoredStringList(String path){
+
+        List<String> stringList = getStringList(path);
+        stringList.replaceAll(StringUtils::setColor);
+
+        return stringList;
+    }
 }

@@ -5,7 +5,6 @@ import code.bukkitutils.sound.SoundEnum;
 import code.data.UserData;
 import code.events.SocialSpyEvent;
 import code.managers.player.PlayerMessage;
-import code.managers.player.PlayerStatic;
 import code.registry.ConfigManager;
 import code.revisor.RevisorManager;
 import code.utils.Configuration;
@@ -50,7 +49,7 @@ public class ReplyCommand implements CommandClass {
             return true;
         }
 
-        UserData playerCache = pluginService.getCache().getPlayerUUID().get(sender.getUniqueId());
+        UserData playerCache = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
         if (!playerCache.hasRepliedPlayer()) {
             playerMethod.sendMessage(sender, lang.getString("error.no-reply"));
@@ -89,12 +88,12 @@ public class ReplyCommand implements CommandClass {
         List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
 
         if (!(ignoredlist.contains(target.getName()))) {
-            playerMethod.sendMessage(target, PlayerStatic.setColor(command.getString("commands.msg-reply.player")
+            playerMethod.sendMessage(target, command.getString("commands.msg-reply.player")
                             .replace("%player%", sender.getName())
-                            .replace("%arg-1%", target.getName()))
+                            .replace("%arg-1%", target.getName())
                     , message);
 
-            UserData targetCache = pluginService.getCache().getPlayerUUID().get(target.getUniqueId());
+            UserData targetCache = pluginService.getCache().getUserDatas().get(target.getUniqueId());
 
             targetCache.setRepliedPlayer(playeruuid);
             playerMethod.sendSound(sender, SoundEnum.RECEIVE_MSG);

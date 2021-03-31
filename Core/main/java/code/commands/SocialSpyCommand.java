@@ -63,7 +63,7 @@ public class SocialSpyCommand implements CommandClass {
     public boolean onListSubCommand(@Sender Player player) {
         List<String> socialspyList = new ArrayList<>();
 
-        for (UserData cache : pluginService.getCache().getPlayerUUID().values()) {
+        for (UserData cache : pluginService.getCache().getUserDatas().values()) {
             if (cache.isSocialSpyMode()) {
                 socialspyList.add(cache.getPlayer().getName());
             }
@@ -89,7 +89,7 @@ public class SocialSpyCommand implements CommandClass {
     @Command(names = "on")
     public boolean onOnSubCommand(@Sender Player player, @OptArg("") Player target) {
 
-        UserData playerSpy = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData playerSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (target.getName().isEmpty()) {
             if (playerSpy.isSocialSpyMode()) {
@@ -109,7 +109,7 @@ public class SocialSpyCommand implements CommandClass {
                 return true;
             }
 
-            UserData targetSpy = pluginService.getCache().getPlayerUUID().get(target.getUniqueId());
+            UserData targetSpy = pluginService.getCache().getUserDatas().get(target.getUniqueId());
             String targetname = target.getName();
 
             if (targetSpy.isSocialSpyMode()) {
@@ -131,7 +131,7 @@ public class SocialSpyCommand implements CommandClass {
     @Command(names = "off")
     public boolean onOffSubCommand(@Sender Player player, @OptArg("") Player target) {
 
-        UserData playerSpy = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData playerSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (target.getName().isEmpty()) {
             if (!(playerSpy.isSocialSpyMode())) {
@@ -150,7 +150,7 @@ public class SocialSpyCommand implements CommandClass {
                 return true;
             }
 
-            UserData targetSpy = pluginService.getCache().getPlayerUUID().get(target.getUniqueId());
+            UserData targetSpy = pluginService.getCache().getUserDatas().get(target.getUniqueId());
             String targetname = target.getName();
 
             if (!(targetSpy.isSocialSpyMode())) {

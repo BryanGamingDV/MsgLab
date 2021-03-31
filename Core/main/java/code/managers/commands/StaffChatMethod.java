@@ -23,7 +23,7 @@ public class StaffChatMethod implements MethodService {
 
     public StaffChatMethod(PluginService pluginService) {
         this.pluginService = pluginService;
-        this.cache = pluginService.getCache().getPlayerUUID();
+        this.cache = pluginService.getCache().getUserDatas();
     }
 
     public String getStatus() {
@@ -78,7 +78,7 @@ public class StaffChatMethod implements MethodService {
         ClickChatMethod clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-        UserData playerStatus = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (!playerMethod.hasPermission(player, "commands.staffchat.watch")) {
             return;

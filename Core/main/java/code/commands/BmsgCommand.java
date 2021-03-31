@@ -6,9 +6,9 @@ import code.bukkitutils.sound.SoundEnum;
 import code.bukkitutils.sound.SoundManager;
 import code.data.UserData;
 import code.managers.player.PlayerMessage;
+import code.modules.DataModule;
 import code.registry.ConfigManager;
 import code.utils.Configuration;
-import code.utils.StringFormat;
 import code.utils.module.ModuleCheck;
 import code.utils.module.ModuleCreator;
 import me.fixeddev.commandflow.CommandManager;
@@ -67,8 +67,8 @@ public class BmsgCommand implements CommandClass {
     @Command(names = "help")
     public boolean helpSubCommand(@Sender Player sender) {
 
-        StringFormat variable = pluginService.getStringFormat();
-        variable.loopString(sender, command, "commands.bmsg.help.pages");
+        command.getStringList("commands.bmsg.help.pages")
+                .forEach(text -> playerMethod.sendMessage(sender, text));
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg help");
 
         return true;
@@ -137,7 +137,7 @@ public class BmsgCommand implements CommandClass {
 
     @Command(names = "sounds")
     public boolean soundsSubCommand(@Sender Player sender) {
-        UserData playerSound = pluginService.getCache().getPlayerUUID().get(sender.getUniqueId());
+        UserData playerSound = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
         if (!(soundfile.getBoolean("sounds.enabled-all"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-sound"));
@@ -302,6 +302,7 @@ public class BmsgCommand implements CommandClass {
                 config.reload();
             }
             checkCommands();
+            DataModule dataModule = new DataModule(pluginService);
             playerMethod.sendMessage(player, files.getCommand().getString("commands.bmsg.reload"));
             playerMethod.sendSound(player, SoundEnum.ARGUMENT, "bmsg reload all");
             return;
@@ -317,6 +318,9 @@ public class BmsgCommand implements CommandClass {
         fileMap.get(string).reload();
         if (string.equalsIgnoreCase("config")) {
             checkCommands();
+        }
+        if (string.equalsIgnoreCase("utils")){
+            DataModule dataModule = new DataModule(pluginService);
         }
 
         playerMethod.sendMessage(player, files.getCommand().getString("commands.bmsg.reload-file")
@@ -336,7 +340,7 @@ public class BmsgCommand implements CommandClass {
         CommandManager commandManager = pluginService.getCommandRegistry().getCommandManager();
         commandManager.unregisterAll();
 
-        pluginService.getCommandRegistry().setup();
+        pluginService.getCommandRegistry().reCheckCommands();
     }
 
     public Set<String> getHelp() {

@@ -2,6 +2,7 @@ package code;
 
 import code.api.BasicAPI;
 import code.api.BasicAPIDesc;
+import code.modules.DataModule;
 import code.utils.UpdateCheck;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
@@ -70,6 +71,8 @@ public class MsgLab extends JavaPlugin {
         if (basicMsg.getFiles().getConfig().getBoolean("config.update-check")) {
             getUpdateChecker();
         }
+
+        DataModule dataModule = new DataModule(basicMsg);
 
     }
 

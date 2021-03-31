@@ -16,7 +16,7 @@ public class HelpOpMethod implements MethodService {
 
     public HelpOpMethod(PluginService pluginService) {
         this.pluginService = pluginService;
-        this.cache = pluginService.getCache().getPlayerUUID();
+        this.cache = pluginService.getCache().getUserDatas();
     }
 
     public String getStatus() {

@@ -35,6 +35,12 @@ public class GuiData {
         inv.addItem(createItem(Material.valueOf(item.toUpperCase()), name, lore));
     }
 
+    public void addItems(ItemStack... itemStacks){
+        for (ItemStack itemStack : itemStacks){
+            inv.addItem(itemStack);
+            return;
+        }
+    }
     public void addItem(String item, String name) {
         inv.addItem(createItem(Material.valueOf(item.toUpperCase()), name));
     }

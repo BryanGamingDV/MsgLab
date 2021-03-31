@@ -32,7 +32,6 @@ public class StreamCommand implements CommandClass {
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
         ModuleCheck moduleCheck = pluginService.getPathManager();
-        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
 
         ConfigManager files = pluginService.getFiles();
 

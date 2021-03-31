@@ -21,7 +21,7 @@ public class RecoverStats {
 
     private void setup() {
         Configuration players = pluginService.getFiles().getPlayers();
-        Map<UUID, UserData> hashMap = pluginService.getCache().getPlayerUUID();
+        Map<UUID, UserData> hashMap = pluginService.getCache().getUserDatas();
 
         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 

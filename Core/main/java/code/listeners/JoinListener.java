@@ -3,10 +3,13 @@ package code.listeners;
 import code.CacheManager;
 import code.PluginService;
 import code.data.UserData;
-import code.managers.ListenerManaging;
+import code.events.server.ChangeMode;
+import code.events.server.ServerChangeEvent;
+import code.managers.GroupMethod;
 import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,21 +42,25 @@ public class JoinListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        ListenerManaging listenerManaging = pluginService.getPlayerMethods().getListenerManaging();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        GroupMethod groupMethod = pluginService.getPlayerMethods().getGroupMethod();
 
         ModuleCheck moduleCheck = pluginService.getPathManager();
 
-        if (cache.getPlayerUUID().get(uuid) == null) {
-            cache.getPlayerUUID().put(uuid, new UserData(uuid));
+        if (cache.getUserDatas().get(uuid) == null) {
+            cache.getUserDatas().put(uuid, new UserData(uuid));
         }
-
         if (playerMethod.hasPermission(player, "commands.helpop.watch")) {
-            cache.getPlayerUUID().get(uuid).toggleHelpOp(true);
+            cache.getUserDatas().get(uuid).toggleHelpOp(true);
         }
+        String playerRank = groupMethod.getJQGroup(player);
 
         if (moduleCheck.isOptionEnabled("join_quit")) {
-            listenerManaging.setJoin(event);
+            if (!event.getPlayer().hasPlayedBefore()) {
+                Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, event.getPlayer(), playerRank, ChangeMode.FIRST_JOIN));
+            } else {
+                Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, event.getPlayer(), playerRank, ChangeMode.JOIN));
+            }
         }
 
         if (moduleCheck.isCommandEnabled("ignore")) {
@@ -64,6 +71,7 @@ public class JoinListener implements Listener {
                 ignorelist.put(uuid, playerlist);
             }
         }
+
 
         return true;
     }

@@ -3,6 +3,7 @@ package code.bukkitutils;
 import code.PluginService;
 import code.managers.player.PlayerMessage;
 import code.managers.player.PlayerStatic;
+import code.utils.string.VariableUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -56,7 +57,7 @@ public class RunnableManager {
     public void sendCommand(CommandSender sender, String path) {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
 
-            Bukkit.dispatchCommand(sender, (PlayerStatic.setPluginVariables(path)));
+            Bukkit.dispatchCommand(sender, path);
 
         }, 20L);
     }

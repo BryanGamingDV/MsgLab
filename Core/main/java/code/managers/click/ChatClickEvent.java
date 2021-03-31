@@ -26,7 +26,7 @@ public class ChatClickEvent implements Listener {
 
         UUID uuid = event.getPlayer().getUniqueId();
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(uuid);
+        UserData userData = pluginService.getCache().getUserDatas().get(uuid);
         PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
         if (!(userData.isClickMode())) {

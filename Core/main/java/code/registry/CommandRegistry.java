@@ -12,6 +12,9 @@ import me.fixeddev.commandflow.annotated.part.PartInjector;
 import me.fixeddev.commandflow.annotated.part.defaults.DefaultsModule;
 import me.fixeddev.commandflow.bukkit.BukkitCommandManager;
 import me.fixeddev.commandflow.bukkit.factory.BukkitModule;
+import me.fixeddev.commandflow.command.Command;
+
+import java.util.List;
 
 
 public class CommandRegistry implements LoaderService {
@@ -37,33 +40,44 @@ public class CommandRegistry implements LoaderService {
         createCommandManager();
 
         commandManager.getTranslator().setProvider(new CustomLanguage(pluginService));
-
-        registerCommands("bmsg", new BmsgCommand(plugin, pluginService));
-        registerCommands("msg", new MsgCommand(pluginService));
-        registerCommands("reply", new ReplyCommand(pluginService));
-        registerCommands("socialspy", new SocialSpyCommand(pluginService));
-        registerCommands("staffchat", new StaffChatCommand(pluginService));
-        registerCommands("helpop", new HelpopCommand(pluginService));
-        registerCommands("ignore", new IgnoreCommand(pluginService));
-        registerCommands("unignore", new UnIgnoreCommand(pluginService));
-        registerCommands("chat", new ChatCommand(plugin, pluginService));
-        registerCommands("broadcast", new BroadcastCommand(pluginService));
-        registerCommands("broadcastworld", new BroadcastWorldCommand(pluginService));
-        registerCommands("channel", new ChannelCommand(pluginService));
-        registerCommands("motd", new MotdCommand(pluginService));
-        registerCommands("stream", new StreamCommand(pluginService));
-        registerCommands("commandspy", new CommandSpyCommand(pluginService));
+        reCheckCommands();
 
         pluginService.getLogs().log("Commands loaded!");
         plugin.getLogger().info("Commands loaded!");
     }
 
-    public void registerCommands(String commandName, CommandClass commandClass) {
-        if (pluginService.getPathManager().isCommandEnabled(commandName)) {
-            commandManager.registerCommands(builder.fromClass(commandClass));
-            pluginService.getLogs().log("Command: " + commandName + " loaded.");
-        } else {
-            pluginService.getLogs().log("Command: " + commandName + " unloaded.", 0);
+    public void reCheckCommands(){
+        registerCommands(
+                new BmsgCommand(plugin, pluginService),
+                new MsgCommand(pluginService),
+                new ReplyCommand(pluginService),
+                new SocialSpyCommand(pluginService),
+                new StaffChatCommand(pluginService),
+                new HelpopCommand(pluginService),
+                new IgnoreCommand(pluginService),
+                new UnIgnoreCommand(pluginService),
+                new ChatCommand(plugin, pluginService),
+                new BroadcastCommand(pluginService),
+                new BroadcastWorldCommand(pluginService),
+                new ChannelCommand(pluginService),
+                new MotdCommand(pluginService),
+                new StreamCommand(pluginService),
+                new CommandSpyCommand(pluginService));
+    }
+
+    public void registerCommands(CommandClass... commandClasses) {
+
+        for (CommandClass commandClass : commandClasses) {
+
+            List<Command> command = builder.fromClass(commandClass);
+            String commandName = command.get(0).getName();
+
+            if (pluginService.getPathManager().isCommandEnabled(commandName)) {
+                commandManager.registerCommands(command);
+                pluginService.getLogs().log("Command: " + commandName + " loaded.");
+            } else {
+                pluginService.getLogs().log("Command: " + commandName + " unloaded.", 0);
+            }
         }
     }
 

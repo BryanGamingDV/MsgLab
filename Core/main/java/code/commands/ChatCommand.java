@@ -262,7 +262,7 @@ public class ChatCommand implements CommandClass {
     @Command(names = "color")
     public boolean colorSubCommand(@Sender Player player, @OptArg("") String tag, @OptArg("") String color) {
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (tag.isEmpty()) {
             playerMethod.sendMessage(player, messages.getString("error.chat.tags.empty-tags")

@@ -29,7 +29,7 @@ public class RecipientMethod {
 
         Player player = event.getPlayer();
 
-        UserData playerData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData playerData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         IgnoreMethod ignoreMethod = pluginService.getPlayerMethods().getIgnoreMethod();
 
@@ -84,7 +84,7 @@ public class RecipientMethod {
         Iterator<Player> playerIterator = playerList.iterator();
         while (playerIterator.hasNext()) {
             Player playerChannel = playerIterator.next();
-            UserData playerCache = pluginService.getCache().getPlayerUUID().get(playerChannel.getUniqueId());
+            UserData playerCache = pluginService.getCache().getUserDatas().get(playerChannel.getUniqueId());
 
             if (!playerCache.equalsChannelGroup(playerData.getChannelGroup())) {
                 playerIterator.remove();

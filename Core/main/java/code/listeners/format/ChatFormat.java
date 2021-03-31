@@ -4,7 +4,6 @@ import code.PluginService;
 import code.data.ServerData;
 import code.data.UserData;
 import code.events.CommandSpyEvent;
-import code.events.SocialSpyEvent;
 import code.managers.HoverMethod;
 import code.managers.RecipientMethod;
 import code.managers.click.ClickChatMethod;
@@ -45,7 +44,7 @@ public class ChatFormat implements Listener {
         Configuration utils = pluginService.getFiles().getBasicUtils();
         Configuration messages = pluginService.getFiles().getMessages();
 
-        UserData playerStatus = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
         StaffChatMethod staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
@@ -73,7 +72,7 @@ public class ChatFormat implements Listener {
 
                 Bukkit.getServer().getOnlinePlayers().forEach(playeronline -> {
 
-                    UserData onlineCache = pluginService.getCache().getPlayerUUID().get(playeronline.getUniqueId());
+                    UserData onlineCache = pluginService.getCache().getUserDatas().get(playeronline.getUniqueId());
 
                     if (!onlineCache.isStaffchatMode()) {
                         return;
@@ -159,7 +158,6 @@ public class ChatFormat implements Listener {
         String command = event.getMessage().substring(stringFormat.countRepeatedCharacters(event.getMessage(), '/')).split(" ")[0].toLowerCase();
 
 
-        System.out.println("command: " + command);
         Bukkit.getPluginManager().callEvent(new CommandSpyEvent(event.getPlayer().getName(), event.getMessage().substring(stringFormat.countRepeatedCharacters(event.getMessage(), '/')).toLowerCase()));
 
         String commandRevisor = revisorManager.revisorCMD(event.getPlayer().getUniqueId(), event.getMessage().replace("/", "").split(" ")[0].toLowerCase());

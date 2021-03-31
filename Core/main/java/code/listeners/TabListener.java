@@ -19,6 +19,7 @@ public class TabListener implements Listener {
     public void onTab(PlayerCommandSendEvent playerCommandSendEvent) {
         FitlerMethod fitlerMethod = pluginService.getPlayerMethods().getFitlerMethod();
 
+
         fitlerMethod.onTab(playerCommandSendEvent);
     }
 }

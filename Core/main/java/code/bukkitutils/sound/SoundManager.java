@@ -61,7 +61,7 @@ public class SoundManager {
             return;
         }
 
-        UserData playerMsgToggle = pluginService.getCache().getPlayerUUID().get(target);
+        UserData playerMsgToggle = pluginService.getCache().getUserDatas().get(target);
 
         if (!(playerMsgToggle.isPlayersoundMode())) {
             return;

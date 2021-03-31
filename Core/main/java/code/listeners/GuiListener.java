@@ -23,11 +23,14 @@ public class GuiListener implements Listener {
     public void onOpenGUI(InventoryClickEvent event) {
         HumanEntity player = event.getWhoClicked();
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
         GuiManager guiManager = pluginService.getManagingCenter().getGuiManager();
+
+
         if (!userData.isGUISet()) {
             return;
         }
+
 
         if (event.getClickedInventory() == null) {
             return;
@@ -56,7 +59,7 @@ public class GuiListener implements Listener {
     public void onClose(InventoryCloseEvent event) {
 
         HumanEntity player = event.getPlayer();
-        UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (userData.isChangingPage()) {
             return;

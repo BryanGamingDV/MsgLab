@@ -8,6 +8,11 @@ import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class StringFormat {
@@ -30,17 +35,6 @@ public class StringFormat {
         }
     }
 
-    public String replaceString(String string) {
-        for (String keys : config.getConfig().getConfigurationSection("options.replacer").getKeys(false)) {
-            string = string.replace(config.getConfig().getString("options.replacer." + keys + ".variable"),
-                    config.getConfig().getString("options.replacer." + keys + ".format"));
-        }
-
-        return string
-                .replace("%newline%", "\n");
-
-    }
-
     public String getVersion(Server server) {
         String version = server.getClass().getPackage().getName().split("\\.")[3];
 
@@ -56,22 +50,10 @@ public class StringFormat {
         return false;
     }
 
-    public int getStringId(String string, char character, int id) {
+    public String[] getLegacyVersion(){
 
-        int index = 1;
-        int number = 0;
-
-        while (string.indexOf(character, number) != -1) {
-            if (index == id) {
-                break;
-            }
-
-            number = string.indexOf(character, number + 1);
-            index++;
-        }
-        return number;
+        return new String[]{"1.12", "1.13", "1.14", "1.15", "1.16"};
     }
-
 
     public int countRepeatedCharacters(String string, char character) {
 

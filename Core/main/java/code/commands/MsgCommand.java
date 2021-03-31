@@ -3,7 +3,6 @@ package code.commands;
 import code.PluginService;
 import code.bukkitutils.gui.manager.GuiManager;
 import code.bukkitutils.sound.SoundEnum;
-import code.bukkitutils.sound.SoundManager;
 import code.data.UserData;
 import code.events.SocialSpyEvent;
 import code.managers.commands.MsgMethod;
@@ -39,7 +38,6 @@ public class MsgCommand implements CommandClass {
         ConfigManager files = pluginService.getFiles();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
         ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration command = files.getCommand();
@@ -74,7 +72,7 @@ public class MsgCommand implements CommandClass {
             return true;
         }
 
-        UserData playerMsgToggle = pluginService.getCache().getPlayerUUID().get(playeruuid);
+        UserData playerMsgToggle = pluginService.getCache().getUserDatas().get(playeruuid);
 
         if (target.getName().equalsIgnoreCase("-toggle")) {
 
@@ -104,7 +102,7 @@ public class MsgCommand implements CommandClass {
                 return true;
             }
 
-            UserData targetMsgToggle = pluginService.getCache().getPlayerUUID().get(you.getUniqueId());
+            UserData targetMsgToggle = pluginService.getCache().getUserDatas().get(you.getUniqueId());
 
             if (!(targetMsgToggle.isMsgtoggleMode())) {
                 targetMsgToggle.toggleMsg(true);
@@ -137,7 +135,7 @@ public class MsgCommand implements CommandClass {
 
         }
 
-        UserData targetToggled = pluginService.getCache().getPlayerUUID().get(targetuuid);
+        UserData targetToggled = pluginService.getCache().getUserDatas().get(targetuuid);
 
         if (targetToggled == null) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")

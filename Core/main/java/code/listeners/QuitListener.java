@@ -2,10 +2,14 @@ package code.listeners;
 
 import code.PluginService;
 import code.data.UserData;
-import code.managers.ListenerManaging;
+import code.events.server.ChangeMode;
+import code.events.server.ServerChangeEvent;
+import code.managers.GroupMethod;
+import code.managers.commands.ChatMethod;
 import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,13 +30,15 @@ public class QuitListener implements Listener {
         Configuration command = pluginService.getFiles().getCommand();
 
         ModuleCheck moduleCheck = pluginService.getPathManager();
-        ListenerManaging listenerManaging = pluginService.getPlayerMethods().getListenerManaging();
+        GroupMethod groupMethod = pluginService.getPlayerMethods().getGroupMethod();
 
         Player you = event.getPlayer();
-        UserData playerStatus = pluginService.getCache().getPlayerUUID().get(you.getUniqueId());
+        UserData playerStatus = pluginService.getCache().getUserDatas().get(you.getUniqueId());
+
+        String playerRank = groupMethod.getJQGroup(you);
 
         if (moduleCheck.isOptionEnabled("join_quit")) {
-            listenerManaging.setQuit(event);
+            Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, event.getPlayer(), playerRank, ChangeMode.QUIT));
         }
 
         if (moduleCheck.isCommandEnabled("reply")) {
@@ -40,7 +46,7 @@ public class QuitListener implements Listener {
                 return;
             }
 
-            UserData target = pluginService.getCache().getPlayerUUID().get(playerStatus.getRepliedPlayer());
+            UserData target = pluginService.getCache().getUserDatas().get(playerStatus.getRepliedPlayer());
 
             if (!target.hasRepliedPlayer()) {
                 return;
@@ -54,6 +60,7 @@ public class QuitListener implements Listener {
                     .replace("%player%", target.getPlayer().getName())
                     .replace("%arg-1%", event.getPlayer().getName()));
         }
+
         playerStatus.resetStats();
 
     }

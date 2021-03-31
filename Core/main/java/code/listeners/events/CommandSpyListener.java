@@ -4,7 +4,6 @@ import code.PluginService;
 import code.bukkitutils.sound.SoundEnum;
 import code.data.UserData;
 import code.events.CommandSpyEvent;
-import code.events.SocialSpyEvent;
 import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;
@@ -40,7 +39,7 @@ public class CommandSpyListener implements Listener {
                 .replace("%command%", "/" + commandSpyEvent.getMessage());
 
         Bukkit.getServer().getOnlinePlayers().forEach(player -> {
-            UserData watcherSpy = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+            UserData watcherSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
             if (!watcherSpy.isCommandspyMode()) {
                 return;

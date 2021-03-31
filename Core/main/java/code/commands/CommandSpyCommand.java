@@ -12,7 +12,6 @@ import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class CommandSpyCommand implements CommandClass {
     @Command(names = {"on"})
     public boolean onOnSubCommand(@Sender Player sender, @OptArg OfflinePlayer offlinePlayer) {
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(sender.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
         if (offlinePlayer == null) {
 
@@ -76,7 +75,7 @@ public class CommandSpyCommand implements CommandClass {
         }
 
 
-        UserData targetData = pluginService.getCache().getPlayerUUID().get(offlinePlayer.getUniqueId());
+        UserData targetData = pluginService.getCache().getUserDatas().get(offlinePlayer.getUniqueId());
 
 
         if (targetData.isCommandspyMode()){
@@ -98,7 +97,7 @@ public class CommandSpyCommand implements CommandClass {
     @Command(names = {"off"})
     public boolean onOffSubCommand(@Sender Player sender, @OptArg OfflinePlayer offlinePlayer) {
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(sender.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
         if (offlinePlayer == null) {
 
@@ -120,7 +119,7 @@ public class CommandSpyCommand implements CommandClass {
             return true;
         }
 
-        UserData targetData = pluginService.getCache().getPlayerUUID().get(offlinePlayer.getUniqueId());
+        UserData targetData = pluginService.getCache().getUserDatas().get(offlinePlayer.getUniqueId());
 
         if (!userData.isCommandspyMode()){
             playerMethod.sendMessage(sender, messages.getString("error.commandspy.status.arg-2.already-disabled")
@@ -149,7 +148,7 @@ public class CommandSpyCommand implements CommandClass {
 
             List<Player> playerList = new ArrayList<>();
             for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
-                UserData onlineData = pluginService.getCache().getPlayerUUID().get(onlinePlayer.getUniqueId());
+                UserData onlineData = pluginService.getCache().getUserDatas().get(onlinePlayer.getUniqueId());
 
                 if (!onlineData.isCommandspyMode()) {
                     continue;

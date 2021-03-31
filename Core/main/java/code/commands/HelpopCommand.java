@@ -3,6 +3,7 @@ package code.commands;
 import code.PluginService;
 import code.bukkitutils.sound.SoundEnum;
 import code.data.UserData;
+import code.events.HelpOpEvent;
 import code.managers.commands.HelpOpMethod;
 import code.managers.player.PlayerMessage;
 import code.revisor.RevisorManager;
@@ -69,22 +70,7 @@ public class HelpopCommand implements CommandClass {
             }
         }
 
-        String finalMessage = message;
-
-        Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-
-            UserData onlineCache = pluginService.getCache().getPlayerUUID().get(onlinePlayer.getUniqueId());
-
-            if (!playerMethod.hasPermission(onlinePlayer, "commands.helpop.watch") || !onlineCache.isPlayerHelpOp()) {
-                return;
-            }
-
-            playerMethod.sendMessage(onlinePlayer, command.getString("commands.helpop.message")
-                    .replace("%player%", sender.getName())
-                    .replace("%message%", finalMessage));
-            playerMethod.sendSound(sender, SoundEnum.RECEIVE_HELPOP);
-        });
-
+        Bukkit.getPluginManager().callEvent(new HelpOpEvent(message));
         return true;
     }
 
@@ -95,7 +81,7 @@ public class HelpopCommand implements CommandClass {
 
         for (Player playeronline : Bukkit.getServer().getOnlinePlayers()) {
 
-            UserData onlineCache = pluginService.getCache().getPlayerUUID().get(playeronline.getUniqueId());
+            UserData onlineCache = pluginService.getCache().getUserDatas().get(playeronline.getUniqueId());
 
             if (playerMethod.hasPermission(sender, "commands.helpop.watch") && onlineCache.isPlayerHelpOp()) {
                 helpopList.add(playeronline.getName());
@@ -121,7 +107,7 @@ public class HelpopCommand implements CommandClass {
     @Command(names = "-on")
     public boolean onOnSubCommand(@Sender Player sender) {
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(sender.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
         if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
@@ -144,7 +130,7 @@ public class HelpopCommand implements CommandClass {
     @Command(names = "-off")
     public boolean onOffSubCommand(@Sender Player sender) {
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(sender.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
         if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));

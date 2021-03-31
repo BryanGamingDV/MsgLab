@@ -27,7 +27,7 @@ public class BasicAPI implements BasicAPIDesc {
         this.pluginService = pluginService;
 
         cache = pluginService.getCache();
-        userCacheMap = pluginService.getCache().getPlayerUUID();
+        userCacheMap = pluginService.getCache().getUserDatas();
     }
 
     public boolean isPlayerIgnored(UUID targetPlayer, UUID playerIgnored) {

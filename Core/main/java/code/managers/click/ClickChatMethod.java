@@ -41,7 +41,7 @@ public class ClickChatMethod {
 
     private void setWorld(UUID uuid) {
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(uuid);
+        UserData userData = pluginService.getCache().getUserDatas().get(uuid);
 
         PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
         RunnableManager runnableManager = pluginService.getManagingCenter().getRunnableManager();
@@ -107,7 +107,7 @@ public class ClickChatMethod {
 
                 Configuration command = pluginService.getFiles().getCommand();
 
-                UserData userData = pluginService.getCache().getPlayerUUID().get(sender.getUniqueId());
+                UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
                 List<String> chatClick = userData.getClickChat();
 
                 Component component;
@@ -176,7 +176,7 @@ public class ClickChatMethod {
 
         Player player = Bukkit.getPlayer(uuid);
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
         PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
         Configuration command = pluginService.getFiles().getCommand();

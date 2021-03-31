@@ -204,7 +204,7 @@ public class ChatMethod {
 
     public String replaceTagsVariables(Player player, String message) {
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         HashMap<String, String> hashmapTag = userData.gethashTags();
 

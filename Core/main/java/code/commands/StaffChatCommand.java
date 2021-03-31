@@ -63,7 +63,7 @@ public class StaffChatCommand implements CommandClass {
     @Command(names = "-on")
     public boolean onOnSubCommand(@Sender Player player) {
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (userData.isStaffchatMode()) {
             playerMethod.sendMessage(player, messages.getString("error.staff-chat.activated"));
@@ -81,7 +81,7 @@ public class StaffChatCommand implements CommandClass {
     @Command(names = "-off")
     public boolean onOffSubCommand(@Sender Player player) {
 
-        UserData userData = pluginService.getCache().getPlayerUUID().get(player.getUniqueId());
+        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (!(userData.isStaffchatMode())) {
             playerMethod.sendMessage(player, messages.getString("error.staff-chat.unactivated"));

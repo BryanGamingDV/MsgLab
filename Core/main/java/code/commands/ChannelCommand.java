@@ -61,7 +61,7 @@ public class ChannelCommand implements CommandClass {
     public boolean joinSubCommand(@Sender Player player, @OptArg String args) {
 
         UUID playeruuid = player.getUniqueId();
-        UserData userData = pluginService.getCache().getPlayerUUID().get(playeruuid);
+        UserData userData = pluginService.getCache().getUserDatas().get(playeruuid);
 
         if (args == null) {
             playerMethod.sendMessage(player, messages.getString("error.no-arg")
@@ -111,7 +111,7 @@ public class ChannelCommand implements CommandClass {
     public boolean quitSubCommand(@Sender Player player) {
 
         UUID playeruuid = player.getUniqueId();
-        UserData userData = pluginService.getCache().getPlayerUUID().get(playeruuid);
+        UserData userData = pluginService.getCache().getUserDatas().get(playeruuid);
 
         if (userData.equalsChannelGroup("default")) {
             playerMethod.sendMessage(player, messages.getString("error.channel.default"));
@@ -180,7 +180,7 @@ public class ChannelCommand implements CommandClass {
         }
 
         UUID targetuuid = target.getUniqueId();
-        UserData userData = pluginService.getCache().getPlayerUUID().get(targetuuid);
+        UserData userData = pluginService.getCache().getUserDatas().get(targetuuid);
 
         if (channel.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
@@ -223,8 +223,6 @@ public class ChannelCommand implements CommandClass {
     @Command(names = {"info"})
     public boolean infoSubCommand(@Sender Player sender, @OptArg("") String channel) {
 
-        UUID playeruuid = sender.getUniqueId();
-
         if (!playerMethod.hasPermission(sender, "commands.channel.info")) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
@@ -235,10 +233,7 @@ public class ChannelCommand implements CommandClass {
 
 
         if (channel.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("channel", "move", "<player>", "<channel>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
-            return true;
+            channel = groupChannel.getPlayerGroup(sender);
         }
 
         if (groupChannel.channelNotExists(channel)) {
@@ -256,7 +251,7 @@ public class ChannelCommand implements CommandClass {
         int online = 0;
 
         for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
-            UserData userData = pluginService.getCache().getPlayerUUID().get(onlinePlayer.getUniqueId());
+            UserData userData = pluginService.getCache().getUserDatas().get(onlinePlayer.getUniqueId());
 
             if (!userData.equalsChannelGroup(channel)) {
                 break;
@@ -291,7 +286,7 @@ public class ChannelCommand implements CommandClass {
                     .replace("%condition_ans%", conditionAns)
                     .replace("%status%", status));
         }
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "channel status");
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "channel info");
         return true;
     }
 }
