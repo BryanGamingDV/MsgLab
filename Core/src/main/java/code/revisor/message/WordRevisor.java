@@ -34,19 +34,11 @@ public class WordRevisor {
             return string;
         }
 
-        List<String> badwordslist;
-
-        if (!utils.getConfigurationSection("revisor.words-module.list-words").getKeys(false).isEmpty() || utils.getConfigurationSection("revisor.bad-words.list-words") != null) {
-            badwordslist = new ArrayList<>(utils.getConfigurationSection("revisor.words-module.list-words").getKeys(false));
-        } else {
-            badwordslist = utils.getStringList("revisor.words-module.list-words");
-        }
-
         int words = 0;
         boolean bwstatus = false;
 
         Pattern pattern;
-        for (String regex : utils.getStringList("revisor.words-module.regex")){
+        for (String regex : utils.getStringList("revisor.words-module.list-worlds")){
             pattern = Pattern.compile(regex.split(";")[0]);
 
             Matcher matcher = pattern.matcher(string);
@@ -56,43 +48,32 @@ public class WordRevisor {
 
                 string = string.replace(replaced, regex.split(";")[1]);
                 matcher = pattern.matcher(string);
-            }
-        }
 
-        for (String badword : badwordslist) {
-            if (!string.contains(badword)) {
-                continue;
-            }
+                if (words < 1) {
+                    if (utils.getBoolean("revisor.words-module.message.enabled")) {
+                        playerMethod.sendMessage(player, utils.getString("revisor.words-module.message.format")
+                                .replace("%player%", player.getName()));
+                    }
 
-            if (words < 1) {
-                if (utils.getBoolean("revisor.words-module.message.enabled")) {
-                    playerMethod.sendMessage(player, utils.getString("revisor.words-module.message.format")
-                            .replace("%player%", player.getName()));
+                    if (utils.getBoolean("revisor.words-module.command.enabled")) {
+                        runnableManager.sendCommand(Bukkit.getConsoleSender(), PlayerStatic.convertText(player, utils.getString("revisor.words-module.command.format")
+                                .replace("%player%", player.getName())));
+                    }
+                    bwstatus = true;
+
+                    if (utils.getBoolean("revisor.words-module.warning.enabled")) {
+                        Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
+                            if (playerMethod.hasPermission(onlinePlayer, "revisor")) {
+                                playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.words-module.warning.text")
+                                        .replace("%player%", player.getName()));
+                            }
+                        });
+                    }
                 }
 
-                if (utils.getBoolean("revisor.words-module.command.enabled")) {
-                    runnableManager.sendCommand(Bukkit.getConsoleSender(), PlayerStatic.convertText(player, utils.getString("revisor.words-module.command.format")
-                            .replace("%player%", player.getName())));
-                }
-                bwstatus = true;
 
-                if (utils.getBoolean("revisor.words-module.warning.enabled")) {
-                    Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                        if (playerMethod.hasPermission(onlinePlayer, "revisor")) {
-                            playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.words-module.warning.text")
-                                    .replace("%player%", player.getName()));
-                        }
-                    });
-                }
+                words++;
             }
-
-            if (utils.getString("revisor.words-module.word-replaced") != null) {
-                string = string.replace(badword, utils.getString("revisor.words-module.word-replaced"));
-            } else {
-                string = string.replace(badword, utils.getString("revisor.words-module.list-words." + badword));
-            }
-
-            words++;
         }
 
         if (bwstatus) {

@@ -1,0 +1,183 @@
+#
+# Utils
+#
+
+utils:
+
+  chat:
+    enabled: true
+    allow-revisor: true
+
+    # Per World Chat
+    per-world-chat:
+      enabled: false
+      all-worlds: false
+
+      worlds:
+        1:
+          - world
+          - world_nether
+          - world_the_end
+    radial-chat:
+      enabled: false
+
+      x: 50
+      y: 50
+      z: 50
+
+    # Formats:
+    format:
+      default:
+        format: "&8| &e[Default] &f%player% &7> &f%message%"
+        hover:
+          - "&8&m------[&fHover]&8&m-------"
+          - "&fPlayer: &a%player%"
+          - "&fOnline: &a%online%"
+        command: "/msg %player% message"
+
+      # If player has OP or has "*" (Optional, you can remove this configuration section.)
+      op:
+        format: "&8| &4[OP] &f%player% &7> &f%message%"
+        hover:
+          - "&8&m------[&fHover]&8&m-------"
+          - "&fPlayer: &a%player%"
+          - "&fOnline: &a%online%"
+        command: "/msg %player% message"
+
+      # Group access:
+      # - permission -> If player has permission of the group, he receive the data of that group.
+      # - group -> If player is in group, he recieve the data of that group. [Vault & complement required].
+      group-access: permission
+      groups:
+        vip:
+          permission: group.vip+
+          format: "&8| &f%player% &7> &f%message%"
+          hover:
+            - "&8&m------[&fHover]&8&m-------"
+            - "&fPlayer: &a%player%"
+            - "&fOnline: &a%online%"
+          command: "/msg %player% message"
+
+          # Independent channel:
+          channel: true
+        vip+:
+          permission: group.vip+
+          format: "&8| &f%player% &7> &f%message%"
+          hover:
+            - "&8&m------[&fHover]&8&m-------"
+            - "&fPlayer: &a%player%"
+            - "&fOnline: &a%online%"
+          command: "/msg %player% message"
+
+          # Independent channel:
+          channel: true
+
+    # Other [Other filter]:
+    mentions:
+      enabled: true
+      message: "%c &fThe player &a%player% mentioned you."
+      # The char to tag:
+      char-tag: '@'
+      # The word that you replace in the word that the other player mention you, to stand out.
+      replace-mention: "&e@%player%"
+
+    # Security
+
+    cooldown:
+      # If the message is a text.
+      text:
+        enabled: true
+        seconds: 2
+        message: "%c &fSrry, please, wait &a%seconds% &fseconds."
+
+      # If the message is a command.
+      cmd:
+        enabled: true
+        seconds: 2
+        message: "%c &fSrry, please, wait &a%seconds% &fseconds."
+
+        # Commands that obiously bypass the cooldown.
+        disabled-cmds:
+          - hwllo
+
+    security:
+
+      anti-flood:
+        enabled: true
+        min-chars: 2
+        message: "%c &fPlease, don't do flood."
+
+        warning:
+          enabled: true
+          text: "&e[Revisor] &8| &e%player% &fwas doing flood."
+
+      bad-words:
+        enabled: true
+        word-replaced: "****"
+        list-words:
+          - fuck
+          - shit
+          - idiot
+        message: "%c &fPls don't do that, &a%player%&f."
+        word-list:
+          enabled: true
+          format: "%c &fYou said &a%words% &fobscene words."
+
+        # Is not obligatory to use "/" in format.
+        command:
+          enabled: true
+          format: "say %player% is doing that."
+
+        warning:
+          enabled: true
+          text: "&e[Revisor] &8| &e%player% &fsaid a bad word."
+
+      dot-module:
+        enabled: true
+        min-word: 1
+
+        warning:
+          enabled: false
+          text: "&e[Revisor] &8| &e%player% &fdidn't put a dot."
+
+      caps-module:
+        enabled: true
+        min-mayus: 5
+
+        warning:
+          enabled: true
+          text: "&e[Revisor] &8| &e%player% &fwasn't using caps."
+
+      link-module:
+        enabled: true
+        # To block "." (If you enable this, you won't be able to use this)
+        block-point: false
+        blocked-links:
+          - .net
+          - .com
+          - .serv.nu
+        # Note: This replace the link or point (if you enabled this).
+        replace-link: " "
+        message: "%c &fPls dont use this &a%player%&f. Blocked word: &a%blockedword%&f."
+        command:
+          enabled: true
+          format: "kick %player% %c &fPls dont use this %player%. Blocked word: %blockedword%."
+
+        warning:
+          enabled: true
+          text: "&e[Revisor] &8| &e%player% &fput a public link."
+  # Join:
+  join:
+    enabled: true
+    format: "&a[+] &8| &f%player%."
+    motd:
+      enabled: true
+      loop-blank: 50
+      format:
+        - "&fWelcome &a%player% &fto the server."
+        - "&fHere were &f%online% &fplayers in the server."
+
+  # Quit:
+  quit:
+    enabled: true
+    format: "&c[-] &8| &f%player%."

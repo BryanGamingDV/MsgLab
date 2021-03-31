@@ -1,0 +1,69 @@
+#
+# Sound System:
+# Sounds 1.8/1.9: https://www.spigotmc.org/wiki/cc-sounds-list/
+
+
+# Configuration:
+config:
+  enabled-all: true
+  vol: 1
+
+group:
+
+  msg:
+    commands:
+      - msg
+      - reply
+      - socialspy,on
+      - socialspy,off
+    sound: LEVEL_UP
+    pitch: 1
+
+
+# List of sounds:
+sounds:
+
+  # Sound.Error.Description
+  error:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  # Sound.Broadcast
+  receive_broadcast:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  receive_broadcastworld:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  receive_helpop:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  receive_socialspy:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  receive_stream:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  receive_commandspy:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+#
+# Arguments:
+# Format: command,args... (Example: socialspy,on)
+#
+arguments:
+  helpop:
+    sound: LEVEL_UP
+    pitch: 1
