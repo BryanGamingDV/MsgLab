@@ -38,7 +38,7 @@ public class WordRevisor {
         boolean bwstatus = false;
 
         Pattern pattern;
-        for (String regex : utils.getStringList("revisor.words-module.list-worlds")){
+        for (String regex : utils.getStringList("revisor.words-module.list-words")){
             pattern = Pattern.compile(regex.split(";")[0]);
 
             Matcher matcher = pattern.matcher(string);
@@ -70,7 +70,6 @@ public class WordRevisor {
                         });
                     }
                 }
-
 
                 words++;
             }
