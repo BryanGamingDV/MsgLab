@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: me.clip:placeholderapi:2.10.9">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/me/clip/placeholderapi/2.10.9/placeholderapi-2.10.9.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/me/clip/placeholderapi/2.10.9/placeholderapi-2.10.9-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/me/clip/placeholderapi/2.10.9/placeholderapi-2.10.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

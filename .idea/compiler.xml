@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="LegacyVersion" />
+        <module name="Api" />
+        <module name="Core" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Api" target="15" />
+      <module name="Core" target="1.8" />
+      <module name="LegacyVersion" target="15" />
+      <module name="MsgLab" target="15" />
+      <module name="Versions" target="15" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

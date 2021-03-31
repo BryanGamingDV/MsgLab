@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Api/Api.iml" filepath="$PROJECT_DIR$/Api/Api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Core/Core.iml" filepath="$PROJECT_DIR$/Core/Core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Versions/LegacyVersion/LegacyVersion.iml" filepath="$PROJECT_DIR$/Versions/LegacyVersion/LegacyVersion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MsgLab.iml" filepath="$PROJECT_DIR$/MsgLab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Versions/Versions.iml" filepath="$PROJECT_DIR$/Versions/Versions.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.kyori:text-serializer-plain:3.0.0-stripped">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/kyori/text-serializer-plain/3.0.0-stripped/text-serializer-plain-3.0.0-stripped.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/kyori/text-serializer-plain/3.0.0-stripped/text-serializer-plain-3.0.0-stripped-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/kyori/text-serializer-plain/3.0.0-stripped/text-serializer-plain-3.0.0-stripped-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

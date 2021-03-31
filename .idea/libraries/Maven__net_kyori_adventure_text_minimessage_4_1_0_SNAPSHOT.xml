@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/kyori/adventure-text-minimessage/4.1.0-SNAPSHOT/adventure-text-minimessage-4.1.0-20210316.192746-26.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/kyori/adventure-text-minimessage/4.1.0-SNAPSHOT/adventure-text-minimessage-4.1.0-20210316.192746-26-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/kyori/adventure-text-minimessage/4.1.0-SNAPSHOT/adventure-text-minimessage-4.1.0-20210316.192746-26-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
