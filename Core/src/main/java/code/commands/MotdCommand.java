@@ -40,7 +40,7 @@ public class MotdCommand implements CommandClass {
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
         this.moduleCheck = pluginService.getPathManager();
-        this.motd = utils.getStringList("join.motd.format");
+        this.motd = utils.getStringList("lobby.formats.default.join.motd");
     }
 
     @Command(names = "")
@@ -105,7 +105,7 @@ public class MotdCommand implements CommandClass {
                 .replace("%line%", message));
 
         motd.add(message);
-        utils.set("utils.join.motd.format", motd);
+        utils.set("lobby.formats.default.join.motd", motd);
         utils.save();
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "motd addline");
         return true;
@@ -150,7 +150,7 @@ public class MotdCommand implements CommandClass {
         }
 
 
-        utils.set("utils.join.motd.format", motd);
+        utils.set("lobby.formats.default.join.motd", motd);
         utils.save();
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "motd removeline");
         return true;
@@ -199,7 +199,7 @@ public class MotdCommand implements CommandClass {
                 .replace("%line%", motd.get(page - 1))
                 .replace("%number%", String.valueOf(page)));
 
-        utils.set("join.motd.format", motd);
+        utils.set("lobby.formats.default.join.motd", motd);
         utils.save();
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "motd setline");
         return true;

@@ -12,7 +12,6 @@ code\managers\commands\IgnoreMethod.class
 code\data\JQFormat.class
 code\utils\hooks\ProtocolHook.class
 code\api\BasicAPI.class
-code\commands\BmsgCommand.class
 code\listeners\events\server\ServerChangeListener.class
 code\ChatLab.class
 code\registry\EventManager.class
@@ -51,6 +50,7 @@ code\utils\SupportManager.class
 code\revisor\message\DotRevisor.class
 code\events\server\ChangeMode.class
 code\bukkitutils\gui\sample\OnlineSample.class
+code\commands\CLabCommand.class
 code\commands\CommandSpyCommand.class
 code\bukkitutils\sound\SoundManager.class
 code\CacheManager.class

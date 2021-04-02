@@ -11,7 +11,7 @@ config:
   modules:
     enabled-commands:
       - chat
-      - bmsg
+      - clab
       - msg
       - reply
       - socialspy
@@ -129,8 +129,6 @@ options:
       format: "&c[Error] &8|"
       variable: "%e"
 
-  emojis:
-    happy:
 
   # You can create tags with variables unlimited, obiously!
   color:
@@ -145,9 +143,6 @@ options:
 
   metrics: true
   update-check: false
-
-  # If you are new in the world of plugins:
-  kids-mode: true
 
   # To allow hover.
   allow-hover: true

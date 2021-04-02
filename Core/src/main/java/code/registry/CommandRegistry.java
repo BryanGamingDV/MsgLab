@@ -48,7 +48,7 @@ public class CommandRegistry implements LoaderService {
 
     public void reCheckCommands(){
         registerCommands(
-                new BmsgCommand(plugin, pluginService),
+                new CLabCommand(plugin, pluginService),
                 new MsgCommand(pluginService),
                 new ReplyCommand(pluginService),
                 new SocialSpyCommand(pluginService),

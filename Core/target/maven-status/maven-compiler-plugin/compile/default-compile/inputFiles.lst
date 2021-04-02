@@ -1,6 +1,7 @@
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\revisor\commands\BlockRevisor.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\commands\StreamCommand.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\listeners\events\SocialSpyListener.java
+C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\commands\CLabCommand.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\api\BasicAPIDesc.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\managers\commands\HelpOpMethod.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\managers\commands\MsgMethod.java
@@ -75,7 +76,6 @@ C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\managers\H
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\bukkitutils\pages\PageCreator.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\managers\player\PlayerMessage.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\utils\module\ModuleCreator.java
-C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\commands\BmsgCommand.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\bukkitutils\sound\SoundEnum.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\debug\DebugLogger.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\data\ServerData.java

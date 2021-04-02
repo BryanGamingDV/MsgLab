@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Command(names = {"bmsg", "bm"})
-public class BmsgCommand implements CommandClass {
+@Command(names = {"clab", "chatlab"})
+public class CLabCommand implements CommandClass {
 
     private final ChatLab plugin;
 
@@ -41,7 +41,7 @@ public class BmsgCommand implements CommandClass {
     private final PlayerMessage playerMethod;
     private final SoundManager sound;
 
-    public BmsgCommand(ChatLab plugin, PluginService pluginService) {
+    public CLabCommand(ChatLab plugin, PluginService pluginService) {
         this.plugin = plugin;
         this.pluginService = pluginService;
 
