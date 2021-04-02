@@ -2,3 +2,5 @@
 *.xml
 *.iml
 Core/Core.iml
+Versions/Versions.iml
+Versions/LegacyVersion/LegacyVersion.iml
