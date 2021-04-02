@@ -1,11 +1,2 @@
 # Default ignored files
-/workspace.xml/
-/libraries/
-/.name/
-/compiler.xml/
-/encodings.xml/
-/jarRepositories.xml/
-/misc.xml/
-/modules.xml/
-/uiDesigner.xml/
-/vcs.xml/
+.idea
