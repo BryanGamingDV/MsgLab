@@ -76,8 +76,8 @@ error:
 
   chat:
     management:
-      already-muted: "%p &fThe chat is already muted."
-      already-unmuted: "%p &fThe chat is already unmuted."
+      already-muted: "%e &fThe chat is already muted."
+      already-unmuted: "%e &fThe chat is already unmuted."
     tags:
       empty-tags: "%e &fList of tags: &a%tags% %newline%&8- &fUsage: &a%usage%"
       empty-colortags: "%e &fList of color tags: &a%colortags% %newline%&8- &fUsage: &a%usage%"
