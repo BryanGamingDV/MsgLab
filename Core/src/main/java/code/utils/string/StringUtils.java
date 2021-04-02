@@ -28,7 +28,7 @@ public class StringUtils {
 
         string = string
                 .replace("&f", "<white>");
-        
+
         return MiniMessage.get().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(string).asComponent());
     }
 }
