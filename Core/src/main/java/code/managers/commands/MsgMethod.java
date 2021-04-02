@@ -2,7 +2,6 @@ package code.managers.commands;
 
 import code.PluginService;
 import code.bukkitutils.sound.SoundEnum;
-import code.bukkitutils.sound.SoundManager;
 import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import org.bukkit.entity.Player;
@@ -27,11 +26,11 @@ public class MsgMethod {
 
         String playerFormat = command.getString("commands.msg-reply.player")
                 .replace("%player%", player.getName())
-                .replace("%arg-1%", target.getName());
+                .replace("%receiver%", target.getName());
 
         String targetFormat = command.getString("commands.msg-reply.arg-1")
                 .replace("%player%", player.getName())
-                .replace("%arg-1%", target.getName());
+                .replace("%receiver%", target.getName());
 
         UUID playeruuid = player.getUniqueId();
 

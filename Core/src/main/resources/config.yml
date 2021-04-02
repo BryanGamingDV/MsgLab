@@ -1,9 +1,9 @@
 #
 # ChatLab by BryanGaming
-# Version: 2.0
+# Version: 2.0.1
 #
 
-version: 2.0
+version: 2.0.1
 
 config:
 
@@ -43,49 +43,52 @@ perms:
 
   # Revisor:
   revisor:
-    watch: bmsg.revisor
-    bypass: bmsg.revisor
+    watch: clab.revisor
+    bypass: clab.revisor
 
   # Cooldown:
   cooldown:
-    chat-bypass: bmsg.chat.bypass
-    cmd-bypass: bmsg.cmd.bypass
+    chat-bypass: clab.chat.bypass
+    cmd-bypass: clab.cmd.bypass
 
   # Commands:
   commands:
-    bmsg:
-      main: bmsg.commands.bmsg
-      debug: bmsg.commands.bmsg.debug
-      restore: bmsg.commands.bmsg.restore
-      reload: bmsg.commands.bmsg.reload
+    clab:
+      main: clab.commands.clab
+      debug: clab.commands.clab.debug
+      restore: clab.commands.clab.restore
+      reload: clab.commands.clab.reload
 
     broadcast:
-      main: bmsg.commands.broadcast
-      click: bmsg.commands.broadcast.click
+      main: clab.commands.broadcast
+      click: clab.commands.broadcast.click
 
     broadcastworld:
-      main: bmsg.commands.broadcast-world
-      click: bmsg.commands.broadcast-world.click
+      main: clab.commands.broadcast-world
+      click: clab.commands.broadcast-world.click
 
     channel:
       main: none
-      info: bmsg.commands.info
-      move: bmsg.commands.move
+      info: clab.commands.info
+      move: clab.commands.move
 
     chat:
-      main: bmsg.commands.chat
-      reload: bmsg.commands.chat.reload
+      main: clab.commands.chat
+      reload: clab.commands.chat.reload
+
+    commandspy:
+      main: clab.commands.commandspy
 
     helpop:
-      main: bmsg.commands.helpop
-      watch: bmsg.commands.helpop.watch
+      main: clab.commands.helpop
+      watch: clab.commands.helpop.watch
 
     ignore:
       main: none
 
     motd:
       main: none
-      admin: bmsg.commands.motd.admin
+      admin: clab.commands.motd.admin
 
     msg:
       main: none
@@ -95,24 +98,24 @@ perms:
       main: none
 
     socialspy:
-      main: bmsg.commands.socialspy
+      main: clab.commands.socialspy
 
     staffchat:
-      main: bmsg.commands.staffchat
-      watch: bmsg.commands.staffchat
+      main: clab.commands.staffchat
+      watch: clab.commands.staffchat
 
     stream:
-      main: bmsg.commands.stream
+      main: clab.commands.stream
 
     unignore:
       main: none
 
   # Color:
   color:
-    variable: bmsg.chat.variable
+    variable: clab.chat.variable
 
   chat:
-    muted-bypass: bmsg.chat.mute.bypass
+    muted-bypass: clab.chat.mute.bypass
   # Chat:
 
 # Options:
@@ -122,7 +125,7 @@ options:
 
     # Prefix config:
     prefix:
-      format: "&a[Bmsg] &8|"
+      format: "&b[Clab] &8|"
       variable: "%c"
     # Error config:
     error:
@@ -135,11 +138,11 @@ options:
 
     color:
       variable: "%ml_color%"
-      permission: bmsg.chat.color
+      permission: clab.chat.color
 
     tag:
       variable: "%ml_tag%"
-      permission: bmsg.chat.tag
+      permission: clab.chat.tag
 
   metrics: true
   update-check: false
@@ -151,5 +154,5 @@ options:
   # To use legacy colors:
   use-legacy-colors: true
 
-  # If you allow the subcommand to go to the support of the plugin /bmsg support.
+  # If you allow the subcommand to go to the support of the plugin /clab support.
   allow-support: true

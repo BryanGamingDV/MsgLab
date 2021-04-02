@@ -1,7 +1,6 @@
 package code.revisor.message;
 
 import code.PluginService;
-
 import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import org.apache.commons.lang.StringUtils;

@@ -104,8 +104,9 @@ public class OnlineSample implements GuiSample {
             event.setCancelled(true);
             return;
         }
-
         HumanEntity player = event.getWhoClicked();
+        player.closeInventory();
+
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         ItemMeta item = event.getCurrentItem().getItemMeta();
@@ -113,10 +114,8 @@ public class OnlineSample implements GuiSample {
         Configuration command = pluginService.getFiles().getCommand();
         GuiManager guiManager = pluginService.getManagingCenter().getGuiManager();
 
-        String previousName = ChatColor.RESET + StringUtils.setColor(command.getString("commands.msg-online.previous-page.title"));
-        String nextName = ChatColor.RESET + StringUtils.setColor(command.getString("commands.msg-online.next-page.title"));
-
-        player.closeInventory();
+        String previousName = ChatColor.RESET + command.getColoredString("commands.msg-online.previous-page.title");
+        String nextName = ChatColor.RESET + command.getColoredString("commands.msg-online.next-page.title");
 
         if (item.getDisplayName().equalsIgnoreCase(previousName)) {
             userData.setChangeInv(true);
@@ -143,11 +142,7 @@ public class OnlineSample implements GuiSample {
 
     public List<UUID> getOnlinePlayers() {
         List<UUID> uuidList = new ArrayList<>();
-
-        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-            uuidList.add(player.getUniqueId());
-        }
-        
+        Bukkit.getServer().getOnlinePlayers().forEach(player -> uuidList.add(player.getUniqueId()));
         return uuidList;
     }
     

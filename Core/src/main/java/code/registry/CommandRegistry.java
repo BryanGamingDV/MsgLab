@@ -48,7 +48,7 @@ public class CommandRegistry implements LoaderService {
 
     public void reCheckCommands(){
         registerCommands(
-                new CLabCommand(plugin, pluginService),
+                new CLabCommand(pluginService),
                 new MsgCommand(pluginService),
                 new ReplyCommand(pluginService),
                 new SocialSpyCommand(pluginService),
@@ -56,7 +56,7 @@ public class CommandRegistry implements LoaderService {
                 new HelpopCommand(pluginService),
                 new IgnoreCommand(pluginService),
                 new UnIgnoreCommand(pluginService),
-                new ChatCommand(plugin, pluginService),
+                new ChatCommand(pluginService),
                 new BroadcastCommand(pluginService),
                 new BroadcastWorldCommand(pluginService),
                 new ChannelCommand(pluginService),

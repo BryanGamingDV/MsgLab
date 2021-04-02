@@ -18,16 +18,16 @@ public class ModuleCheck {
     }
 
     public boolean isPluginCommand(String commandName) {
-        boolean bmsgCommand = false;
+        boolean clabCommand = false;
 
         for (String allCommands : pluginService.getListManager().getCommands()) {
             if (allCommands.equalsIgnoreCase(StringUtils.remove(commandName, "/"))) {
-                bmsgCommand = true;
+                clabCommand = true;
                 break;
             }
         }
 
-        return bmsgCommand;
+        return clabCommand;
     }
 
     public boolean isCommandDisabledInCooldown(String message) {

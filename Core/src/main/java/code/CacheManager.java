@@ -1,8 +1,8 @@
 package code;
 
+import code.data.JQFormat;
 import code.data.UserData;
 import code.debug.DebugLogger;
-import code.data.JQFormat;
 import code.utils.Configuration;
 
 import java.util.HashMap;

@@ -1,15 +1,9 @@
 package code.events.server;
 
-import code.data.UserData;
-import com.google.common.util.concurrent.ListenableFuture;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class ServerChangeEvent extends Event{

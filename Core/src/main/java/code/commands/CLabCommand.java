@@ -1,9 +1,7 @@
 package code.commands;
 
-import code.ChatLab;
 import code.PluginService;
 import code.bukkitutils.sound.SoundEnum;
-import code.bukkitutils.sound.SoundManager;
 import code.data.UserData;
 import code.managers.player.PlayerMessage;
 import code.modules.DataModule;
@@ -27,8 +25,6 @@ import java.util.Set;
 @Command(names = {"clab", "chatlab"})
 public class CLabCommand implements CommandClass {
 
-    private final ChatLab plugin;
-
     private final PluginService pluginService;
 
     private final Configuration soundfile;
@@ -39,10 +35,8 @@ public class CLabCommand implements CommandClass {
 
     private final ModuleCheck moduleCheck;
     private final PlayerMessage playerMethod;
-    private final SoundManager sound;
 
-    public CLabCommand(ChatLab plugin, PluginService pluginService) {
-        this.plugin = plugin;
+    public CLabCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
         this.soundfile = pluginService.getFiles().getSounds();
@@ -53,13 +47,12 @@ public class CLabCommand implements CommandClass {
 
         this.moduleCheck = pluginService.getPathManager();
         this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.sound = pluginService.getManagingCenter().getSoundManager();
     }
 
     @Command(names = "")
     public boolean onCommand(@Sender Player sender) {
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("bmsg", "help, reload, commands, support, sounds, debug, restore")));
+                .replace("%usage%", moduleCheck.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
@@ -67,9 +60,9 @@ public class CLabCommand implements CommandClass {
     @Command(names = "help")
     public boolean helpSubCommand(@Sender Player sender) {
 
-        command.getStringList("commands.bmsg.help.pages")
+        command.getStringList("commands.clab.help.pages")
                 .forEach(text -> playerMethod.sendMessage(sender, text));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg help");
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab help");
 
         return true;
 
@@ -84,19 +77,19 @@ public class CLabCommand implements CommandClass {
             return true;
         }
 
-        playerMethod.sendMessage(sender, command.getString("commands.bmsg.commands.format")
+        playerMethod.sendMessage(sender, command.getString("commands.clab.commands.format")
                 .replace("%page%", page)
                 .replace("%max_page%", String.valueOf(getMaxPage())));
-        command.getStringList("commands.bmsg.commands.pages." + page)
+        command.getStringList("commands.clab.commands.pages." + page)
                 .forEach(text -> playerMethod.sendMessage(sender, text));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg commands");
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab commands");
         return true;
     }
 
     @Command(names = "reload")
     public boolean reloadSubCommand(@Sender Player sender, @OptArg("") String file) {
 
-        if (!(playerMethod.hasPermission(sender, "commands.bmsg.reload"))) {
+        if (!(playerMethod.hasPermission(sender, "commands.clab.reload"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
@@ -104,7 +97,7 @@ public class CLabCommand implements CommandClass {
 
         if (file.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("bmsg", "reload", "all, <file>")));
+                    .replace("%usage%", moduleCheck.getUsage("clab", "reload", "all, <file>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -124,12 +117,12 @@ public class CLabCommand implements CommandClass {
         if (config.getBoolean("config.allow-support")) {
             playerMethod.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
             playerMethod.sendMessage(sender, "&8- &fJoin: &ahttps://discord.gg/wpSh4Bf4E");
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg support");
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab support");
             return true;
         }
 
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("bmsg", "help, reload, commands, support, sounds, debug, restore")));
+                .replace("%usage%", moduleCheck.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
 
@@ -147,21 +140,21 @@ public class CLabCommand implements CommandClass {
 
         if (playerSound.isPlayersoundMode()) {
             playerSound.setPlayersoundMode(false);
-            playerMethod.sendMessage(sender, command.getString("commands.bmsg.sounds.disabled"));
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg sounds on");
+            playerMethod.sendMessage(sender, command.getString("commands.clab.sounds.disabled"));
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab sounds on");
             return true;
         }
 
         playerSound.setPlayersoundMode(true);
-        playerMethod.sendMessage(sender, command.getString("commands.bmsg.sounds.enabled"));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg sounds off");
+        playerMethod.sendMessage(sender, command.getString("commands.clab.sounds.enabled"));
+        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab sounds off");
         return true;
     }
 
     @Command(names = "debug")
     public boolean debugSubCommand(@Sender Player sender, @OptArg("") String arg1, @OptArg("") String arg2) {
 
-        if (!(playerMethod.hasPermission(sender, "commands.bmsg.debug"))) {
+        if (!(playerMethod.hasPermission(sender, "commands.clab.debug"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
@@ -169,7 +162,7 @@ public class CLabCommand implements CommandClass {
 
         if (arg1.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("bmsg", "debug", "pwc, commands, modules")));
+                    .replace("%usage%", moduleCheck.getUsage("clab", "debug", "pwc, commands, modules")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -185,13 +178,13 @@ public class CLabCommand implements CommandClass {
             }
 
             if (arg2.equalsIgnoreCase("-all")) {
-                playerMethod.sendMessage(sender, command.getString("commands.bmsg.debug.list.worlds"));
+                playerMethod.sendMessage(sender, command.getString("commands.clab.debug.list.worlds"));
 
                 for (String worldname : worldlist) {
                     playerMethod.sendMessage(sender, "&8- &f " + worldname);
                 }
 
-                playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg debug pwc -all");
+                playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab debug pwc -all");
                 return true;
             }
 
@@ -204,17 +197,17 @@ public class CLabCommand implements CommandClass {
                 return true;
             }
 
-            playerMethod.sendMessage(sender, command.getString("commands.bmsg.debug.worldpath-info")
+            playerMethod.sendMessage(sender, command.getString("commands.clab.debug.worldpath-info")
                     .replace("%world%", arg2));
 
             for (String worldnamelist : worldname) {
                 playerMethod.sendMessage(sender, "&8- &f" + worldnamelist);
             }
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg debug pwc");
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab debug pwc");
             return true;
         }
         if (arg2.equalsIgnoreCase("commands")) {
-            playerMethod.sendMessage(sender, command.getString("commands.bmsg.debug.list.commands"));
+            playerMethod.sendMessage(sender, command.getString("commands.clab.debug.list.commands"));
             for (String commandName : pluginService.getListManager().getCommands()) {
                 if (pluginService.getPathManager().isCommandEnabled(commandName)) {
                     playerMethod.sendMessage(sender, "&8- &f" + commandName + " &a[Enabled]");
@@ -222,11 +215,11 @@ public class CLabCommand implements CommandClass {
                     playerMethod.sendMessage(sender, "&8- &f" + commandName + " &c[Disabled]");
                 }
             }
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg debug commands");
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab debug commands");
             return true;
         }
         if (arg2.equalsIgnoreCase("modules")) {
-            playerMethod.sendMessage(sender, command.getString("commands.bmsg.debug.list.modules"));
+            playerMethod.sendMessage(sender, command.getString("commands.clab.debug.list.modules"));
             for (String moduleName : pluginService.getListManager().getModules()) {
                 if (pluginService.getPathManager().isOptionEnabled(moduleName)) {
                     playerMethod.sendMessage(sender, "&8- &f" + moduleName + " &a[Enabled]");
@@ -234,13 +227,13 @@ public class CLabCommand implements CommandClass {
                     playerMethod.sendMessage(sender, "&8- &f" + moduleName + " &c[Disabled]");
                 }
             }
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg debug modules");
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab debug modules");
             return true;
 
         }
 
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("bmsg", arg1, "commands, modules")));
+                .replace("%usage%", moduleCheck.getUsage("clab", arg1, "commands, modules")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
@@ -248,7 +241,7 @@ public class CLabCommand implements CommandClass {
     @Command(names = "restore")
     public boolean restoreSubCommand(@Sender Player sender, @OptArg("") String type) {
 
-        if (!(playerMethod.hasPermission(sender, "commands.bmsg.restore"))) {
+        if (!(playerMethod.hasPermission(sender, "commands.clab.restore"))) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
@@ -256,7 +249,7 @@ public class CLabCommand implements CommandClass {
 
         if (type.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("bmsg", "restore", "commands, modules")));
+                    .replace("%usage%", moduleCheck.getUsage("clab", "restore", "commands, modules")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -266,22 +259,22 @@ public class CLabCommand implements CommandClass {
         if (type.equalsIgnoreCase("commands")) {
             config.set("config.modules.enabled-commands", moduleCreator.getCommands());
             config.save();
-            playerMethod.sendMessage(sender, command.getString("commands.bmsg.restore.commands"));
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg restore commands");
+            playerMethod.sendMessage(sender, command.getString("commands.clab.restore.commands"));
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab restore commands");
             return true;
 
         }
         if (type.equalsIgnoreCase("modules")) {
             config.set("config.modules.enabled-options", moduleCreator.getModules());
             config.save();
-            playerMethod.sendMessage(sender, command.getString("commands.bmsg.restore.commands"));
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "bmsg restore modules");
+            playerMethod.sendMessage(sender, command.getString("commands.clab.restore.commands"));
+            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab restore modules");
             return true;
 
         }
 
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("bmsg", "restore", "commands, modules")));
+                .replace("%usage%", moduleCheck.getUsage("clab", "restore", "commands, modules")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
@@ -303,8 +296,8 @@ public class CLabCommand implements CommandClass {
             }
             checkCommands();
             DataModule dataModule = new DataModule(pluginService);
-            playerMethod.sendMessage(player, files.getCommand().getString("commands.bmsg.reload"));
-            playerMethod.sendSound(player, SoundEnum.ARGUMENT, "bmsg reload all");
+            playerMethod.sendMessage(player, files.getCommand().getString("commands.clab.reload"));
+            playerMethod.sendSound(player, SoundEnum.ARGUMENT, "clab reload all");
             return;
         }
 
@@ -323,9 +316,9 @@ public class CLabCommand implements CommandClass {
             DataModule dataModule = new DataModule(pluginService);
         }
 
-        playerMethod.sendMessage(player, files.getCommand().getString("commands.bmsg.reload-file")
+        playerMethod.sendMessage(player, files.getCommand().getString("commands.clab.reload-file")
                 .replace("%file%", StringUtils.capitalize(string)));
-        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "bmsg reload");
+        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "clab reload");
 
     }
 
@@ -345,6 +338,6 @@ public class CLabCommand implements CommandClass {
 
     public Set<String> getHelp() {
         Configuration commands = pluginService.getFiles().getCommand();
-        return commands.getConfigurationSection("commands.bmsg.commands.pages").getKeys(true);
+        return commands.getConfigurationSection("commands.clab.commands.pages").getKeys(true);
     }
 }

@@ -162,6 +162,10 @@ public class ChatMethod {
 
         serverData.setMuted(false);
 
+        if (silent){
+            return;
+        }
+
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             playerMethod.sendMessage(onlinePlayer, command.getString("commands.chat.mute.unmute-temporal"));
         }

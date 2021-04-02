@@ -1,10 +1,9 @@
 package code.listeners.events.server;
 
 import code.PluginService;
+import code.data.JQFormat;
 import code.events.server.ChangeMode;
 import code.events.server.ServerChangeEvent;
-import code.data.JQFormat;
-import code.managers.player.PlayerMessage;
 import code.managers.player.PlayerStatic;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;

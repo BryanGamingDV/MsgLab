@@ -4,7 +4,6 @@ import code.PluginService;
 import code.bukkitutils.sound.SoundEnum;
 import code.data.UserData;
 import code.events.HelpOpEvent;
-import code.events.server.ServerChangeEvent;
 import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import org.bukkit.Bukkit;

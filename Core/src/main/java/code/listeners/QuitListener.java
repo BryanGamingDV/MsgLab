@@ -5,7 +5,6 @@ import code.data.UserData;
 import code.events.server.ChangeMode;
 import code.events.server.ServerChangeEvent;
 import code.managers.GroupMethod;
-import code.managers.commands.ChatMethod;
 import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
 import code.utils.module.ModuleCheck;

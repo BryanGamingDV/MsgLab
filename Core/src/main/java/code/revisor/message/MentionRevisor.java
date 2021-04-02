@@ -3,9 +3,6 @@ package code.revisor.message;
 import code.PluginService;
 import code.managers.player.PlayerMessage;
 import code.utils.Configuration;
-import jdk.javadoc.internal.doclets.toolkit.DocFileElement;
-import jdk.javadoc.internal.doclets.toolkit.DocletElement;
-import jdk.javadoc.internal.doclets.toolkit.util.DocFile;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -4,7 +4,6 @@ import code.PluginService;
 import code.utils.Configuration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.kyori.text.TextComponent;
 import org.bukkit.ChatColor;
 
 public class StringUtils {
@@ -29,7 +28,7 @@ public class StringUtils {
 
         string = string
                 .replace("&f", "<white>");
-
+        
         return MiniMessage.get().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(string).asComponent());
     }
 }
