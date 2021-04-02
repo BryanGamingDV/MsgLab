@@ -1,6 +1,6 @@
 package code.commands;
 
-import code.MsgLab;
+import code.ChatLab;
 import code.PluginService;
 import code.bukkitutils.sound.SoundEnum;
 import code.bukkitutils.sound.SoundManager;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 public class ChatCommand implements CommandClass {
 
     private final PluginService pluginService;
-    private final MsgLab plugin;
+    private final ChatLab plugin;
 
     private final Configuration command;
     private final Configuration messages;
@@ -39,7 +39,7 @@ public class ChatCommand implements CommandClass {
     private final SoundManager sound;
 
 
-    public ChatCommand(MsgLab plugin, PluginService pluginService) {
+    public ChatCommand(ChatLab plugin, PluginService pluginService) {
         this.pluginService = pluginService;
         this.plugin = plugin;
 
@@ -237,7 +237,7 @@ public class ChatCommand implements CommandClass {
         }
 
         if (text.equalsIgnoreCase("-d")) {
-            chatMethod.setCooldown(sender, utils.getInt("chat.cooldown.text.seconds"));
+            chatMethod.setCooldown(sender, utils.getInt("fitlers.cooldown.text.seconds"));
             playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "chat cooldown");
             return true;
         }

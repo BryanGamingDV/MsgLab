@@ -1,8 +1,7 @@
 package code.modules;
 
-import code.CacheManager;
 import code.PluginService;
-import code.managers.jq.JQFormat;
+import code.data.JQFormat;
 import code.utils.Configuration;
 
 import java.util.Map;
@@ -26,7 +25,7 @@ public class DataModule {
         }
 
         for (String dataRanks : utils.getConfigurationSection("lobby.formats").getKeys(false)){
-            JQFormat jqFormat = new JQFormat();
+            JQFormat jqFormat = new JQFormat(dataRanks);
 
             if (utils.getConfigurationSection("lobby.formats." + dataRanks + ".first-join") != null) {
 

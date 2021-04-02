@@ -38,7 +38,7 @@
                         <relocation>
                             <pattern>org.bstats</pattern>
                             <!-- Replace this with your package! -->
-                            <shadedPattern>code.MsgLab</shadedPattern>
+                            <shadedPattern>code.ChatLab</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

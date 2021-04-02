@@ -26,6 +26,7 @@ C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\revisor\ta
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\bukkitutils\RunnableManager.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\managers\commands\ChatMethod.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\listeners\JoinListener.java
+C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\ChatLab.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\revisor\message\WordRevisor.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\modules\DataModule.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\listeners\QuitListener.java
@@ -33,6 +34,7 @@ C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\commands\C
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\events\CommandSpyEvent.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\commands\StaffChatCommand.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\events\SocialSpyEvent.java
+C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\data\JQFormat.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\bukkitutils\WorldData.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\events\HelpOpEvent.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\managers\GroupMethod.java
@@ -67,7 +69,6 @@ C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\data\UserD
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\managers\click\ClickChatMethod.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\commands\ReplyCommand.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\debug\ErrorManager.java
-C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\managers\jq\JQFormat.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\revisor\message\FloodRevisor.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\commands\IgnoreCommand.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\managers\HoverMethod.java
@@ -77,7 +78,6 @@ C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\utils\modu
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\commands\BmsgCommand.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\bukkitutils\sound\SoundEnum.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\debug\DebugLogger.java
-C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\MsgLab.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\data\ServerData.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\managers\player\PlayerStatic.java
 C:\Users\David Bryan\Documents\GitHub\ChatLab\Core\src\main\java\code\events\server\ServerChangeEvent.java

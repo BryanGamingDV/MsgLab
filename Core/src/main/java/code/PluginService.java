@@ -16,7 +16,7 @@ import code.utils.module.ModuleCreator;
 
 public class PluginService {
 
-    private final MsgLab plugin;
+    private final ChatLab plugin;
 
     private ServerData serverData;
 
@@ -38,7 +38,7 @@ public class PluginService {
     private CacheManager cache;
 
 
-    public PluginService(MsgLab plugin) {
+    public PluginService(ChatLab plugin) {
         this.plugin = plugin;
         setup();
     }
@@ -121,7 +121,7 @@ public class PluginService {
         return configManager;
     }
 
-    public MsgLab getPlugin() {
+    public ChatLab getPlugin() {
         return plugin;
     }
 

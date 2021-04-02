@@ -1,6 +1,6 @@
 package code.revisor;
 
-import code.MsgLab;
+import code.ChatLab;
 import code.PluginService;
 import code.revisor.commands.BlockRevisor;
 import code.revisor.message.*;
@@ -15,7 +15,7 @@ public class RevisorManager {
 
     private PluginService pluginService;
 
-    private MsgLab plugin;
+    private ChatLab plugin;
     private ModuleCheck path;
 
     private CooldownData cooldownData;

@@ -1,23 +1,17 @@
 package code.listeners.events.server;
 
 import code.PluginService;
-import code.data.ServerData;
 import code.events.server.ChangeMode;
 import code.events.server.ServerChangeEvent;
-import code.managers.jq.JQFormat;
+import code.data.JQFormat;
 import code.managers.player.PlayerMessage;
 import code.managers.player.PlayerStatic;
 import net.kyori.adventure.audience.Audience;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ServerChangeListener implements Listener {
 
@@ -34,8 +28,6 @@ public class ServerChangeListener implements Listener {
         JQFormat jqFormat = pluginService.getCache().getJQFormats().get(serverChangeEvent.getPlayerGroup());
 
 
-        PlayerMessage playerMethods = pluginService.getPlayerMethods().getSender();
-
         Audience player = pluginService.getPlugin().getBukkitAudiences().player(serverChangeEvent.getPlayer());
         Audience global = pluginService.getPlugin().getBukkitAudiences().players();
 
@@ -45,15 +37,17 @@ public class ServerChangeListener implements Listener {
 
             PlayerJoinEvent playerJoinEvent = (PlayerJoinEvent) serverChangeEvent.getEvent();
 
-            switch (jqFormat.getFirstJoinFormat()) {
-                case "none":
-                    break;
-                case "silent":
-                    playerJoinEvent.setJoinMessage(null);
-                    break;
-                default:
-                    playerJoinEvent.setJoinMessage(null);
-                    global.sendMessage(PlayerStatic.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getFirstJoinFormat()));
+            if (jqFormat.getFirstJoinFormat() != null) {
+                switch (jqFormat.getFirstJoinFormat()) {
+                    case "none":
+                        break;
+                    case "silent":
+                        playerJoinEvent.setJoinMessage(null);
+                        break;
+                    default:
+                        playerJoinEvent.setJoinMessage(null);
+                        global.sendMessage(PlayerStatic.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getFirstJoinFormat()));
+                }
             }
 
             if (jqFormat.getFirstJoinMotdList() != null) {
@@ -66,9 +60,9 @@ public class ServerChangeListener implements Listener {
                         for (int id = 0; id > time; id++) {
                             player.sendMessage(PlayerStatic.convertTextToComponent(sender, motdFormat.substring(loopTest.length())));
                         }
-
-                        player.sendMessage(PlayerStatic.convertTextToComponent(sender, motdFormat));
+                        continue;
                     }
+                    player.sendMessage(PlayerStatic.convertTextToComponent(sender, motdFormat));
                 }
             }
 
@@ -82,15 +76,18 @@ public class ServerChangeListener implements Listener {
         if (serverChangeEvent.getChangeMode() == ChangeMode.JOIN){
             PlayerJoinEvent playerJoinEvent = (PlayerJoinEvent) serverChangeEvent.getEvent();
 
-            switch (jqFormat.getJoinFormat()) {
-                case "none":
-                    break;
-                case "silent":
-                    playerJoinEvent.setJoinMessage(null);
-                    break;
-                default:
-                    playerJoinEvent.setJoinMessage(null);
-                    global.sendMessage(PlayerStatic.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getJoinFormat()));
+
+            if (jqFormat.getJoinFormat() != null) {
+                switch (jqFormat.getJoinFormat()) {
+                    case "none":
+                        break;
+                    case "silent":
+                        playerJoinEvent.setJoinMessage(null);
+                        break;
+                    default:
+                        playerJoinEvent.setJoinMessage(null);
+                        global.sendMessage(PlayerStatic.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getJoinFormat()));
+                }
             }
 
 
@@ -104,9 +101,10 @@ public class ServerChangeListener implements Listener {
                         for (int id = 0; id > time; id++) {
                             player.sendMessage(PlayerStatic.convertTextToComponent(sender, motdFormat.substring(loopTest.length())));
                         }
-
-                        player.sendMessage(PlayerStatic.convertTextToComponent(sender, motdFormat));
+                        continue;
                     }
+
+                    player.sendMessage(PlayerStatic.convertTextToComponent(sender, motdFormat));
                 }
             }
 
@@ -120,15 +118,17 @@ public class ServerChangeListener implements Listener {
 
             PlayerQuitEvent playerQuitEvent = (PlayerQuitEvent) serverChangeEvent.getEvent();
 
-            switch (jqFormat.getQuitFormat()) {
-                case "none":
-                    break;
-                case "silent":
-                    playerQuitEvent.setQuitMessage(null);
-                    break;
-                default:
-                    playerQuitEvent.setQuitMessage(null);
-                    global.sendMessage(PlayerStatic.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getQuitFormat()));
+            if (jqFormat.getQuitFormat() != null) {
+                switch (jqFormat.getQuitFormat()) {
+                    case "none":
+                        break;
+                    case "silent":
+                        playerQuitEvent.setQuitMessage(null);
+                        break;
+                    default:
+                        playerQuitEvent.setQuitMessage(null);
+                        global.sendMessage(PlayerStatic.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getQuitFormat()));
+                }
             }
 
 

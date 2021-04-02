@@ -36,8 +36,8 @@ public class RecipientMethod {
         List<Player> playerList = null;
         event.getRecipients().clear();
 
-        if (utils.getBoolean("chat.per-world-chat.enabled")) {
-            if (utils.getBoolean("chat.per-world-chat.all-worlds")) {
+        if (utils.getBoolean("per-world-chat.enabled")) {
+            if (utils.getBoolean("per-world-chat.all-worlds")) {
                 for (String worldname : WorldData.getAllWorldChat()) {
                     if (player.getWorld().getName().equalsIgnoreCase(worldname)) {
                         World world = Bukkit.getWorld(worldname);
@@ -59,13 +59,13 @@ public class RecipientMethod {
 
         if (playerList == null) {
             pluginService.getPlugin().getLogger().info("How did you get here?" +
-                    utils.getBoolean("chat.per-world-chat.enabled"));
+                    utils.getBoolean("per-world-chat.enabled"));
             return null;
         }
 
         RadialChatMethod radialChatMethod = pluginService.getPlayerMethods().getRadialChatMethod();
 
-        if (utils.getBoolean("chat.radial-chat.enabled")) {
+        if (utils.getBoolean("radial-chat.enabled")) {
 
             Iterator<Player> playerRadialIterator = playerList.iterator();
             List<Player> radialPlayerList = radialChatMethod.getRadialPlayers(player);

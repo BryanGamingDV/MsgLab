@@ -9,10 +9,12 @@ code\managers\player\PlayerMessage.class
 code\managers\click\ClickChatMethod$1.class
 code\modules\DataModule.class
 code\managers\commands\IgnoreMethod.class
+code\data\JQFormat.class
 code\utils\hooks\ProtocolHook.class
 code\api\BasicAPI.class
 code\commands\BmsgCommand.class
 code\listeners\events\server\ServerChangeListener.class
+code\ChatLab.class
 code\registry\EventManager.class
 code\commands\UnIgnoreCommand.class
 code\utils\UpdateCheck$VersionScheme.class
@@ -59,7 +61,6 @@ code\registry\LoaderService.class
 code\utils\UpdateCheck$UpdateReason.class
 code\registry\ConfigManager.class
 code\managers\click\ChatClickEvent.class
-code\managers\jq\JQFormat.class
 code\managers\commands\MsgMethod.class
 code\utils\UpdateCheck$1.class
 code\data\UserData.class
@@ -96,7 +97,6 @@ code\managers\commands\StaffChatMethod.class
 code\commands\IgnoreCommand.class
 code\commands\SocialSpyCommand.class
 code\api\BasicAPIDesc.class
-code\MsgLab.class
 code\events\CommandSpyEvent.class
 code\listeners\QuitListener.class
 code\registry\CommandRegistry.class

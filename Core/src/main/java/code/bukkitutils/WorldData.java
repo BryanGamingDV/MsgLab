@@ -1,6 +1,6 @@
 package code.bukkitutils;
 
-import code.MsgLab;
+import code.ChatLab;
 import code.PluginService;
 import code.debug.DebugLogger;
 import code.utils.Configuration;
@@ -17,7 +17,7 @@ public class WorldData {
 
     private final PluginService pluginService;
 
-    private static MsgLab plugin;
+    private static ChatLab plugin;
     private static DebugLogger debugLogger;
 
     private static Configuration utils;
@@ -32,18 +32,18 @@ public class WorldData {
 
     public static List<String> getWorldChat(Player player) {
 
-        Set<String> pwcKeys = utils.getConfigurationSection("chat.per-world-chat.worlds").getKeys(false);
+        Set<String> pwcKeys = utils.getConfigurationSection("per-world-chat.worlds").getKeys(false);
 
         if (pwcKeys.isEmpty()) {
             plugin.getLogger().info("Ummm if you don't want to use perworldchat per groups, I will activate all-worlds, for you.");
             plugin.getLogger().info("- EasterEgg #1");
-            utils.set("chat.per-world-chat.all-worlds", true);
+            utils.set("per-world-chat.all-worlds", true);
             utils.reload();
             return getAllWorldChat();
         }
 
         for (String id : pwcKeys) {
-            List<String> worldData = new ArrayList<>(utils.getStringList("chat.per-world-chat.worlds." + id + ".worlds"));
+            List<String> worldData = new ArrayList<>(utils.getStringList("per-world-chat.worlds." + id + ".worlds"));
 
             for (String world : worldData) {
                 if (player.getWorld().getName().equalsIgnoreCase(world)) {
@@ -57,21 +57,21 @@ public class WorldData {
 
     public static String getWorldID(Player player) {
 
-        if (!utils.getBoolean("chat.per-world-chat.enabled")) {
+        if (!utils.getBoolean("per-world-chat.enabled")) {
             return null;
         }
 
-        Set<String> pwcKeys = utils.getConfigurationSection("chat.per-world-chat.worlds").getKeys(false);
+        Set<String> pwcKeys = utils.getConfigurationSection("per-world-chat.worlds").getKeys(false);
         if (pwcKeys.isEmpty()) {
             plugin.getLogger().info("Ummm if you don't want to use perworldchat per groups, I will activate all-worlds, for you.");
             plugin.getLogger().info("- EasterEgg #1");
-            utils.set("chat.per-world-chat.all-worlds", true);
+            utils.set("per-world-chat.all-worlds", true);
             utils.reload();
             return null;
         }
 
         for (String id : pwcKeys) {
-            List<String> worldData = new ArrayList<>(utils.getStringList("chat.per-world-chat.worlds." + id + ".worlds"));
+            List<String> worldData = new ArrayList<>(utils.getStringList("per-world-chat.worlds." + id + ".worlds"));
 
             for (String world : worldData) {
                 if (player.getWorld().getName().equalsIgnoreCase(world)) {

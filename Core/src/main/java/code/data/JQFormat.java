@@ -1,4 +1,4 @@
-package code.managers.jq;
+package code.data;
 
 import java.util.List;
 
@@ -14,6 +14,12 @@ public class JQFormat {
 
     private List<String> firstJoinMotdList;
     private List<String> joinMotdList;
+
+    private String name;
+
+    public JQFormat(String name){
+        this.name = name;
+    }
 
     public List<String> getFirstJoinCommands() {
         return firstJoinCommands;

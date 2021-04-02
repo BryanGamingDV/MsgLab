@@ -8,6 +8,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 public class VariableUtils {
@@ -18,17 +19,23 @@ public class VariableUtils {
     private static ChatMethod chatMethod;
 
     private static Configuration config;
+    private static Configuration utils;
 
     public VariableUtils(PluginService pluginService){
         this.pluginService = pluginService;
 
         supportManager = pluginService.getSupportManager();
         chatMethod = pluginService.getPlayerMethods().getChatMethod();
+
         config = pluginService.getFiles().getConfig();
+        utils = pluginService.getFiles().getBasicUtils();
     }
 
     public static String replaceAllVariables(Player player, String string){
+
+        string = replaceEmojis(string);
         string = replacePluginVariables(string);
+
         string = replaceTags(player, string);
         string = replacePlayerVariables(player, string);
         string = replacePAPIVariables(player, string);
@@ -51,6 +58,16 @@ public class VariableUtils {
 
         string = PlaceholderAPI.setPlaceholders(player, string);
         string = string.replace('§', '&');
+
+        return string;
+    }
+
+
+    public static String replaceEmojis(String string){
+
+        for (String emojiPath : utils.getStringList("fitlers.emojis")){
+            string = string.replace(emojiPath.split(";")[0], emojiPath.split(";")[1]);
+        }
 
         return string;
     }

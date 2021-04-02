@@ -1,6 +1,6 @@
 package code.registry;
 
-import code.MsgLab;
+import code.ChatLab;
 import code.PluginService;
 import code.debug.DebugLogger;
 import code.utils.Configuration;
@@ -18,10 +18,10 @@ public class ConfigManager {
     private Configuration sounds;
     private Configuration utils;
 
-    private final MsgLab plugin;
+    private final ChatLab plugin;
     private final PluginService pluginService;
 
-    public ConfigManager(MsgLab plugin, PluginService pluginService) {
+    public ConfigManager(ChatLab plugin, PluginService pluginService) {
         this.plugin = plugin;
         this.pluginService = pluginService;
     }

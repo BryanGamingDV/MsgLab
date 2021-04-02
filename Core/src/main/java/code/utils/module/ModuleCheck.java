@@ -34,7 +34,7 @@ public class ModuleCheck {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        for (String disabledCmds : utils.getStringList("chat.cooldown.cmd.disabled-cmds")) {
+        for (String disabledCmds : utils.getStringList("fitlers.cmd.disabled-cmds")) {
             if (disabledCmds.equalsIgnoreCase(StringUtils.remove(message, "/"))) {
                 return true;
             }

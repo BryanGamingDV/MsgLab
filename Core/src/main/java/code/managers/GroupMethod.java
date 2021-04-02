@@ -22,23 +22,23 @@ public class GroupMethod {
     public Set<String> getGroup() {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        return utils.getConfigurationSection("chat.format.groups").getKeys(false);
+        return utils.getConfigurationSection("format.groups").getKeys(false);
     }
 
     public String getPlayerGroup(Player player) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (player.isOp() || player.hasPermission("*")) {
-            if (utils.getConfigurationSection("chat.format.op") == null) {
+            if (utils.getConfigurationSection("format.op") == null) {
                 return "default";
             }
 
             return "op";
         }
 
-        if (utils.getString("chat.format.group-access").equalsIgnoreCase("permission")) {
+        if (utils.getString("format.group-access").equalsIgnoreCase("permission")) {
             for (String group : getGroup()) {
-                if (player.hasPermission(utils.getString("chat.format.groups." + group + ".permission"))) {
+                if (player.hasPermission(utils.getString("format.groups." + group + ".permission"))) {
                     return group;
                 }
             }
@@ -74,18 +74,18 @@ public class GroupMethod {
     public String getPlayerFormat(Player player, String format) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
-            return utils.getString("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format. " + format + ". format");
+        if (utils.getBoolean("per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
+            return utils.getString("per-world-chat.worlds." + WorldData.getWorldID(player) + ".format. " + format + ". format");
         }
 
         if (getPlayerGroup(player).equalsIgnoreCase("default")) {
-            return utils.getString("chat.format." + getPlayerGroup(player) + ".bases." + format + ".format");
+            return utils.getString("format." + getPlayerGroup(player) + ".bases." + format + ".format");
         }
         if (getPlayerGroup(player).equalsIgnoreCase("op")) {
-            return utils.getString("chat.format." + getPlayerGroup(player) + ".bases." + format + ".format");
+            return utils.getString("format." + getPlayerGroup(player) + ".bases." + format + ".format");
         }
 
-        return utils.getString("chat.format.groups." + getPlayerGroup(player) + ".bases." + format + ".format");
+        return utils.getString("format.groups." + getPlayerGroup(player) + ".bases." + format + ".format");
 
     }
 
@@ -101,13 +101,7 @@ public class GroupMethod {
             return "op";
         }
 
-        return utils.getString("chat.format.groups." + channel + ".permission");
-    }
-
-    public Set<String> getJQGroups(String format) {
-        Configuration utils = pluginService.getFiles().getBasicUtils();
-
-        return utils.getConfigurationSection(format + ".format.groups").getKeys(false);
+        return utils.getString("format.groups." + channel + ".permission");
     }
 
     public String getJQGroup(Player player) {
@@ -155,53 +149,53 @@ public class GroupMethod {
     public List<String> getPlayerHover(Player player, String format) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
-            return utils.getStringList("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".bases." + format + ".format.hover");
+        if (utils.getBoolean("per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
+            return utils.getStringList("per-world-chat.worlds." + WorldData.getWorldID(player) + ".bases." + format + ".format.hover");
         }
 
         if (getPlayerGroup(player).equalsIgnoreCase("default")) {
-            return utils.getStringList("chat.format." + getPlayerGroup(player) + ".bases." + format + ".hover");
+            return utils.getStringList("format." + getPlayerGroup(player) + ".bases." + format + ".hover");
         }
         if (getPlayerGroup(player).equalsIgnoreCase("op")) {
-            return utils.getStringList("chat.format." + getPlayerGroup(player) + ".bases." + format + ".hover");
+            return utils.getStringList("format." + getPlayerGroup(player) + ".bases." + format + ".hover");
         }
-        return utils.getStringList("chat.format.groups." + getPlayerGroup(player) + ".bases." + format + ".hover");
+        return utils.getStringList("format.groups." + getPlayerGroup(player) + ".bases." + format + ".hover");
 
     }
 
     public Set<String> getConfigSection(Player player) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
-            return utils.getConfigurationSection("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".bases").getKeys(false);
+        if (utils.getBoolean("per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
+            return utils.getConfigurationSection("per-world-chat.worlds." + WorldData.getWorldID(player) + ".bases").getKeys(false);
         }
 
         if (getPlayerGroup(player).equalsIgnoreCase("default")) {
-            return utils.getConfigurationSection("chat.format." + getPlayerGroup(player) + ".bases").getKeys(false);
+            return utils.getConfigurationSection("format." + getPlayerGroup(player) + ".bases").getKeys(false);
         }
         if (getPlayerGroup(player).equalsIgnoreCase("op")) {
-            return utils.getConfigurationSection("chat.format." + getPlayerGroup(player) + ".bases").getKeys(false);
+            return utils.getConfigurationSection("format." + getPlayerGroup(player) + ".bases").getKeys(false);
 
         }
-        return utils.getConfigurationSection("chat.format.groups." + getPlayerGroup(player) + ".bases").getKeys(false);
+        return utils.getConfigurationSection("format.groups." + getPlayerGroup(player) + ".bases").getKeys(false);
 
     }
 
     public String getPlayerCmd(Player player, String format) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (utils.getBoolean("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
-            return utils.getString("chat.per-world-chat.worlds." + WorldData.getWorldID(player) + ".bases." + format + ".format.command");
+        if (utils.getBoolean("per-world-chat.worlds." + WorldData.getWorldID(player) + ".format.enabled")) {
+            return utils.getString("per-world-chat.worlds." + WorldData.getWorldID(player) + ".bases." + format + ".format.command");
         }
 
         if (getPlayerGroup(player).equalsIgnoreCase("default")) {
-            return utils.getString("chat.format." + getPlayerGroup(player) + ".bases." + format + ".command");
+            return utils.getString("format." + getPlayerGroup(player) + ".bases." + format + ".command");
         }
         if (getPlayerGroup(player).equalsIgnoreCase("op")) {
-            return utils.getString("chat.format." + getPlayerGroup(player) + ".bases." + format + ".command");
+            return utils.getString("format." + getPlayerGroup(player) + ".bases." + format + ".command");
         }
 
-        return utils.getString("chat.groups.format." + getPlayerGroup(player) + ".bases." + format + ".command");
+        return utils.getString("format.groups" + getPlayerGroup(player) + ".bases." + format + ".command");
 
     }
 
@@ -212,7 +206,7 @@ public class GroupMethod {
             return false;
         }
 
-        return utils.getString("chat.format.groups." + group) == null;
+        return utils.getString("format.groups." + group) == null;
     }
 
 
@@ -223,7 +217,7 @@ public class GroupMethod {
             return true;
         }
 
-        return utils.getBoolean("chat.format.groups." + group + ".channel");
+        return utils.getBoolean("format.groups." + group + ".channel");
     }
 
     public boolean hasGroupPermission(Player player, String group) {
@@ -238,8 +232,8 @@ public class GroupMethod {
             return true;
         }
 
-        if (utils.getString("chat.format.group-access").equalsIgnoreCase("permission")) {
-            return player.hasPermission(utils.getString("chat.format.groups." + group + ".permission"));
+        if (utils.getString("format.group-access").equalsIgnoreCase("permission")) {
+            return player.hasPermission(utils.getString("format.groups." + group + ".permission"));
         }
 
         return vaultHook.getChat().playerInGroup(player, group);

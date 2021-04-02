@@ -22,9 +22,9 @@ public class RadialChatMethod {
     public List<Player> getRadialPlayers(Player player) {
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        int x = utils.getInt("chat.radial-chat.x");
-        int y = utils.getInt("chat.radial-chat.y");
-        int z = utils.getInt("chat.radial-chat.z");
+        int x = utils.getInt("radial-chat.x");
+        int y = utils.getInt("radial-chat.y");
+        int z = utils.getInt("radial-chat.z");
 
         ArrayList<Player> listPlayers = new ArrayList<>();
 

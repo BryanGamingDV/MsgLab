@@ -1,6 +1,6 @@
 package code.registry;
 
-import code.MsgLab;
+import code.ChatLab;
 import code.PluginService;
 import code.commands.*;
 import code.commands.modules.CustomLanguage;
@@ -21,12 +21,12 @@ public class CommandRegistry implements LoaderService {
 
 
     private final PluginService pluginService;
-    private final MsgLab plugin;
+    private final ChatLab plugin;
 
     private AnnotatedCommandTreeBuilder builder;
     private CommandManager commandManager;
 
-    public CommandRegistry(MsgLab plugin, PluginService pluginService) {
+    public CommandRegistry(ChatLab plugin, PluginService pluginService) {
         this.plugin = plugin;
         this.pluginService = pluginService;
     }
@@ -82,7 +82,7 @@ public class CommandRegistry implements LoaderService {
     }
 
     private void createCommandManager() {
-        commandManager = new BukkitCommandManager("MsgLab");
+        commandManager = new BukkitCommandManager("ChatLab");
 
         PartInjector injector = PartInjector.create();
         injector.install(new DefaultsModule());

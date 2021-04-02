@@ -1,6 +1,6 @@
 package code.commands;
 
-import code.MsgLab;
+import code.ChatLab;
 import code.PluginService;
 import code.bukkitutils.sound.SoundEnum;
 import code.bukkitutils.sound.SoundManager;
@@ -27,7 +27,7 @@ import java.util.Set;
 @Command(names = {"bmsg", "bm"})
 public class BmsgCommand implements CommandClass {
 
-    private final MsgLab plugin;
+    private final ChatLab plugin;
 
     private final PluginService pluginService;
 
@@ -41,7 +41,7 @@ public class BmsgCommand implements CommandClass {
     private final PlayerMessage playerMethod;
     private final SoundManager sound;
 
-    public BmsgCommand(MsgLab plugin, PluginService pluginService) {
+    public BmsgCommand(ChatLab plugin, PluginService pluginService) {
         this.plugin = plugin;
         this.pluginService = pluginService;
 
@@ -175,7 +175,7 @@ public class BmsgCommand implements CommandClass {
         }
 
         if (arg1.equalsIgnoreCase("pwc")) {
-            Set<String> worldlist = utils.getConfigurationSection("chat.per-world-chat.worlds").getKeys(true);
+            Set<String> worldlist = utils.getConfigurationSection("per-world-chat.worlds").getKeys(true);
 
             if (arg2.isEmpty()) {
                 playerMethod.sendMessage(sender, messages.getString("error.unknown-arg"));
@@ -195,7 +195,7 @@ public class BmsgCommand implements CommandClass {
                 return true;
             }
 
-            List<String> worldname = utils.getStringList("chat.per-world-chat.worlds." + arg2);
+            List<String> worldname = utils.getStringList("per-world-chat.worlds." + arg2);
 
             if (worldname.isEmpty()) {
                 playerMethod.sendMessage(sender, messages.getString("error.debug.unknown-world")

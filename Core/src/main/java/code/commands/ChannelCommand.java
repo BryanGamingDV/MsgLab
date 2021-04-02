@@ -263,7 +263,7 @@ public class ChannelCommand implements CommandClass {
         String condition;
         String conditionAns;
 
-        if (utils.getString("chat.format.group-access").equalsIgnoreCase("group")) {
+        if (utils.getString("format.group-access").equalsIgnoreCase("group")) {
             condition = command.getString("commands.channel.info.condition.group");
             conditionAns = channel;
         } else {

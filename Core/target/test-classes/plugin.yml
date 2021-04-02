@@ -1,5 +1,5 @@
-main: code.MsgLab
-name: MsgLab
+main: code.ChatLab
+name: ChatLab
 version: 1.8.8
 author: BryanGaming
 softdepend: [PlaceholderAPI, Multiverse-Core, Vault]

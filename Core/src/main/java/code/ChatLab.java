@@ -9,7 +9,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MsgLab extends JavaPlugin {
+public class ChatLab extends JavaPlugin {
 
     private PluginService basicMsg;
 

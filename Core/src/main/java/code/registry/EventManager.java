@@ -1,9 +1,8 @@
 package code.registry;
 
-import code.MsgLab;
+import code.ChatLab;
 import code.PluginService;
 import code.debug.DebugLogger;
-import code.events.server.ServerChangeEvent;
 import code.listeners.GuiListener;
 import code.listeners.JoinListener;
 import code.listeners.QuitListener;
@@ -16,18 +15,16 @@ import code.listeners.format.ChatFormat;
 import code.managers.click.ChatClickEvent;
 import code.revisor.tabcomplete.BlockRevisor;
 import code.utils.StringFormat;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
-import sun.jvm.hotspot.ui.ObjectHistogramPanel;
 
 public class EventManager {
 
-    private final MsgLab plugin;
+    private final ChatLab plugin;
     private final PluginService pluginService;
 
-    public EventManager(MsgLab plugin, PluginService pluginService) {
+    public EventManager(ChatLab plugin, PluginService pluginService) {
         this.plugin = plugin;
         this.pluginService = pluginService;
     }

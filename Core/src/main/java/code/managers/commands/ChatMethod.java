@@ -170,7 +170,7 @@ public class ChatMethod {
 
     public void setCooldown(Player player, int time) {
 
-        serverData.setServerCooldown(time);
+        serverData.setServerTextCooldown(time);
         playerMethod.sendMessage(player, command.getString("commands.chat.cooldown.message")
                 .replace("%time%", String.valueOf(time)));
     }

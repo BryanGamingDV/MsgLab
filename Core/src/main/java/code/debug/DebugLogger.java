@@ -1,6 +1,6 @@
 package code.debug;
 
-import code.MsgLab;
+import code.ChatLab;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,11 +11,11 @@ import java.util.Date;
 
 public class DebugLogger {
 
-    private final MsgLab plugin;
+    private final ChatLab plugin;
 
     private File file;
 
-    public DebugLogger(MsgLab plugin) {
+    public DebugLogger(ChatLab plugin) {
         this.plugin = plugin;
         setup();
         log("Loading plugin..");

@@ -90,7 +90,7 @@ public class ChatFormat implements Listener {
             return;
 
         }
-        if (!(utils.getBoolean("chat.enabled"))) {
+        if (!(utils.getBoolean("options.enabled"))) {
             return;
         }
 
@@ -110,7 +110,7 @@ public class ChatFormat implements Listener {
 
         String message = event.getMessage();
 
-        if (utils.getBoolean("chat.allow-revisor")) {
+        if (utils.getBoolean("options.allow-revisor")) {
             message = revisorManager.revisor(event.getPlayer().getUniqueId(), event.getMessage());
         }
 
@@ -156,7 +156,6 @@ public class ChatFormat implements Listener {
         StringFormat stringFormat = pluginService.getStringFormat();
 
         String command = event.getMessage().substring(stringFormat.countRepeatedCharacters(event.getMessage(), '/')).split(" ")[0].toLowerCase();
-
 
         Bukkit.getPluginManager().callEvent(new CommandSpyEvent(event.getPlayer().getName(), event.getMessage().substring(stringFormat.countRepeatedCharacters(event.getMessage(), '/')).toLowerCase()));
 

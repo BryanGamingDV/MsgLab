@@ -1,24 +1,12 @@
 package code.managers.player;
 
-import code.MsgLab;
 import code.PluginService;
-import code.managers.commands.ChatMethod;
-import code.utils.Configuration;
-import code.utils.StringFormat;
 import code.utils.string.StringUtils;
 import code.utils.string.VariableUtils;
-import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.kyori.text.serializer.gson.GsonComponentSerializer;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class PlayerStatic {

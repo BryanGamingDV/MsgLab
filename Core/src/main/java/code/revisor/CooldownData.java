@@ -1,7 +1,7 @@
 package code.revisor;
 
 import code.CacheManager;
-import code.MsgLab;
+import code.ChatLab;
 import code.PluginService;
 import code.data.UserData;
 import code.managers.player.PlayerMessage;
@@ -15,7 +15,7 @@ public class CooldownData {
 
     private final PluginService pluginService;
 
-    private final MsgLab plugin;
+    private final ChatLab plugin;
     private final CacheManager cache;
     private final PlayerMessage playerMethod;
 
@@ -34,8 +34,8 @@ public class CooldownData {
         this.playerMethod = pluginService.getPlayerMethods().getSender();
         pluginService.getListManager().getModules().add("cooldown");
 
-        int seconds = utils.getInt("chat.format.cooldown.text.seconds");
-        pluginService.getServerData().setServerCooldown(seconds);
+        pluginService.getServerData().setServerTextCooldown(utils.getInt("fitlers.cooldown.text.seconds"));
+        pluginService.getServerData().setServerCmdCooldown(utils.getInt("fitlers.cooldown.cmd.seconds"));
     }
 
     public boolean isTextSpamming(UUID uuid) {
@@ -46,7 +46,7 @@ public class CooldownData {
         }
 
 
-        if (!(utils.getBoolean("chat.format.cooldown.text.enabled"))) {
+        if (!(utils.getBoolean("fitlers.cooldown.text.enabled"))) {
             return false;
         }
 
@@ -58,8 +58,8 @@ public class CooldownData {
         }
 
         if (playerCooldown.isCooldownMode()) {
-            playerMethod.sendMessage(player, utils.getString("chat.format.cooldown.text.message")
-                    .replace("%seconds%", pluginService.getServerData().getServerTextCooldown()));
+            playerMethod.sendMessage(player, utils.getString("fitlers.cooldown.text.message")
+                    .replace("%seconds%", pluginService.getServerData().getServerTextCooldownInString()));
             return true;
         }
 
@@ -70,7 +70,7 @@ public class CooldownData {
             public void run() {
                 playerCooldown.setCooldownMode(false);
             }
-        }, 20L * pluginService.getServerData().getServerCooldown());
+        }, 20L * pluginService.getServerData().getServerTextCooldown());
 
         return false;
     }
@@ -81,7 +81,7 @@ public class CooldownData {
             return false;
         }
 
-        if (!(utils.getBoolean("chat.format.cooldown.cmd.enabled"))) {
+        if (!(utils.getBoolean("fitlers.cooldown.cmd.enabled"))) {
             return false;
         }
 
@@ -93,8 +93,8 @@ public class CooldownData {
         }
 
         if (playerCooldown.isCooldownCmdMode()) {
-            playerMethod.sendMessage(player, utils.getString("chat.format.cooldown.cmd.message")
-                    .replace("%seconds%", pluginService.getServerData().getServerTextCooldown()));
+            playerMethod.sendMessage(player, utils.getString("fitlers.cooldown.cmd.message")
+                    .replace("%seconds%", pluginService.getServerData().getServerCmdCooldownInString()));
             return true;
         }
 
@@ -106,7 +106,7 @@ public class CooldownData {
                 playerCooldown.setCooldownCmdMode(false);
             }
 
-        }, 20L * utils.getInt("chat.format.cooldown.cmd.seconds"));
+        }, 20L * pluginService.getServerData().getServerCmdCooldown());
 
         return false;
     }

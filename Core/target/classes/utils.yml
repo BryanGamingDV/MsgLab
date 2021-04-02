@@ -3,77 +3,131 @@
 #
 
 
-chat:
+options:
   enabled: true
   allow-revisor: true
 
-  # Per world chat
-  per-world-chat:
-    enabled: false
-    all-worlds: false
+#
+# Per world chat:
+#
+per-world-chat:
+  enabled: false
+  all-worlds: false
 
-    worlds:
-      1:
-        worlds:
-          - world
-          - world_nether
-          - world_the_end
+  worlds:
+    1:
+      worlds:
+        - world
+        - world_nether
+        - world_the_end
 
-        # Format [Optional]
-        format:
-          enabled: true
-          format: "&8| &e[Default] &f%player% &7> &f%message%"
-          hover:
-            - "&8&m------[&fHover]&8&m-------"
-            - "&fPlayer: &a%player%"
-            - "&fOnline: &a%online%"
-          command: "/msg %player% message"
+      # Format [Optional]
+      format:
+        enabled: true
+        format: "&8| &e[Default] &f%player% &7> &f%message%"
+        hover:
+          - "&8&m------[&fHover]&8&m-------"
+          - "&fPlayer: &a%player%"
+          - "&fOnline: &a%online%"
+        command: "/msg %player% message"
 
-  # Radial chat
-  radial-chat:
-    enabled: false
+#
+# Radial chat
+#
+radial-chat:
+  enabled: false
 
-    x: 50
-    y: 50
-    z: 50
+  x: 50
+  y: 50
+  z: 50
 
-  #
-  # Chat Format:
-  #
-  #
-  format:
-    default:
+#
+# Chat Format:
+#
+
+format:
+  default:
+    bases:
+      prefix:
+        format: "&8| &f%ml_tag% &e[Default] "
+        hover:
+          - "&8&m------[&fHover]&8&m-------"
+          - "&fPlayer: &a%player%"
+          - "&fOnline: &a%online%"
+        command: "/msg %player% message"
+      player:
+        format: "&f%player%"
+        hover:
+          - "&8&m------[&fHover]&8&m-------"
+          - "&fPlayer: &a%player%"
+          - "&fOnline: &a%online%"
+        command: "/msg %player% message"
+      limit:
+        format: " &7> "
+
+      message:
+        format: "&f%ml_color%%message%"
+        hover:
+          - "&8&m------[&fHover]&8&m-------"
+          - "&fPlayer: &a%player%"
+          - "&fOnline: &a%online%"
+        command: "/msg %player% message"
+
+  # If player has OP or has "*" (Optional, you can remove this configuration section.)
+  op:
+    bases:
+      prefix:
+        format: "&8| &f%ml_tag% &c[OP] &f%player% "
+        hover:
+          - "&8&m------[&fHover]&8&m-------"
+          - "&fPlayer: &a%player%"
+          - "&fOnline: &a%online%"
+        command: "/msg %player% message"
+
+      limit:
+        format: " &7> "
+
+      message:
+        format: "&f%ml_color%%message%"
+        hover:
+          - "&8&m------[&fHover]&8&m-------"
+          - "&fPlayer: &a%player%"
+          - "&fOnline: &a%online%"
+        command: "/msg %player% message"
+
+  # Group access:
+  # - permission -> If player has permission of the group, he receive the data of that group.
+  # - group -> If player is in group, he recieve the data of that group. [Vault & complement required].
+  group-access: group
+  groups:
+    admin:
       bases:
         prefix:
-          format: "&8| &f%ml_tag% &e[Default] "
+          format: "&8| &c[OP] &f%player% "
           hover:
             - "&8&m------[&fHover]&8&m-------"
             - "&fPlayer: &a%player%"
             - "&fOnline: &a%online%"
           command: "/msg %player% message"
-        player:
-          format: "&f%player%"
-          hover:
-            - "&8&m------[&fHover]&8&m-------"
-            - "&fPlayer: &a%player%"
-            - "&fOnline: &a%online%"
-          command: "/msg %player% message"
+
         limit:
           format: " &7> "
 
         message:
-          format: "&f%ml_color%%message%"
+          format: "&f%message%"
           hover:
             - "&8&m------[&fHover]&8&m-------"
             - "&fPlayer: &a%player%"
             - "&fOnline: &a%online%"
           command: "/msg %player% message"
 
-    # If player has OP or has "*" (Optional, you can remove this configuration section.)
-    op:
+      #Independent channel:
+      channel: true
+
+    vip+:
       bases:
         prefix:
-          format: "&8| &f%ml_tag% &c[OP] &f%player% "
+          format: "&8| &c[OP] &f%player% "
           hover:
             - "&8&m------[&fHover]&8&m-------"
             - "&fPlayer: &a%player%"
@@ -84,95 +138,59 @@ chat:
           format: " &7> "
 
         message:
-          format: "&f%ml_color%%message%"
+          format: "&f%message%"
           hover:
             - "&8&m------[&fHover]&8&m-------"
             - "&fPlayer: &a%player%"
             - "&fOnline: &a%online%"
           command: "/msg %player% message"
 
-    # Group access:
-    # - permission -> If player has permission of the group, he receive the data of that group.
-    # - group -> If player is in group, he recieve the data of that group. [Vault & complement required].
-    group-access: group
-    groups:
-      admin:
-        bases:
-          prefix:
-            format: "&8| &c[OP] &f%player% "
-            hover:
-              - "&8&m------[&fHover]&8&m-------"
-              - "&fPlayer: &a%player%"
-              - "&fOnline: &a%online%"
-            command: "/msg %player% message"
+      #Independent channel:
+      channel: true
 
-          limit:
-            format: " &7> "
+fitlers:
 
-          message:
-            format: "&f%message%"
-            hover:
-              - "&8&m------[&fHover]&8&m-------"
-              - "&fPlayer: &a%player%"
-              - "&fOnline: &a%online%"
-            command: "/msg %player% message"
+  # Emojis fitler.
+  # Format: emoji;symbol
 
-        #Independent channel:
-        channel: true
-        permission: group.vip
 
-      vip+:
-        bases:
-          prefix:
-            format: "&8| &c[OP] &f%player% "
-            hover:
-              - "&8&m------[&fHover]&8&m-------"
-              - "&fPlayer: &a%player%"
-              - "&fOnline: &a%online%"
-            command: "/msg %player% message"
+  emojis:
+    - ":happy:;:D"
+    - ":sad:;:("
+    - ":angry:;>:("
+    - ":cry:;:'c"
+    - ":scream:;:{"
+    - ":suprised:;:o"
+    - ":scared:;:O"
 
-          limit:
-            format: " &7> "
+  # Mention filter.
+  mentions:
+    enabled: true
+    message: "%c &fThe player &a%player% mentioned you."
 
-          message:
-            format: "&f%message%"
-            hover:
-              - "&8&m------[&fHover]&8&m-------"
-              - "&fPlayer: &a%player%"
-              - "&fOnline: &a%online%"
-            command: "/msg %player% message"
+    # The char to tag:
+    char-tag: '@'
 
-        #Independent channel:
-        channel: true
-        permission: group.vip+
-        default-color: "&f"
+    # The word that you replace in the word that the other player mention you, to stand out.
+    replace-mention: "&e@%player%"
 
-    # Mention filter.
-    mentions:
+  # Cooldown filter.
+  cooldown:
+    # If the message is a text.
+    text:
       enabled: true
-      message: "%c &fThe player &a%player% mentioned you."
-      # The char to tag:
-      char-tag: '@'
-      # The word that you replace in the word that the other player mention you, to stand out.
-      replace-mention: "&e@%player%"
+      seconds: 2
+      message: "%c &fSorry, please, wait &a%seconds% &fseconds."
 
-    # Cooldown filter.
-    cooldown:
-      # If the message is a text.
-      text:
-        enabled: true
-        seconds: 2
-        message: "%c &fSorry, please, wait &a%seconds% &fseconds."
+    # If the message is a command.
+    cmd:
+      enabled: true
+      seconds: 2
+      message: "%c &fSorry, please, wait &a%seconds% &fseconds."
 
-      # If the message is a command.
-      cmd:
-        enabled: true
-        seconds: 2
-        message: "%c &fSorry, please, wait &a%seconds% &fseconds."
-
-        # Commands that obiously bypass the cooldown.
-        disabled-cmds:
-          - hwllo
+    # Commands that obiously bypass the cooldown.
+      disabled-cmds:
+        - hwllo
 
 
 #
@@ -342,23 +360,23 @@ lobby:
   group-access: permission
 
   formats:
+    # NOTE: All options are optional, you can remove any option.
     default:
       first-join:
-        message: "test"
+        message: "The player %player% joined!"
         motd:
-          -
-          -
-          -
+          - "A test motd"
         commands:
-          -
           -
 
       join:
-        message: "test"
+        message: "The player %player% joined!"
+        motd:
+          - "A test motd"
         commands:
         -
 
       quit:
-        message: "test"
+        message: "The player %player% left!"
         commands:
           -

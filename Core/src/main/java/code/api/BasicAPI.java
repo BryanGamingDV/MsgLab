@@ -18,7 +18,7 @@ public class BasicAPI implements BasicAPIDesc {
     private CacheManager cache;
     private Map<UUID, UserData> userCacheMap;
 
-    private final String pluginname = "MsgLab";
+    private final String pluginname = "ChatLab";
     private final String pluginversion = "1.8.8";
     private final String pluginauthor = "BryanGaming";
 
