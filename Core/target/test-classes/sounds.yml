@@ -1,0 +1,159 @@
+#
+# Sound System:
+# Sounds 1.8/1.9: https://www.spigotmc.org/wiki/cc-sounds-list/
+#
+
+sounds:
+  enabled-all: true
+  vol: 1
+
+  enable-mode:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  error:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  on-message:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  on-reload:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  on-reply:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  on-ignore:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  on-unignore:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  on-socialspy:
+    enabled-all: true
+
+    enable:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+
+    disable:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    toggle:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    list:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    receive-msg:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+  on-helpop:
+    enabled-all: true
+
+    enable:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    disable:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    toggle:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    list:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    receive-msg:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+  on-staff-chat:
+    enabled-all: true
+
+    enable:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    disable:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    toggle:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    receive-msg:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+  on-togglepm:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  on-list:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  on-reply-player:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
+  on-receive:
+    stream:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    broadcast:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    broadcast-world:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1
+
+    msg:
+      enabled: true
+      sound: LEVEL_UP
+      pitch: 1

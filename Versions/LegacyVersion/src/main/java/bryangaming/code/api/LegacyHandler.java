@@ -1,15 +1,12 @@
 package bryangaming.code.api;
 
-import bryangaming.code.api.NMSHandler;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import javax.swing.*;
 import java.util.List;
 
 public class LegacyHandler implements NMSHandler{
