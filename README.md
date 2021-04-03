@@ -15,7 +15,7 @@ ChatLab (MsgLab) is a messaging plugin with many features, it supports bukkit an
 - CommandBlocker <br>
 - You can fitler the commands in the tab (1.13+)
 ## Commands
-Use the command `/bmsg commands` to see all commands <br>
+Use the command `/clab commands` to see all commands <br>
 The permissions of these commands are the default ones. <br>
 [] = optional <br>
 <> = required <br>
