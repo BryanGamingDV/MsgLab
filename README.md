@@ -15,24 +15,24 @@ ChatLab (MsgLab) is a messaging plugin with many features, it supports bukkit an
 - CommandBlocker <br>
 - You can fitler the commands in the tab (1.13+)
 ## Commands
-Use the command `/bmsg commands` to see all commands <br>
+Use the command `/clab commands` to see all commands <br>
 The permissions of these commands are the default ones. <br>
 [] = optional <br>
 <> = required <br>
 / = or
 |    Command     |                          Usage                       |                  Description                |           Permission          |
 |----------------|------------------------------------------------------|---------------------------------------------|-------------------------------|
-| bmsg   	       | `/bmsg [reload/help/debug..]`                        | Plugin main command                         | bmsg.commands.bmsg	          |
-| chat   	       | `/chat [help/clear/mute/unmute/reload..]`            | Chat functions                              | bmsg.commands.chat	          |
-| socialspy      | `/socialspy [on/off] <player>`                       | Spy on a player's social activity           | bmsg.commands.socialspy	      |
-| broadcast      | `/broadcast <message>`                               | Send a message to all players               | bmsg.commands.broadcast       |
-| broadcastworld | `broadcastworld <message>`                           | Send a message to all players in a world    | bmsg.commands.broadcast-world |
-| sc             | `/sc [on/off] / /sc [message]`                       | Send messages to staff chat                 | bmsg.commands.staffchat       |
-| helpop         | `/helpop <message>`                                  | Send help to the help chat                  | bmsg.commands.helpop/watch    |
-| motd           | `/motd [addline/removeline/seline] <id/text> <text>` | To watch or modify the server motd          | NONE/bmsg.commands.motd.admin |
-| channel        | `/channel [join/quit/list/move] [<channel>]`         | To use the channel manager                  | NONE/bmsg.commands.info/move  |
-| stream         | `/stream [<text>]`                                   | To stream                                   | bmsg.commands.stream          |
-| commandspy     | `/commandspy [on/off/list..]`                        | Spying on the commands executed by a player | bmsg.commands.commandspy      |
+| clab   	       | `/clab [reload/help/debug..]`                        | Plugin main command                         | clab.commands.clab	          |
+| chat   	       | `/chat [help/clear/mute/unmute/reload..]`            | Chat functions                              | clab.commands.chat	          |
+| socialspy      | `/socialspy [on/off] <player>`                       | Spy on a player's social activity           | clab.commands.socialspy	      |
+| broadcast      | `/broadcast <message>`                               | Send a message to all players               | clab.commands.broadcast       |
+| broadcastworld | `broadcastworld <message>`                           | Send a message to all players in a world    | clab.commands.broadcast-world |
+| sc             | `/sc [on/off] / /sc [message]`                       | Send messages to staff chat                 | clab.commands.staffchat       |
+| helpop         | `/helpop <message>`                                  | Send help to the help chat                  | clab.commands.helpop/watch    |
+| motd           | `/motd [addline/removeline/seline] <id/text> <text>` | To watch or modify the server motd          | NONE/clab.commands.motd.admin |
+| channel        | `/channel [join/quit/list/move] [<channel>]`         | To use the channel manager                  | NONE/clab.commands.info/move  |
+| stream         | `/stream [<text>]`                                   | To stream                                   | clab.commands.stream          |
+| commandspy     | `/commandspy [on/off/list..]`                        | Spying on the commands executed by a player | clab.commands.commandspy      |
 | ignore         | `/ignore <player>`                                   | Ignore a player                             | NONE                          |
 | unignore       | `/unignore <player>`                                 | Stop ignoring a player                      | NONE                          |
 | msg   	       | `/msg <player> <message>`                            | Send a message to a player                  | NONE	                        |
@@ -40,6 +40,6 @@ The permissions of these commands are the default ones. <br>
 ## Permissions
 All permissions can be modified in `config.yml` file.
 ## Revisor
-A Reviewer is a function that reviews messages in the chat, the permission to view and skip them is `bmsg.reviewer`. Currently the reviewers check: words, flood, caps, links and dots.
+A Reviewer is a function that reviews messages in the chat, the permission to view and skip them is `clab.revisor`. Currently the reviewers check: words, flood, caps, links and dots.
 ## Support
 Check out the official [discord server](https://discord.gg/wpSh4Bf4Es)!.
