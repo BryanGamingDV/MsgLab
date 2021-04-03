@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>MsgLab</artifactId>
-        <groupId>org.bryangaming.msglab</groupId>
+        <artifactId>ChatLab</artifactId>
+        <groupId>org.bryangaming.chatlab</groupId>
         <version>1.0</version>
     </parent>
 
@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>bryangaming.code</groupId>
+            <groupId>org.bryangaming.chatlab</groupId>
             <artifactId>Api</artifactId>
             <version>1.0</version>
         </dependency>
@@ -32,8 +32,8 @@
     <artifactId>Versions</artifactId>
 
     <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
 </project>

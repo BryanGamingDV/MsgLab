@@ -4,20 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.bryangaming.msglab</groupId>
-    <artifactId>MsgLab</artifactId>
+    <groupId>org.bryangaming.chatlab</groupId>
+    <artifactId>ChatLab</artifactId>
+
     <packaging>pom</packaging>
     <version>1.0</version>
+
     <modules>
         <module>Api</module>
         <module>Versions</module>
         <module>Core</module>
     </modules>
-
-    <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
-    </properties>
 
     <repositories>
         <repository>
@@ -25,4 +22,9 @@
             <url>https://repo.codemc.org/repository/nms/</url>
         </repository>
     </repositories>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
 </project>
