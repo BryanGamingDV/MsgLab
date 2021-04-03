@@ -5,17 +5,17 @@
 
 error:
 
-  no-perms: "%c &fYou don't have permission to do this."
-  no-reply: "%c &fYou haven't talked with anyone."
+  no-perms: "%c &fYou don't have enough permissions."
+  no-reply: "%c &fYou don't have anyone to reply."
   no-sound: "%c &fYou can't use the sound option."
 
-  console: "You can't use this command in  console."
+  console: "You can't use this command in console."
   player-offline: "%c &fThat player is not online."
   nobody-offline: "%c &fNobody is connected, only you :c."
   same-player: "%c &fYou can't talk to yourself."
 
   no-arg: "%c &fUnknown argument. %newline%&8- &fUsage: &a%usage%"
-  unknown-arg: "%c &fUnknown args."
+  unknown-arg: "%c &fUnknown argument."
 
   modules:
     command-disabled: "%c &fSorry &a%player%&f, the command &a%command% &fis disabled :(."
@@ -62,7 +62,7 @@ error:
     anybody: "%e &fNobody has socialspy activated."
 
   sound:
-    no-exists: "%e &fThe sound no exists in that version :(."
+    no-exists: "%e &fThat sound doesn't exists in this version :(."
 
   channel:
     no-exists: "%e &fThe channel doesn't exist."
@@ -102,7 +102,7 @@ error:
       already-blocked: "%e &fYou already blocked that command. &a[%command%]"
       already-unblocked: "%e &fYou already unblocked that command. &a[%command%]"
   flags:
-    empty-arg: "%e &fYou didn't put a arg for the flag."
+    empty-arg: "%e &fPlease, provide an argument for the flag."
 
     unknown-flag: "%e &fUnknown flag: &a%flag%&f."
     unknown-world: "%e &fUnknown world. %world%"
