@@ -1,7 +1,7 @@
-package atogesputo.bryangaming.chatlab.listeners;
+package me.bryangaming.chatlab.listeners;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.managers.FitlerMethod;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.managers.FitlerMethod;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandSendEvent;

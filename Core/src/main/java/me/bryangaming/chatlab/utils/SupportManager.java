@@ -1,8 +1,8 @@
-package atogesputo.bryangaming.chatlab.utils;
+package me.bryangaming.chatlab.utils;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.utils.hooks.ProtocolHook;
-import atogesputo.bryangaming.chatlab.utils.hooks.VaultHook;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.utils.hooks.ProtocolHook;
+import me.bryangaming.chatlab.utils.hooks.VaultHook;
 
 public class SupportManager {
 

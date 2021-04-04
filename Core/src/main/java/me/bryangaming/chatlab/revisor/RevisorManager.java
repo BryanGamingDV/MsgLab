@@ -1,12 +1,13 @@
-package atogesputo.bryangaming.chatlab.revisor;
+package me.bryangaming.chatlab.revisor;
 
-import atogesputo.bryangaming.chatlab.ChatLab;
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.revisor.commands.BlockRevisor;
-import atogesputo.bryangaming.chatlab.revisor.commands.ConditionRevisor;
+import me.bryangaming.chatlab.ChatLab;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.revisor.commands.BlockRevisor;
+import me.bryangaming.chatlab.revisor.commands.ConditionRevisor;
 import atogesputo.bryangaming.chatlab.revisor.message.*;
+import me.bryangaming.chatlab.revisor.message.*;
 import org.bryangaming.chatlab.revisor.message.*;
-import atogesputo.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

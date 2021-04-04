@@ -1,10 +1,10 @@
-package atogesputo.bryangaming.chatlab.listeners.events.server;
+package me.bryangaming.chatlab.listeners.events.server;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.data.JQFormat;
-import atogesputo.bryangaming.chatlab.events.server.ChangeMode;
-import atogesputo.bryangaming.chatlab.events.server.ServerChangeEvent;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerStatic;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.data.JQFormat;
+import me.bryangaming.chatlab.events.server.ChangeMode;
+import me.bryangaming.chatlab.events.server.ServerChangeEvent;
+import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.registry;
+package me.bryangaming.chatlab.registry;
 
 public interface LoaderService {
 

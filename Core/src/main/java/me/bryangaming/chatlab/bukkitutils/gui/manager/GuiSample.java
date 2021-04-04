@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.bukkitutils.gui.manager;
+package me.bryangaming.chatlab.bukkitutils.gui.manager;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 

@@ -1,8 +1,8 @@
-package atogesputo.bryangaming.chatlab.managers.player;
+package me.bryangaming.chatlab.managers.player;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.utils.string.StringUtils;
-import atogesputo.bryangaming.chatlab.utils.string.VariableUtils;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.utils.string.StringUtils;
+import me.bryangaming.chatlab.utils.string.VariableUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;

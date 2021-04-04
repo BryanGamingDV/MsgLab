@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.managers;
+package me.bryangaming.chatlab.managers;
 
 
 import java.util.UUID;

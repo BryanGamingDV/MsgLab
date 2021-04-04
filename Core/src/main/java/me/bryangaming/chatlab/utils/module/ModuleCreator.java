@@ -1,6 +1,6 @@
-package atogesputo.bryangaming.chatlab.utils.module;
+package me.bryangaming.chatlab.utils.module;
 
-import atogesputo.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.PluginService;
 
 import java.util.ArrayList;
 import java.util.List;

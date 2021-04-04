@@ -1,14 +1,15 @@
-package atogesputo.bryangaming.chatlab.managers;
+package me.bryangaming.chatlab.managers;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.managers.chat.RadialChatMethod;
-import atogesputo.bryangaming.chatlab.managers.click.ClickChatMethod;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.managers.chat.RadialChatMethod;
+import me.bryangaming.chatlab.managers.click.ClickChatMethod;
 import atogesputo.bryangaming.chatlab.managers.commands.*;
+import me.bryangaming.chatlab.managers.commands.*;
 import org.bryangaming.chatlab.managers.commands.*;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerMessage;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerStatic;
-import atogesputo.bryangaming.chatlab.utils.string.StringUtils;
-import atogesputo.bryangaming.chatlab.utils.string.VariableUtils;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.PlayerStatic;
+import me.bryangaming.chatlab.utils.string.StringUtils;
+import me.bryangaming.chatlab.utils.string.VariableUtils;
 
 public class MethodManager {
 

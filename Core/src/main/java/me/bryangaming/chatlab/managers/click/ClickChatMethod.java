@@ -1,12 +1,12 @@
-package atogesputo.bryangaming.chatlab.managers.click;
+package me.bryangaming.chatlab.managers.click;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.bukkitutils.RunnableManager;
-import atogesputo.bryangaming.chatlab.bukkitutils.WorldData;
-import atogesputo.bryangaming.chatlab.data.UserData;
-import atogesputo.bryangaming.chatlab.debug.ErrorManager;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerMessage;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.bukkitutils.RunnableManager;
+import me.bryangaming.chatlab.bukkitutils.WorldData;
+import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.debug.ErrorManager;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;

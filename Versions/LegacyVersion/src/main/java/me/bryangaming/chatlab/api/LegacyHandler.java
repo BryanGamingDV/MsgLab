@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.api;
+package me.bryangaming.chatlab.api;
 
 import org.bukkit.Material;
 import org.bukkit.SkullType;

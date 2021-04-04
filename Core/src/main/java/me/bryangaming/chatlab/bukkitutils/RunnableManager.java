@@ -1,7 +1,7 @@
-package atogesputo.bryangaming.chatlab.bukkitutils;
+package me.bryangaming.chatlab.bukkitutils;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

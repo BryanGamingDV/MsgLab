@@ -1,7 +1,7 @@
-package atogesputo.bryangaming.chatlab.bukkitutils.gui.manager;
+package me.bryangaming.chatlab.bukkitutils.gui.manager;
 
-import atogesputo.bryangaming.chatlab.api.LegacyHandler;
-import atogesputo.bryangaming.chatlab.api.NMSHandler;
+import me.bryangaming.chatlab.api.LegacyHandler;
+import me.bryangaming.chatlab.api.NMSHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

@@ -1,7 +1,7 @@
-package atogesputo.bryangaming.chatlab.commands.modules;
+package me.bryangaming.chatlab.commands.modules;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.utils.Configuration;
 import me.fixeddev.commandflow.Namespace;
 import me.fixeddev.commandflow.bukkit.BukkitDefaultTranslationProvider;
 

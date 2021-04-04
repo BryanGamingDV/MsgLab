@@ -1,6 +1,6 @@
-package atogesputo.bryangaming.chatlab.utils.hooks;
+package me.bryangaming.chatlab.utils.hooks;
 
-import atogesputo.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.PluginService;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;

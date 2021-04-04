@@ -1,17 +1,17 @@
-package atogesputo.bryangaming.chatlab.commands;
+package me.bryangaming.chatlab.commands;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.revisor.RevisorManager;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.revisor.RevisorManager;
+import me.bryangaming.chatlab.utils.Configuration;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
-import atogesputo.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
-import atogesputo.bryangaming.chatlab.managers.click.ClickChatMethod;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerMessage;
-import atogesputo.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.click.ClickChatMethod;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

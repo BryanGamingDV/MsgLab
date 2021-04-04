@@ -1,11 +1,11 @@
-package atogesputo.bryangaming.chatlab.managers;
+package me.bryangaming.chatlab.managers;
 
-import atogesputo.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.PluginService;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerStatic;
+import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import org.bukkit.entity.Player;
 
 import java.util.List;

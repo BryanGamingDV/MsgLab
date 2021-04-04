@@ -1,12 +1,12 @@
-package atogesputo.bryangaming.chatlab.utils.string;
+package me.bryangaming.chatlab.utils.string;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
-import atogesputo.bryangaming.chatlab.utils.SupportManager;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.SupportManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
-import atogesputo.bryangaming.chatlab.managers.commands.ChatMethod;
+import me.bryangaming.chatlab.managers.commands.ChatMethod;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

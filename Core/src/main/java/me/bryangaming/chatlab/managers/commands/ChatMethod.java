@@ -1,10 +1,10 @@
-package atogesputo.bryangaming.chatlab.managers.commands;
+package me.bryangaming.chatlab.managers.commands;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.data.ServerData;
-import atogesputo.bryangaming.chatlab.data.UserData;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerMessage;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.data.ServerData;
+import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

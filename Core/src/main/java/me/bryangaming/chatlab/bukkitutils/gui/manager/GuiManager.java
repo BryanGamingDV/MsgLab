@@ -1,8 +1,8 @@
-package atogesputo.bryangaming.chatlab.bukkitutils.gui.manager;
+package me.bryangaming.chatlab.bukkitutils.gui.manager;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.bukkitutils.gui.SampleManager;
-import atogesputo.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.bukkitutils.gui.SampleManager;
+import me.bryangaming.chatlab.data.UserData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

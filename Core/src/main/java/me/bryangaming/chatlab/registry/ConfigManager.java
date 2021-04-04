@@ -1,9 +1,9 @@
-package atogesputo.bryangaming.chatlab.registry;
+package me.bryangaming.chatlab.registry;
 
-import atogesputo.bryangaming.chatlab.ChatLab;
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.debug.DebugLogger;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.ChatLab;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.debug.DebugLogger;
+import me.bryangaming.chatlab.utils.Configuration;
 
 import java.util.Map;
 

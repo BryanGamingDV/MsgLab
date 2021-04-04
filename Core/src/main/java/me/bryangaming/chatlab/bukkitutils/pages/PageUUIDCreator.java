@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.bukkitutils.pages;
+package me.bryangaming.chatlab.bukkitutils.pages;
 
 
 import java.util.*;

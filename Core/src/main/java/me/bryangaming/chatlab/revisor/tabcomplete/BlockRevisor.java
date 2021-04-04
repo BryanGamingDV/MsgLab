@@ -1,8 +1,8 @@
-package atogesputo.bryangaming.chatlab.revisor.tabcomplete;
+package me.bryangaming.chatlab.revisor.tabcomplete;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerMessage;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.utils.Configuration;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.ListenerPriority;

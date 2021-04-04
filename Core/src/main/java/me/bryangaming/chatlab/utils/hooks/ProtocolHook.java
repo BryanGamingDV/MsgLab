@@ -1,6 +1,6 @@
-package atogesputo.bryangaming.chatlab.utils.hooks;
+package me.bryangaming.chatlab.utils.hooks;
 
-import atogesputo.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.PluginService;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import org.bukkit.Bukkit;

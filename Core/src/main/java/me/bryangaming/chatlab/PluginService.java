@@ -1,17 +1,17 @@
-package atogesputo.bryangaming.chatlab;
+package me.bryangaming.chatlab;
 
-import atogesputo.bryangaming.chatlab.bukkitutils.ManagingCenter;
-import atogesputo.bryangaming.chatlab.data.ServerData;
-import atogesputo.bryangaming.chatlab.debug.DebugLogger;
-import atogesputo.bryangaming.chatlab.managers.MethodManager;
-import atogesputo.bryangaming.chatlab.registry.CommandRegistry;
-import atogesputo.bryangaming.chatlab.registry.ConfigManager;
-import atogesputo.bryangaming.chatlab.registry.EventManager;
-import atogesputo.bryangaming.chatlab.revisor.RevisorManager;
-import atogesputo.bryangaming.chatlab.utils.StringFormat;
-import atogesputo.bryangaming.chatlab.utils.SupportManager;
-import atogesputo.bryangaming.chatlab.utils.module.ModuleCheck;
-import atogesputo.bryangaming.chatlab.utils.module.ModuleCreator;
+import me.bryangaming.chatlab.bukkitutils.ManagingCenter;
+import me.bryangaming.chatlab.data.ServerData;
+import me.bryangaming.chatlab.debug.DebugLogger;
+import me.bryangaming.chatlab.managers.MethodManager;
+import me.bryangaming.chatlab.registry.CommandRegistry;
+import me.bryangaming.chatlab.registry.ConfigManager;
+import me.bryangaming.chatlab.registry.EventManager;
+import me.bryangaming.chatlab.revisor.RevisorManager;
+import me.bryangaming.chatlab.utils.StringFormat;
+import me.bryangaming.chatlab.utils.SupportManager;
+import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.module.ModuleCreator;
 
 
 public class PluginService {

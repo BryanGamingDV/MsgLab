@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.events;
+package me.bryangaming.chatlab.events;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

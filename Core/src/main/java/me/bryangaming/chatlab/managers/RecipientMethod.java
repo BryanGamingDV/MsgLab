@@ -1,11 +1,11 @@
-package atogesputo.bryangaming.chatlab.managers;
+package me.bryangaming.chatlab.managers;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.data.UserData;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
-import atogesputo.bryangaming.chatlab.bukkitutils.WorldData;
-import atogesputo.bryangaming.chatlab.managers.chat.RadialChatMethod;
-import atogesputo.bryangaming.chatlab.managers.commands.IgnoreMethod;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.bukkitutils.WorldData;
+import me.bryangaming.chatlab.managers.chat.RadialChatMethod;
+import me.bryangaming.chatlab.managers.commands.IgnoreMethod;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

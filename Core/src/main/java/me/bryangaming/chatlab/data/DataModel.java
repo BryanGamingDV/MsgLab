@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.data;
+package me.bryangaming.chatlab.data;
 
 import org.bukkit.entity.Player;
 

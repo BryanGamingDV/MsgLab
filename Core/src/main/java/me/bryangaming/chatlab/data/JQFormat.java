@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.data;
+package me.bryangaming.chatlab.data;
 
 import java.util.List;
 

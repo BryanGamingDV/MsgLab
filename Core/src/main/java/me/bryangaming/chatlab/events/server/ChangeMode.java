@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.events.server;
+package me.bryangaming.chatlab.events.server;
 
 public enum ChangeMode {
     JOIN("join"), FIRST_JOIN("first_join"), QUIT("quit");

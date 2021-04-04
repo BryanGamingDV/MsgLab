@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.debug;
+package me.bryangaming.chatlab.debug;
 
 public class ErrorManager {
 

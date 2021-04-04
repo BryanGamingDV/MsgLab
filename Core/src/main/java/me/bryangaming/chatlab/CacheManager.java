@@ -1,9 +1,9 @@
-package atogesputo.bryangaming.chatlab;
+package me.bryangaming.chatlab;
 
-import atogesputo.bryangaming.chatlab.data.JQFormat;
-import atogesputo.bryangaming.chatlab.data.UserData;
-import atogesputo.bryangaming.chatlab.debug.DebugLogger;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.data.JQFormat;
+import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.debug.DebugLogger;
+import me.bryangaming.chatlab.utils.Configuration;
 
 import java.util.HashMap;
 import java.util.List;

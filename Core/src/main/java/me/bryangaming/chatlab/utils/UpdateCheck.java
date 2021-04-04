@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.utils;
+package me.bryangaming.chatlab.utils;
 
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonElement;

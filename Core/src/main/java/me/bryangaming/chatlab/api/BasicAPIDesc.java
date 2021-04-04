@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.api;
+package me.bryangaming.chatlab.api;
 
 import java.util.List;
 import java.util.UUID;

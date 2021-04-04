@@ -1,7 +1,7 @@
-package atogesputo.bryangaming.chatlab.managers;
+package me.bryangaming.chatlab.managers;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 
 import java.util.Collection;

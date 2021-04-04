@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.bukkitutils.sound;
+package me.bryangaming.chatlab.bukkitutils.sound;
 
 public enum SoundEnum {
 

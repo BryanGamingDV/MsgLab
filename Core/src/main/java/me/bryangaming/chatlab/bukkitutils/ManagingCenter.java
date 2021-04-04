@@ -1,8 +1,8 @@
-package atogesputo.bryangaming.chatlab.bukkitutils;
+package me.bryangaming.chatlab.bukkitutils;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.bukkitutils.gui.manager.GuiManager;
-import atogesputo.bryangaming.chatlab.bukkitutils.sound.SoundManager;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.bukkitutils.gui.manager.GuiManager;
+import me.bryangaming.chatlab.bukkitutils.sound.SoundManager;
 
 public class ManagingCenter {
 

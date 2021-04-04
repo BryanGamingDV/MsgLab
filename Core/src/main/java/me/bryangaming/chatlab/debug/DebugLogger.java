@@ -1,6 +1,6 @@
-package atogesputo.bryangaming.chatlab.debug;
+package me.bryangaming.chatlab.debug;
 
-import atogesputo.bryangaming.chatlab.ChatLab;
+import me.bryangaming.chatlab.ChatLab;
 
 import java.io.BufferedWriter;
 import java.io.File;

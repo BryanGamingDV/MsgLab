@@ -1,10 +1,10 @@
-package atogesputo.bryangaming.chatlab.managers.click;
+package me.bryangaming.chatlab.managers.click;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.data.UserData;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerMessage;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
-import atogesputo.bryangaming.chatlab.managers.commands.StaffChatMethod;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.managers.commands.StaffChatMethod;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;

@@ -1,9 +1,9 @@
-package atogesputo.bryangaming.chatlab.managers.commands;
+package me.bryangaming.chatlab.managers.commands;
 
-import atogesputo.bryangaming.chatlab.CacheManager;
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
-import atogesputo.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.CacheManager;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;

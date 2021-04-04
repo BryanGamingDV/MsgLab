@@ -1,19 +1,19 @@
-package atogesputo.bryangaming.chatlab.commands;
+package me.bryangaming.chatlab.commands;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.data.ServerData;
-import atogesputo.bryangaming.chatlab.data.UserData;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
-import atogesputo.bryangaming.chatlab.utils.StringFormat;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.data.ServerData;
+import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.StringFormat;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
-import atogesputo.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
-import atogesputo.bryangaming.chatlab.managers.commands.ChatMethod;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerMessage;
-import atogesputo.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.commands.ChatMethod;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -1,4 +1,4 @@
-package atogesputo.bryangaming.chatlab.api;
+package me.bryangaming.chatlab.api;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;

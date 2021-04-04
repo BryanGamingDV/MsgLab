@@ -1,15 +1,15 @@
-package atogesputo.bryangaming.chatlab.bukkitutils.gui.sample;
+package me.bryangaming.chatlab.bukkitutils.gui.sample;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.bukkitutils.RunnableManager;
-import atogesputo.bryangaming.chatlab.bukkitutils.gui.manager.GuiData;
-import atogesputo.bryangaming.chatlab.bukkitutils.gui.manager.GuiSample;
-import atogesputo.bryangaming.chatlab.data.UserData;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerStatic;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
-import atogesputo.bryangaming.chatlab.utils.string.StringUtils;
-import atogesputo.bryangaming.chatlab.bukkitutils.gui.manager.GuiManager;
-import atogesputo.bryangaming.chatlab.bukkitutils.pages.PageUUIDCreator;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.bukkitutils.RunnableManager;
+import me.bryangaming.chatlab.bukkitutils.gui.manager.GuiData;
+import me.bryangaming.chatlab.bukkitutils.gui.manager.GuiSample;
+import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.managers.player.PlayerStatic;
+import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.string.StringUtils;
+import me.bryangaming.chatlab.bukkitutils.gui.manager.GuiManager;
+import me.bryangaming.chatlab.bukkitutils.pages.PageUUIDCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;

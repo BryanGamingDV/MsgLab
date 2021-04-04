@@ -1,13 +1,13 @@
-package atogesputo.bryangaming.chatlab.listeners;
+package me.bryangaming.chatlab.listeners;
 
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.data.UserData;
-import atogesputo.bryangaming.chatlab.managers.GroupMethod;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
-import atogesputo.bryangaming.chatlab.events.server.ChangeMode;
-import atogesputo.bryangaming.chatlab.events.server.ServerChangeEvent;
-import atogesputo.bryangaming.chatlab.managers.player.PlayerMessage;
-import atogesputo.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.managers.GroupMethod;
+import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.events.server.ChangeMode;
+import me.bryangaming.chatlab.events.server.ServerChangeEvent;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

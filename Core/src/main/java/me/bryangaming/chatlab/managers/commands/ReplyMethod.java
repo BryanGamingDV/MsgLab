@@ -1,8 +1,8 @@
-package atogesputo.bryangaming.chatlab.managers.commands;
+package me.bryangaming.chatlab.managers.commands;
 
-import atogesputo.bryangaming.chatlab.CacheManager;
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.CacheManager;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.data.UserData;
 
 import java.util.UUID;
 

@@ -1,8 +1,8 @@
-package atogesputo.bryangaming.chatlab.api;
+package me.bryangaming.chatlab.api;
 
-import atogesputo.bryangaming.chatlab.CacheManager;
-import atogesputo.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.CacheManager;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.data.UserData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -1,7 +1,7 @@
-package atogesputo.bryangaming.chatlab;
+package me.bryangaming.chatlab;
 
-import atogesputo.bryangaming.chatlab.data.UserData;
-import atogesputo.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

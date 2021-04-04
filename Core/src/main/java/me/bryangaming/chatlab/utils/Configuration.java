@@ -1,6 +1,6 @@
-package atogesputo.bryangaming.chatlab.utils;
+package me.bryangaming.chatlab.utils;
 
-import atogesputo.bryangaming.chatlab.utils.string.StringUtils;
+import me.bryangaming.chatlab.utils.string.StringUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
