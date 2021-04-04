@@ -43,9 +43,11 @@ radial-chat:
 
 #
 # Chat Format:
-#
+# - Requires Vault.
 
 format:
+  enabled: true
+
   default:
     bases:
       prefix:
@@ -100,10 +102,10 @@ format:
   # - group -> If player is in group, he recieve the data of that group. [Vault & complement required].
   group-access: group
   groups:
-    admin:
+    vip:
       bases:
         prefix:
-          format: "&8| &c[OP] &f%player% "
+          format: "&8| &a[VIP] &f%player% "
           hover:
             - "&8&m------[&fHover]&8&m-------"
             - "&fPlayer: &a%player%"
@@ -123,11 +125,13 @@ format:
 
       #Independent channel:
       channel: true
+      # Permission (Only works if the group access is permission):
+      permission: group.vip
 
     vip+:
       bases:
         prefix:
-          format: "&8| &c[OP] &f%player% "
+          format: "&8| &2[VIP+] &f%player% "
           hover:
             - "&8&m------[&fHover]&8&m-------"
             - "&fPlayer: &a%player%"
@@ -148,11 +152,13 @@ format:
       #Independent channel:
       channel: true
 
-fitlers:
+      # Permission (Only works if the group access is permission):
+      permission: group.vip+
+
+filters:
 
   # Emojis fitler.
   # Format: emoji;symbol
-
 
   emojis:
     - ":happy:;:D"
@@ -288,27 +294,60 @@ revisor:
 
 revisor-cmd:
 
-  # To block <tab>
   tab-module:
-    enabled: true
+    enabled: false
 
-    # When you put /<tab>:
-    block-empty: true
-
-    commands:
-      - /ver
-      - /help
-
-    message:
+    # To block <tab>
+    # - Requires ProtocolLib.
+    #
+    block:
       enabled: false
-      format: ""
 
+      # When you put /<tab>:
+      empty: true
 
+      commands:
+        - /ver
+        - /help
+
+      message:
+        enabled: false
+        format: ""
+
+    # Fitler commands [Only 1.13+]
+    fitler:
+      enabled: true
+
+      groups:
+        default:
+          - msg
+          - reply
+          - ignore
+        vip:
+        - "@default"
+
+  #
   # Commands module:
+  #
   commands-module:
     enabled: true
 
-    commands:
+    #
+    # Conditions:
+    # - Requires Vault:
+    # Format: command : condition
+    #
+    conditions:
+      enabled: false
+
+      commands:
+        test: 500$
+
+      message:
+        enabled: true
+        format: "%e &fYou don't have the condition to use that command."
+
+    block:
       op:
         message:
           enabled: true
@@ -319,7 +358,6 @@ revisor-cmd:
           - pl
           - help
           - "?"
-
       default:
         message:
           enabled: true
@@ -331,17 +369,6 @@ revisor-cmd:
           - test.
           - test.t
 
-fitler-cmd:
-
-  enabled: true
-
-  groups:
-    default:
-      - msg
-      - reply
-      - ignore
-    vip:
-      - "@default"
 
 
 
