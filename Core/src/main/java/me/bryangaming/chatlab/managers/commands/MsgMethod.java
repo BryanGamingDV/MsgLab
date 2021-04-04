@@ -1,9 +1,9 @@
 package me.bryangaming.chatlab.managers.commands;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import org.bukkit.entity.Player;
 
 import java.util.List;

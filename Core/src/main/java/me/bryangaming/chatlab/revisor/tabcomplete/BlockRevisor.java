@@ -1,14 +1,14 @@
 package me.bryangaming.chatlab.revisor.tabcomplete;
 
-import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
-import me.bryangaming.chatlab.utils.Configuration;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;

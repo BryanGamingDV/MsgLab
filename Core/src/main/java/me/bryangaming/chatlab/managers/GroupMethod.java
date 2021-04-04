@@ -1,9 +1,9 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.bukkitutils.WorldData;
 import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.bukkitutils.WorldData;
 import me.bryangaming.chatlab.utils.hooks.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

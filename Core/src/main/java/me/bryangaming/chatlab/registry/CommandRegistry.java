@@ -2,8 +2,8 @@ package me.bryangaming.chatlab.registry;
 
 import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
-import atogesputo.bryangaming.chatlab.commands.*;
 import me.bryangaming.chatlab.commands.*;
+import me.bryangaming.chatlab.commands.modules.CustomLanguage;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilderImpl;
@@ -13,8 +13,6 @@ import me.fixeddev.commandflow.annotated.part.defaults.DefaultsModule;
 import me.fixeddev.commandflow.bukkit.BukkitCommandManager;
 import me.fixeddev.commandflow.bukkit.factory.BukkitModule;
 import me.fixeddev.commandflow.command.Command;
-import org.bryangaming.chatlab.commands.*;
-import me.bryangaming.chatlab.commands.modules.CustomLanguage;
 
 import java.util.List;
 

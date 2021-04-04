@@ -1,11 +1,11 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.bukkitutils.WorldData;
+import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.chat.RadialChatMethod;
 import me.bryangaming.chatlab.managers.commands.IgnoreMethod;
+import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

@@ -1,9 +1,9 @@
 package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.apache.commons.lang.StringUtils;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

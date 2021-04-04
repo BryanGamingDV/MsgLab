@@ -2,9 +2,9 @@ package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.RunnableManager;
-import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.managers.player.PlayerStatic;
+import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

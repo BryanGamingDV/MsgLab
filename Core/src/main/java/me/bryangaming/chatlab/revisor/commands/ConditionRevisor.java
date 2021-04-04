@@ -1,9 +1,9 @@
 package me.bryangaming.chatlab.revisor.commands;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import net.milkbowl.vault.economy.Economy;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

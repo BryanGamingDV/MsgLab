@@ -2,12 +2,12 @@ package me.bryangaming.chatlab.managers.player;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.RunnableManager;
+import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.bukkitutils.sound.SoundManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.StringUtils;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundManager;
 import org.bukkit.entity.Player;
 
 import java.util.List;

@@ -1,11 +1,11 @@
 package me.bryangaming.chatlab.listeners.events;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.HelpOpEvent;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

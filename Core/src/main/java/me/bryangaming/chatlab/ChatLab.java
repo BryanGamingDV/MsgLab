@@ -1,10 +1,10 @@
 package me.bryangaming.chatlab;
 
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import me.bryangaming.chatlab.api.BasicAPIDesc;
 import me.bryangaming.chatlab.api.ChatApiImpl;
 import me.bryangaming.chatlab.modules.DataModule;
 import me.bryangaming.chatlab.utils.UpdateCheck;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;

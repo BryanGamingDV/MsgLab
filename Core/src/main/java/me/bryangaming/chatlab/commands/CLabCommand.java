@@ -1,20 +1,20 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.modules.DataModule;
+import me.bryangaming.chatlab.registry.ConfigManager;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.module.ModuleCreator;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.apache.commons.lang.StringUtils;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
-import me.bryangaming.chatlab.registry.ConfigManager;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
-import me.bryangaming.chatlab.utils.module.ModuleCreator;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

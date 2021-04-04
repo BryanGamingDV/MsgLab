@@ -1,8 +1,8 @@
 package me.bryangaming.chatlab.utils.hooks;
 
-import me.bryangaming.chatlab.PluginService;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import me.bryangaming.chatlab.PluginService;
 import org.bukkit.Bukkit;
 
 public class ProtocolHook {
