@@ -43,9 +43,11 @@ radial-chat:
 
 #
 # Chat Format:
-#
+# - Requires Vault.
 
 format:
+  enabled: true
+
   default:
     bases:
       prefix:
@@ -296,10 +298,10 @@ revisor-cmd:
     enabled: false
 
     # To block <tab>
-    # Requires ProtocolLib.
+    # - Requires ProtocolLib.
     #
     block:
-      enabled: true
+      enabled: false
 
       # When you put /<tab>:
       empty: true
@@ -336,6 +338,8 @@ revisor-cmd:
     # Format: command : condition
     #
     conditions:
+      enabled: false
+
       commands:
         test: 500$
 
