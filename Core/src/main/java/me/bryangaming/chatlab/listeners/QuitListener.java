@@ -1,5 +1,7 @@
 package me.bryangaming.chatlab.listeners;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import io.netty.channel.EventLoopGroup;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.server.ChangeMode;
@@ -12,6 +14,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class QuitListener implements Listener {
@@ -60,7 +63,6 @@ public class QuitListener implements Listener {
                     .replace("%arg-1%", event.getPlayer().getName()));
         }
 
-        playerStatus.resetStats();
 
     }
 

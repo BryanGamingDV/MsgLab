@@ -19,7 +19,6 @@ public class ConditionRevisor {
     public String revisor(Player player, String command) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
-        Economy economy = pluginService.getSupportManager().getVaultSupport().getEconomy();
 
         if (!utils.getBoolean("revisor-cmd.commands-module.conditions.enabled")){
             return command;
@@ -38,7 +37,14 @@ public class ConditionRevisor {
                 continue;
             }
 
+
             if (utils.getString(commandsPath + "." + commandName).equalsIgnoreCase("$")){
+                Economy economy = pluginService.getSupportManager().getVaultSupport().getEconomy();
+
+                if (economy == null){
+                    break;
+                }
+
                 double playerMoney = Double.parseDouble(utils.getString(commandsPath + "." + commandName).substring(1));
 
                 if (economy.getBalance(player) < playerMoney){

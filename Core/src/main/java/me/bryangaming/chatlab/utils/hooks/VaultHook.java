@@ -31,22 +31,19 @@ public class VaultHook {
 
         pluginService.getPlugin().getLogger().info("Addons - Loading Vault..");
 
-        RegisteredServiceProvider<Permission> rpsP = Bukkit.getServer().getServicesManager().getRegistration(Permission.class);
+        RegisteredServiceProvider<Permission> rspP = Bukkit.getServer().getServicesManager().getRegistration(Permission.class);
         RegisteredServiceProvider<Chat> rspC = Bukkit.getServer().getServicesManager().getRegistration(Chat.class);
         RegisteredServiceProvider<Economy> rspE = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
 
-        if (rspC == null) {
-            pluginService.getPlugin().getLogger().info("Error - You need to have a Vault implementation plugin to use the provider.");
-            pluginService.getPlugin().getLogger().info("Example - LuckPerms, UltraPermissions");
-            pluginService.getPlugin().getLogger().info("Addons - Disabling support..");
-            pluginService.getLogs().log("Error - Vault implementation not enabled! Disabling support..", 0);
-            return;
+        if (rspP != null) {
+            permission = rspP.getProvider();
         }
-
-
-        permission = rpsP.getProvider();
-        chat = rspC.getProvider();
-        economy = rspE.getProvider();
+        if (rspC != null) {
+            chat = rspC.getProvider();
+        }
+        if (rspE != null) {
+            economy = rspE.getProvider();
+        }
 
         pluginService.getPlugin().getLogger().info("Addons - Vault enabled! Enabling support..");
         pluginService.getLogs().log("Addons - Vault enabled! Enabling support...");

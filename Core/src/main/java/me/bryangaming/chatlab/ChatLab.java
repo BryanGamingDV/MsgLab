@@ -2,6 +2,8 @@ package me.bryangaming.chatlab;
 
 import me.bryangaming.chatlab.api.BasicAPIDesc;
 import me.bryangaming.chatlab.api.ChatApiImpl;
+import me.bryangaming.chatlab.api.Module;
+import me.bryangaming.chatlab.modules.CheckModule;
 import me.bryangaming.chatlab.modules.DataModule;
 import me.bryangaming.chatlab.utils.UpdateCheck;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -72,8 +74,9 @@ public class ChatLab extends JavaPlugin {
             getUpdateChecker();
         }
 
-        DataModule dataModule = new DataModule(basicMsg);
-
+        initModules(
+                new DataModule(getManager()),
+                new CheckModule(getManager()));
     }
 
     public void recoverStats() {
@@ -81,6 +84,12 @@ public class ChatLab extends JavaPlugin {
             basicMsg.getLogs().log("The plugin was reloaded with /reload", 1);
             getLogger().info("Please don't use /reload to reload plugins, it can cause serious errors!");
             RecoverStats recoverStats = new RecoverStats(basicMsg);
+        }
+    }
+
+    public void initModules(Module... modules){
+        for (Module module : modules){
+            module.start();
         }
     }
 

@@ -90,6 +90,7 @@ public class ChatFormat implements Listener {
             return;
 
         }
+
         if (!(utils.getBoolean("options.enabled"))) {
             return;
         }
@@ -106,6 +107,10 @@ public class ChatFormat implements Listener {
                 playerMethod.sendMessage(player, messages.getString("error.chat.muted"));
                 return;
             }
+        }
+
+        if (utils.getBoolean("format.enabled")){
+            return;
         }
 
         String message = event.getMessage();

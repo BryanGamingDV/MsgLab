@@ -64,7 +64,7 @@ public class VariableUtils {
 
     public static String replaceEmojis(String string){
 
-        for (String emojiPath : utils.getStringList("fitlers.emojis")){
+        for (String emojiPath : utils.getStringList("filters.emojis")){
             string = string.replace(emojiPath.split(";")[0], emojiPath.split(";")[1]);
         }
 

@@ -1,21 +1,22 @@
 package me.bryangaming.chatlab.modules;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.Module;
 import me.bryangaming.chatlab.data.JQFormat;
 import me.bryangaming.chatlab.utils.Configuration;
 
 import java.util.Map;
 
-public class DataModule {
+public class DataModule implements Module{
 
     private PluginService pluginService;
 
     public DataModule(PluginService pluginService){
         this.pluginService = pluginService;
-        loadData();
     }
 
-    public void loadData(){
+    @Override
+    public void start(){
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
         Map<String, JQFormat> jqFormatMP = pluginService.getCache().getJQFormats();

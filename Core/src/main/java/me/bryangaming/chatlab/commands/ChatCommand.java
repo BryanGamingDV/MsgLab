@@ -7,7 +7,6 @@ import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.commands.ChatMethod;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.StringFormat;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -61,9 +60,8 @@ public class ChatCommand implements CommandClass {
     @Command(names = "help")
     public boolean helpSubCommand(@Sender Player sender) {
 
-        StringFormat variable = pluginService.getStringFormat();
-
-        variable.loopString(sender, command, "commands.chat.help");
+        command.getStringList("commands.chat.help")
+                .forEach(text -> playerMethod.sendMessage(sender, text));
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "chat help");
         return true;
 
