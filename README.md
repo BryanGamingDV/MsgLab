@@ -18,7 +18,7 @@ ChatLab (MsgLab) is a messaging plugin with many features, it supports bukkit an
 ## Commands
 Use the command `/clab commands` to see all commands <br>
 The default permissions of these commands are the default ones. <br>
-#### Note: The permissions are customizable.
+#### Note:  The permissions are customizable.
 [] = optional <br>
 <> = required <br>
 / = or
