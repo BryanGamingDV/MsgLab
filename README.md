@@ -14,9 +14,11 @@ ChatLab (MsgLab) is a messaging plugin with many features, it supports bukkit an
 - AntiTab (Requires ProtocolLib) <br>
 - CommandBlocker <br>
 - You can fitler the commands in the tab (1.13+)
+- 
 ## Commands
 Use the command `/clab commands` to see all commands <br>
-The permissions of these commands are the default ones. <br>
+The default permissions of these commands are the default ones. <br>
+#Note: The permissions are customizable.
 [] = optional <br>
 <> = required <br>
 / = or
