@@ -14,9 +14,11 @@ ChatLab (MsgLab) is a messaging plugin with many features, it supports bukkit an
 - AntiTab (Requires ProtocolLib) <br>
 - CommandBlocker <br>
 - You can fitler the commands in the tab (1.13+)
+- 
 ## Commands
 Use the command `/clab commands` to see all commands <br>
-The permissions of these commands are the default ones. <br>
+The default permissions of these commands are the default ones. <br>
+#### Note:  The permissions are customizable.
 [] = optional <br>
 <> = required <br>
 / = or
@@ -29,8 +31,8 @@ The permissions of these commands are the default ones. <br>
 | broadcastworld | `broadcastworld <message>`                           | Send a message to all players in a world    | clab.commands.broadcast-world |
 | sc             | `/sc [on/off] / /sc [message]`                       | Send messages to staff chat                 | clab.commands.staffchat       |
 | helpop         | `/helpop <message>`                                  | Send help to the help chat                  | clab.commands.helpop/watch    |
-| motd           | `/motd [addline/removeline/seline] <id/text> <text>` | To watch or modify the server motd          | NONE/clab.commands.motd.admin |
-| channel        | `/channel [join/quit/list/move] [<channel>]`         | To use the channel manager                  | NONE/clab.commands.info/move  |
+| motd           | `/motd [addline/removeline/seline] <id/text> <text>` | To watch or modify the server motd          | clab.commands.motd.admin      |
+| channel        | `/channel [join/quit/list/move] [<channel>]`         | To use the channel manager                  | clab.commands.info/move       |
 | stream         | `/stream [<text>]`                                   | To stream                                   | clab.commands.stream          |
 | commandspy     | `/commandspy [on/off/list..]`                        | Spying on the commands executed by a player | clab.commands.commandspy      |
 | ignore         | `/ignore <player>`                                   | Ignore a player                             | NONE                          |
