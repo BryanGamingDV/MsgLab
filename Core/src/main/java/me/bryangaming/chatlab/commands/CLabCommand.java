@@ -6,6 +6,7 @@ import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.modules.DataModule;
 import me.bryangaming.chatlab.registry.ConfigManager;
+import me.bryangaming.chatlab.tasks.TasksManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import me.bryangaming.chatlab.utils.module.ModuleCreator;
@@ -284,6 +285,7 @@ public class CLabCommand implements CommandClass {
         ConfigManager files = pluginService.getFiles();
 
         Map<String, Configuration> fileMap = pluginService.getCache().getConfigFiles();
+        TasksManager tasksManager = pluginService.getTasksManager();
 
         if (string.equalsIgnoreCase("you")) {
             playerMethod.sendMessage(player, "%p &fEmmm, you are not a plugin. But symbolically, you can change your future. Be positive!");
@@ -296,6 +298,7 @@ public class CLabCommand implements CommandClass {
             }
             checkCommands();
             DataModule dataModule = new DataModule(pluginService);
+            tasksManager.reloadTasks();
             playerMethod.sendMessage(player, files.getCommand().getString("commands.clab.reload"));
             playerMethod.sendSound(player, SoundEnum.ARGUMENT, "clab reload all");
             return;
@@ -309,10 +312,13 @@ public class CLabCommand implements CommandClass {
         }
 
         fileMap.get(string).reload();
+        if (string.equalsIgnoreCase("command")) {
+            tasksManager.getTask("announcer").reloadTask();
+        }
         if (string.equalsIgnoreCase("config")) {
             checkCommands();
         }
-        if (string.equalsIgnoreCase("utils")){
+        if (string.equalsIgnoreCase("utils")) {
             DataModule dataModule = new DataModule(pluginService);
         }
 

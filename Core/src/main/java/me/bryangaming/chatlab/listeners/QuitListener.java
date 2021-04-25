@@ -1,12 +1,11 @@
 package me.bryangaming.chatlab.listeners;
 
-import com.google.common.util.concurrent.ListenableFuture;
-import io.netty.channel.EventLoopGroup;
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.data.PartyData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
-import me.bryangaming.chatlab.managers.GroupMethod;
+import me.bryangaming.chatlab.managers.group.GroupMethod;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
@@ -14,8 +13,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import java.util.UUID;
 
 public class QuitListener implements Listener {
 
@@ -39,6 +39,28 @@ public class QuitListener implements Listener {
 
         String playerRank = groupMethod.getJQGroup(you);
 
+        if (playerStatus.getPartyID() > 0){
+            PartyData partyData = pluginService.getServerData().getParty(playerStatus.getPartyID());
+
+            for (UUID uuid : partyData.getPlayers()) {
+
+                Player online = Bukkit.getPlayer(uuid);
+
+                if (playerStatus.isPlayerLeader()){
+                    player.sendMessage(online, command.getString("commands.party.on-left.player")
+                            .replace("%player%", you.getName()));
+                    continue;
+                }
+                player.sendMessage(online, command.getString("commands.party.on-left.leader")
+                            .replace("%leader%", you.getName()));
+
+            }
+
+            if (playerStatus.isPlayerLeader()){
+                pluginService.getServerData().deleteParty(partyData.getChannelID());
+            }
+        }
+        playerStatus.resetStats();
         if (moduleCheck.isOptionEnabled("join_quit")) {
             Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, event.getPlayer(), playerRank, ChangeMode.QUIT));
         }

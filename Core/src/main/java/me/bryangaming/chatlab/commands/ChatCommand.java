@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.commands.ChatMethod;
+import me.bryangaming.chatlab.managers.commands.ChatManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
@@ -31,7 +31,7 @@ public class ChatCommand implements CommandClass {
     private final ServerData serverData;
     private final ModuleCheck moduleCheck;
 
-    private final ChatMethod chatMethod;
+    private final ChatManager chatManager;
     private final PlayerMessage playerMethod;
 
 
@@ -45,7 +45,7 @@ public class ChatCommand implements CommandClass {
         this.moduleCheck = pluginService.getPathManager();
         this.serverData = pluginService.getServerData();
 
-        this.chatMethod = pluginService.getPlayerMethods().getChatMethod();
+        this.chatManager = pluginService.getPlayerMethods().getChatMethod();
         this.playerMethod = pluginService.getPlayerMethods().getSender();
     }
 
@@ -76,8 +76,8 @@ public class ChatCommand implements CommandClass {
         int lines = command.getInt("commands.chat.clear.default-blank");
         boolean silent = false;
 
-        if (text.isEmpty()){
-            chatMethod.clearSubCommand(sender, lines, world, silent);
+        if (text.isEmpty()) {
+            chatManager.clearSubCommand(sender, lines, world, silent);
             return true;
         }
 
@@ -129,7 +129,7 @@ public class ChatCommand implements CommandClass {
             break;
         }
 
-        chatMethod.clearSubCommand(sender, lines, world, silent);
+        chatManager.clearSubCommand(sender, lines, world, silent);
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "chat clear");
         return true;
     }
@@ -140,17 +140,13 @@ public class ChatCommand implements CommandClass {
         String[] strings = text.split(" ");
 
         String world = "-global";
+        String channel = "-none";
+
         int times = -1;
         boolean silent = false;
 
-        if (serverData.isMuted()){
-            playerMethod.sendMessage(sender, messages.getString("error.chat.management.already-muted"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        if (text.isEmpty()){
-            chatMethod.muteSubCommand(sender, times, world, false);
+        if (text.isEmpty()) {
+            chatManager.muteSubCommand(sender, times, channel, world, false);
             return true;
         }
 
@@ -170,13 +166,40 @@ public class ChatCommand implements CommandClass {
 
                 if (Bukkit.getWorld(strings[id + 1]) == null && !strings[id + 1].equalsIgnoreCase("-global")) {
                     playerMethod.sendMessage(sender, messages.getString("error.flags.unknown-world")
-                            .replace("%world%", text));
+                            .replace("%world%", strings[id + 1]));
                     playerMethod.sendSound(sender, SoundEnum.ERROR);
                     return true;
 
                 }
 
+                if (strings[id + 1].equalsIgnoreCase("-global")) {
+                    if (serverData.isMuted()) {
+                        playerMethod.sendMessage(sender, messages.getString("error.chat.management.already-muted"));
+                        playerMethod.sendSound(sender, SoundEnum.ERROR);
+                        return true;
+                    }
+                }
+
                 world = strings[id + 1];
+                id++;
+                continue;
+            }
+
+            if (strings[id].equalsIgnoreCase("-c")) {
+                if (strings[id + 1].isEmpty()) {
+                    playerMethod.sendMessage(sender, messages.getString("error.flags.empty-flag"));
+                    playerMethod.sendSound(sender, SoundEnum.ERROR);
+                    return true;
+                }
+
+                if (utils.getString("channel." + channel) == null && !strings[id + 1].equalsIgnoreCase("-none")) {
+                    playerMethod.sendMessage(sender, messages.getString("error.flags.unknown-channel")
+                            .replace("%channel%", text));
+                    playerMethod.sendSound(sender, SoundEnum.ERROR);
+                    return true;
+                }
+
+                channel = strings[id + 1];
                 id++;
                 continue;
             }
@@ -193,7 +216,7 @@ public class ChatCommand implements CommandClass {
                     times = Integer.parseInt(strings[id + 1]);
                 } catch (NumberFormatException numberFormatException) {
                     playerMethod.sendMessage(sender, messages.getString("error.flags.unknown-number")
-                            .replace("%world%", strings[id + 1]));
+                            .replace("%seconds%", strings[id + 1]));
                     playerMethod.sendSound(sender, SoundEnum.ERROR);
                     return true;
                 }
@@ -208,36 +231,92 @@ public class ChatCommand implements CommandClass {
             return true;
         }
 
-        chatMethod.muteSubCommand(sender, times, world, silent);
+        chatManager.muteSubCommand(sender, times, channel, world, silent);
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "chat mute");
         return true;
 
     }
 
     @Command(names = "unmute")
-    public boolean unmuteSubCommand(@Sender Player sender, @OptArg("") String args) {
+    public boolean unmuteSubCommand(@Sender Player sender, @OptArg("") @Text String args) {
 
-        if (!serverData.isMuted()){
-            playerMethod.sendMessage(sender, messages.getString("error.chat.management.already-unmuted"));
+        String world = "-global";
+        String channel = "-none";
+
+        boolean silent = false;
+
+        if (args.isEmpty()){
+            chatManager.unmuteSubCommand(world, channel, silent);
+            return true;
+        }
+        String[] strings = args.split(" ");
+
+        for (int id = 0; id < strings.length; id++) {
+
+            if (strings[id].equalsIgnoreCase("-silent")) {
+                silent = true;
+                continue;
+            }
+
+            if (strings[id].equalsIgnoreCase("-w")) {
+                if (strings[id + 1].isEmpty()) {
+                    playerMethod.sendMessage(sender, messages.getString("error.flags.empty-flag"));
+                    playerMethod.sendSound(sender, SoundEnum.ERROR);
+                    return true;
+                }
+
+                if (Bukkit.getWorld(strings[id + 1]) == null && !strings[id + 1].equalsIgnoreCase("-global")) {
+                    playerMethod.sendMessage(sender, messages.getString("error.flags.unknown-world")
+                            .replace("%world%", strings[id + 1]));
+                    playerMethod.sendSound(sender, SoundEnum.ERROR);
+                    return true;
+
+                }
+
+                if (strings[id + 1].equalsIgnoreCase("-global")) {
+                    if (!serverData.isMuted()) {
+                        playerMethod.sendMessage(sender, messages.getString("error.chat.management.already-unmuted"));
+                        playerMethod.sendSound(sender, SoundEnum.ERROR);
+                        return true;
+                    }
+                }
+
+                world = strings[id + 1];
+                id++;
+                continue;
+            }
+
+            if (strings[id].equalsIgnoreCase("-c")) {
+                if (strings[id + 1].isEmpty()) {
+                    playerMethod.sendMessage(sender, messages.getString("error.flags.empty-flag"));
+                    playerMethod.sendSound(sender, SoundEnum.ERROR);
+                    return true;
+                }
+
+                if (utils.getString("channel." + channel) == null && !strings[id + 1].equalsIgnoreCase("-none")) {
+                    playerMethod.sendMessage(sender, messages.getString("error.flags.unknown-channel")
+                            .replace("%channel%", strings[id + 1]));
+                    playerMethod.sendSound(sender, SoundEnum.ERROR);
+                    return true;
+                }
+
+                channel = strings[id + 1];
+                id++;
+                continue;
+            }
+
+            if (strings[id].equalsIgnoreCase("-silent")) {
+                silent = true;
+                continue;
+            }
+
+            playerMethod.sendMessage(sender, messages.getString("chat.flags.unknown-flag")
+                    .replace("%flag%", args));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (args.isEmpty()) {
-            chatMethod.unmuteSubCommand(false);
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "chat unmute");
-            return true;
-        }
-
-        if (args.equalsIgnoreCase("-s")) {
-            chatMethod.unmuteSubCommand(true);
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "chat unmute");
-            return true;
-        }
-
-        playerMethod.sendMessage(sender, messages.getString("chat.flags.unknown-flag")
-                .replace("%flag%", args));
-        playerMethod.sendSound(sender, SoundEnum.ERROR);
+        chatManager.unmuteSubCommand(world, channel, silent);
         return true;
     }
 
@@ -253,7 +332,7 @@ public class ChatCommand implements CommandClass {
         }
 
         if (text.equalsIgnoreCase("-d")) {
-            chatMethod.setCooldown(sender, utils.getInt("fitlers.cooldown.text.seconds"));
+            chatManager.setCooldown(sender, utils.getInt("fitlers.cooldown.text.seconds"));
             playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "chat cooldown");
             return true;
         }
@@ -269,7 +348,7 @@ public class ChatCommand implements CommandClass {
             return true;
         }
 
-        chatMethod.setCooldown(sender, time);
+        chatManager.setCooldown(sender, time);
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "chat cooldown");
         return true;
 
@@ -282,13 +361,13 @@ public class ChatCommand implements CommandClass {
 
         if (tag.isEmpty()) {
             playerMethod.sendMessage(player, messages.getString("error.chat.tags.empty-tags")
-                    .replace("%tags%", chatMethod.allTags())
-                    .replace("%usage%", moduleCheck.getUsage("chat", "color", "typetag", "[@tag/color]")));
+                    .replace("%tags%", chatManager.allTags())
+                    .replace("%usage%", moduleCheck.getUsage("chat", "color", "[<typetag>]", "[@tag/color]")));
             playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
 
-        if (!chatMethod.isTag(tag)) {
+        if (!chatManager.isTag(tag)) {
             playerMethod.sendMessage(player, messages.getString("error.chat.tags.unknown-tag")
                     .replace("%text%", tag));
             playerMethod.sendSound(player, SoundEnum.ERROR);
@@ -299,7 +378,7 @@ public class ChatCommand implements CommandClass {
 
         if (color.isEmpty()) {
             playerMethod.sendMessage(player, messages.getString("error.chat.tags.empty-colortags")
-                    .replace("%colortags%", chatMethod.allColorTags())
+                    .replace("%colortags%", chatManager.allColorTags())
                     .replace("%usage%", moduleCheck.getUsage("chat", "color", "typetag", "[@tag/color]")));
             playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;

@@ -107,7 +107,7 @@ commands:
         - "&8- &f/bmsg reset [commands/modules] &8| &fTo reset the configuration. &8|"
     commands:
       format: "%c &fList of commands &8- &a%page%&8/&a%max_page%&8:"
-    # You can put unlimited pages [1,2..].
+      # You can put unlimited pages [1,2..].
       pages:
         1:
           - "&8- &f/bmsg [reload/help/debug..] &8: &fTo use the plugin."
@@ -145,9 +145,9 @@ commands:
   motd:
     list:
       message:
-      - "&f"
-      - "%c &fMotd list &8[&a%page%&8/&a%maxpage%&8]"
-      - "&f"
+        - "&f"
+        - "%c &fMotd list &8[&a%page%&8/&a%maxpage%&8]"
+        - "&f"
       space: "&8->"
     add-line: "%c &fLine added: &a%line%&f."
     remove-line: "%c &fLine %number% deleted: &a%line%&f."

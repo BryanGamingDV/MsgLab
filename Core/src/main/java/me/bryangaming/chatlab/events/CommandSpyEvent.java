@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.events;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class CommandSpyEvent extends Event{
+public class CommandSpyEvent extends Event {
 
     private final String message;
 
@@ -16,7 +16,7 @@ public class CommandSpyEvent extends Event{
         this.sender = sender;
     }
 
-    public String getSender(){
+    public String getSender() {
         return sender;
     }
 

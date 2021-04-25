@@ -87,8 +87,8 @@ public class ChatLab extends JavaPlugin {
         }
     }
 
-    public void initModules(Module... modules){
-        for (Module module : modules){
+    public void initModules(Module... modules) {
+        for (Module module : modules) {
             module.start();
         }
     }

@@ -1,9 +1,9 @@
 #
 # ChatLab by BryanGaming
-# Version: 2.0.2
+# Version: 2.0.3
 #
 
-version: 2.0.2
+version: 2.0.3
 
 config:
 
@@ -25,6 +25,8 @@ config:
       - channel
       - motd
       - commandspy
+      - announcer
+      - party
 
     enabled-options:
       - chat_format

@@ -3,17 +3,13 @@ package me.bryangaming.chatlab.registry;
 import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.debug.DebugLogger;
-import me.bryangaming.chatlab.listeners.GuiListener;
-import me.bryangaming.chatlab.listeners.JoinListener;
-import me.bryangaming.chatlab.listeners.QuitListener;
-import me.bryangaming.chatlab.listeners.TabListener;
-import me.bryangaming.chatlab.listeners.events.CommandSpyListener;
-import me.bryangaming.chatlab.listeners.events.HelpOpListener;
-import me.bryangaming.chatlab.listeners.events.SocialSpyListener;
-import me.bryangaming.chatlab.listeners.events.server.ServerChangeListener;
-import me.bryangaming.chatlab.listeners.format.ChatFormat;
+import me.bryangaming.chatlab.listeners.*;
+import me.bryangaming.chatlab.listeners.command.CommandSpyListener;
+import me.bryangaming.chatlab.listeners.command.HelpOpListener;
+import me.bryangaming.chatlab.listeners.command.SocialSpyListener;
+import me.bryangaming.chatlab.listeners.text.ChatListener;
 import me.bryangaming.chatlab.managers.click.ChatClickEvent;
-import me.bryangaming.chatlab.revisor.tabcomplete.BlockRevisor;
+import me.bryangaming.chatlab.revisor.tabcomplete.TabFitler;
 import me.bryangaming.chatlab.utils.StringFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -34,32 +30,34 @@ public class EventManager {
         StringFormat stringFormat = pluginService.getStringFormat();
 
         loadEvents(
-                new QuitListener(pluginService),
                 new JoinListener(pluginService),
-                new ChatFormat(pluginService),
+                new QuitListener(pluginService),
+                new SendTextListener(pluginService),
                 new ChatClickEvent(pluginService),
                 new GuiListener(pluginService),
                 new HelpOpListener(pluginService),
                 new SocialSpyListener(pluginService),
                 new CommandSpyListener(pluginService),
-                new ServerChangeListener(pluginService));
+                new ServerChangeListener(pluginService),
+                new RevisorListener(pluginService),
+                new ChatListener(pluginService));
 
-        if (stringFormat.containsVersion(stringFormat.getVersion(Bukkit.getServer()), stringFormat.getLegacyVersion())){
+        if (stringFormat.containsVersion(stringFormat.getVersion(Bukkit.getServer()), stringFormat.getLegacyVersion())) {
             loadEvents(new TabListener(pluginService));
         }
 
         if (Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
-            BlockRevisor blockRevisor = new BlockRevisor(pluginService);
+            TabFitler tabFitler = new TabFitler(pluginService);
         }
         plugin.getLogger().info("Events loaded!");
     }
 
-    public void loadEvents(Listener... listeners){
+    public void loadEvents(Listener... listeners) {
 
         DebugLogger debug = pluginService.getLogs();
         PluginManager pl = Bukkit.getServer().getPluginManager();
 
-        for (Listener listener : listeners){
+        for (Listener listener : listeners) {
             String className = listener.getClass().getName();
             debug.log(className + " loaded!");
             pl.registerEvents(listener, plugin);

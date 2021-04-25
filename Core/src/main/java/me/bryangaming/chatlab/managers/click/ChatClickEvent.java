@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.managers.click;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.commands.StaffChatMethod;
+import me.bryangaming.chatlab.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.event.EventHandler;
@@ -34,16 +34,16 @@ public class ChatClickEvent implements Listener {
         }
 
         List<String> clickchat = userData.getClickChat();
-        ClickChatMethod clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
+        ClickChatManager clickChatManager = pluginService.getPlayerMethods().getChatManagent();
 
         Configuration command = pluginService.getFiles().getCommand();
 
         if (event.getMessage().startsWith("-cancel")) {
-            clickChatMethod.unset(uuid);
+            clickChatManager.unset(uuid);
             return;
         }
 
-        StaffChatMethod staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
+        StaffChatManager staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
 
         if (staffChatMethod.isUsingStaffSymbol(event)) {
             staffChatMethod.getStaffSymbol(event);
@@ -56,7 +56,7 @@ public class ChatClickEvent implements Listener {
             clickchat.add(event.getMessage());
             playersender.sendMessage(event.getPlayer(), command.getString("commands.broadcast.mode.selected.message")
                     .replace("%message%", clickchat.get(0)));
-            clickChatMethod.setAgain(uuid);
+            clickChatManager.setAgain(uuid);
             return;
         }
 
@@ -64,7 +64,7 @@ public class ChatClickEvent implements Listener {
             clickchat.add(event.getMessage());
             playersender.sendMessage(event.getPlayer(), command.getString("commands.broadcast.mode.selected.command")
                     .replace("%command%", clickchat.get(1)));
-            clickChatMethod.setAgain(uuid);
+            clickChatManager.setAgain(uuid);
             return;
         }
 
@@ -81,7 +81,7 @@ public class ChatClickEvent implements Listener {
 
 
             userData.toggleClickMode(false);
-            clickChatMethod.setAgain(uuid);
+            clickChatManager.setAgain(uuid);
 
         }
 

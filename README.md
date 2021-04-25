@@ -40,6 +40,6 @@ The permissions of these commands are the default ones. <br>
 ## Permissions
 All permissions can be modified in `config.yml` file.
 ## Revisor
-A Reviewer is a function that reviews messages in the chat, the permission to view and skip them is `clab.revisor`. Currently the reviewers check: words, flood, caps, links and dots.
+A Reviewer is a function that reviews messages in the chat, the permission to view and skip them is `revisor`. Currently the reviewers check: words, flood, caps, links and dots.
 ## Support
 Check out the official [discord server](https://discord.gg/wpSh4Bf4Es)!.

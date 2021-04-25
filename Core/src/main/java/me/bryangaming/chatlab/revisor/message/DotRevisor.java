@@ -1,12 +1,13 @@
 package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class DotRevisor {
+public class DotRevisor implements Revisor {
 
 
     private PluginService pluginService;
@@ -15,7 +16,7 @@ public class DotRevisor {
         this.pluginService = pluginService;
     }
 
-    public String check(Player player, String string) {
+    public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
@@ -35,7 +36,7 @@ public class DotRevisor {
 
         if (utils.getBoolean("revisor.dot-module.warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                if (playerMethod.hasPermission(onlinePlayer, "revisor")) {
+                if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
                     playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.dot-module.warning.text")
                             .replace("%player%", player.getName()));
                 }

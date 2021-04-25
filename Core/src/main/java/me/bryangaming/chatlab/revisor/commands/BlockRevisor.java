@@ -1,11 +1,12 @@
 package me.bryangaming.chatlab.revisor.commands;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
 
-public class BlockRevisor {
+public class BlockRevisor implements Revisor{
 
     private PluginService pluginService;
 

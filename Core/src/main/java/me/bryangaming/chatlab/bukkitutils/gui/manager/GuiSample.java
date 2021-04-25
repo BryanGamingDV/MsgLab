@@ -10,10 +10,9 @@ public interface GuiSample {
      * A sample of the gui.
      *
      * @param sender The sender, obviously.
-     * @param page The page that the sender want to open.
+     * @param page   The page that the sender want to open.
      */
     GuiData getPage(UUID sender, Integer page);
-
 
 
     /**

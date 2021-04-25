@@ -6,7 +6,7 @@ import org.bukkit.event.HandlerList;
 
 import java.util.UUID;
 
-public class ServerChangeEvent extends Event{
+public class ServerChangeEvent extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
 
@@ -17,7 +17,7 @@ public class ServerChangeEvent extends Event{
 
     private final UUID uuid;
 
-    public ServerChangeEvent(Event event, Player sender, String playerGroup, ChangeMode changeMode){
+    public ServerChangeEvent(Event event, Player sender, String playerGroup, ChangeMode changeMode) {
         this.sender = sender;
         this.changeMode = changeMode;
         this.uuid = sender.getUniqueId();
@@ -25,30 +25,29 @@ public class ServerChangeEvent extends Event{
         this.event = event;
     }
 
-    public Event getEvent(){
+    public Event getEvent() {
         return event;
     }
 
-    public String getPlayerGroup(){
+    public String getPlayerGroup() {
         return playerGroup;
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return sender;
     }
 
-    public UUID getUniqueID(){
+    public UUID getUniqueID() {
         return uuid;
     }
 
-    public ChangeMode getChangeMode(){
+    public ChangeMode getChangeMode() {
         return changeMode;
     }
 
-    public void kickPlayer(String reason){
+    public void kickPlayer(String reason) {
         sender.kickPlayer(reason);
     }
-
 
 
     public static HandlerList getHandlerList() {

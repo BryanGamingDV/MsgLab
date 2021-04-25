@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.commands.StaffChatMethod;
+import me.bryangaming.chatlab.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -13,13 +13,13 @@ import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-@Command(names = {"sc", "staffchat"})
+@Command(names = {"staffchat", "sc"})
 public class StaffChatCommand implements CommandClass {
 
     private PluginService pluginService;
 
     private PlayerMessage playerMethod;
-    private StaffChatMethod staffChatMethod;
+    private StaffChatManager staffChatMethod;
 
     private Configuration command;
     private Configuration messages;

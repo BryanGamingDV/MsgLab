@@ -2,12 +2,13 @@ package me.bryangaming.chatlab.revisor.message;
 
 import com.google.common.base.Strings;
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class FloodRevisor {
+public class FloodRevisor implements Revisor {
 
     private PluginService pluginService;
 
@@ -17,10 +18,9 @@ public class FloodRevisor {
         this.pluginService = pluginService;
     }
 
-    public String check(Player player, String string) {
+    public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
-
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
         if (!(utils.getBoolean("revisor.anti-flood.enabled"))) {
@@ -46,7 +46,7 @@ public class FloodRevisor {
 
                         if (utils.getBoolean("revisor.anti-flood.warning.enabled")) {
                             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                                if (playerMethod.hasPermission(onlinePlayer, "revisor")) {
+                                if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
                                     playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.anti-flood.warning.text")
                                             .replace("%player%", player.getName()));
                                 }

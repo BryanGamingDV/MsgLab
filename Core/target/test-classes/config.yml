@@ -1,4 +1,3 @@
-
 #
 # ChatLab by zProgramm
 # Version: 1.8.8
@@ -48,7 +47,7 @@ config:
     chat-color: bmsg.chat.color
     chat-reload: bmsg.chat.reload
     helpop-watch: bmsg.helpop.watch
-    revisor-watch: bmsg.revisor.watch
+    revisor-watch: bmsg.me.bryangaming.chatlab.api.revisor.watch
     stream: bmsg.stream
     broadcast: bmsg.broadcast
     broadcast-world: bmsg.broadcast.world

@@ -25,7 +25,6 @@ import java.util.UUID;
 public class OnlineSample implements GuiSample {
 
     private final PluginService pluginService;
-
     private List<UUID> listPlayers;
 
     public OnlineSample(PluginService pluginService) {
@@ -75,7 +74,7 @@ public class OnlineSample implements GuiSample {
             inventory.addHead(player, name, lore);
             number++;
         }
-        
+
         int pagegui = inventory.getSize();
 
         String previousName = ChatColor.RESET + command.getColoredString("commands.msg-online.previous-page.title");
@@ -94,7 +93,7 @@ public class OnlineSample implements GuiSample {
                 inventory.setItem(pagegui - 1, command.getColoredString("commands.msg-online.next-page.id_name"), nextName, nextLore);
             }
         }
-        
+
         return inventory;
     }
 
@@ -145,5 +144,5 @@ public class OnlineSample implements GuiSample {
         Bukkit.getServer().getOnlinePlayers().forEach(player -> uuidList.add(player.getUniqueId()));
         return uuidList;
     }
-    
+
 }

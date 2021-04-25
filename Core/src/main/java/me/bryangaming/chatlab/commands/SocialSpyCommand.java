@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.commands.SocialSpyMethod;
+import me.bryangaming.chatlab.managers.commands.SocialSpyManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
@@ -25,7 +25,7 @@ public class SocialSpyCommand implements CommandClass {
     private final ModuleCheck moduleCheck;
 
     private final PlayerMessage playerMethod;
-    private final SocialSpyMethod socialSpyMethod;
+    private final SocialSpyManager socialSpyManager;
 
     private final Configuration command;
     private final Configuration messages;
@@ -36,7 +36,7 @@ public class SocialSpyCommand implements CommandClass {
         this.moduleCheck = pluginService.getPathManager();
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.socialSpyMethod = pluginService.getPlayerMethods().getSocialSpyMethod();
+        this.socialSpyManager = pluginService.getPlayerMethods().getSocialSpyMethod();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();
@@ -45,9 +45,9 @@ public class SocialSpyCommand implements CommandClass {
     @Command(names = "")
     public boolean onMainCommand(@Sender Player player, @OptArg("") String args) {
         if (args.isEmpty()) {
-            socialSpyMethod.toggleOption(player.getUniqueId());
+            socialSpyManager.toggleOption(player.getUniqueId());
             playerMethod.sendMessage(player.getPlayer(), command.getString("commands.socialspy.player.toggle")
-                    .replace("%mode%", socialSpyMethod.getStatus()));
+                    .replace("%mode%", socialSpyManager.getStatus()));
             playerMethod.sendSound(player, SoundEnum.ARGUMENT, "socialspy");
             return true;
         }

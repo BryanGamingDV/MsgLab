@@ -340,3 +340,94 @@ commands:
       - log
       - register
       - reg
+
+  announcer:
+    help:
+      - "&a[Announcer] &8- &fList of subcommands:"
+      - "&8- &f/announcer add [<text..>] &8: &fTo "
+      - "&8- &f/announcer addline [id] [<text>] &8: &fTo reload the plugin."
+      - "&8- &f/announcer removeline [id] [<text>] &8: &fTo see a debug."
+      - "&8- &f/announcer remove [id] &8: &fTo turn on/off sounds."
+      - "&8- &f/announcer list &8: &fTo get to discord support."
+      - "&8- &f/announcer set [interval/mode] &8: &fTo reset the configuration."
+    add:
+      announcer: "&a[Announcer] &8| &fCreated message: &a%message%&f."
+      line: "&a[Announcer] &8| &fAdded line from a message: %message%"
+    remove:
+      announcer: "&a[Announcer] &8| &fRemoved id: &a%id%&f."
+      line: "&a[Announcer] &8| &fRemoved a line: &a%message%&f."
+
+    list:
+      format:
+        - "&8->"
+        - "&fList of messages."
+        - "&8->"
+        - "%loop-value%"
+        - "&8->"
+      loop-value:
+        - "%pst% &8- &fID: &a%id%"
+        - "&8- &f%message%"
+    set:
+      interval: "&a[Announcer] &8| &fSetted interval to &a%time% &fseconds."
+      mode: "&a[Announcer] &8| &fSetted mode to &a%mode%&f."
+
+    mode:
+      public: "public"
+      private: "private"
+
+    config:
+      interval: 10
+
+      type: ORDENED
+      messages:
+        1:
+          - "&a1"
+        2:
+          - "&a2"
+
+  party:
+    help:
+      - "&a[Party] &8- &fList of subcommands:"
+      - "&8- &f/party help &8: &fHelp subcommand."
+      - "&8- &f/party create &8: &fTo create a party."
+      - "&8- &f/party disband &8: &fTo disband a party &c[Requires leader]."
+      - "&8- &f/party join [<leader>] &8: &fTo join a party."
+      - "&8- &f/party leave &8: &fTo quit a party."
+      - "&8- &f/party info &8: &fTo see the info of a party."
+      - "&8- &f/party invite [<player>] &8: &fTo invite a player to a party."
+      - "&8- &f/party removeinvite [<player>] &8: &fTo remove invite a player to a party."
+      - "&8- &f/party promote [<player>] &8: &f&fTo promote a player to leader &c[Requires leader]."
+      - "&8- &f/party set [public/private] &8: &fTo set a party public or private &c[Requires leader]."
+      - "&8- &f/party kick [<player>] &8: &fTo kick a player &c[Requires leader]."
+
+    created: "&b[Party] &8| &fCreated party."
+    deleted: "&b[Party] &8| &fDeleted party."
+
+    join: "&b[Party] &8| &fJoined party."
+    left: "&b[Party] &8| &fLeft party."
+
+    set: "&b[Party] &8| &fSet party mode to &a%mode% &f."
+
+    on-left:
+      player: "&a[Party] &8| &fThe player &a%player% &fleft the server, so he was removed from your party."
+      leader: "&a[Party] &8| &fThe leader &a%player% left the server, so the party is deleted."
+
+    invite:
+      sender: "&a[Party] &8| &fYou invited &a%target%"
+      target: "&a[Party] &8| &a%sender% &finvited you. Please put &a/party join &a%sender% &fto join."
+
+    remove-invite: "&a[Party] &8| &fYou remove invite to player &a%player%&f."
+
+    kick:
+      sender: "&a[Party] &8| &fYou kicked &a%player%&f."
+      target: "&a[Party] &8| &a%leader% &fkicked you."
+
+    leader: "&a[Party] &8| &fYou set leader to &a%player%"
+    info:
+      format:
+        - "&b[Party] &8| &fParty info:"
+        - "&8- &fLeader: &a%leader%"
+        - "&8- &fPlayers:"
+        - "&8- %loop-players%"
+    config:
+      max-player: 10

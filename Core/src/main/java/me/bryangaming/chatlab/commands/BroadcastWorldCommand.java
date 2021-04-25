@@ -2,9 +2,10 @@ package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
-import me.bryangaming.chatlab.managers.click.ClickChatMethod;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
+import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
-import me.bryangaming.chatlab.revisor.RevisorManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -12,6 +13,7 @@ import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 @Command(names = {"broadcastworld", "bcw", "bcworld"})
@@ -19,7 +21,7 @@ public class BroadcastWorldCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final ClickChatMethod clickChatMethod;
+    private final ClickChatManager clickChatManager;
     private final PlayerMessage playerMethod;
 
     private final ModuleCheck moduleCheck;
@@ -31,7 +33,7 @@ public class BroadcastWorldCommand implements CommandClass {
         this.pluginService = pluginService;
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.clickChatMethod = pluginService.getPlayerMethods().getChatManagent();
+        this.clickChatManager = pluginService.getPlayerMethods().getChatManagent();
 
         this.moduleCheck = pluginService.getPathManager();
 
@@ -52,15 +54,17 @@ public class BroadcastWorldCommand implements CommandClass {
         String message = String.join(" ", args);
 
         if (command.getBoolean("commands.broadcast.enable-revisor")) {
-            RevisorManager revisorManager = pluginService.getRevisorManager();
-            message = revisorManager.revisor(sender.getUniqueId(), message);
+            TextRevisorEvent textRevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
+            Bukkit.getServer().getPluginManager().callEvent(textRevisorEvent);
 
-            if (message == null) {
+            if (textRevisorEvent.isCancelled()) {
                 return true;
             }
+
+            message = textRevisorEvent.getMessageRevised();
         }
 
-        for (Player onlinePlayer : clickChatMethod.getWorldChat(sender)) {
+        for (Player onlinePlayer : clickChatManager.getWorldChat(sender)) {
             playerMethod.sendMessage(onlinePlayer, command.getString("commands.broadcast.text.world")
                     .replace("%world%", sender.getWorld().getName())
                     .replace("%player%", sender.getName())
@@ -78,7 +82,7 @@ public class BroadcastWorldCommand implements CommandClass {
             return true;
         }
 
-        clickChatMethod.activateChat(sender.getUniqueId(), true);
+        clickChatManager.activateChat(sender.getUniqueId(), true);
         return true;
 
     }

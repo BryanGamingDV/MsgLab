@@ -1,9 +1,9 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.chat.RadialChatMethod;
-import me.bryangaming.chatlab.managers.click.ClickChatMethod;
+import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.*;
+import me.bryangaming.chatlab.managers.group.GroupMethod;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import me.bryangaming.chatlab.utils.string.StringUtils;
@@ -16,26 +16,26 @@ public class MethodManager {
 
     private PlayerStatic playerStatic;
 
-
-    private ClickChatMethod chatManagent;
+    private ClickChatManager chatManagent;
     private GroupMethod groupMethod;
-    private RadialChatMethod radialChatMethod;
 
-    private HoverMethod hoverMethod;
-    private RecipientMethod recipientMethod;
-    private FitlerMethod fitlerMethod;
+    private HoverManager hoverManager;
+    private RecipientManager recipientManager;
+    private FitlerManager fitlerManager;
 
-    private ChatMethod chatMethod;
-    private HelpOpMethod helpOpMethod;
-    private SocialSpyMethod socialSpyMethod;
-    private IgnoreMethod ignoreMethod;
-    private MsgMethod msgMethod;
+    private ChatManager chatManager;
+    private HelpOpManager helpOpManager;
+    private SocialSpyManager socialSpyManager;
+    private IgnoreManager ignoreManager;
+    private MsgManager msgManager;
 
-    private ReplyMethod replyMethod;
-    private StaffChatMethod staffChatMethod;
+    private PartyManager partyManager;
+    private ReplyManager replyManager;
+    private StaffChatManager staffChatMethod;
 
     private VariableUtils variableUtils;
     private StringUtils stringUtils;
+    private ConditionManager conditionManager;
 
     private final PluginService pluginService;
 
@@ -45,87 +45,92 @@ public class MethodManager {
 
     public void setup() {
 
-        chatManagent = new ClickChatMethod(pluginService);
+        chatManagent = new ClickChatManager(pluginService);
         groupMethod = new GroupMethod(pluginService);
-        radialChatMethod = new RadialChatMethod(pluginService);
 
-        recipientMethod = new RecipientMethod(pluginService);
-        hoverMethod = new HoverMethod(pluginService);
-
+        recipientManager = new RecipientManager(pluginService);
+        hoverManager = new HoverManager(pluginService);
 
         playerMessage = new PlayerMessage(pluginService);
-        chatMethod = new ChatMethod(pluginService);
+        chatManager = new ChatManager(pluginService);
         playerStatic = new PlayerStatic(pluginService);
 
-        fitlerMethod = new FitlerMethod(pluginService);
-        staffChatMethod = new StaffChatMethod(pluginService);
-        helpOpMethod = new HelpOpMethod(pluginService);
-        ignoreMethod = new IgnoreMethod(pluginService);
-        socialSpyMethod = new SocialSpyMethod(pluginService);
+        fitlerManager = new FitlerManager(pluginService);
+        staffChatMethod = new StaffChatManager(pluginService);
+        helpOpManager = new HelpOpManager(pluginService);
+        ignoreManager = new IgnoreManager(pluginService);
+        socialSpyManager = new SocialSpyManager(pluginService);
 
-        replyMethod = new ReplyMethod(pluginService);
-        msgMethod = new MsgMethod(pluginService);
+        partyManager = new PartyManager(pluginService);
+        replyManager = new ReplyManager(pluginService);
+        msgManager = new MsgManager(pluginService);
 
         variableUtils = new VariableUtils(pluginService);
         stringUtils = new StringUtils(pluginService);
+        conditionManager = new ConditionManager(pluginService);
 
         pluginService.getLogs().log("Method registered");
 
+    }
+
+    public PartyManager getPartyMethod() {
+        return partyManager;
     }
 
     public GroupMethod getGroupMethod() {
         return groupMethod;
     }
 
-    public ClickChatMethod getChatManagent() {
+    public ClickChatManager getChatManagent() {
         return chatManagent;
     }
 
-    public RadialChatMethod getRadialChatMethod() {
-        return radialChatMethod;
+
+    public HoverManager getHoverMethod() {
+        return hoverManager;
     }
 
-    public HoverMethod getHoverMethod() {
-        return hoverMethod;
-    }
-
-    public RecipientMethod getRecipientMethod() {
-        return recipientMethod;
+    public RecipientManager getRecipientMethod() {
+        return recipientManager;
     }
 
     public PlayerMessage getSender() {
         return playerMessage;
     }
 
-    public StaffChatMethod getStaffChatMethod() {
+    public StaffChatManager getStaffChatMethod() {
         return staffChatMethod;
     }
 
-    public SocialSpyMethod getSocialSpyMethod() {
-        return socialSpyMethod;
+    public SocialSpyManager getSocialSpyMethod() {
+        return socialSpyManager;
     }
 
-    public HelpOpMethod getHelpOpMethod() {
-        return helpOpMethod;
+    public HelpOpManager getHelpOpMethod() {
+        return helpOpManager;
     }
 
-    public IgnoreMethod getIgnoreMethod() {
-        return ignoreMethod;
+    public IgnoreManager getIgnoreMethod() {
+        return ignoreManager;
     }
 
-    public ReplyMethod getReplyMethod() {
-        return replyMethod;
+    public ReplyManager getReplyMethod() {
+        return replyManager;
     }
 
-    public MsgMethod getMsgMethod() {
-        return msgMethod;
+    public MsgManager getMsgMethod() {
+        return msgManager;
     }
 
-    public ChatMethod getChatMethod() {
-        return chatMethod;
+    public ChatManager getChatMethod() {
+        return chatManager;
     }
 
-    public FitlerMethod getFitlerMethod() {
-        return fitlerMethod;
+    public FitlerManager getFitlerMethod() {
+        return fitlerManager;
+    }
+
+    public ConditionManager getConditionManager() {
+        return conditionManager;
     }
 }

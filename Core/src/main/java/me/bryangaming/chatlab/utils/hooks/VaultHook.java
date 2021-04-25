@@ -57,7 +57,7 @@ public class VaultHook {
         return chat;
     }
 
-    public Economy getEconomy(){
+    public Economy getEconomy() {
         return economy;
     }
 }

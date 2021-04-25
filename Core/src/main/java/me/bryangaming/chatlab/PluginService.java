@@ -7,7 +7,8 @@ import me.bryangaming.chatlab.managers.MethodManager;
 import me.bryangaming.chatlab.registry.CommandRegistry;
 import me.bryangaming.chatlab.registry.ConfigManager;
 import me.bryangaming.chatlab.registry.EventManager;
-import me.bryangaming.chatlab.revisor.RevisorManager;
+import me.bryangaming.chatlab.revisor.CooldownData;
+import me.bryangaming.chatlab.tasks.TasksManager;
 import me.bryangaming.chatlab.utils.StringFormat;
 import me.bryangaming.chatlab.utils.SupportManager;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
@@ -32,11 +33,11 @@ public class PluginService {
     private EventManager eventManager;
     private ConfigManager configManager;
 
-    private RevisorManager revisorManager;
+    private CooldownData cooldownData;
     private ManagingCenter managingCenter;
 
+    private TasksManager tasksManager;
     private CacheManager cache;
-
 
     public PluginService(ChatLab plugin) {
         this.plugin = plugin;
@@ -73,16 +74,16 @@ public class PluginService {
         eventManager = new EventManager(plugin, this);
         eventManager.setup();
 
-        revisorManager = new RevisorManager(this);
-
+        cooldownData = new CooldownData(this);
+        tasksManager = new TasksManager(this);
     }
 
     public ServerData getServerData() {
         return serverData;
     }
 
-    public RevisorManager getRevisorManager() {
-        return revisorManager;
+    public CooldownData getCooldownData() {
+        return cooldownData;
     }
 
     public ManagingCenter getManagingCenter() {
@@ -127,5 +128,9 @@ public class PluginService {
 
     public CommandRegistry getCommandRegistry() {
         return commandRegistry;
+    }
+
+    public TasksManager getTasksManager() {
+        return tasksManager;
     }
 }

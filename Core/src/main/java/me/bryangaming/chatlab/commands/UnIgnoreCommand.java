@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
-import me.bryangaming.chatlab.managers.commands.IgnoreMethod;
+import me.bryangaming.chatlab.managers.commands.IgnoreManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.registry.ConfigManager;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -31,7 +31,7 @@ public class UnIgnoreCommand implements CommandClass {
     @Command(names = "unignore")
     public boolean onCommand(@Sender Player player, @OptArg OfflinePlayer target) {
 
-        IgnoreMethod ignoreMethod = pluginService.getPlayerMethods().getIgnoreMethod();
+        IgnoreManager ignoreManager = pluginService.getPlayerMethods().getIgnoreMethod();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
         ModuleCheck moduleCheck = pluginService.getPathManager();
@@ -81,7 +81,7 @@ public class UnIgnoreCommand implements CommandClass {
             return true;
         }
 
-        ignoreMethod.unignorePlayer(player, targetuuid);
+        ignoreManager.unignorePlayer(player, targetuuid);
         playerMethod.sendMessage(player, command.getString("commands.ignore.player-unignored")
                 .replace("%player%", targetname));
         playerMethod.sendSound(player, SoundEnum.ARGUMENT, "ignore");

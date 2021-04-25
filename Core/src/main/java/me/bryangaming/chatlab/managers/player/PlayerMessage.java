@@ -89,6 +89,31 @@ public class PlayerMessage {
         }
     }
 
+    public void sendMessageTo(List<Player> playerList, String path) {
+
+        Logger logger = pluginService.getPlugin().getLogger();
+        if (path == null) {
+            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+                logger.info("Please change the configuration section! Your config is old.");
+            } else {
+                logger.info("Error - Could not find the path in config.");
+                logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
+
+            }
+        }
+
+        for (Player online : playerList) {
+            Audience player = pluginService.getPlugin().getBukkitAudiences().player(online);
+
+            try {
+                player.sendMessage(PlayerStatic.convertTextToComponent(online, path));
+            } catch (NullPointerException nullPointerException) {
+                sendLines(nullPointerException);
+                return;
+            }
+        }
+    }
+
     public void sendMessage(Player sender, String path, String message) {
         Logger logger = pluginService.getPlugin().getLogger();
         if (path == null) {
@@ -131,7 +156,7 @@ public class PlayerMessage {
             return;
         }
 
-        for (String message : messages){
+        for (String message : messages) {
             player.sendMessage(MiniMessage.get().parse(message));
         }
     }

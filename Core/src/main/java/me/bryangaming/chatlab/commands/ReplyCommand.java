@@ -4,9 +4,10 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SocialSpyEvent;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.registry.ConfigManager;
-import me.bryangaming.chatlab.revisor.RevisorManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -67,10 +68,10 @@ public class ReplyCommand implements CommandClass {
         }
 
         if (command.getBoolean("commands.msg-reply.enable-revisor")) {
-            RevisorManager revisorManager = pluginService.getRevisorManager();
-            message = revisorManager.revisor(playeruuid, message);
+            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
+            Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
 
-            if (message == null) {
+            if (textrevisorEvent.isCancelled()){
                 return true;
             }
         }

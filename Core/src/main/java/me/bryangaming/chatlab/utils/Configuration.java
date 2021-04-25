@@ -77,11 +77,11 @@ public final class Configuration extends YamlConfiguration {
         }
     }
 
-    public String getColoredString(String path){
+    public String getColoredString(String path) {
         return StringUtils.setColor(getString(path));
     }
 
-    public List<String> getColoredStringList(String path){
+    public List<String> getColoredStringList(String path) {
 
         List<String> stringList = getStringList(path);
         stringList.replaceAll(StringUtils::setColor);

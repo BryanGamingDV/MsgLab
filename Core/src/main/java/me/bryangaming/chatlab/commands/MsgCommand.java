@@ -5,11 +5,12 @@ import me.bryangaming.chatlab.bukkitutils.gui.manager.GuiManager;
 import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SocialSpyEvent;
-import me.bryangaming.chatlab.managers.commands.MsgMethod;
-import me.bryangaming.chatlab.managers.commands.ReplyMethod;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
+import me.bryangaming.chatlab.managers.commands.MsgManager;
+import me.bryangaming.chatlab.managers.commands.ReplyManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.registry.ConfigManager;
-import me.bryangaming.chatlab.revisor.RevisorManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -162,22 +163,24 @@ public class MsgCommand implements CommandClass {
         String message = String.join(" ", msg);
 
         if (command.getBoolean("commands.msg-reply.enable-revisor")) {
-            RevisorManager revisorManager = pluginService.getRevisorManager();
-            message = revisorManager.revisor(playeruuid, message);
+            TextRevisorEvent textRevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
+            Bukkit.getServer().getPluginManager().callEvent(textRevisorEvent);
 
-            if (message == null) {
+            if (textRevisorEvent.isCancelled()) {
                 return true;
             }
+
+            message = textRevisorEvent.getMessageRevised();
         }
 
         if (!playerMethod.hasPermission(sender, "color.commands")) {
             message = "<pre>" + message + "</pre>";
         }
 
-        MsgMethod msgMethod = pluginService.getPlayerMethods().getMsgMethod();
+        MsgManager msgManager = pluginService.getPlayerMethods().getMsgMethod();
         Player targetplayer = target.getPlayer();
 
-        msgMethod.sendPrivateMessage(sender, targetplayer, message);
+        msgManager.sendPrivateMessage(sender, targetplayer, message);
 
         String socialspyFormat = command.getString("commands.socialspy.spy")
                 .replace("%player%", sender.getName())
@@ -186,7 +189,7 @@ public class MsgCommand implements CommandClass {
 
         Bukkit.getPluginManager().callEvent(new SocialSpyEvent(socialspyFormat));
 
-        ReplyMethod reply = pluginService.getPlayerMethods().getReplyMethod();
+        ReplyManager reply = pluginService.getPlayerMethods().getReplyMethod();
         reply.setReply(playeruuid, targetuuid);
         return true;
     }

@@ -11,7 +11,7 @@ public class StringUtils {
     private PluginService pluginService;
     private static Configuration config;
 
-    public StringUtils(PluginService pluginService){
+    public StringUtils(PluginService pluginService) {
         this.pluginService = pluginService;
         config = pluginService.getFiles().getConfig();
     }
@@ -20,12 +20,11 @@ public class StringUtils {
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 
-    public static String convertLegacyToMiniMessage(String string){
+    public static String convertLegacyToMiniMessage(String string) {
 
-        if (!config.getBoolean("options.use-legacy-colors")){
+        if (!config.getBoolean("options.use-legacy-colors")) {
             return string;
         }
-
         string = string
                 .replace("&f", "<white>");
 

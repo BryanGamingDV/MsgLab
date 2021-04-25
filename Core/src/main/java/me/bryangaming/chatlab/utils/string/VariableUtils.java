@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.utils.string;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.commands.ChatMethod;
+import me.bryangaming.chatlab.managers.commands.ChatManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.SupportManager;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -15,22 +15,22 @@ public class VariableUtils {
     private PluginService pluginService;
 
     private static SupportManager supportManager;
-    private static ChatMethod chatMethod;
+    private static ChatManager chatManager;
 
     private static Configuration config;
     private static Configuration utils;
 
-    public VariableUtils(PluginService pluginService){
+    public VariableUtils(PluginService pluginService) {
         this.pluginService = pluginService;
 
         supportManager = pluginService.getSupportManager();
-        chatMethod = pluginService.getPlayerMethods().getChatMethod();
+        chatManager = pluginService.getPlayerMethods().getChatMethod();
 
         config = pluginService.getFiles().getConfig();
         utils = pluginService.getFiles().getBasicUtils();
     }
 
-    public static String replaceAllVariables(Player player, String string){
+    public static String replaceAllVariables(Player player, String string) {
 
         string = replaceEmojis(string);
         string = replacePluginVariables(string);
@@ -43,15 +43,15 @@ public class VariableUtils {
         return string;
     }
 
-    public static String replacePlayerVariables(Player player, String string){
+    public static String replacePlayerVariables(Player player, String string) {
         return string
                 .replace("%world%", player.getWorld().getName())
                 .replace("%player%", player.getName())
                 .replace("%online%", String.valueOf(Bukkit.getServer().getOnlinePlayers().size()));
     }
 
-    public static String replacePAPIVariables(Player player, String string){
-        if (!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
+    public static String replacePAPIVariables(Player player, String string) {
+        if (!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             return string;
         }
 
@@ -62,9 +62,9 @@ public class VariableUtils {
     }
 
 
-    public static String replaceEmojis(String string){
+    public static String replaceEmojis(String string) {
 
-        for (String emojiPath : utils.getStringList("filters.emojis")){
+        for (String emojiPath : utils.getStringList("filters.emojis")) {
             string = string.replace(emojiPath.split(";")[0], emojiPath.split(";")[1]);
         }
 
@@ -82,8 +82,8 @@ public class VariableUtils {
 
     }
 
-    public static String replaceVaultVariables(Player player, String string){
-        if (Bukkit.getPluginManager().isPluginEnabled("Vault")){
+    public static String replaceVaultVariables(Player player, String string) {
+        if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             return string;
         }
 
@@ -99,7 +99,7 @@ public class VariableUtils {
                 .replace("%group%", permission.getPrimaryGroup(player)));
     }
 
-    public static String replaceTags(Player player, String string){
-        return chatMethod.replaceTagsVariables(player, string);
+    public static String replaceTags(Player player, String string) {
+        return chatManager.replaceTagsVariables(player, string);
     }
 }

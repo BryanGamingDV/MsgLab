@@ -7,25 +7,25 @@ import me.bryangaming.chatlab.utils.Configuration;
 
 import java.util.Map;
 
-public class DataModule implements Module{
+public class DataModule implements Module {
 
     private PluginService pluginService;
 
-    public DataModule(PluginService pluginService){
+    public DataModule(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
     @Override
-    public void start(){
+    public void start() {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
         Map<String, JQFormat> jqFormatMP = pluginService.getCache().getJQFormats();
 
-        if (jqFormatMP.keySet().size() > 0){
+        if (jqFormatMP.keySet().size() > 0) {
             jqFormatMP.clear();
         }
 
-        for (String dataRanks : utils.getConfigurationSection("lobby.formats").getKeys(false)){
+        for (String dataRanks : utils.getConfigurationSection("lobby.formats").getKeys(false)) {
             JQFormat jqFormat = new JQFormat(dataRanks);
 
             if (utils.getConfigurationSection("lobby.formats." + dataRanks + ".first-join") != null) {
@@ -50,7 +50,7 @@ public class DataModule implements Module{
                 }
 
             }
-            if (utils.getConfigurationSection("lobby.formats." + dataRanks + ".join") != null){
+            if (utils.getConfigurationSection("lobby.formats." + dataRanks + ".join") != null) {
 
                 // Join Format:
                 if (utils.getString("lobby.formats." + dataRanks + ".join.message") == null) {
@@ -73,7 +73,7 @@ public class DataModule implements Module{
 
             }
 
-            if (utils.getConfigurationSection("lobby.formats." + dataRanks + ".quit") != null){
+            if (utils.getConfigurationSection("lobby.formats." + dataRanks + ".quit") != null) {
 
                 // Quit Format:
                 if (utils.getString("lobby.formats." + dataRanks + ".quit.message") == null) {

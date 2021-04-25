@@ -36,9 +36,9 @@ public class StringFormat {
         return false;
     }
 
-    public String[] getLegacyVersion(){
+    public String[] getLegacyVersion() {
 
-        return new String[]{"1.12", "1.13", "1.14", "1.15", "1.16"};
+        return new String[]{"1.13", "1.14", "1.15", "1.16"};
     }
 
     public int countRepeatedCharacters(String string, char character) {

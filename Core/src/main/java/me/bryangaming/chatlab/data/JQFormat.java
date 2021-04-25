@@ -17,7 +17,7 @@ public class JQFormat {
 
     private String name;
 
-    public JQFormat(String name){
+    public JQFormat(String name) {
         this.name = name;
     }
 

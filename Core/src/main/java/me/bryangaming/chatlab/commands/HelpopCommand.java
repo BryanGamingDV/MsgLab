@@ -4,9 +4,10 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.HelpOpEvent;
-import me.bryangaming.chatlab.managers.commands.HelpOpMethod;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
+import me.bryangaming.chatlab.managers.commands.HelpOpManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
-import me.bryangaming.chatlab.revisor.RevisorManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -28,7 +29,7 @@ public class HelpopCommand implements CommandClass {
     private final ModuleCheck moduleCheck;
 
     private final PlayerMessage playerMethod;
-    private final HelpOpMethod helpOpMethod;
+    private final HelpOpManager helpOpManager;
 
     private final Configuration command;
     private final Configuration messages;
@@ -39,7 +40,7 @@ public class HelpopCommand implements CommandClass {
         this.moduleCheck = pluginService.getPathManager();
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.helpOpMethod = pluginService.getPlayerMethods().getHelpOpMethod();
+        this.helpOpManager = pluginService.getPlayerMethods().getHelpOpMethod();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();
@@ -62,10 +63,10 @@ public class HelpopCommand implements CommandClass {
         String message = String.join(" ", args);
 
         if (command.getBoolean("commands.helpop.enable-revisor")) {
-            RevisorManager revisorManager = pluginService.getRevisorManager();
-            message = revisorManager.revisor(sender.getUniqueId(), message);
+            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT,"Receive");
+            Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
 
-            if (message == null) {
+            if (textrevisorEvent.isCancelled()){
                 return true;
             }
         }
@@ -121,7 +122,7 @@ public class HelpopCommand implements CommandClass {
             return true;
         }
 
-        helpOpMethod.enableOption(sender.getUniqueId());
+        helpOpManager.enableOption(sender.getUniqueId());
         playerMethod.sendMessage(sender, command.getString("commands.helpop.player.enabled"));
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "helpop -on");
         return true;
@@ -144,7 +145,7 @@ public class HelpopCommand implements CommandClass {
             return true;
         }
 
-        helpOpMethod.disableOption(sender.getUniqueId());
+        helpOpManager.disableOption(sender.getUniqueId());
         playerMethod.sendMessage(sender, command.getString("commands.helpop.player.disabled"));
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "helpop -off");
         return true;
@@ -158,9 +159,9 @@ public class HelpopCommand implements CommandClass {
             return true;
         }
 
-        helpOpMethod.toggleOption(sender.getUniqueId());
+        helpOpManager.toggleOption(sender.getUniqueId());
         playerMethod.sendMessage(sender, command.getString("commands.helpop.player.toggle")
-                .replace("%mode%", helpOpMethod.getStatus()));
+                .replace("%mode%", helpOpManager.getStatus()));
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "helpop -toggle");
         return true;
     }

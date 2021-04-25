@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.listeners;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.FitlerMethod;
+import me.bryangaming.chatlab.managers.FitlerManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandSendEvent;
@@ -17,9 +17,7 @@ public class TabListener implements Listener {
 
     @EventHandler
     public void onTab(PlayerCommandSendEvent playerCommandSendEvent) {
-        FitlerMethod fitlerMethod = pluginService.getPlayerMethods().getFitlerMethod();
-
-
-        fitlerMethod.onTab(playerCommandSendEvent);
+        FitlerManager fitlerManager = pluginService.getPlayerMethods().getFitlerMethod();
+        fitlerManager.onTab(playerCommandSendEvent);
     }
 }

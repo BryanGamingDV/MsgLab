@@ -2,9 +2,10 @@ package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.registry.ConfigManager;
-import me.bryangaming.chatlab.revisor.RevisorManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -50,12 +51,13 @@ public class StreamCommand implements CommandClass {
 
         boolean allowmode = false;
 
+        String[] blockedRevisors;
         if (command.getBoolean("commands.stream.only-link")) {
+            blockedRevisors = new String[]{"ALL"};
             if (message.startsWith("https://")) {
                 for (String string : command.getStringList("commands.stream.allowed-links")) {
                     if (message.substring(8).startsWith(string)) {
                         allowmode = true;
-                        pluginService.getRevisorManager().setLevel(0);
                         break;
                     }
                 }
@@ -64,7 +66,6 @@ public class StreamCommand implements CommandClass {
                 for (String string : command.getStringList("commands.stream.allowed-links")) {
                     if (message.startsWith(string)) {
                         allowmode = true;
-                        pluginService.getRevisorManager().setLevel(0);
                         break;
                     }
                 }
@@ -75,11 +76,12 @@ public class StreamCommand implements CommandClass {
             }
 
         } else {
+            blockedRevisors = new String[]{"BotRevisor", "LinkRevisor"};
             if (message.contains(".")) {
                 for (String string : command.getStringList("commands.stream.allowed-links")) {
                     if (message.contains(string)) {
                         allowmode = true;
-                        pluginService.getRevisorManager().setLevel(1);
+                        break;
                     }
                 }
             }
@@ -93,13 +95,14 @@ public class StreamCommand implements CommandClass {
         }
 
         if (command.getBoolean("commands.stream.enable-revisor")) {
-            RevisorManager revisorManager = pluginService.getRevisorManager();
+            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(player, message, TextRevisorEnum.TEXT, blockedRevisors);
+            Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
 
-            message = revisorManager.revisor(playeruuid, message);
-
-            if (message == null) {
+            if (textrevisorEvent.isCancelled()){
                 return true;
             }
+
+            message = textrevisorEvent.getMessageRevised();
         }
 
         for (Player playerOnline : Bukkit.getServer().getOnlinePlayers()) {

@@ -13,13 +13,12 @@ import java.util.UUID;
 public class GuiManager {
 
     private PluginService pluginService;
-    private final Map<String, GuiData> inventoryManager;
+    private final Map<String, GuiData> inventoryManager = new HashMap<>();
 
     private final SampleManager sampleManager;
 
     public GuiManager(PluginService pluginService) {
         this.pluginService = pluginService;
-        inventoryManager = new HashMap<>();
         sampleManager = new SampleManager(pluginService);
     }
 

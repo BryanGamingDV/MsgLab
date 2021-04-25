@@ -1,5 +1,6 @@
 package me.bryangaming.chatlab.data;
 
+import me.bryangaming.chatlab.managers.group.GroupEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -36,13 +37,17 @@ public class UserData implements DataModel {
 
     private boolean clickMode = false;
 
-    private final List<String> clickChat;
+    private GroupEnum playerChannel = GroupEnum.GLOBAL;
+
+    private int partyID = 0;
+    private boolean isLeader = true;
+
+    private final List<String> clickChat = new ArrayList<>();
     private final HashMap<String, String> hashMap = new HashMap<>();
 
     public UserData(UUID uuid) {
         this.uuid = uuid;
         this.player = Bukkit.getPlayer(uuid);
-        this.clickChat = new ArrayList<>();
     }
 
 
@@ -103,10 +108,21 @@ public class UserData implements DataModel {
         return !guiGroup.equalsIgnoreCase("default");
     }
 
+    public boolean isPlayerLeader() {
+        return isLeader;
+    }
+
     public HashMap<String, String> gethashTags() {
         return hashMap;
     }
 
+    public GroupEnum getChannelType() {
+        return playerChannel;
+    }
+
+    public int getPartyID() {
+        return partyID;
+    }
 
     public String getChannelGroup() {
         return channelgroup;
@@ -122,6 +138,10 @@ public class UserData implements DataModel {
 
     public boolean isChangingPage() {
         return changinginv;
+    }
+
+    public void setPartyID(int partyID) {
+        this.partyID = partyID;
     }
 
     public void setChangeInv(Boolean status) {
@@ -192,12 +212,22 @@ public class UserData implements DataModel {
         this.commandspyMode = commandspyMode;
     }
 
+    public void setPlayerChannel(GroupEnum groupEnum) {
+        this.playerChannel = groupEnum;
+    }
+
+    public void setPlayerLeader(boolean isLeader) {
+        this.isLeader = isLeader;
+    }
+
     public void resetStats() {
 
         if (!(gethashTags().size() > 0)) gethashTags().clear();
         if (isChangingPage()) setChangeInv(false);
         if (getPage() > 0) changePage(0);
         if (isGUISet()) setGUIGroup("default");
+
+        if (getChannelType() != GroupEnum.GLOBAL) setPlayerChannel(GroupEnum.GLOBAL);
         if (!equalsChannelGroup("default")) setChannelGroup("default");
         if (hasRepliedPlayer()) setRepliedPlayer(null);
 
@@ -213,6 +243,9 @@ public class UserData implements DataModel {
         if (isPlayerHelpOp()) toggleHelpOp(false);
 
         if (isClickMode()) toggleClickMode(false);
+
+        if (getPartyID() > 0) setPartyID(0);
+        if (isPlayerLeader()) setPlayerLeader(false);
         if (clickChat.size() > 0) clickChat.clear();
     }
 

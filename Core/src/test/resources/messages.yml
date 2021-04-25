@@ -38,8 +38,8 @@ error:
     unactivated: "%e &fYou already unactivated the helpop."
     anybody: "%e &fAnybody are watching helpop."
   staff-chat:
-     activated: "%e &fYou already activated the staffchat."
-     unactivated: "%e &fYou already unactivated the staffchat."
+    activated: "%e &fYou already activated the staffchat."
+    unactivated: "%e &fYou already unactivated the staffchat."
   socialspy:
     activated: "%e &fYou already activated the socialspy."
     unactivated: "%e &fYou already unactivated the socialspy."

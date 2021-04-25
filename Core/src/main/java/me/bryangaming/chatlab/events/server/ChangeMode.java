@@ -5,11 +5,11 @@ public enum ChangeMode {
 
     private final String mode;
 
-    ChangeMode(String mode){
+    ChangeMode(String mode) {
         this.mode = mode;
     }
 
-    public String getMode(){
+    public String getMode() {
         return mode;
     }
 }

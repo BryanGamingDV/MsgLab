@@ -1,6 +1,7 @@
 package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.bukkitutils.RunnableManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.managers.player.PlayerStatic;
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class LinkRevisor {
+public class LinkRevisor implements Revisor {
 
     private final PluginService pluginService;
 
@@ -22,7 +23,7 @@ public class LinkRevisor {
 
     }
 
-    public String check(Player player, String string) {
+    public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
@@ -60,6 +61,7 @@ public class LinkRevisor {
 
         for (String blockedWord : blockList) {
             if (string.contains(blockedWord)) {
+
                 string = string.replace(".", utils.getString("revisor.link-module.replace-link"));
                 sendMessage(player, blockedWord);
 
@@ -93,14 +95,14 @@ public class LinkRevisor {
         }
 
         if (utils.getBoolean("revisor.link-module.command.enabled")) {
-            runnableManager.sendCommand(Bukkit.getServer().getConsoleSender(), PlayerStatic.convertText(player, utils.getString("revisor.link-module.command.format")
+            runnableManager.sendCommand(Bukkit.getServer().getConsoleSender(), PlayerStatic.convertText(player, utils.getString("me.bryangaming.chatlab.api.revisor.link-module.command.format")
                     .replace("%player%", player.getName())
                     .replace("%blockedword%", blockedword)));
         }
 
         if (utils.getBoolean("revisor.link-module.warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                if (playerMethod.hasPermission(onlinePlayer, "revisor")) {
+                if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
                     playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.link-module.warning.text")
                             .replace("%player%", player.getName()));
                 }

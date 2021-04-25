@@ -46,7 +46,7 @@ public class CommandRegistry implements LoaderService {
         plugin.getLogger().info("Commands loaded!");
     }
 
-    public void reCheckCommands(){
+    public void reCheckCommands() {
         registerCommands(
                 new CLabCommand(pluginService),
                 new MsgCommand(pluginService),
@@ -62,7 +62,9 @@ public class CommandRegistry implements LoaderService {
                 new ChannelCommand(pluginService),
                 new MotdCommand(pluginService),
                 new StreamCommand(pluginService),
-                new CommandSpyCommand(pluginService));
+                new CommandSpyCommand(pluginService),
+                new PartyCommand(pluginService),
+                new AnnouncerCommand(pluginService));
     }
 
     public void registerCommands(CommandClass... commandClasses) {

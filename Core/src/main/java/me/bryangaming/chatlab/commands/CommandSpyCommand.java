@@ -56,7 +56,7 @@ public class CommandSpyCommand implements CommandClass {
 
         if (offlinePlayer == null) {
 
-            if (userData.isCommandspyMode()){
+            if (userData.isCommandspyMode()) {
                 playerMethod.sendMessage(sender, messages.getString("error.commandspy.status.player.already-enabled"));
                 playerMethod.sendSound(sender, SoundEnum.ERROR);
                 return true;
@@ -78,7 +78,7 @@ public class CommandSpyCommand implements CommandClass {
         UserData targetData = pluginService.getCache().getUserDatas().get(offlinePlayer.getUniqueId());
 
 
-        if (targetData.isCommandspyMode()){
+        if (targetData.isCommandspyMode()) {
             playerMethod.sendMessage(sender, messages.getString("error.commandspy.status.arg-2.already-enabled")
                     .replace("%arg-2%", offlinePlayer.getName()));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
@@ -89,7 +89,7 @@ public class CommandSpyCommand implements CommandClass {
         playerMethod.sendMessage(sender, command.getString("commands.commandspy.arg-2.enabled")
                 .replace("%arg-2%", offlinePlayer.getName()));
         playerMethod.sendMessage(targetData.getPlayer(), command.getString("commands.commandspy.player.enabled")
-                    .replace("%player%", offlinePlayer.getName()));
+                .replace("%player%", offlinePlayer.getName()));
         playerMethod.sendSound(offlinePlayer.getPlayer(), SoundEnum.ARGUMENT, "commandspy on");
         return true;
     }
@@ -101,7 +101,7 @@ public class CommandSpyCommand implements CommandClass {
 
         if (offlinePlayer == null) {
 
-            if (!userData.isCommandspyMode()){
+            if (!userData.isCommandspyMode()) {
                 playerMethod.sendMessage(sender, messages.getString("error.commandspy.status.already-disabled"));
                 playerMethod.sendSound(sender, SoundEnum.ERROR);
                 return true;
@@ -121,7 +121,7 @@ public class CommandSpyCommand implements CommandClass {
 
         UserData targetData = pluginService.getCache().getUserDatas().get(offlinePlayer.getUniqueId());
 
-        if (!userData.isCommandspyMode()){
+        if (!userData.isCommandspyMode()) {
             playerMethod.sendMessage(sender, messages.getString("error.commandspy.status.arg-2.already-disabled")
                     .replace("%arg-2%", offlinePlayer.getName()));
             return true;
@@ -168,7 +168,7 @@ public class CommandSpyCommand implements CommandClass {
 
                 if (message.contains("%loop-value%")) {
 
-                    for (Player onlinePlayer : playerList){
+                    for (Player onlinePlayer : playerList) {
                         playerMethod.sendMessage(sender, message
                                 .replace("%loop-value%", onlinePlayer.getName()));
 
@@ -184,7 +184,7 @@ public class CommandSpyCommand implements CommandClass {
 
             List<String> blockedCommands = command.getStringList("commands.commandspy.blocked-commands");
 
-            if (blockedCommands.isEmpty()){
+            if (blockedCommands.isEmpty()) {
                 playerMethod.sendMessage(sender, messages.getString("error.commandspy.list.blocked-commands.empty"));
                 playerMethod.sendSound(sender, SoundEnum.ERROR);
                 return true;
@@ -220,7 +220,7 @@ public class CommandSpyCommand implements CommandClass {
 
         List<String> blockedWords = command.getStringList("commands.commandspy.blocked-commands");
 
-        if (blockedWords.contains(args)){
+        if (blockedWords.contains(args)) {
             playerMethod.sendMessage(sender, messages.getString("error.commandspy.commands.already-blocked")
                     .replace("%command%", args));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
@@ -249,7 +249,7 @@ public class CommandSpyCommand implements CommandClass {
 
         List<String> blockedWords = command.getStringList("commands.commandspy.blocked-commands");
 
-        if (!blockedWords.contains(args)){
+        if (!blockedWords.contains(args)) {
             playerMethod.sendMessage(sender, messages.getString("error.commandspy.commands.already-unblocked")
                     .replace("%command%", args));
             playerMethod.sendSound(sender, SoundEnum.ERROR);

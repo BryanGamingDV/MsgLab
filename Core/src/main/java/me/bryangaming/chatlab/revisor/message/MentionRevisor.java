@@ -1,6 +1,7 @@
 package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
@@ -9,18 +10,18 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MentionRevisor {
+public class MentionRevisor implements Revisor {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     public MentionRevisor(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
-    public String check(String string) {
+    public String revisor(Player player, String string) {
 
-        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
         Configuration utils = pluginService.getFiles().getBasicUtils();
+        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
 
         if (!(utils.getBoolean("fitlers.mentions.enabled"))) {
             return string;

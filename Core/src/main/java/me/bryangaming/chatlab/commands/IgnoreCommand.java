@@ -2,8 +2,7 @@ package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundManager;
-import me.bryangaming.chatlab.managers.commands.IgnoreMethod;
+import me.bryangaming.chatlab.managers.commands.IgnoreManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.registry.ConfigManager;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -34,7 +33,6 @@ public class IgnoreCommand implements CommandClass {
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
         ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration players = files.getPlayers();
@@ -84,10 +82,10 @@ public class IgnoreCommand implements CommandClass {
         }
 
         String targetname = target.getPlayer().getName();
-        IgnoreMethod ignoreMethod = pluginService.getPlayerMethods().getIgnoreMethod();
+        IgnoreManager ignoreManager = pluginService.getPlayerMethods().getIgnoreMethod();
 
         if (!ignorelist.containsKey(playeruuid)) {
-            ignoreMethod.ignorePlayer(sender, target.getUniqueId());
+            ignoreManager.ignorePlayer(sender, target.getUniqueId());
             playerMethod.sendMessage(sender, command.getString("commands.ignore.player-ignored")
                     .replace("%player%", targetname));
             playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "ignore");
@@ -95,14 +93,14 @@ public class IgnoreCommand implements CommandClass {
         }
 
         if (!(ignoredlist.contains(targetname))) {
-            ignoreMethod.ignorePlayer(sender, target.getUniqueId());
+            ignoreManager.ignorePlayer(sender, target.getUniqueId());
             playerMethod.sendMessage(sender, command.getString("commands.ignore.player-ignored")
                     .replace("%player%", targetname));
             playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "ignore");
             return true;
         }
 
-        ignoreMethod.unignorePlayer(sender, target.getUniqueId());
+        ignoreManager.unignorePlayer(sender, target.getUniqueId());
         playerMethod.sendMessage(sender, command.getString("commands.ignore.player-unignored")
                 .replace("%player%", targetname));
         playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "ignore");

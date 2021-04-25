@@ -1,13 +1,14 @@
 package me.bryangaming.chatlab.revisor.commands;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.revisor.Revisor;
+import me.bryangaming.chatlab.managers.ConditionManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class ConditionRevisor {
+public class ConditionRevisor implements Revisor {
 
 
     private PluginService pluginService;
@@ -20,14 +21,16 @@ public class ConditionRevisor {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (!utils.getBoolean("revisor-cmd.commands-module.conditions.enabled")){
+        if (!utils.getBoolean(" revisor-cmd.commands-module.conditions.enabled")) {
             return command;
         }
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        ConditionManager conditionManager = pluginService.getPlayerMethods().getConditionManager();
+
         String commandsPath = "revisor-cmd.commands-module.conditions.commands";
 
-        if (!Bukkit.getServer().getPluginManager().isPluginEnabled("Vault")){
+        if (!Bukkit.getServer().getPluginManager().isPluginEnabled("Vault")) {
             return command;
         }
 
@@ -37,23 +40,9 @@ public class ConditionRevisor {
                 continue;
             }
 
-
-            if (utils.getString(commandsPath + "." + commandName).equalsIgnoreCase("$")){
-                Economy economy = pluginService.getSupportManager().getVaultSupport().getEconomy();
-
-                if (economy == null){
-                    break;
-                }
-
-                double playerMoney = Double.parseDouble(utils.getString(commandsPath + "." + commandName).substring(1));
-
-                if (economy.getBalance(player) < playerMoney){
-                    economy.withdrawPlayer(player, playerMoney);
-                    return command;
-                }
-
-                if (utils.getBoolean("revisor-cmd.commands-module.block.op.message.enabled")) {
-                    playerMethod.sendMessage(player, utils.getString("revisor-cmd.commands-module.block.op.message.format"));
+            if (!conditionManager.hasTheCondition(player, utils.getString(commandsPath + "." + command))){
+                if (!utils.getBoolean("revisor-cmd.commands.conditions.message.enabled")){
+                    playerMethod.sendMessage(player, utils.getString("revisor-cmd.commands.conditions.message.format"));
                 }
                 return null;
             }

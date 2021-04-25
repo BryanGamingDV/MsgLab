@@ -7,12 +7,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 
-import java.util.regex.Pattern;
-
 public class PlayerStatic {
-
-    private static Pattern pattern;
-    private static Pattern rgBPattern;
 
     private static PlayerMessage playerMethod;
 
@@ -43,7 +38,7 @@ public class PlayerStatic {
 
         if (!playerMethod.hasPermission(player, "color.variable")) {
             message = "<pre>" + message + "</pre>";
-        }else{
+        } else {
             message = StringUtils.convertLegacyToMiniMessage(message);
         }
 
@@ -59,7 +54,7 @@ public class PlayerStatic {
 
         if (!playerMethod.hasPermission(player, "color.variable")) {
             message = "<pre>" + message + "</pre>";
-        }else{
+        } else {
             message = StringUtils.convertLegacyToMiniMessage(message);
         }
 
@@ -67,8 +62,6 @@ public class PlayerStatic {
                 .replace("%message%", message);
 
     }
-
-
 
 
 }

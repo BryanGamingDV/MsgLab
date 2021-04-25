@@ -1,13 +1,14 @@
 package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class CapsRevisor {
+public class CapsRevisor implements Revisor {
 
     private PluginService pluginService;
 
@@ -15,7 +16,7 @@ public class CapsRevisor {
         this.pluginService = pluginService;
     }
 
-    public String check(Player player, String string) {
+    public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
@@ -45,7 +46,7 @@ public class CapsRevisor {
 
         if (utils.getBoolean("revisor.caps-module.warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                if (playerMethod.hasPermission(onlinePlayer, "revisor")) {
+                if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
                     playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.caps-module.warning.text")
                             .replace("%player%", player.getName()));
                 }
@@ -54,4 +55,5 @@ public class CapsRevisor {
 
         return StringUtils.capitalize(string);
     }
+
 }
