@@ -24,8 +24,6 @@ public class WordRevisor implements Revisor {
     public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
-
-        RunnableManager runnableManager = pluginService.getManagingCenter().getRunnableManager();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
         if (!(utils.getBoolean("revisor.words-module.enabled"))) {
@@ -41,9 +39,13 @@ public class WordRevisor implements Revisor {
             if (!utils.getBoolean("revisor.words-module.regex")) {
                 for (String wordsPath : string.split(" ")) {
                     if (wordsPath.equalsIgnoreCase(regex.split(";")[0])) {
+
+                        string = string.replace(regex.split(";")[0], regex.split(";")[1]);
+
                         if (words < 1) {
                             sendProtocolMessage(player);
                         }
+
                         words++;
                     }
                 }

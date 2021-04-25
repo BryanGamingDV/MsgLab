@@ -1,9 +1,9 @@
 #
 # ChatLab by BryanGaming
-# Version: 2.0.3
+# Version: 2.1
 #
 
-version: 2.0.3
+version: 2.1
 
 config:
 
@@ -35,6 +35,7 @@ config:
       - cooldown
       - join_quit
       - motd
+      - announcer
 
 #
 # Permissions:
@@ -123,6 +124,7 @@ perms:
 # Options:
 options:
   # You can create prefixes with variables unlimited, obiously!
+  # This is not the chat format! If you want to use the format go to utils.yml.
   replacer:
 
     # Prefix config:

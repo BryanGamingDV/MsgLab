@@ -344,12 +344,12 @@ commands:
   announcer:
     help:
       - "&a[Announcer] &8- &fList of subcommands:"
-      - "&8- &f/announcer add [<text..>] &8: &fTo "
-      - "&8- &f/announcer addline [id] [<text>] &8: &fTo reload the plugin."
-      - "&8- &f/announcer removeline [id] [<text>] &8: &fTo see a debug."
-      - "&8- &f/announcer remove [id] &8: &fTo turn on/off sounds."
-      - "&8- &f/announcer list &8: &fTo get to discord support."
-      - "&8- &f/announcer set [interval/mode] &8: &fTo reset the configuration."
+      - "&8- &f/announcer add [<text..>] &8: &fTo add a announcer "
+      - "&8- &f/announcer addline [id] [<text>] &8: &fTo add a line to announcer."
+      - "&8- &f/announcer removeline [id] [<text>] &8: &fTo remove a line to announecr."
+      - "&8- &f/announcer remove [id] &8: &fTo remove a announcer."
+      - "&8- &f/announcer list &8: &fTo see the list of announces."
+      - "&8- &f/announcer set [interval/ordened] &8: &fTo set the repeat mode of announces."
     add:
       announcer: "&a[Announcer] &8| &fCreated message: &a%message%&f."
       line: "&a[Announcer] &8| &fAdded line from a message: %message%"
@@ -381,9 +381,9 @@ commands:
       type: ORDENED
       messages:
         1:
-          - "&a1"
+          - "&fHello!"
         2:
-          - "&a2"
+          - "&eBye!"
 
   party:
     help:

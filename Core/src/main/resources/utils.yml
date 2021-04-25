@@ -186,11 +186,16 @@ format:
 #
 channel:
 
+
   apprendice:
+    # The condition to join the channel.
     condition:
+
+      # List: PERMISSION, GROUP.
       type: PERMISSION
       format: test.test
 
+    # The components of the channel.
     bases:
       prefix:
         format: "&A8| &2[VIP+] &f%player% "
@@ -215,7 +220,10 @@ channel:
           type: SUGGEST_COMMAND
           format: "/msg %player% message"
   vip:
+    # The condition to join the channel.
     condition:
+
+      # List: PERMISSION, GROUP.
       type: GROUP
       format: VIP
 
@@ -243,7 +251,10 @@ channel:
           type: SUGGEST_COMMAND
           format: "/msg %player% message"
   VIP+:
+    # The condition to join the channel.
     condition:
+
+      # List: PERMISSION, GROUP.
       type: GROUP
       format: VIP
 
@@ -271,6 +282,7 @@ channel:
           type: SUGGEST_COMMAND
           format: "/msg %player% message"
 
+# Party format.
 party-chat:
   bases:
     prefix:
@@ -374,7 +386,7 @@ revisor:
   # Words module (If player put a bad word):
   words-module:
     enabled: true
-    regex: true
+    regex: false
 
     list-words:
       - "fuck; **"

@@ -14,13 +14,17 @@ public class TasksManager {
 
     public TasksManager(PluginService pluginService) {
         this.pluginService = pluginService;
-
+        pluginService.getListManager().getModules().add("announcer");
         loadTasks(new AnnouncerTask("announcer", pluginService));
     }
 
     public void loadTasks(Task... taskTypes) {
 
         for (Task task : taskTypes) { ;
+            if (!pluginService.getPathManager().isOptionEnabled(task.getName())){
+                continue;
+            }
+
             task.loadTask();
             tasksList.put(task.getName(), task);
         }

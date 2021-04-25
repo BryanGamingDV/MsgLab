@@ -31,10 +31,10 @@ public class RevisorListener implements Listener {
                 new BotRevisor(pluginService),
                 new MentionRevisor(pluginService),
                 new WordRevisor(pluginService),
-                new FirstWordRevisor(pluginService),
-                new FloodRevisor(pluginService),
-                new CapsRevisor(pluginService),
                 new LinkRevisor(pluginService),
+                new FloodRevisor(pluginService),
+                new FirstWordRevisor(pluginService),
+                new CapsRevisor(pluginService),
                 new DotRevisor(pluginService));
 
     }
@@ -65,26 +65,25 @@ public class RevisorListener implements Listener {
                     return;
             }
 
-            String message = "";
+            String message = textRevisorEvent.getMessage();
             if (textRevisorEvent.getRevisorExcepcions().contains("ALL")){
                 return;
             }
 
             for (Revisor revisor : revisorList) {
 
-                pluginService.getPlugin().getLogger().info(revisor.getClass().getName());
-
-                if (textRevisorEvent.getRevisorExcepcions().contains(revisor.getClass().getName())) {
+                if (textRevisorEvent.getRevisorExcepcions().contains(revisor.getClass().getName().split("\\.")[5])) {
                     continue;
                 }
 
-                message = revisor.revisor(textRevisorEvent.getPlayer(), textRevisorEvent.getMessage());
+                message = revisor.revisor(textRevisorEvent.getPlayer(), message);
 
                 if (message == null) {
                     textRevisorEvent.setCancelled(true);
                     return;
                 }
-            }
+
+              }
 
             textRevisorEvent.setMessageRevised(message);
     }

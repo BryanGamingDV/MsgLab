@@ -21,18 +21,19 @@ public class FirstWordRevisor implements Revisor {
         Configuration utils = pluginService.getFiles().getBasicUtils();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-        if (utils.getBoolean("revisor.first-mayus-module.enabled")){
+        if (!utils.getBoolean("revisor.first-mayus-module.enabled")){
             return message;
         }
 
         String firstLetter = String.valueOf(message.charAt(0));
 
-        if (firstLetter.equalsIgnoreCase(firstLetter.toUpperCase())){
+        if (firstLetter.equals(firstLetter.toUpperCase())){
             return message;
         }
 
         message = message.replaceFirst(firstLetter, firstLetter.toUpperCase());
-        System.out.println(message + firstLetter);
+
+
         if (utils.getBoolean("revisor.first-mayus-module.warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
                 if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
