@@ -1,5 +1,7 @@
-package me.bryangaming.chatlab;
+package me.bryangaming.chatlab.modules;
 
+import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.Module;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
@@ -9,17 +11,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class RecoverStats {
+public class RecoverDataModule implements Module{
 
     private final PluginService pluginService;
 
-    public RecoverStats(PluginService pluginService) {
+    public RecoverDataModule(PluginService pluginService) {
         this.pluginService = pluginService;
-        setup();
     }
 
 
-    private void setup() {
+    public void start() {
         Configuration players = pluginService.getFiles().getPlayers();
         Map<UUID, UserData> hashMap = pluginService.getCache().getUserDatas();
 
