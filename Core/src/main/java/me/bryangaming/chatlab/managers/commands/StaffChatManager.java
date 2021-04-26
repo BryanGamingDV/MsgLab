@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.MethodService;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -56,7 +56,7 @@ public class StaffChatManager implements MethodService {
 
         Configuration command = pluginService.getFiles().getCommand();
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
         Player player = event.getPlayer();
 
         if (event.getMessage().startsWith(command.getString("commands.staff-chat.symbol"))) {
@@ -75,8 +75,8 @@ public class StaffChatManager implements MethodService {
         Player player = event.getPlayer();
         Configuration command = pluginService.getFiles().getCommand();
 
-        ClickChatManager clickChatManager = pluginService.getPlayerMethods().getChatManagent();
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 

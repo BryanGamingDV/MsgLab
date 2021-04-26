@@ -6,7 +6,7 @@ import me.bryangaming.chatlab.data.PartyData;
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.group.GroupEnum;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
 
@@ -19,7 +19,7 @@ public class PartyManager {
     private final Configuration messages;
     private final Configuration command;
 
-    private final PlayerMessage playerMethod;
+    private final SenderManager playerMethod;
     private final ServerData serverData;
 
 
@@ -31,7 +31,7 @@ public class PartyManager {
         this.messages = pluginService.getFiles().getMessages();
         this.command = pluginService.getFiles().getCommand();
 
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
         this.serverData = pluginService.getServerData();
     }
 

@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.modules.DataModule;
 import me.bryangaming.chatlab.registry.FileLoader;
 import me.bryangaming.chatlab.tasks.TasksManager;
@@ -34,7 +34,7 @@ public class CLabCommand implements CommandClass {
     private final Configuration command;
     private final Configuration utils;
 
-    private final PlayerMessage playerMethod;
+    private final SenderManager playerMethod;
 
     public CLabCommand(PluginService pluginService) {
         this.pluginService = pluginService;
@@ -45,7 +45,7 @@ public class CLabCommand implements CommandClass {
         this.command = pluginService.getFiles().getCommand();
         this.utils = pluginService.getFiles().getBasicUtils();
 
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
     }
 
     @Command(names = "")
@@ -334,10 +334,10 @@ public class CLabCommand implements CommandClass {
 
     public void checkCommands() {
 
-        CommandManager commandManager = pluginService.getCommandRegistry().getCommandManager();
+        CommandManager commandManager = pluginService.getCommandLoader().getCommandManager();
         commandManager.unregisterAll();
 
-        pluginService.getCommandRegistry().reCheckCommands();
+        pluginService.getCommandLoader().reCheckCommands();
     }
 
     public Set<String> getHelp() {

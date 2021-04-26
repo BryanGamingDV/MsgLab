@@ -13,14 +13,14 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class PlayerMessage {
+public class SenderManager {
 
     private final PluginService pluginService;
 
     private final Configuration config;
     private final Configuration sounds;
 
-    public PlayerMessage(PluginService pluginService) {
+    public SenderManager(PluginService pluginService) {
         this.pluginService = pluginService;
         this.config = pluginService.getFiles().getConfig();
         this.sounds = pluginService.getFiles().getSounds();

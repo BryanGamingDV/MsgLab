@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.commands.IgnoreManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.registry.FileLoader;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
@@ -31,7 +31,7 @@ public class IgnoreCommand implements CommandClass {
 
         FileLoader files = pluginService.getFiles();
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         Configuration players = files.getPlayers();
         Configuration command = files.getCommand();
@@ -80,7 +80,7 @@ public class IgnoreCommand implements CommandClass {
         }
 
         String targetname = target.getPlayer().getName();
-        IgnoreManager ignoreManager = pluginService.getPlayerMethods().getIgnoreMethod();
+        IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
 
         if (!ignorelist.containsKey(playeruuid)) {
             ignoreManager.ignorePlayer(sender, target.getUniqueId());

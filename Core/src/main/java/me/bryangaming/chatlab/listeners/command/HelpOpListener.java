@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.HelpOpEvent;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -19,11 +19,10 @@ public class HelpOpListener implements Listener {
         this.pluginService = pluginService;
     }
 
-
     @EventHandler
     public void onCommandSpy(HelpOpEvent helpopEvent) {
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
         Configuration command = pluginService.getFiles().getCommand();
 
         Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {

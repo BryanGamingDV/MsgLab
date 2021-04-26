@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,14 +28,14 @@ public class ChatClickEvent implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
 
         UserData userData = pluginService.getCache().getUserDatas().get(uuid);
-        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        SenderManager playersender = pluginService.getPlayerManager().getSender();
 
         if (!(userData.isClickMode())) {
             return;
         }
 
         List<String> clickchat = userData.getClickChat();
-        ClickChatManager clickChatManager = pluginService.getPlayerMethods().getChatManagent();
+        ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
 
         Configuration command = pluginService.getFiles().getCommand();
 
@@ -44,7 +44,7 @@ public class ChatClickEvent implements Listener {
             return;
         }
 
-        StaffChatManager staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
+        StaffChatManager staffChatMethod = pluginService.getPlayerManager().getStaffChatMethod();
 
         if (staffChatMethod.isUsingStaffSymbol(event)) {
             staffChatMethod.getStaffSymbol(event);

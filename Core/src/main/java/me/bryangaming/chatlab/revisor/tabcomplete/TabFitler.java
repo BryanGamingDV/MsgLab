@@ -7,7 +7,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
 
@@ -80,7 +80,7 @@ public class TabFitler {
 
     public void sendMessage(Player player) {
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
         if (!utils.getBoolean("revisor.tab-module.message.enabled")) {

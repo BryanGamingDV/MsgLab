@@ -6,7 +6,7 @@ import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
 import me.bryangaming.chatlab.managers.group.GroupMethod;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -41,8 +41,8 @@ public class JoinListener implements Listener {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
-        GroupMethod groupMethod = pluginService.getPlayerMethods().getGroupMethod();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        GroupMethod groupMethod = pluginService.getPlayerManager().getGroupMethod();
 
         if (cache.getUserDatas().get(uuid) == null) {
             cache.getUserDatas().put(uuid, new UserData(uuid));

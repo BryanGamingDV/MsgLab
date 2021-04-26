@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.revisor.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
 
@@ -22,7 +22,7 @@ public class BlockRevisor implements Revisor{
             return command;
         }
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         for (String commandName : utils.getStringList("revisor-cmd.commands-module.block.default.list")) {
 

@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -19,7 +19,7 @@ public class FirstWordRevisor implements Revisor {
     public String revisor(Player player, String message) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         if (!utils.getBoolean("revisor.first-mayus-module.enabled")){
             return message;

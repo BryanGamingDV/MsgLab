@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -18,7 +18,7 @@ public class StaffChatCommand implements CommandClass {
 
     private PluginService pluginService;
 
-    private PlayerMessage playerMethod;
+    private SenderManager playerMethod;
     private StaffChatManager staffChatMethod;
 
     private Configuration command;
@@ -27,8 +27,8 @@ public class StaffChatCommand implements CommandClass {
     public StaffChatCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.staffChatMethod = pluginService.getPlayerManager().getStaffChatMethod();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();

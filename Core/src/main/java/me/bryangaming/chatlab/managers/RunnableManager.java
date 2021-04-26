@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,7 +16,7 @@ public class RunnableManager {
 
     public void waitSecond(Player player, int second, String path) {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
-            PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+            SenderManager playersender = pluginService.getPlayerManager().getSender();
             playersender.sendMessage(player, path);
 
         }, 20L * second);
@@ -24,7 +24,7 @@ public class RunnableManager {
 
     public void waitTicks(Player player, long ticks, String path) {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
-            PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+            SenderManager playersender = pluginService.getPlayerManager().getSender();
             playersender.sendMessage(player, path);
         }, ticks);
     }
@@ -32,7 +32,7 @@ public class RunnableManager {
     public void waitSecond(Player player, int second, String... paths) {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
 
-            PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+            SenderManager playersender = pluginService.getPlayerManager().getSender();
             for (String path : paths) {
                 playersender.sendMessage(player, path);
 
@@ -43,7 +43,7 @@ public class RunnableManager {
     public void waitTicks(Player player, long ticks, String... paths) {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
 
-            PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+            SenderManager playersender = pluginService.getPlayerManager().getSender();
             for (String path : paths) {
                 playersender.sendMessage(player, path);
 

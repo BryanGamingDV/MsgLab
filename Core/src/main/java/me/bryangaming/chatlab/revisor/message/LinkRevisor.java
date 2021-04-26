@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.revisor.message;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.managers.RunnableManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
@@ -84,7 +84,7 @@ public class LinkRevisor implements Revisor {
 
     private void sendMessage(Player player, String blockedword) {
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 

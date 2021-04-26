@@ -88,7 +88,7 @@ public class RecipientManager {
     }
 
     private void addRecipient(AsyncPlayerChatEvent event, Player recipient) {
-        IgnoreManager ignoreManager = pluginService.getPlayerMethods().getIgnoreMethod();
+        IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
 
         if (ignoreManager.playerIsIgnored(event.getPlayer().getUniqueId(), recipient.getUniqueId())) {
             event.getRecipients().add(recipient);
@@ -96,7 +96,7 @@ public class RecipientManager {
     }
 
     private void addRecipients(AsyncPlayerChatEvent event, Collection<Player> recipents) {
-        IgnoreManager ignoreManager = pluginService.getPlayerMethods().getIgnoreMethod();
+        IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
 
         recipents.forEach(recipient -> {
             if (!ignoreManager.playerIsIgnored(event.getPlayer().getUniqueId(), recipient.getUniqueId())) {

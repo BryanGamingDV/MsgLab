@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SocialSpyEvent;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,7 +21,7 @@ public class SocialSpyListener implements Listener {
     @EventHandler
     public void onSocialSpy(SocialSpyEvent socialSpyEvent) {
 
-        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        SenderManager playersender = pluginService.getPlayerManager().getSender();
 
         Bukkit.getServer().getOnlinePlayers().forEach(player -> {
             UserData watcherSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());

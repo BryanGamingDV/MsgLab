@@ -17,7 +17,7 @@ public class TabListener implements Listener {
 
     @EventHandler
     public void onTab(PlayerCommandSendEvent playerCommandSendEvent) {
-        FitlerManager fitlerManager = pluginService.getPlayerMethods().getFitlerMethod();
+        FitlerManager fitlerManager = pluginService.getPlayerManager().getFitlerMethod();
         fitlerManager.onTab(playerCommandSendEvent);
     }
 }

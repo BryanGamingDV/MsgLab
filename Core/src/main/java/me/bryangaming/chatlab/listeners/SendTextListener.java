@@ -8,7 +8,7 @@ import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.events.text.ChatEvent;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.StringFormat;
@@ -41,15 +41,15 @@ public class SendTextListener implements Listener {
 
         UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
-        StaffChatManager staffChatMethod = pluginService.getPlayerMethods().getStaffChatMethod();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        StaffChatManager staffChatMethod = pluginService.getPlayerManager().getStaffChatMethod();
 
         if (playerStatus.isClickMode()) {
             return;
         }
 
         if (pluginService.getListManager().isEnabledOption("commands", "staffchat")) {
-            ClickChatManager clickChatManager = pluginService.getPlayerMethods().getChatManagent();
+            ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
 
             if (staffChatMethod.isUsingStaffSymbol(event)) {
                 event.setCancelled(true);
@@ -111,7 +111,7 @@ public class SendTextListener implements Listener {
         Configuration messages = pluginService.getFiles().getMessages();
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
         StringFormat stringFormat = pluginService.getStringFormat();
 
         if (cooldownData.isCmdSpamming(event.getPlayer().getUniqueId())) {

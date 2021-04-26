@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.managers.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
 
@@ -22,7 +22,7 @@ public class MsgManager {
         Configuration command = pluginService.getFiles().getCommand();
         Configuration players = pluginService.getFiles().getPlayers();
 
-        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        SenderManager playersender = pluginService.getPlayerManager().getSender();
 
         String playerFormat = command.getString("commands.msg-reply.player")
                 .replace("%player%", player.getName())

@@ -19,7 +19,7 @@ public class ChatApiImpl implements BasicAPIDesc {
     private Map<UUID, UserData> userCacheMap;
 
     private final String pluginname = "ChatLab";
-    private final String pluginversion = "2.0.1";
+    private final String pluginversion = "2.1";
     private final String pluginauthor = "BryanGaming";
 
 

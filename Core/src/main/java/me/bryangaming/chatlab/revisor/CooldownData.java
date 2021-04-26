@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.CacheManager;
 import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public class CooldownData {
 
     private final ChatLab plugin;
     private final CacheManager cache;
-    private final PlayerMessage playerMethod;
+    private final SenderManager playerMethod;
 
     private final Configuration config;
     private final Configuration utils;
@@ -31,7 +31,7 @@ public class CooldownData {
         this.utils = pluginService.getFiles().getBasicUtils();
 
         this.cache = pluginService.getCache();
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
         pluginService.getServerData().setServerTextCooldown(utils.getInt("fitlers.cooldown.text.seconds"));
         pluginService.getServerData().setServerCmdCooldown(utils.getInt("fitlers.cooldown.cmd.seconds"));
     }

@@ -25,7 +25,7 @@ public class VariableUtils {
         this.pluginService = pluginService;
 
         supportManager = pluginService.getSupportManager();
-        chatManager = pluginService.getPlayerMethods().getChatMethod();
+        chatManager = pluginService.getPlayerManager().getChatMethod();
 
         config = pluginService.getFiles().getConfig();
         utils = pluginService.getFiles().getBasicUtils();

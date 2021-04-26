@@ -7,7 +7,7 @@ import me.bryangaming.chatlab.events.HelpOpEvent;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.commands.HelpOpManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -26,7 +26,7 @@ public class HelpopCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final PlayerMessage playerMethod;
+    private final SenderManager playerMethod;
     private final HelpOpManager helpOpManager;
 
     private final Configuration command;
@@ -35,8 +35,8 @@ public class HelpopCommand implements CommandClass {
     public HelpopCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.helpOpManager = pluginService.getPlayerMethods().getHelpOpMethod();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.helpOpManager = pluginService.getPlayerManager().getHelpOpMethod();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();

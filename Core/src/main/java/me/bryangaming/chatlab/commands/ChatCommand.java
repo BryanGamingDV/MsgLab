@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -31,7 +31,7 @@ public class ChatCommand implements CommandClass {
     private final ServerData serverData;
 
     private final ChatManager chatManager;
-    private final PlayerMessage playerMethod;
+    private final SenderManager playerMethod;
 
 
     public ChatCommand(PluginService pluginService) {
@@ -43,8 +43,8 @@ public class ChatCommand implements CommandClass {
 
         this.serverData = pluginService.getServerData();
 
-        this.chatManager = pluginService.getPlayerMethods().getChatMethod();
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
+        this.chatManager = pluginService.getPlayerManager().getChatMethod();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
     }
 
     @Command(names = "")

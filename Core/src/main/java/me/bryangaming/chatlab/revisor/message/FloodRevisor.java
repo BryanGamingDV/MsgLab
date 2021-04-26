@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.revisor.message;
 import com.google.common.base.Strings;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -21,7 +21,7 @@ public class FloodRevisor implements Revisor {
     public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         if (!(utils.getBoolean("revisor.anti-flood.enabled"))) {
             return string;

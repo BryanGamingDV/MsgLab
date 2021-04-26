@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.commands.SocialSpyManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -22,7 +22,7 @@ public class SocialSpyCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final PlayerMessage playerMethod;
+    private final SenderManager playerMethod;
     private final SocialSpyManager socialSpyManager;
 
     private final Configuration command;
@@ -31,8 +31,8 @@ public class SocialSpyCommand implements CommandClass {
     public SocialSpyCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.socialSpyManager = pluginService.getPlayerMethods().getSocialSpyMethod();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.socialSpyManager = pluginService.getPlayerManager().getSocialSpyMethod();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();

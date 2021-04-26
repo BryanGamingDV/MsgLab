@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.CacheManager;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.DebugLogger;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -69,7 +69,7 @@ public class SoundManager {
 
         Sound soundType = getSound(path + ".sound");
 
-        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        SenderManager playersender = pluginService.getPlayerManager().getSender();
         Configuration messages = pluginService.getFiles().getMessages();
 
         if (soundType == null) {

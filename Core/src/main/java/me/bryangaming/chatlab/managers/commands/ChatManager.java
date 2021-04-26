@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.managers.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -17,7 +17,7 @@ import java.util.Set;
 public class ChatManager {
 
     private PluginService pluginService;
-    private PlayerMessage playerMethod;
+    private SenderManager playerMethod;
     private ServerData serverData;
 
     private Configuration command;
@@ -27,7 +27,7 @@ public class ChatManager {
         this.pluginService = pluginService;
 
         serverData = pluginService.getServerData();
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
 
         this.config = pluginService.getFiles().getConfig();
         this.command = pluginService.getFiles().getCommand();

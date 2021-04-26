@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -22,7 +22,7 @@ public class CommandSpyCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final PlayerMessage playerMethod;
+    private final SenderManager playerMethod;
 
     private Configuration command;
     private Configuration messages;
@@ -30,7 +30,7 @@ public class CommandSpyCommand implements CommandClass {
     public CommandSpyCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();

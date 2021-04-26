@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -19,7 +19,7 @@ public class CapsRevisor implements Revisor {
     public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         if (!(utils.getBoolean("revisor.caps-module.enabled"))) {
             return string;

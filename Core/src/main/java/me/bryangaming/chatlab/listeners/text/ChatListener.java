@@ -8,7 +8,7 @@ import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.events.text.ChatEvent;
 import me.bryangaming.chatlab.managers.HoverManager;
 import me.bryangaming.chatlab.managers.RecipientManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -37,9 +37,9 @@ public class ChatListener implements Listener{
         ServerData serverData = pluginService.getServerData();
         CooldownData cooldownData = pluginService.getCooldownData();
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
-        HoverManager hoverManager = pluginService.getPlayerMethods().getHoverMethod();
-        RecipientManager recipientManager = pluginService.getPlayerMethods().getRecipientMethod();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        HoverManager hoverManager = pluginService.getPlayerManager().getHoverMethod();
+        RecipientManager recipientManager = pluginService.getPlayerManager().getRecipientMethod();
 
 
         if (serverData.isMuted()) {

@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.ErrorManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
@@ -43,7 +43,7 @@ public class ClickChatManager {
 
         UserData userData = pluginService.getCache().getUserDatas().get(uuid);
 
-        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        SenderManager playersender = pluginService.getPlayerManager().getSender();
         RunnableManager runnableManager = pluginService.getManagingCenter().getRunnableManager();
 
         Player player = Bukkit.getPlayer(uuid);
@@ -170,7 +170,7 @@ public class ClickChatManager {
         Player player = Bukkit.getPlayer(uuid);
 
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
-        PlayerMessage playersender = pluginService.getPlayerMethods().getSender();
+        SenderManager playersender = pluginService.getPlayerManager().getSender();
 
         Configuration command = pluginService.getFiles().getCommand();
 

@@ -9,7 +9,7 @@ import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.commands.MsgManager;
 import me.bryangaming.chatlab.managers.commands.ReplyManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.registry.FileLoader;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
@@ -37,7 +37,7 @@ public class MsgCommand implements CommandClass {
     public boolean onCommand(@Sender Player sender, @OptArg OfflinePlayer target, @OptArg("") @Text String msg) {
 
         FileLoader files = pluginService.getFiles();
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         Configuration command = files.getCommand();
         Configuration messages = files.getMessages();
@@ -175,7 +175,7 @@ public class MsgCommand implements CommandClass {
             message = "<pre>" + message + "</pre>";
         }
 
-        MsgManager msgManager = pluginService.getPlayerMethods().getMsgMethod();
+        MsgManager msgManager = pluginService.getPlayerManager().getMsgMethod();
         Player targetPlayer = target.getPlayer();
 
         msgManager.sendPrivateMessage(sender, targetPlayer, message);
@@ -187,7 +187,7 @@ public class MsgCommand implements CommandClass {
 
         Bukkit.getPluginManager().callEvent(new SocialSpyEvent(socialspyFormat));
 
-        ReplyManager reply = pluginService.getPlayerMethods().getReplyMethod();
+        ReplyManager reply = pluginService.getPlayerManager().getReplyMethod();
         reply.setReply(playeruuid, targetuuid);
         return true;
     }

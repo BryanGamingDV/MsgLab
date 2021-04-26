@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -23,7 +23,7 @@ public class BroadcastCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final PlayerMessage playerMethod;
+    private final SenderManager playerMethod;
 
     private final Configuration command;
     private final Configuration messages;
@@ -31,7 +31,7 @@ public class BroadcastCommand implements CommandClass {
     public BroadcastCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();
@@ -74,7 +74,7 @@ public class BroadcastCommand implements CommandClass {
 
     @Command(names = "-click")
     public boolean onClickSubCommand(@Sender Player sender) {
-        ClickChatManager clickChatManager = pluginService.getPlayerMethods().getChatManagent();
+        ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
 
         if (!playerMethod.hasPermission(sender, "commands.broadcast.click")) {
             playerMethod.sendMessage(sender, messages.getString("error.no-perms"));

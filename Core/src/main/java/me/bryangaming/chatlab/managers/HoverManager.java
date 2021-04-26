@@ -28,7 +28,7 @@ public class HoverManager {
 
         MiniMessage miniMessage = MiniMessage.get();
 
-        GroupMethod groupMethod = pluginService.getPlayerMethods().getGroupMethod();
+        GroupMethod groupMethod = pluginService.getPlayerManager().getGroupMethod();
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
         GroupEnum channelType = userData.getChannelType();
 

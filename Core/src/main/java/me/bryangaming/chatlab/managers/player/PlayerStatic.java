@@ -9,14 +9,14 @@ import org.bukkit.entity.Player;
 
 public class PlayerStatic {
 
-    private static PlayerMessage playerMethod;
+    private static SenderManager playerMethod;
 
     private PluginService pluginService;
 
     public PlayerStatic(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        playerMethod = pluginService.getPlayerMethods().getSender();
+        playerMethod = pluginService.getPlayerManager().getSender();
 
     }
 

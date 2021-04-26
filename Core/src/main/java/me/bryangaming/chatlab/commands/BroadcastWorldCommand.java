@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -22,7 +22,7 @@ public class BroadcastWorldCommand implements CommandClass {
     private final PluginService pluginService;
 
     private final ClickChatManager clickChatManager;
-    private final PlayerMessage playerMethod;
+    private final SenderManager playerMethod;
 
     private final Configuration command;
     private final Configuration messages;
@@ -30,8 +30,8 @@ public class BroadcastWorldCommand implements CommandClass {
     public BroadcastWorldCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.clickChatManager = pluginService.getPlayerMethods().getChatManagent();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.clickChatManager = pluginService.getPlayerManager().getChatManagent();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();

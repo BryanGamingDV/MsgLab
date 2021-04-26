@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.debug.ErrorManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -24,7 +24,7 @@ public class AnnouncerCommand implements CommandClass {
     private Configuration command;
     private Configuration message;
 
-    private PlayerMessage playerMethod;
+    private SenderManager playerMethod;
 
     public AnnouncerCommand(PluginService pluginService) {
         this.pluginService = pluginService;
@@ -32,7 +32,7 @@ public class AnnouncerCommand implements CommandClass {
         this.command = pluginService.getFiles().getCommand();
         this.message = pluginService.getFiles().getMessages();
 
-        this.playerMethod = pluginService.getPlayerMethods().getSender();
+        this.playerMethod = pluginService.getPlayerManager().getSender();
     }
 
     @Command(names = "")

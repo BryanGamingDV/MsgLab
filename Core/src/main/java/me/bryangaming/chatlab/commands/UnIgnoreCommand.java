@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.commands.IgnoreManager;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.registry.FileLoader;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
@@ -31,8 +31,8 @@ public class UnIgnoreCommand implements CommandClass {
     @Command(names = "unignore")
     public boolean onCommand(@Sender Player player, @OptArg OfflinePlayer target) {
 
-        IgnoreManager ignoreManager = pluginService.getPlayerMethods().getIgnoreMethod();
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         FileLoader files = pluginService.getFiles();
 

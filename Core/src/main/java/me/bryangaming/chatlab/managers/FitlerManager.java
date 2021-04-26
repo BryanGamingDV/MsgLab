@@ -27,7 +27,7 @@ public class FitlerManager {
         Collection<String> commands = playerCommandSendEvent.getCommands();
         commands.clear();
 
-        GroupMethod groupMethod = pluginService.getPlayerMethods().getGroupMethod();
+        GroupMethod groupMethod = pluginService.getPlayerManager().getGroupMethod();
 
         for (String completitions : utils.getStringList("revisor-cmd.tab-module.filter.groups." + groupMethod.getFitlerGroup(playerCommandSendEvent.getPlayer()))) {
             if (completitions.startsWith("@")) {

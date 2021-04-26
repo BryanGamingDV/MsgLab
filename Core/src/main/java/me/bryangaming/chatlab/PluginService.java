@@ -113,7 +113,7 @@ public class PluginService {
         return supportManager;
     }
 
-    public MethodManager getPlayerMethods() {
+    public MethodManager getPlayerManager() {
         return methodManager;
     }
 
@@ -125,7 +125,7 @@ public class PluginService {
         return plugin;
     }
 
-    public CommandLoader getCommandRegistry() {
+    public CommandLoader getCommandLoader() {
         return commandLoader;
     }
 

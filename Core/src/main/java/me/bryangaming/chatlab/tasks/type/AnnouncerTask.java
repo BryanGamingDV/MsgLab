@@ -1,18 +1,15 @@
 package me.bryangaming.chatlab.tasks.type;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.task.Task;
-import me.bryangaming.chatlab.managers.player.PlayerMessage;
+import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
-import org.omg.CosNaming.IstringHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -36,7 +33,7 @@ public class AnnouncerTask implements Task {
 
         Configuration command = pluginService.getFiles().getCommand();
 
-        PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
+        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         List<String> announcerList = new ArrayList<>(command.getConfigurationSection("commands.announcer.config.messages").getKeys(false));
 
