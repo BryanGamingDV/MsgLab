@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.registry.FileLoader;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;

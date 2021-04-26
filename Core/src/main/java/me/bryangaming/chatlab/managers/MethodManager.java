@@ -4,8 +4,6 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.*;
 import me.bryangaming.chatlab.managers.group.GroupMethod;
-import me.bryangaming.chatlab.managers.player.SenderManager;
-import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.bryangaming.chatlab.utils.string.VariableUtils;
 
@@ -13,8 +11,6 @@ public class MethodManager {
 
 
     private SenderManager senderManager;
-
-    private PlayerStatic playerStatic;
 
     private ClickChatManager chatManagent;
     private GroupMethod groupMethod;
@@ -53,7 +49,6 @@ public class MethodManager {
 
         senderManager = new SenderManager(pluginService);
         chatManager = new ChatManager(pluginService);
-        playerStatic = new PlayerStatic(pluginService);
 
         fitlerManager = new FitlerManager(pluginService);
         staffChatMethod = new StaffChatManager(pluginService);

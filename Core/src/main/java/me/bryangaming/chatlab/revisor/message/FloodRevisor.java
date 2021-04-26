@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.revisor.message;
 import com.google.common.base.Strings;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

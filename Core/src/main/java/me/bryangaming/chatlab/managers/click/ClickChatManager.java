@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.ErrorManager;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;

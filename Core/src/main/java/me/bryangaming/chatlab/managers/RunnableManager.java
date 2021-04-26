@@ -1,7 +1,6 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.player.SenderManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

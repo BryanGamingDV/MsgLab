@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

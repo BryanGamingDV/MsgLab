@@ -4,7 +4,6 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.group.GroupEnum;
 import me.bryangaming.chatlab.managers.group.GroupMethod;
-import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;

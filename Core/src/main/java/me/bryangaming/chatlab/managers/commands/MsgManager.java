@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.managers.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
 

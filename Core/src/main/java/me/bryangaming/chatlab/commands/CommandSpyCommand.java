@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;

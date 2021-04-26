@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.tasks.type;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.task.Task;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;

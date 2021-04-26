@@ -7,7 +7,6 @@ import me.bryangaming.chatlab.managers.GuiManager;
 import me.bryangaming.chatlab.gui.manager.GuiSample;
 import me.bryangaming.chatlab.utils.pages.PageUUIDCreator;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;

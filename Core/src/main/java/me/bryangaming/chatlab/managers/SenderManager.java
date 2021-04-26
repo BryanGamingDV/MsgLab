@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.managers.player;
+package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.RunnableManager;

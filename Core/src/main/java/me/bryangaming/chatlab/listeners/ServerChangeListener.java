@@ -4,7 +4,6 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.JQFormat;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
-import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;

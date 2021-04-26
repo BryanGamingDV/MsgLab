@@ -3,11 +3,9 @@ package me.bryangaming.chatlab.revisor.message;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.managers.RunnableManager;
-import me.bryangaming.chatlab.managers.player.SenderManager;
-import me.bryangaming.chatlab.managers.player.PlayerStatic;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
-import net.dv8tion.jda.api.events.channel.text.update.TextChannelUpdateNameEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

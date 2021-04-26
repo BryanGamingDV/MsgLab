@@ -8,7 +8,7 @@ import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.events.text.ChatEvent;
 import me.bryangaming.chatlab.managers.HoverManager;
 import me.bryangaming.chatlab.managers.RecipientManager;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;

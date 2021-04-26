@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.utils.string;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;

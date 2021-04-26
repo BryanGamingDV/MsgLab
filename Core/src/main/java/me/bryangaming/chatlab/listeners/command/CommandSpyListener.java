@@ -4,7 +4,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.CommandSpyEvent;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;

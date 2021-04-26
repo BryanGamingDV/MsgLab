@@ -6,7 +6,7 @@ import me.bryangaming.chatlab.data.PartyData;
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.group.GroupEnum;
-import me.bryangaming.chatlab.managers.player.SenderManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
 
