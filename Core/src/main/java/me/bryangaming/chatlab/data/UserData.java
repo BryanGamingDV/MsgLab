@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-public class UserData implements DataModel {
+public class UserData{
 
     private final UUID uuid;
 
@@ -51,7 +51,6 @@ public class UserData implements DataModel {
     }
 
 
-    @Override
     public Player getPlayer() {
         return player;
     }
