@@ -1,9 +1,9 @@
 package me.bryangaming.chatlab.gui.sample;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.utils.RunnableManager;
+import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.gui.manager.GuiData;
-import me.bryangaming.chatlab.gui.manager.GuiManager;
+import me.bryangaming.chatlab.managers.GuiManager;
 import me.bryangaming.chatlab.gui.manager.GuiSample;
 import me.bryangaming.chatlab.utils.pages.PageUUIDCreator;
 import me.bryangaming.chatlab.data.UserData;

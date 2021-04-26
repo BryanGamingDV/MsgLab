@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.gui.manager.GuiManager;
+import me.bryangaming.chatlab.managers.GuiManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SocialSpyEvent;

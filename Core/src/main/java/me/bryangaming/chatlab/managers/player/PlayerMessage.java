@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.managers.player;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.utils.RunnableManager;
+import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.sound.SoundManager;
 import me.bryangaming.chatlab.utils.Configuration;

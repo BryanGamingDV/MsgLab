@@ -21,7 +21,7 @@ public class SampleManager {
         sampleHashMap.put("online", new OnlineSample(pluginService));
     }
 
-    public HashMap<String, GuiSample> getClassHashMap() {
+    public HashMap<String, GuiSample> getSampleMap() {
         return sampleHashMap;
     }
 }

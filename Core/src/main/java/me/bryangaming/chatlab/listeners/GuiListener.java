@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.listeners;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.gui.manager.GuiManager;
+import me.bryangaming.chatlab.managers.GuiManager;
 import me.bryangaming.chatlab.data.UserData;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;

@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.managers.click;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.utils.RunnableManager;
+import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.ErrorManager;
@@ -162,14 +162,7 @@ public class ClickChatManager {
     }
 
     public List<Player> getWorldChat(Player player) {
-        for (String worldname : WorldData.getAllWorldChat()) {
-            if (player.getWorld().getName().equalsIgnoreCase(worldname)) {
-                World world = Bukkit.getWorld(worldname);
-                return world.getPlayers();
-
-            }
-        }
-        return null;
+        return player.getWorld().getPlayers();
     }
 
     public void unset(UUID uuid) {
