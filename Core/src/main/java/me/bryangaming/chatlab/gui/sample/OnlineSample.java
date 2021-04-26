@@ -59,7 +59,7 @@ public class OnlineSample implements GuiSample {
         for (UUID uuid : listPlayers) {
             Player player = Bukkit.getPlayer(uuid);
 
-            name = ChatColor.RESET + PlayerStatic.convertText(player, command.getString("commands.msg-online.player.title")
+            name = ChatColor.RESET + TextUtils.convertText(player, command.getString("commands.msg-online.player.title")
                     .replace("%playername%", player.getName())
                     .replace("%number%", String.valueOf(number)));
 
@@ -67,7 +67,7 @@ public class OnlineSample implements GuiSample {
                 lore = Collections.singletonList(message.getColoredString("error.gui.message"));
             } else {
                 lore = command.getStringList("commands.msg-online.player.lore");
-                lore.replaceAll(text -> PlayerStatic.convertText(player, text));
+                lore.replaceAll(text -> TextUtils.convertText(player, text));
             }
 
 

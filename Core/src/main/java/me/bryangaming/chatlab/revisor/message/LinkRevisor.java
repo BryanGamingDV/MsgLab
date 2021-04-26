@@ -6,6 +6,7 @@ import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -95,7 +96,7 @@ public class LinkRevisor implements Revisor {
         }
 
         if (utils.getBoolean("revisor.link-module.command.enabled")) {
-            runnableManager.sendCommand(Bukkit.getServer().getConsoleSender(), PlayerStatic.convertText(player, utils.getString("me.bryangaming.chatlab.api.revisor.link-module.command.format")
+            runnableManager.sendCommand(Bukkit.getServer().getConsoleSender(), TextUtils.convertText(player, utils.getString("me.bryangaming.chatlab.api.revisor.link-module.command.format")
                     .replace("%player%", player.getName())
                     .replace("%blockedword%", blockedword)));
         }

@@ -5,6 +5,7 @@ import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.sound.SoundManager;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.StringUtils;
@@ -82,7 +83,7 @@ public class SenderManager {
         Audience player = pluginService.getPlugin().getBukkitAudiences().player(sender);
 
         try {
-            player.sendMessage(PlayerStatic.convertTextToComponent(sender, path));
+            player.sendMessage(TextUtils.convertTextToComponent(sender, path));
         } catch (NullPointerException nullPointerException) {
             sendLines(nullPointerException);
         }
@@ -105,7 +106,7 @@ public class SenderManager {
             Audience player = pluginService.getPlugin().getBukkitAudiences().player(online);
 
             try {
-                player.sendMessage(PlayerStatic.convertTextToComponent(online, path));
+                player.sendMessage(TextUtils.convertTextToComponent(online, path));
             } catch (NullPointerException nullPointerException) {
                 sendLines(nullPointerException);
                 return;
@@ -127,7 +128,7 @@ public class SenderManager {
 
         Audience player = pluginService.getPlugin().getBukkitAudiences().player(sender);
         try {
-            player.sendMessage(PlayerStatic.convertTextToComponent(sender, path, message));
+            player.sendMessage(TextUtils.convertTextToComponent(sender, path, message));
         } catch (NullPointerException nullPointerException) {
             sendLines(nullPointerException);
         }
@@ -148,7 +149,7 @@ public class SenderManager {
         Audience player = pluginService.getPlugin().getBukkitAudiences().player(sender);
         try {
             messages
-                    .replaceAll(message -> PlayerStatic.convertText(sender, message));
+                    .replaceAll(message -> TextUtils.convertText(sender, message));
 
         } catch (NullPointerException nullPointerException) {
             sendLines(nullPointerException);

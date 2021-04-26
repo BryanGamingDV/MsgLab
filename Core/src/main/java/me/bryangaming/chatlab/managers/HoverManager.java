@@ -5,6 +5,7 @@ import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.group.GroupEnum;
 import me.bryangaming.chatlab.managers.group.GroupMethod;
 import me.bryangaming.chatlab.managers.player.PlayerStatic;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -48,9 +49,9 @@ public class HoverManager {
             String textPath = groupMethod.getPlayerFormat(channelType, player, playerRank, format);
 
             if (textPath.contains("%message%")) {
-                textPath = PlayerStatic.convertText(player, textPath, message);
+                textPath = TextUtils.convertText(player, textPath, message);
             } else {
-                textPath = PlayerStatic.convertText(player, textPath);
+                textPath = TextUtils.convertText(player, textPath);
             }
 
             Component newComponent = miniMessage.parse(textPath);
@@ -61,7 +62,7 @@ public class HoverManager {
             String textCommand = groupMethod.getPlayerActionFormat(channelType, player, playerRank, format);
 
             if (!textHover.isEmpty()) {
-                textHover.replaceAll(string -> PlayerStatic.convertText(player, string));
+                textHover.replaceAll(string -> TextUtils.convertText(player, string));
 
                 newComponent = newComponent.hoverEvent(HoverEvent.showText(miniMessage.parse(String.join("\n", textHover))));
                 newComponent = newComponent.clickEvent(ClickEvent.clickEvent(ClickEvent.Action.valueOf(textType), textCommand

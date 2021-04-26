@@ -6,6 +6,8 @@ import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.managers.player.SenderManager;
 import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.string.TextUtils;
+import net.dv8tion.jda.api.events.channel.text.update.TextChannelUpdateNameEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -92,7 +94,7 @@ public class WordRevisor implements Revisor {
             }
 
             if (utils.getBoolean("revisor.words-module.command.enabled")) {
-                runnableManager.sendCommand(Bukkit.getConsoleSender(), PlayerStatic.convertText(player, utils.getString("revisor.words-module.command.format")
+                runnableManager.sendCommand(Bukkit.getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor.words-module.command.format")
                         .replace("%player%", player.getName())));
             }
 

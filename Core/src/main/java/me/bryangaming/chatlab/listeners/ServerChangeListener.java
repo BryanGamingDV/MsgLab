@@ -5,6 +5,7 @@ import me.bryangaming.chatlab.data.JQFormat;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
 import me.bryangaming.chatlab.managers.player.PlayerStatic;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -43,7 +44,7 @@ public class ServerChangeListener implements Listener {
                         break;
                     default:
                         playerJoinEvent.setJoinMessage(null);
-                        global.sendMessage(PlayerStatic.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getFirstJoinFormat()));
+                        global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getFirstJoinFormat()));
                 }
             }
 
@@ -55,11 +56,11 @@ public class ServerChangeListener implements Listener {
                         int time = Integer.parseInt(loopTest.substring(3));
 
                         for (int id = 0; id > time; id++) {
-                            player.sendMessage(PlayerStatic.convertTextToComponent(sender, motdFormat.substring(loopTest.length())));
+                            player.sendMessage(TextUtils.convertTextToComponent(sender, motdFormat.substring(loopTest.length())));
                         }
                         continue;
                     }
-                    player.sendMessage(PlayerStatic.convertTextToComponent(sender, motdFormat));
+                    player.sendMessage(TextUtils.convertTextToComponent(sender, motdFormat));
                 }
             }
 
@@ -83,7 +84,7 @@ public class ServerChangeListener implements Listener {
                         break;
                     default:
                         playerJoinEvent.setJoinMessage(null);
-                        global.sendMessage(PlayerStatic.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getJoinFormat()));
+                        global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getJoinFormat()));
                 }
             }
 
@@ -96,12 +97,12 @@ public class ServerChangeListener implements Listener {
                         int time = Integer.parseInt(loopTest.substring(3));
 
                         for (int id = 0; id > time; id++) {
-                            player.sendMessage(PlayerStatic.convertTextToComponent(sender, motdFormat.substring(loopTest.length())));
+                            player.sendMessage(TextUtils.convertTextToComponent(sender, motdFormat.substring(loopTest.length())));
                         }
                         continue;
                     }
 
-                    player.sendMessage(PlayerStatic.convertTextToComponent(sender, motdFormat));
+                    player.sendMessage(TextUtils.convertTextToComponent(sender, motdFormat));
                 }
             }
 
@@ -124,7 +125,7 @@ public class ServerChangeListener implements Listener {
                         break;
                     default:
                         playerQuitEvent.setQuitMessage(null);
-                        global.sendMessage(PlayerStatic.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getQuitFormat()));
+                        global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getQuitFormat()));
                 }
             }
 
