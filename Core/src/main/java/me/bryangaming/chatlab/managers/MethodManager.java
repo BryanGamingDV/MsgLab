@@ -6,7 +6,7 @@ import me.bryangaming.chatlab.managers.commands.*;
 import me.bryangaming.chatlab.managers.group.GroupMethod;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.managers.player.PlayerStatic;
-import me.bryangaming.chatlab.utils.string.StringUtils;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.bryangaming.chatlab.utils.string.VariableUtils;
 
 public class MethodManager {
@@ -34,7 +34,7 @@ public class MethodManager {
     private StaffChatManager staffChatMethod;
 
     private VariableUtils variableUtils;
-    private StringUtils stringUtils;
+    private TextUtils textUtils;
     private ConditionManager conditionManager;
 
     private final PluginService pluginService;
@@ -66,7 +66,7 @@ public class MethodManager {
         msgManager = new MsgManager(pluginService);
 
         variableUtils = new VariableUtils(pluginService);
-        stringUtils = new StringUtils(pluginService);
+        textUtils = new TextUtils(pluginService);
         conditionManager = new ConditionManager(pluginService);
 
         pluginService.getLogs().log("Method registered");

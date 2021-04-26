@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.bukkitutils;
+package me.bryangaming.chatlab.utils;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;

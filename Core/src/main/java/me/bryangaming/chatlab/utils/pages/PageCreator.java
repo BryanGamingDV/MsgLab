@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.bukkitutils.pages;
+package me.bryangaming.chatlab.utils.pages;
 
 import java.util.ArrayList;
 import java.util.HashMap;

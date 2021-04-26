@@ -1,8 +1,8 @@
 package me.bryangaming.chatlab.managers.click;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.RunnableManager;
-import me.bryangaming.chatlab.bukkitutils.WorldData;
+import me.bryangaming.chatlab.utils.RunnableManager;
+import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.ErrorManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;

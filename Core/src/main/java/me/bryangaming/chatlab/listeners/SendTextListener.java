@@ -48,7 +48,7 @@ public class SendTextListener implements Listener {
             return;
         }
 
-        if (pluginService.getPathManager().isCommandEnabled("staffchat")) {
+        if (pluginService.getListManager().isEnabledOption("commands", "staffchat")) {
             ClickChatManager clickChatManager = pluginService.getPlayerMethods().getChatManagent();
 
             if (staffChatMethod.isUsingStaffSymbol(event)) {
@@ -80,7 +80,7 @@ public class SendTextListener implements Listener {
             }
         }
 
-        if (pluginService.getPathManager().isOptionEnabled("chat_format") && utils.getBoolean("options.enabled") && utils.getBoolean("format.enabled")) {
+        if (pluginService.getListManager().isEnabledOption("modules","chat_format") && utils.getBoolean("options.enabled") && utils.getBoolean("format.enabled")) {
             event.setCancelled(true);
 
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {

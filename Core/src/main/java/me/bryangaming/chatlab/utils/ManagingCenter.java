@@ -1,8 +1,8 @@
-package me.bryangaming.chatlab.bukkitutils;
+package me.bryangaming.chatlab.utils;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.gui.manager.GuiManager;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundManager;
+import me.bryangaming.chatlab.gui.manager.GuiManager;
+import me.bryangaming.chatlab.managers.sound.SoundManager;
 
 public class ManagingCenter {
 

@@ -1,13 +1,13 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.PartyData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.commands.PartyManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -30,7 +30,6 @@ public class PartyCommand implements CommandClass {
 
     private PartyManager partyManager;
     private PlayerMessage playerMethod;
-    private ModuleCheck moduleCheck;
 
     public PartyCommand(PluginService pluginService) {
         this.pluginService = pluginService;
@@ -40,7 +39,6 @@ public class PartyCommand implements CommandClass {
 
         this.partyManager = pluginService.getPlayerMethods().getPartyMethod();
         this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.moduleCheck = pluginService.getPathManager();
     }
 
     @Command(names = "")
@@ -61,7 +59,7 @@ public class PartyCommand implements CommandClass {
 
         if (leader.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("party", "join", "<player>")));
+                    .replace("%usage%", TextUtils.getUsage("party", "join", "<player>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -132,7 +130,7 @@ public class PartyCommand implements CommandClass {
         }
 
         playerMethod.sendMessage(sender, messages.getString("error.unknown-args")
-                .replace("%usage%", moduleCheck.getUsage("party", "set", "[private/public]")));
+                .replace("%usage%", TextUtils.getUsage("party", "set", "[private/public]")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
@@ -161,7 +159,7 @@ public class PartyCommand implements CommandClass {
 
         if (target.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("party", "invite", "<player>")));
+                    .replace("%usage%", TextUtils.getUsage("party", "invite", "<player>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -182,7 +180,7 @@ public class PartyCommand implements CommandClass {
     public boolean onRemoveInviteSubCommand(@Sender Player sender, @OptArg("") String target) {
         if (target.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("party", "removeinvite", "<player>")));
+                    .replace("%usage%", TextUtils.getUsage("party", "removeinvite", "<player>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -209,7 +207,7 @@ public class PartyCommand implements CommandClass {
     public boolean onPromoteSubCommand(@Sender Player sender, @OptArg("") String target) {
         if (target.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("party", "promote", "<player>")));
+                    .replace("%usage%", TextUtils.getUsage("party", "promote", "<player>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -230,7 +228,7 @@ public class PartyCommand implements CommandClass {
     public boolean onKickSubCommand(@Sender Player sender, @OptArg("") String target) {
         if (target.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("party", "removeinvite", "<player>")));
+                    .replace("%usage%", TextUtils.getUsage("party", "removeinvite", "<player>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }

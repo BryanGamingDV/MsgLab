@@ -1,13 +1,13 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -29,7 +29,6 @@ public class ChatCommand implements CommandClass {
     private final Configuration utils;
 
     private final ServerData serverData;
-    private final ModuleCheck moduleCheck;
 
     private final ChatManager chatManager;
     private final PlayerMessage playerMethod;
@@ -42,7 +41,6 @@ public class ChatCommand implements CommandClass {
         this.messages = pluginService.getFiles().getMessages();
         this.utils = pluginService.getFiles().getBasicUtils();
 
-        this.moduleCheck = pluginService.getPathManager();
         this.serverData = pluginService.getServerData();
 
         this.chatManager = pluginService.getPlayerMethods().getChatMethod();
@@ -52,7 +50,7 @@ public class ChatCommand implements CommandClass {
     @Command(names = "")
     public boolean mainSubCommand(@Sender Player sender) {
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("chat", "help, reload, clear, mute, unmute, cooldown, color")));
+                .replace("%usage%", TextUtils.getUsage("chat", "help, reload, clear, mute, unmute, cooldown, color")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
@@ -326,7 +324,7 @@ public class ChatCommand implements CommandClass {
 
         if (text.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("chat", "cooldown", "time")));
+                    .replace("%usage%", TextUtils.getUsage("chat", "cooldown", "time")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -362,7 +360,7 @@ public class ChatCommand implements CommandClass {
         if (tag.isEmpty()) {
             playerMethod.sendMessage(player, messages.getString("error.chat.tags.empty-tags")
                     .replace("%tags%", chatManager.allTags())
-                    .replace("%usage%", moduleCheck.getUsage("chat", "color", "[<typetag>]", "[@tag/color]")));
+                    .replace("%usage%", TextUtils.getUsage("chat", "color", "[<typetag>]", "[@tag/color]")));
             playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }
@@ -379,7 +377,7 @@ public class ChatCommand implements CommandClass {
         if (color.isEmpty()) {
             playerMethod.sendMessage(player, messages.getString("error.chat.tags.empty-colortags")
                     .replace("%colortags%", chatManager.allColorTags())
-                    .replace("%usage%", moduleCheck.getUsage("chat", "color", "typetag", "[@tag/color]")));
+                    .replace("%usage%", TextUtils.getUsage("chat", "color", "typetag", "[@tag/color]")));
             playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }

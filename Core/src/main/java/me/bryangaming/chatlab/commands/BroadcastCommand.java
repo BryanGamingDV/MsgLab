@@ -1,13 +1,13 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -24,7 +24,6 @@ public class BroadcastCommand implements CommandClass {
     private final PluginService pluginService;
 
     private final PlayerMessage playerMethod;
-    private final ModuleCheck moduleCheck;
 
     private final Configuration command;
     private final Configuration messages;
@@ -33,7 +32,6 @@ public class BroadcastCommand implements CommandClass {
         this.pluginService = pluginService;
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.moduleCheck = pluginService.getPathManager();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();
@@ -46,7 +44,7 @@ public class BroadcastCommand implements CommandClass {
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("broadcast", "<message>")));
+                    .replace("%usage%", TextUtils.getUsage("broadcast", "<message>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }

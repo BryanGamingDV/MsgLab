@@ -19,7 +19,7 @@ public class FitlerManager {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
 
-        if (!utils.getBoolean("me.bryangaming.chatlab.api.revisor-cmd.tab-module.filter.enabled")) {
+        if (!utils.getBoolean("revisor-cmd.tab-module.filter.enabled")) {
             return;
         }
 
@@ -29,9 +29,9 @@ public class FitlerManager {
 
         GroupMethod groupMethod = pluginService.getPlayerMethods().getGroupMethod();
 
-        for (String completitions : utils.getStringList("me.bryangaming.chatlab.api.revisor-cmd.tab-module.filter.groups." + groupMethod.getFitlerGroup(playerCommandSendEvent.getPlayer()))) {
+        for (String completitions : utils.getStringList("revisor-cmd.tab-module.filter.groups." + groupMethod.getFitlerGroup(playerCommandSendEvent.getPlayer()))) {
             if (completitions.startsWith("@")) {
-                commands.addAll(utils.getStringList("me.bryangaming.chatlab.api.revisor-cmd.tab-module.filter.groups." + completitions.substring(1)));
+                commands.addAll(utils.getStringList("revisor-cmd.tab-module.filter.groups." + completitions.substring(1)));
             }
 
             commands.add(completitions);

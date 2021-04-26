@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.utils;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.registry.ConfigManager;
+import me.bryangaming.chatlab.registry.FileLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -9,13 +9,13 @@ import org.bukkit.entity.Player;
 
 public class StringFormat {
 
-    private final ConfigManager config;
+    private final FileLoader config;
     private final PluginService pluginService;
 
     private static SupportManager supportManager;
 
-    public StringFormat(ConfigManager config, PluginService pluginService) {
-        this.config = config;
+    public StringFormat( PluginService pluginService) {
+        this.config = pluginService.getFiles();
         this.pluginService = pluginService;
         supportManager = pluginService.getSupportManager();
     }

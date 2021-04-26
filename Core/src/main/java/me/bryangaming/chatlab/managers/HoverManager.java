@@ -36,7 +36,7 @@ public class HoverManager {
         Set<String> configSection = groupMethod.getConfigSection(channelType, player, playerRank);
 
         if (configSection == null) {
-            pluginService.getPlugin().getLogger().info("Please put the bases format in the utils.yml");
+            pluginService.getPlugin().getLogger().info("Please put the bases format in the formats.yml");
             pluginService.getPlugin().getLogger().info("For more info, contact in the discord support.");
             return null;
         }

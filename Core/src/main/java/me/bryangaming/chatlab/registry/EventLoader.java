@@ -8,19 +8,19 @@ import me.bryangaming.chatlab.listeners.command.CommandSpyListener;
 import me.bryangaming.chatlab.listeners.command.HelpOpListener;
 import me.bryangaming.chatlab.listeners.command.SocialSpyListener;
 import me.bryangaming.chatlab.listeners.text.ChatListener;
-import me.bryangaming.chatlab.managers.click.ChatClickEvent;
+import me.bryangaming.chatlab.events.ChatClickEvent;
 import me.bryangaming.chatlab.revisor.tabcomplete.TabFitler;
 import me.bryangaming.chatlab.utils.StringFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 
-public class EventManager {
+public class EventLoader {
 
     private final ChatLab plugin;
     private final PluginService pluginService;
 
-    public EventManager(ChatLab plugin, PluginService pluginService) {
+    public EventLoader(ChatLab plugin, PluginService pluginService) {
         this.plugin = plugin;
         this.pluginService = pluginService;
     }

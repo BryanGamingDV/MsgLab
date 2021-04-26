@@ -1,14 +1,14 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundManager;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.group.GroupEnum;
 import me.bryangaming.chatlab.managers.group.GroupMethod;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -33,7 +33,6 @@ public class ChannelCommand implements CommandClass {
     private final SoundManager sound;
 
     private final GroupMethod groupChannel;
-    private final ModuleCheck moduleCheck;
 
     public ChannelCommand(PluginService pluginService) {
         this.pluginService = pluginService;
@@ -46,14 +45,13 @@ public class ChannelCommand implements CommandClass {
         this.sound = pluginService.getManagingCenter().getSoundManager();
 
         this.groupChannel = pluginService.getPlayerMethods().getGroupMethod();
-        this.moduleCheck = pluginService.getPathManager();
     }
 
     @Command(names = {""})
     public boolean mainCommand(@Sender Player player) {
 
         playerMethod.sendMessage(player, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("channel", "join, quit, list, info, move")));
+                .replace("%usage%", TextUtils.getUsage("channel", "join, quit, list, info, move")));
         playerMethod.sendSound(player, SoundEnum.ERROR);
         return true;
 
@@ -67,7 +65,7 @@ public class ChannelCommand implements CommandClass {
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("channel", "join", "<channel>")));
+                    .replace("%usage%", TextUtils.getUsage("channel", "join", "<channel>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -160,7 +158,7 @@ public class ChannelCommand implements CommandClass {
 
         if (target == null) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("channel", "move", "<player>", "<channel>")));
+                    .replace("%usage%", TextUtils.getUsage("channel", "move", "<player>", "<channel>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -176,7 +174,7 @@ public class ChannelCommand implements CommandClass {
 
         if (channel.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("channel", "move", "<player>", "<channel>")));
+                    .replace("%usage%", TextUtils.getUsage("channel", "move", "<player>", "<channel>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }

@@ -1,7 +1,8 @@
-package me.bryangaming.chatlab.managers.click;
+package me.bryangaming.chatlab.events;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;

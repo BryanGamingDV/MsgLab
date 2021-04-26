@@ -1,12 +1,12 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.commands.SocialSpyManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -22,8 +22,6 @@ public class SocialSpyCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final ModuleCheck moduleCheck;
-
     private final PlayerMessage playerMethod;
     private final SocialSpyManager socialSpyManager;
 
@@ -32,8 +30,6 @@ public class SocialSpyCommand implements CommandClass {
 
     public SocialSpyCommand(PluginService pluginService) {
         this.pluginService = pluginService;
-
-        this.moduleCheck = pluginService.getPathManager();
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
         this.socialSpyManager = pluginService.getPlayerMethods().getSocialSpyMethod();
@@ -53,7 +49,7 @@ public class SocialSpyCommand implements CommandClass {
         }
 
         playerMethod.sendMessage(player, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("socialspy", "on, off, list", "<player>")));
+                .replace("%usage%", TextUtils.getUsage("socialspy", "on, off, list", "<player>")));
         playerMethod.sendSound(player, SoundEnum.ERROR);
 
         return true;

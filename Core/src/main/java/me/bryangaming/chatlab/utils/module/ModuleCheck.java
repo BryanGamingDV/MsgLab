@@ -43,39 +43,5 @@ public class ModuleCheck {
         return false;
     }
 
-    public boolean isCommandEnabled(String optionName) {
-        List<String> commandFile = config.getStringList("config.modules.enabled-commands");
-        for (String command : commandFile) {
-            if (command.equalsIgnoreCase(optionName)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public boolean isOptionEnabled(String optionName) {
-        List<String> optionFile = config.getStringList("config.modules.enabled-options");
-        for (String optionEnabledOptions : optionFile) {
-            if (optionEnabledOptions.equalsIgnoreCase(optionName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public String getUsage(String command, String... args) {
-
-        StringBuilder message = new StringBuilder();
-        for (String arg : args) {
-            if (!(arg.contains(","))) {
-                message.append(arg).append(" ");
-                continue;
-            }
-
-            message.append("[").append(arg).append("] ");
-        }
-
-        return "/" + command + " " + message.toString();
-
-    }
 }

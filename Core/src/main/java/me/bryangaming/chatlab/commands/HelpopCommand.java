@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.HelpOpEvent;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
@@ -9,7 +9,7 @@ import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.commands.HelpOpManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -26,8 +26,6 @@ public class HelpopCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final ModuleCheck moduleCheck;
-
     private final PlayerMessage playerMethod;
     private final HelpOpManager helpOpManager;
 
@@ -36,8 +34,6 @@ public class HelpopCommand implements CommandClass {
 
     public HelpopCommand(PluginService pluginService) {
         this.pluginService = pluginService;
-
-        this.moduleCheck = pluginService.getPathManager();
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
         this.helpOpManager = pluginService.getPlayerMethods().getHelpOpMethod();
@@ -51,7 +47,7 @@ public class HelpopCommand implements CommandClass {
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("helpop", "<message>")));
+                    .replace("%usage%", TextUtils.getUsage("helpop", "<message>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }

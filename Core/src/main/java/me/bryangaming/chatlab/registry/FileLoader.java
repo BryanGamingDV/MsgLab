@@ -7,7 +7,7 @@ import me.bryangaming.chatlab.utils.Configuration;
 
 import java.util.Map;
 
-public class ConfigManager {
+public class FileLoader {
 
     // Tranquilos, esta clase no pesa mucho, pero no confunde a nadie :xd:.
 
@@ -21,7 +21,7 @@ public class ConfigManager {
     private final ChatLab plugin;
     private final PluginService pluginService;
 
-    public ConfigManager(ChatLab plugin, PluginService pluginService) {
+    public FileLoader(ChatLab plugin, PluginService pluginService) {
         this.plugin = plugin;
         this.pluginService = pluginService;
     }
@@ -32,7 +32,7 @@ public class ConfigManager {
         players = this.setConfiguration("players.yml");
         messages = this.setConfiguration("messages.yml");
         sounds = this.setConfiguration("sounds.yml");
-        utils = this.setConfiguration("utils.yml");
+        utils = this.setConfiguration("formats.yml");
 
         plugin.getLogger().info("Config loaded!");
     }

@@ -1,13 +1,13 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
-import me.bryangaming.chatlab.registry.ConfigManager;
+import me.bryangaming.chatlab.registry.FileLoader;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -15,8 +15,6 @@ import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import java.util.UUID;
 
 public class StreamCommand implements CommandClass {
 
@@ -31,18 +29,15 @@ public class StreamCommand implements CommandClass {
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
 
-        ModuleCheck moduleCheck = pluginService.getPathManager();
-
-        ConfigManager files = pluginService.getFiles();
+        FileLoader files = pluginService.getFiles();
 
         Configuration command = files.getCommand();
         Configuration messages = files.getMessages();
 
-        UUID playeruuid = player.getUniqueId();
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(player, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("stream", "<message>")));
+                    .replace("%usage%", TextUtils.getUsage("stream", "<message>")));
             playerMethod.sendSound(player, SoundEnum.ERROR);
             return true;
         }

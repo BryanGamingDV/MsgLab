@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.bukkitutils;
+package me.bryangaming.chatlab.utils;
 
 import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
@@ -39,7 +39,7 @@ public class WorldData {
             plugin.getLogger().info("- EasterEgg #1");
             utils.set("per-world-chat.all-worlds", true);
             utils.reload();
-            return getAllWorldChat();
+            return null;
         }
 
         for (String id : pwcKeys) {
@@ -52,7 +52,7 @@ public class WorldData {
             }
         }
 
-        return getAllWorldChat();
+        return null;
     }
 
     public static String getWorldID(Player player) {
@@ -81,36 +81,5 @@ public class WorldData {
         }
 
         return null;
-    }
-
-    public static List<String> getAllWorldChat() {
-
-        List<String> worldNames = new ArrayList<>();
-
-        List<String> exceptfolders = Arrays.asList("plugins", "logs", "cache");
-
-
-        for (File file : Bukkit.getServer().getWorldContainer().listFiles()) {
-
-            if (!file.isDirectory()) {
-                continue;
-            }
-
-            boolean status = false;
-            for (String folders : exceptfolders) {
-                if (folders.equalsIgnoreCase(file.getName())) {
-                    status = true;
-                    break;
-                }
-            }
-
-            if (status) {
-                continue;
-            }
-
-            worldNames.add(file.getName());
-        }
-
-        return worldNames;
     }
 }

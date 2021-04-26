@@ -1,12 +1,12 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.commands.IgnoreManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
-import me.bryangaming.chatlab.registry.ConfigManager;
+import me.bryangaming.chatlab.registry.FileLoader;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -29,11 +29,9 @@ public class IgnoreCommand implements CommandClass {
     @Command(names = "ignore")
     public boolean onIgnoreCommand(@Sender Player sender, @OptArg OfflinePlayer target) {
 
-        ConfigManager files = pluginService.getFiles();
+        FileLoader files = pluginService.getFiles();
 
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
-
-        ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration players = files.getPlayers();
         Configuration command = files.getCommand();
@@ -43,7 +41,7 @@ public class IgnoreCommand implements CommandClass {
 
         if (target == null) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("ignore", "<sender>")));
+                    .replace("%usage%", TextUtils.getUsage("ignore", "<sender>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }

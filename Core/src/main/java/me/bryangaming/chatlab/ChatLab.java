@@ -55,10 +55,9 @@ public class ChatLab extends JavaPlugin {
     public void registerManaging() {
 
         basicMsg = new PluginService(this);
+
         basicMsg.getLogs().log("Loading ChatApiImpl...");
-
         chatApiImpl = new ChatApiImpl(basicMsg);
-
         basicMsg.getLogs().log("Loaded.");
 
         if (!basicMsg.getFiles().getConfig().getString("version", "1.0").equalsIgnoreCase(getDescription().getVersion())) {

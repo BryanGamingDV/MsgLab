@@ -1,8 +1,8 @@
-package me.bryangaming.chatlab.bukkitutils.gui;
+package me.bryangaming.chatlab.gui;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.gui.manager.GuiSample;
-import me.bryangaming.chatlab.bukkitutils.gui.sample.OnlineSample;
+import me.bryangaming.chatlab.gui.manager.GuiSample;
+import me.bryangaming.chatlab.gui.sample.OnlineSample;
 
 import java.util.HashMap;
 

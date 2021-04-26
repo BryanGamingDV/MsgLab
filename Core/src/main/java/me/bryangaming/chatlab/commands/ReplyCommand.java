@@ -1,15 +1,15 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SocialSpyEvent;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
-import me.bryangaming.chatlab.registry.ConfigManager;
+import me.bryangaming.chatlab.registry.FileLoader;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -32,10 +32,8 @@ public class ReplyCommand implements CommandClass {
     @Command(names = {"reply", "r"})
     public boolean onCommand(@Sender Player sender, @OptArg("") @Text String message) {
 
-        ConfigManager files = pluginService.getFiles();
+        FileLoader files = pluginService.getFiles();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
-
-        ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration players = files.getPlayers();
         Configuration command = files.getCommand();
@@ -45,7 +43,7 @@ public class ReplyCommand implements CommandClass {
 
         if (message.isEmpty()) {
             playerMethod.sendMessage(sender, lang.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("reply", "<message>")));
+                    .replace("%usage%", TextUtils.getUsage("reply", "<message>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }

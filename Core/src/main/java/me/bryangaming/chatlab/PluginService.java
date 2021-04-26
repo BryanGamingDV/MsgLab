@@ -1,12 +1,12 @@
 package me.bryangaming.chatlab;
 
-import me.bryangaming.chatlab.bukkitutils.ManagingCenter;
+import me.bryangaming.chatlab.utils.ManagingCenter;
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.managers.MethodManager;
-import me.bryangaming.chatlab.registry.CommandRegistry;
-import me.bryangaming.chatlab.registry.ConfigManager;
-import me.bryangaming.chatlab.registry.EventManager;
+import me.bryangaming.chatlab.registry.CommandLoader;
+import me.bryangaming.chatlab.registry.FileLoader;
+import me.bryangaming.chatlab.registry.EventLoader;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.tasks.TasksManager;
 import me.bryangaming.chatlab.utils.StringFormat;
@@ -26,12 +26,12 @@ public class PluginService {
     private DebugLogger debug;
 
     private ModuleCreator moduleCreator;
-    private ModuleCheck pathmanager;
+    private ModuleCheck moduleCheck;
 
     private SupportManager supportManager;
-    private CommandRegistry commandRegistry;
-    private EventManager eventManager;
-    private ConfigManager configManager;
+    private CommandLoader commandLoader;
+    private EventLoader eventLoader;
+    private FileLoader fileLoader;
 
     private CooldownData cooldownData;
     private ManagingCenter managingCenter;
@@ -52,27 +52,26 @@ public class PluginService {
 
         cache = new CacheManager(this);
 
-        configManager = new ConfigManager(plugin, this);
-        configManager.setup();
+        fileLoader = new FileLoader(plugin, this);
+        fileLoader.setup();
 
         supportManager = new SupportManager(this);
 
         moduleCreator = new ModuleCreator(this);
-
-        pathmanager = new ModuleCheck(this);
+        moduleCheck = new ModuleCheck(this);
 
         managingCenter = new ManagingCenter(this);
 
-        variables = new StringFormat(configManager, this);
+        variables = new StringFormat(this);
 
         methodManager = new MethodManager(this);
         methodManager.setup();
 
-        commandRegistry = new CommandRegistry(plugin, this);
-        commandRegistry.setup();
+        commandLoader = new CommandLoader(plugin, this);
+        commandLoader.setup();
 
-        eventManager = new EventManager(plugin, this);
-        eventManager.setup();
+        eventLoader = new EventLoader(plugin, this);
+        eventLoader.setup();
 
         cooldownData = new CooldownData(this);
         tasksManager = new TasksManager(this);
@@ -95,7 +94,7 @@ public class PluginService {
     }
 
     public ModuleCheck getPathManager() {
-        return pathmanager;
+        return moduleCheck;
     }
 
     public DebugLogger getLogs() {
@@ -118,16 +117,16 @@ public class PluginService {
         return methodManager;
     }
 
-    public ConfigManager getFiles() {
-        return configManager;
+    public FileLoader getFiles() {
+        return fileLoader;
     }
 
     public ChatLab getPlugin() {
         return plugin;
     }
 
-    public CommandRegistry getCommandRegistry() {
-        return commandRegistry;
+    public CommandLoader getCommandRegistry() {
+        return commandLoader;
     }
 
     public TasksManager getTasksManager() {

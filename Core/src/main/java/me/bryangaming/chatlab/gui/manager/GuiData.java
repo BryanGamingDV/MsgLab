@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.bukkitutils.gui.manager;
+package me.bryangaming.chatlab.gui.manager;
 
 import me.bryangaming.chatlab.api.LegacyHandler;
 import me.bryangaming.chatlab.api.NMSHandler;

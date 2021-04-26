@@ -1,11 +1,11 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -23,7 +23,6 @@ public class CommandSpyCommand implements CommandClass {
     private final PluginService pluginService;
 
     private final PlayerMessage playerMethod;
-    private final ModuleCheck moduleCheck;
 
     private Configuration command;
     private Configuration messages;
@@ -32,7 +31,6 @@ public class CommandSpyCommand implements CommandClass {
         this.pluginService = pluginService;
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.moduleCheck = pluginService.getPathManager();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();
@@ -40,11 +38,8 @@ public class CommandSpyCommand implements CommandClass {
 
     @Command(names = {""})
     public boolean onMainSubCommand(@Sender Player sender) {
-
-        ModuleCheck moduleCheck = pluginService.getPathManager();
-
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("cspy", "on, off, list, block, unblock")));
+                .replace("%usage%", TextUtils.getUsage("cspy", "on, off, list, block, unblock")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
@@ -213,7 +208,7 @@ public class CommandSpyCommand implements CommandClass {
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("cspy", "block", "<word>")));
+                    .replace("%usage%", TextUtils.getUsage("cspy", "block", "<word>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -242,7 +237,7 @@ public class CommandSpyCommand implements CommandClass {
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("cspy", "block", "<word>")));
+                    .replace("%usage%", TextUtils.getUsage("cspy", "block", "<word>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }

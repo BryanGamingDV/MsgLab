@@ -6,12 +6,15 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.ChatColor;
 
-public class StringUtils {
+import java.util.Arrays;
+import java.util.List;
+
+public class TextUtils {
 
     private PluginService pluginService;
     private static Configuration config;
 
-    public StringUtils(PluginService pluginService) {
+    public TextUtils(PluginService pluginService) {
         this.pluginService = pluginService;
         config = pluginService.getFiles().getConfig();
     }
@@ -29,5 +32,25 @@ public class StringUtils {
                 .replace("&f", "<white>");
 
         return MiniMessage.get().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(string).asComponent());
+    }
+
+    public static void addToList(List<String> arrayList, String... listValues){
+        arrayList.addAll(Arrays.asList(listValues));
+    }
+
+    public static String getUsage(String command, String... args) {
+
+        StringBuilder message = new StringBuilder();
+        for (String arg : args) {
+            if (!(arg.contains(","))) {
+                message.append(arg).append(" ");
+                continue;
+            }
+
+            message.append("[").append(arg).append("] ");
+        }
+
+        return "/" + command + " " + message.toString();
+
     }
 }

@@ -1,12 +1,12 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.pages.PageCreator;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.utils.pages.PageCreator;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.StringFormat;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -27,7 +27,6 @@ public class MotdCommand implements CommandClass {
     private final Configuration messages;
 
     private final PlayerMessage playerMethod;
-    private final ModuleCheck moduleCheck;
     private final List<String> motd;
 
 
@@ -39,7 +38,6 @@ public class MotdCommand implements CommandClass {
         this.messages = pluginService.getFiles().getMessages();
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.moduleCheck = pluginService.getPathManager();
         this.motd = utils.getStringList("lobby.formats.default.join.motd");
     }
 
@@ -94,7 +92,7 @@ public class MotdCommand implements CommandClass {
 
         if (text.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("motd", "addline/removeline/setline")));
+                    .replace("%usage%", TextUtils.getUsage("motd", "addline/removeline/setline")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -166,14 +164,14 @@ public class MotdCommand implements CommandClass {
         }
         if (page < 0) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("motd", "setline", "<page>", "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("motd", "setline", "<page>", "<text>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (text.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("motd", "setline", "<page>", "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("motd", "setline", "<page>", "<text>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }

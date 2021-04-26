@@ -21,7 +21,7 @@ public class TasksManager {
     public void loadTasks(Task... taskTypes) {
 
         for (Task task : taskTypes) { ;
-            if (!pluginService.getPathManager().isOptionEnabled(task.getName())){
+            if (!pluginService.getListManager().isEnabledOption("modules", task.getName())){
                 continue;
             }
 

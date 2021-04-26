@@ -1,5 +1,4 @@
-package me.bryangaming.chatlab.bukkitutils.pages;
-
+package me.bryangaming.chatlab.utils.pages;
 
 import java.util.*;
 
@@ -24,6 +23,7 @@ public class PageUUIDCreator {
                 pagenumber++;
                 count = 0;
             }
+
 
             page.add(string);
             count++;

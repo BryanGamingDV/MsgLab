@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.bukkitutils.sound;
+package me.bryangaming.chatlab.managers.sound;
 
 import me.bryangaming.chatlab.CacheManager;
 import me.bryangaming.chatlab.PluginService;

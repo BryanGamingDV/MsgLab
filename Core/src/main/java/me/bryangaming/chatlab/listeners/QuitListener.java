@@ -8,7 +8,7 @@ import me.bryangaming.chatlab.events.server.ServerChangeEvent;
 import me.bryangaming.chatlab.managers.group.GroupMethod;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,7 +31,6 @@ public class QuitListener implements Listener {
         PlayerMessage player = pluginService.getPlayerMethods().getSender();
         Configuration command = pluginService.getFiles().getCommand();
 
-        ModuleCheck moduleCheck = pluginService.getPathManager();
         GroupMethod groupMethod = pluginService.getPlayerMethods().getGroupMethod();
 
         Player you = event.getPlayer();
@@ -61,11 +60,11 @@ public class QuitListener implements Listener {
             }
         }
         playerStatus.resetStats();
-        if (moduleCheck.isOptionEnabled("join_quit")) {
+        if (pluginService.getListManager().isEnabledOption("modules", "join_quit")) {
             Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, event.getPlayer(), playerRank, ChangeMode.QUIT));
         }
 
-        if (moduleCheck.isCommandEnabled("reply")) {
+        if (pluginService.getListManager().isEnabledOption("commands", "reply")) {
             if (!playerStatus.hasRepliedPlayer()) {
                 return;
             }

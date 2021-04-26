@@ -1,9 +1,9 @@
 package me.bryangaming.chatlab.managers.player;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.RunnableManager;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundManager;
+import me.bryangaming.chatlab.utils.RunnableManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -75,7 +75,6 @@ public class PlayerMessage {
             } else {
                 logger.info("Error - Could not find the path in config.");
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
-
             }
         }
 

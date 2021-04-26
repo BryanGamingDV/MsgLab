@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.WorldData;
+import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.data.PartyData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.commands.IgnoreManager;
@@ -90,7 +90,7 @@ public class RecipientManager {
     private void addRecipient(AsyncPlayerChatEvent event, Player recipient) {
         IgnoreManager ignoreManager = pluginService.getPlayerMethods().getIgnoreMethod();
 
-        if (!ignoreManager.playerIsIgnored(event.getPlayer().getUniqueId(), recipient.getUniqueId())) {
+        if (ignoreManager.playerIsIgnored(event.getPlayer().getUniqueId(), recipient.getUniqueId())) {
             event.getRecipients().add(recipient);
         }
     }

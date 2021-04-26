@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.registry;
 import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.commands.*;
-import me.bryangaming.chatlab.commands.modules.CustomLanguage;
+import me.bryangaming.chatlab.commands.translation.CommandTranslation;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilderImpl;
@@ -17,7 +17,7 @@ import me.fixeddev.commandflow.command.Command;
 import java.util.List;
 
 
-public class CommandRegistry implements LoaderService {
+public class CommandLoader implements LoaderService {
 
 
     private final PluginService pluginService;
@@ -26,7 +26,7 @@ public class CommandRegistry implements LoaderService {
     private AnnotatedCommandTreeBuilder builder;
     private CommandManager commandManager;
 
-    public CommandRegistry(ChatLab plugin, PluginService pluginService) {
+    public CommandLoader(ChatLab plugin, PluginService pluginService) {
         this.plugin = plugin;
         this.pluginService = pluginService;
     }
@@ -35,11 +35,11 @@ public class CommandRegistry implements LoaderService {
     @Override
     public void setup() {
 
-        pluginService.getLogs().log("Loading CommandRegistry");
+        pluginService.getLogs().log("Loading CommandLoader");
 
         createCommandManager();
 
-        commandManager.getTranslator().setProvider(new CustomLanguage(pluginService));
+        commandManager.getTranslator().setProvider(new CommandTranslation(pluginService));
         reCheckCommands();
 
         pluginService.getLogs().log("Commands loaded!");
@@ -74,7 +74,7 @@ public class CommandRegistry implements LoaderService {
             List<Command> command = builder.fromClass(commandClass);
             String commandName = command.get(0).getName();
 
-            if (pluginService.getPathManager().isCommandEnabled(commandName)) {
+            if (pluginService.getListManager().isEnabledOption("commands", commandName)) {
                 commandManager.registerCommands(command);
                 pluginService.getLogs().log("Command: " + commandName + " loaded.");
             } else {

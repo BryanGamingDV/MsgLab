@@ -7,6 +7,7 @@ import me.bryangaming.chatlab.utils.SupportManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -32,6 +33,7 @@ public class VariableUtils {
 
     public static String replaceAllVariables(Player player, String string) {
 
+        string = setToCenter(string);
         string = replaceEmojis(string);
         string = replacePluginVariables(string);
 
@@ -42,15 +44,23 @@ public class VariableUtils {
 
         return string;
     }
+    private static String setToCenter(String string){
+        if (string.startsWith("[CENTER]")){
+            String stringWithOutVariable = string.substring(8);
 
-    public static String replacePlayerVariables(Player player, String string) {
+            return StringUtils.center(stringWithOutVariable, stringWithOutVariable.length());
+        }
+        return string;
+    }
+
+    private static String replacePlayerVariables(Player player, String string) {
         return string
                 .replace("%world%", player.getWorld().getName())
                 .replace("%player%", player.getName())
                 .replace("%online%", String.valueOf(Bukkit.getServer().getOnlinePlayers().size()));
     }
 
-    public static String replacePAPIVariables(Player player, String string) {
+    private static String replacePAPIVariables(Player player, String string) {
         if (!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             return string;
         }
@@ -62,7 +72,7 @@ public class VariableUtils {
     }
 
 
-    public static String replaceEmojis(String string) {
+    private static String replaceEmojis(String string) {
 
         for (String emojiPath : utils.getStringList("filters.emojis")) {
             string = string.replace(emojiPath.split(";")[0], emojiPath.split(";")[1]);
@@ -71,7 +81,7 @@ public class VariableUtils {
         return string;
     }
 
-    public static String replacePluginVariables(String string) {
+    private static String replacePluginVariables(String string) {
         for (String keys : config.getConfigurationSection("options.replacer").getKeys(false)) {
             string = string.replace(config.getString("options.replacer." + keys + ".variable"),
                     config.getString("options.replacer." + keys + ".format"));
@@ -82,7 +92,7 @@ public class VariableUtils {
 
     }
 
-    public static String replaceVaultVariables(Player player, String string) {
+    private static String replaceVaultVariables(Player player, String string) {
         if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             return string;
         }
@@ -99,7 +109,7 @@ public class VariableUtils {
                 .replace("%group%", permission.getPrimaryGroup(player)));
     }
 
-    public static String replaceTags(Player player, String string) {
+    private static String replaceTags(Player player, String string) {
         return chatManager.replaceTagsVariables(player, string);
     }
 }

@@ -32,16 +32,15 @@ public class CooldownData {
 
         this.cache = pluginService.getCache();
         this.playerMethod = pluginService.getPlayerMethods().getSender();
-        pluginService.getListManager().getModules().add("cooldown");
-
         pluginService.getServerData().setServerTextCooldown(utils.getInt("fitlers.cooldown.text.seconds"));
         pluginService.getServerData().setServerCmdCooldown(utils.getInt("fitlers.cooldown.cmd.seconds"));
     }
 
+
     public boolean isTextSpamming(UUID uuid) {
 
 
-        if (!pluginService.getPathManager().isOptionEnabled("cooldown")) {
+        if (pluginService.getListManager().isEnabledOption("module", "cooldown")) {
             return false;
         }
 
@@ -77,7 +76,7 @@ public class CooldownData {
 
     public boolean isCmdSpamming(UUID uuid) {
 
-        if (!pluginService.getPathManager().isOptionEnabled("cooldown")) {
+        if (pluginService.getListManager().isEnabledOption("module", "cooldown")) {
             return false;
         }
 

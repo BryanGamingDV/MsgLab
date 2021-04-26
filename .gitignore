@@ -2,6 +2,7 @@
 *.xml
 *.iml
 Core/Core.iml
+.Core/test
 Versions/Versions.iml
 Versions/LegacyVersion/LegacyVersion.iml
 Api/Api.iml

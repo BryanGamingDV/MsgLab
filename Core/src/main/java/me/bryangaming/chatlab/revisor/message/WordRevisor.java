@@ -2,13 +2,12 @@ package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
-import me.bryangaming.chatlab.bukkitutils.RunnableManager;
+import me.bryangaming.chatlab.utils.RunnableManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.managers.player.PlayerStatic;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.springframework.core.ConfigurableObjectInputStream;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -3,7 +3,8 @@ package me.bryangaming.chatlab.managers.commands;
 import me.bryangaming.chatlab.CacheManager;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -80,9 +81,7 @@ public class IgnoreManager {
 
     public boolean playerIsIgnored(UUID sender, UUID playerIgnored) {
 
-        ModuleCheck moduleCheck = pluginService.getPathManager();
-
-        if (!moduleCheck.isCommandEnabled("ignore")) {
+        if (!pluginService.getListManager().isEnabledOption("command", "ignore")) {
             return false;
         }
 

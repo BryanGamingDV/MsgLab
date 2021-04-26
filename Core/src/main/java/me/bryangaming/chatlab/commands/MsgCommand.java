@@ -1,8 +1,8 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.gui.manager.GuiManager;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.gui.manager.GuiManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SocialSpyEvent;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
@@ -10,9 +10,9 @@ import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.commands.MsgManager;
 import me.bryangaming.chatlab.managers.commands.ReplyManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
-import me.bryangaming.chatlab.registry.ConfigManager;
+import me.bryangaming.chatlab.registry.FileLoader;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -36,10 +36,8 @@ public class MsgCommand implements CommandClass {
 
     public boolean onCommand(@Sender Player sender, @OptArg OfflinePlayer target, @OptArg("") @Text String msg) {
 
-        ConfigManager files = pluginService.getFiles();
+        FileLoader files = pluginService.getFiles();
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
-
-        ModuleCheck moduleCheck = pluginService.getPathManager();
 
         Configuration command = files.getCommand();
         Configuration messages = files.getMessages();
@@ -48,7 +46,7 @@ public class MsgCommand implements CommandClass {
 
         if (target == null) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("msg", "<player>", "<message>")));
+                    .replace("%usage%", TextUtils.getUsage("msg", "<player>", "<message>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -140,7 +138,7 @@ public class MsgCommand implements CommandClass {
 
         if (targetToggled == null) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("msg", "<player>", "<message>")));
+                    .replace("%usage%", TextUtils.getUsage("msg", "<player>", "<message>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -155,7 +153,7 @@ public class MsgCommand implements CommandClass {
 
         if (msg.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("msg", "<player>", "<message>")));
+                    .replace("%usage%", TextUtils.getUsage("msg", "<player>", "<message>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -178,9 +176,9 @@ public class MsgCommand implements CommandClass {
         }
 
         MsgManager msgManager = pluginService.getPlayerMethods().getMsgMethod();
-        Player targetplayer = target.getPlayer();
+        Player targetPlayer = target.getPlayer();
 
-        msgManager.sendPrivateMessage(sender, targetplayer, message);
+        msgManager.sendPrivateMessage(sender, targetPlayer, message);
 
         String socialspyFormat = command.getString("commands.socialspy.spy")
                 .replace("%player%", sender.getName())

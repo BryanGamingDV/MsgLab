@@ -1,11 +1,11 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.debug.ErrorManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -14,7 +14,6 @@ import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Command(names = {"announcer", "acc"})
@@ -26,7 +25,6 @@ public class AnnouncerCommand implements CommandClass {
     private Configuration message;
 
     private PlayerMessage playerMethod;
-    private ModuleCheck moduleCheck;
 
     public AnnouncerCommand(PluginService pluginService) {
         this.pluginService = pluginService;
@@ -35,7 +33,6 @@ public class AnnouncerCommand implements CommandClass {
         this.message = pluginService.getFiles().getMessages();
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
-        this.moduleCheck = pluginService.getPathManager();
     }
 
     @Command(names = "")
@@ -50,7 +47,7 @@ public class AnnouncerCommand implements CommandClass {
 
         if (text.isEmpty()) {
             playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("announcer", "add", "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "add", "<text>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -76,14 +73,14 @@ public class AnnouncerCommand implements CommandClass {
 
         if (id.isEmpty()) {
             playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("announcer", "addline", "<id>", "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "addline", "<id>", "<text>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (text.isEmpty()) {
             playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("announcer", "addline", id, "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "addline", id, "<text>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -110,7 +107,7 @@ public class AnnouncerCommand implements CommandClass {
 
         if (id.isEmpty()) {
             playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("announcer", "removeline")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "removeline")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -126,7 +123,7 @@ public class AnnouncerCommand implements CommandClass {
 
         if (line.isEmpty()){
             playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                        .replace("%usage%", moduleCheck.getUsage("announcer", "removeline", id, "<line>")));
+                        .replace("%usage%", TextUtils.getUsage("announcer", "removeline", id, "<line>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -154,7 +151,7 @@ public class AnnouncerCommand implements CommandClass {
 
         if (id.isEmpty()) {
             playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("announcer", "removeline")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "removeline")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -170,7 +167,7 @@ public class AnnouncerCommand implements CommandClass {
 
         if (line.isEmpty()){
             playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("announcer", "setline", id, "<line>", "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "setline", id, "<line>", "<text>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -184,7 +181,7 @@ public class AnnouncerCommand implements CommandClass {
 
         if (text.isEmpty()){
             playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("announcer", "setline", id, line, "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "setline", id, line, "<text>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -204,7 +201,7 @@ public class AnnouncerCommand implements CommandClass {
     public boolean onRemoveSubCommand(@Sender Player sender, @OptArg("") String id) {
         if (id.isEmpty()) {
             playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("announcer", "add", "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "add", "<text>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -271,7 +268,7 @@ public class AnnouncerCommand implements CommandClass {
     public boolean onSetSubCommand(@Sender Player sender, @OptArg("") String arg1, @OptArg("") String arg2) {
         if (arg1.isEmpty()) {
             playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("announcer", "set", "interval/mode")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "set", "interval/mode")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -279,7 +276,7 @@ public class AnnouncerCommand implements CommandClass {
         if (arg1.equalsIgnoreCase("interval")) {
             if (arg2.isEmpty()) {
                 playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                        .replace("%usage%", moduleCheck.getUsage("announcer", "set", arg1, "[<time>]")));
+                        .replace("%usage%", TextUtils.getUsage("announcer", "set", arg1, "[<time>]")));
                 playerMethod.sendSound(sender, SoundEnum.ERROR);
                 return true;
             }
@@ -304,7 +301,7 @@ public class AnnouncerCommand implements CommandClass {
         if (arg1.equalsIgnoreCase("mode")) {
             if (arg2.isEmpty()) {
                 playerMethod.sendMessage(sender, message.getString("error.no-arg")
-                        .replace("%usage%", moduleCheck.getUsage("announcer", "set", arg1, "ordened/random")));
+                        .replace("%usage%", TextUtils.getUsage("announcer", "set", arg1, "ordened/random")));
                 playerMethod.sendSound(sender, SoundEnum.ERROR);
                 return true;
             }

@@ -1,13 +1,13 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -24,8 +24,6 @@ public class BroadcastWorldCommand implements CommandClass {
     private final ClickChatManager clickChatManager;
     private final PlayerMessage playerMethod;
 
-    private final ModuleCheck moduleCheck;
-
     private final Configuration command;
     private final Configuration messages;
 
@@ -34,8 +32,6 @@ public class BroadcastWorldCommand implements CommandClass {
 
         this.playerMethod = pluginService.getPlayerMethods().getSender();
         this.clickChatManager = pluginService.getPlayerMethods().getChatManagent();
-
-        this.moduleCheck = pluginService.getPathManager();
 
         this.command = pluginService.getFiles().getCommand();
         this.messages = pluginService.getFiles().getMessages();
@@ -46,7 +42,7 @@ public class BroadcastWorldCommand implements CommandClass {
 
         if (args.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("broadcastworld", "<message>")));
+                    .replace("%usage%", TextUtils.getUsage("broadcastworld", "<message>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }

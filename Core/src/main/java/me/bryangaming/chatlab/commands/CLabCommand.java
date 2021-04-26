@@ -1,15 +1,15 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.modules.DataModule;
-import me.bryangaming.chatlab.registry.ConfigManager;
+import me.bryangaming.chatlab.registry.FileLoader;
 import me.bryangaming.chatlab.tasks.TasksManager;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import me.bryangaming.chatlab.utils.module.ModuleCreator;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -34,7 +34,6 @@ public class CLabCommand implements CommandClass {
     private final Configuration command;
     private final Configuration utils;
 
-    private final ModuleCheck moduleCheck;
     private final PlayerMessage playerMethod;
 
     public CLabCommand(PluginService pluginService) {
@@ -46,14 +45,13 @@ public class CLabCommand implements CommandClass {
         this.command = pluginService.getFiles().getCommand();
         this.utils = pluginService.getFiles().getBasicUtils();
 
-        this.moduleCheck = pluginService.getPathManager();
         this.playerMethod = pluginService.getPlayerMethods().getSender();
     }
 
     @Command(names = "")
     public boolean onCommand(@Sender Player sender) {
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
+                .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
@@ -98,7 +96,7 @@ public class CLabCommand implements CommandClass {
 
         if (file.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("clab", "reload", "all, <file>")));
+                    .replace("%usage%", TextUtils.getUsage("clab", "reload", "all, <file>")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -123,7 +121,7 @@ public class CLabCommand implements CommandClass {
         }
 
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
+                .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
 
@@ -163,7 +161,7 @@ public class CLabCommand implements CommandClass {
 
         if (arg1.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("clab", "debug", "pwc, commands, modules")));
+                    .replace("%usage%", TextUtils.getUsage("clab", "debug", "pwc, commands, modules")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -210,7 +208,7 @@ public class CLabCommand implements CommandClass {
         if (arg2.equalsIgnoreCase("commands")) {
             playerMethod.sendMessage(sender, command.getString("commands.clab.debug.list.commands"));
             for (String commandName : pluginService.getListManager().getCommands()) {
-                if (pluginService.getPathManager().isCommandEnabled(commandName)) {
+                if (pluginService.getListManager().isEnabledOption("commands", commandName)) {
                     playerMethod.sendMessage(sender, "&8- &f" + commandName + " &a[Enabled]");
                 } else {
                     playerMethod.sendMessage(sender, "&8- &f" + commandName + " &c[Disabled]");
@@ -222,7 +220,7 @@ public class CLabCommand implements CommandClass {
         if (arg2.equalsIgnoreCase("modules")) {
             playerMethod.sendMessage(sender, command.getString("commands.clab.debug.list.modules"));
             for (String moduleName : pluginService.getListManager().getModules()) {
-                if (pluginService.getPathManager().isOptionEnabled(moduleName)) {
+                if (pluginService.getListManager().isEnabledOption("modules", moduleName)) {
                     playerMethod.sendMessage(sender, "&8- &f" + moduleName + " &a[Enabled]");
                 } else {
                     playerMethod.sendMessage(sender, "&8- &f" + moduleName + " &c[Disabled]");
@@ -234,7 +232,7 @@ public class CLabCommand implements CommandClass {
         }
 
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("clab", arg1, "commands, modules")));
+                .replace("%usage%", TextUtils.getUsage("clab", arg1, "commands, modules")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
@@ -250,7 +248,7 @@ public class CLabCommand implements CommandClass {
 
         if (type.isEmpty()) {
             playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                    .replace("%usage%", moduleCheck.getUsage("clab", "restore", "commands, modules")));
+                    .replace("%usage%", TextUtils.getUsage("clab", "restore", "commands, modules")));
             playerMethod.sendSound(sender, SoundEnum.ERROR);
             return true;
         }
@@ -275,14 +273,14 @@ public class CLabCommand implements CommandClass {
         }
 
         playerMethod.sendMessage(sender, messages.getString("error.no-arg")
-                .replace("%usage%", moduleCheck.getUsage("clab", "restore", "commands, modules")));
+                .replace("%usage%", TextUtils.getUsage("clab", "restore", "commands, modules")));
         playerMethod.sendSound(sender, SoundEnum.ERROR);
         return true;
     }
 
     public void getReloadEvent(Player player, String string) {
 
-        ConfigManager files = pluginService.getFiles();
+        FileLoader files = pluginService.getFiles();
 
         Map<String, Configuration> fileMap = pluginService.getCache().getConfigFiles();
         TasksManager tasksManager = pluginService.getTasksManager();

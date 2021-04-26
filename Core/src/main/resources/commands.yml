@@ -372,8 +372,8 @@ commands:
       mode: "&a[Announcer] &8| &fSetted mode to &a%mode%&f."
 
     mode:
-      public: "public"
-      private: "private"
+      ordened: "ordened"
+      random: "random"
 
     config:
       interval: 10

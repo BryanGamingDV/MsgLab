@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.commands.modules;
+package me.bryangaming.chatlab.commands.translation;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -8,7 +8,7 @@ import me.fixeddev.commandflow.bukkit.BukkitDefaultTranslationProvider;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomLanguage extends BukkitDefaultTranslationProvider {
+public class CommandTranslation extends BukkitDefaultTranslationProvider {
 
     private final PluginService pluginService;
 
@@ -16,7 +16,7 @@ public class CustomLanguage extends BukkitDefaultTranslationProvider {
 
     private final Configuration messages;
 
-    public CustomLanguage(PluginService pluginService) {
+    public CommandTranslation(PluginService pluginService) {
         this.pluginService = pluginService;
         this.messages = pluginService.getFiles().getMessages();
         translations = new HashMap<>();

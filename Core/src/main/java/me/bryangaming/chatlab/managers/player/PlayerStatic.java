@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.managers.player;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.utils.string.StringUtils;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.bryangaming.chatlab.utils.string.VariableUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -22,24 +22,24 @@ public class PlayerStatic {
 
     public static String convertText(Player player, String path) {
         path = VariableUtils.replaceAllVariables(player, path);
-        return StringUtils.setColor(path);
+        return TextUtils.setColor(path);
     }
 
     public static Component convertTextToComponent(Player player, String path) {
         path = VariableUtils.replaceAllVariables(player, path);
-        path = StringUtils.convertLegacyToMiniMessage(path);
+        path = TextUtils.convertLegacyToMiniMessage(path);
 
         return MiniMessage.get().parse(path);
     }
 
     public static Component convertTextToComponent(Player player, String path, String message) {
         path = VariableUtils.replaceAllVariables(player, path);
-        path = StringUtils.convertLegacyToMiniMessage(path);
+        path = TextUtils.convertLegacyToMiniMessage(path);
 
         if (!playerMethod.hasPermission(player, "color.variable")) {
             message = "<pre>" + message + "</pre>";
         } else {
-            message = StringUtils.convertLegacyToMiniMessage(message);
+            message = TextUtils.convertLegacyToMiniMessage(message);
         }
 
         path = path
@@ -50,12 +50,12 @@ public class PlayerStatic {
 
     public static String convertText(Player player, String path, String message) {
         path = VariableUtils.replaceAllVariables(player, path);
-        path = StringUtils.convertLegacyToMiniMessage(path);
+        path = TextUtils.convertLegacyToMiniMessage(path);
 
         if (!playerMethod.hasPermission(player, "color.variable")) {
             message = "<pre>" + message + "</pre>";
         } else {
-            message = StringUtils.convertLegacyToMiniMessage(message);
+            message = TextUtils.convertLegacyToMiniMessage(message);
         }
 
         return path

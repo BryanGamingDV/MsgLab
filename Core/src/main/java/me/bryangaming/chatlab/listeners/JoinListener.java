@@ -8,7 +8,6 @@ import me.bryangaming.chatlab.events.server.ServerChangeEvent;
 import me.bryangaming.chatlab.managers.group.GroupMethod;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -45,8 +44,6 @@ public class JoinListener implements Listener {
         PlayerMessage playerMethod = pluginService.getPlayerMethods().getSender();
         GroupMethod groupMethod = pluginService.getPlayerMethods().getGroupMethod();
 
-        ModuleCheck moduleCheck = pluginService.getPathManager();
-
         if (cache.getUserDatas().get(uuid) == null) {
             cache.getUserDatas().put(uuid, new UserData(uuid));
         }
@@ -55,7 +52,7 @@ public class JoinListener implements Listener {
         }
         String playerRank = groupMethod.getJQGroup(player);
 
-        if (moduleCheck.isOptionEnabled("join_quit")) {
+        if (pluginService.getListManager().isEnabledOption("modules", "join_quit")) {
             if (!event.getPlayer().hasPlayedBefore()) {
                 Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, event.getPlayer(), playerRank, ChangeMode.FIRST_JOIN));
             } else {
@@ -63,7 +60,7 @@ public class JoinListener implements Listener {
             }
         }
 
-        if (moduleCheck.isCommandEnabled("ignore")) {
+        if (pluginService.getListManager().isEnabledOption("modules", "ignore")) {
             Map<UUID, List<String>> ignorelist = cache.getIgnorelist();
             List<String> playerlist = players.getStringList("players." + player.getUniqueId().toString() + ".players-ignored");
 

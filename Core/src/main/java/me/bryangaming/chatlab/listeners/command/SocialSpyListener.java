@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.listeners.command;
 
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.sound.SoundEnum;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SocialSpyEvent;
 import me.bryangaming.chatlab.managers.player.PlayerMessage;

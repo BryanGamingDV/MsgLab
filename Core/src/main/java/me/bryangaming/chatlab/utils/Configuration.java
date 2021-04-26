@@ -1,6 +1,6 @@
 package me.bryangaming.chatlab.utils;
 
-import me.bryangaming.chatlab.utils.string.StringUtils;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -78,13 +78,13 @@ public final class Configuration extends YamlConfiguration {
     }
 
     public String getColoredString(String path) {
-        return StringUtils.setColor(getString(path));
+        return TextUtils.setColor(getString(path));
     }
 
     public List<String> getColoredStringList(String path) {
 
         List<String> stringList = getStringList(path);
-        stringList.replaceAll(StringUtils::setColor);
+        stringList.replaceAll(TextUtils::setColor);
 
         return stringList;
     }

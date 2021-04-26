@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.managers.group;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.bukkitutils.WorldData;
+import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -10,7 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 public class GroupMethod {
