@@ -4,11 +4,18 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.*;
 import me.bryangaming.chatlab.managers.group.GroupMethod;
+import me.bryangaming.chatlab.managers.sound.SoundManager;
+import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.bryangaming.chatlab.utils.string.VariableUtils;
 
 public class MethodManager {
 
+
+    private SoundManager soundManager;
+    private WorldData worldData;
+    private GuiManager guiManager;
+    private RunnableManager runnableManager;
 
     private SenderManager senderManager;
 
@@ -40,6 +47,10 @@ public class MethodManager {
     }
 
     public void setup() {
+        soundManager = new SoundManager(pluginService);
+        worldData = new WorldData(pluginService);
+        guiManager = new GuiManager(pluginService);
+        runnableManager = new RunnableManager(pluginService);
 
         chatManagent = new ClickChatManager(pluginService);
         groupMethod = new GroupMethod(pluginService);
@@ -127,5 +138,21 @@ public class MethodManager {
 
     public ConditionManager getConditionManager() {
         return conditionManager;
+    }
+
+    public GuiManager getGuiManager() {
+        return guiManager;
+    }
+
+    public RunnableManager getRunnableManager() {
+        return runnableManager;
+    }
+
+    public SoundManager getSoundManager() {
+        return soundManager;
+    }
+
+    public WorldData getWorldData(){
+        return worldData;
     }
 }

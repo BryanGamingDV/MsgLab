@@ -1,6 +1,5 @@
 package me.bryangaming.chatlab;
 
-import me.bryangaming.chatlab.utils.ManagingCenter;
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.managers.MethodManager;
@@ -34,7 +33,6 @@ public class PluginService {
     private FileLoader fileLoader;
 
     private CooldownData cooldownData;
-    private ManagingCenter managingCenter;
 
     private TasksManager tasksManager;
     private CacheManager cache;
@@ -52,15 +50,13 @@ public class PluginService {
 
         cache = new CacheManager(this);
 
-        fileLoader = new FileLoader(plugin, this);
+        fileLoader = new FileLoader(this);
         fileLoader.setup();
 
         supportManager = new SupportManager(this);
 
         moduleCreator = new ModuleCreator(this);
         moduleCheck = new ModuleCheck(this);
-
-        managingCenter = new ManagingCenter(this);
 
         variables = new StringFormat(this);
 
@@ -85,9 +81,6 @@ public class PluginService {
         return cooldownData;
     }
 
-    public ManagingCenter getManagingCenter() {
-        return managingCenter;
-    }
 
     public ModuleCreator getListManager() {
         return moduleCreator;

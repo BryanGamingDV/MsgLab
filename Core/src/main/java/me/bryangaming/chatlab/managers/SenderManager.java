@@ -9,6 +9,7 @@ import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -167,7 +168,7 @@ public class SenderManager {
         String path = soundType.getName();
 
         Configuration soundsFile = pluginService.getFiles().getSounds();
-        SoundManager soundManager = pluginService.getManagingCenter().getSoundManager();
+        SoundManager soundManager = pluginService.getPlayerManager().getSoundManager();
 
         Logger logger = pluginService.getPlugin().getLogger();
         String soundPath = soundsFile.getString("sounds." + path);
@@ -192,7 +193,7 @@ public class SenderManager {
 
     public void sendSound(Player player, SoundEnum soundType, String command) {
 
-        SoundManager sound = pluginService.getManagingCenter().getSoundManager();
+        SoundManager sound = pluginService.getPlayerManager().getSoundManager();
 
         if (soundType != SoundEnum.ARGUMENT) {
             return;
@@ -218,9 +219,9 @@ public class SenderManager {
         sound.setSound(player.getUniqueId(), "argument." + command);
     }
 
-    public void sendCommand(Player player, String command) {
+    public void sendCommand(CommandSender sender, String command) {
 
-        RunnableManager runnableManager = pluginService.getManagingCenter().getRunnableManager();
+        RunnableManager runnableManager = pluginService.getPlayerManager().getRunnableManager();
 
         Logger logger = pluginService.getPlugin().getLogger();
 
@@ -235,14 +236,14 @@ public class SenderManager {
         }
 
         try {
-            runnableManager.sendCommand(player, command);
+            runnableManager.sendCommand(sender, command);
 
         } catch (NullPointerException nullPointerException) {
             sendLines(nullPointerException);
             return;
         }
 
-        runnableManager.sendCommand(player, command);
+        runnableManager.sendCommand(sender, command);
     }
 
 

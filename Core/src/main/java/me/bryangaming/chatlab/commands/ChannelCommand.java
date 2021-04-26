@@ -30,7 +30,6 @@ public class ChannelCommand implements CommandClass {
     private final Configuration command;
 
     private final SenderManager playerMethod;
-    private final SoundManager sound;
 
     private final GroupMethod groupChannel;
 
@@ -42,8 +41,6 @@ public class ChannelCommand implements CommandClass {
         this.utils = pluginService.getFiles().getBasicUtils();
 
         this.playerMethod = pluginService.getPlayerManager().getSender();
-        this.sound = pluginService.getManagingCenter().getSoundManager();
-
         this.groupChannel = pluginService.getPlayerManager().getGroupMethod();
     }
 

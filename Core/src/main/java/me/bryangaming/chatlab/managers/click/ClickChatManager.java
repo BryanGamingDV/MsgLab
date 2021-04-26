@@ -44,7 +44,7 @@ public class ClickChatManager {
         UserData userData = pluginService.getCache().getUserDatas().get(uuid);
 
         SenderManager playersender = pluginService.getPlayerManager().getSender();
-        RunnableManager runnableManager = pluginService.getManagingCenter().getRunnableManager();
+        RunnableManager runnableManager = pluginService.getPlayerManager().getRunnableManager();
 
         Player player = Bukkit.getPlayer(uuid);
 

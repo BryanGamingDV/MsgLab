@@ -24,7 +24,7 @@ public class GuiListener implements Listener {
         HumanEntity player = event.getWhoClicked();
 
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
-        GuiManager guiManager = pluginService.getManagingCenter().getGuiManager();
+        GuiManager guiManager = pluginService.getPlayerManager().getGuiManager();
 
 
         if (!userData.isGUISet()) {

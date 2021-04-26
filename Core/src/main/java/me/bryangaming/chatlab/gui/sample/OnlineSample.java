@@ -5,6 +5,7 @@ import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.gui.manager.GuiData;
 import me.bryangaming.chatlab.managers.GuiManager;
 import me.bryangaming.chatlab.gui.manager.GuiSample;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.pages.PageUUIDCreator;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -33,7 +34,7 @@ public class OnlineSample implements GuiSample {
 
     public GuiData getPage(UUID sender, Integer page) {
 
-        GuiManager guiManager = pluginService.getManagingCenter().getGuiManager();
+        GuiManager guiManager = pluginService.getPlayerManager().getGuiManager();
         Configuration command = pluginService.getFiles().getCommand();
         Configuration message = pluginService.getFiles().getMessages();
 
@@ -108,9 +109,9 @@ public class OnlineSample implements GuiSample {
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         ItemMeta item = event.getCurrentItem().getItemMeta();
-        RunnableManager runnableManager = pluginService.getManagingCenter().getRunnableManager();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         Configuration command = pluginService.getFiles().getCommand();
-        GuiManager guiManager = pluginService.getManagingCenter().getGuiManager();
+        GuiManager guiManager = pluginService.getPlayerManager().getGuiManager();
 
         String previousName = ChatColor.RESET + command.getColoredString("commands.msg-online.previous-page.title");
         String nextName = ChatColor.RESET + command.getColoredString("commands.msg-online.next-page.title");
@@ -133,7 +134,7 @@ public class OnlineSample implements GuiSample {
             String onlineName = Bukkit.getPlayer(uuid).getName();
 
             if (item.getDisplayName().contains(onlineName)) {
-                runnableManager.sendCommand(player, "msg " + onlineName + " Hello!");
+                senderManager.sendCommand(player, "msg " + onlineName + " Hello!");
             }
         }
     }

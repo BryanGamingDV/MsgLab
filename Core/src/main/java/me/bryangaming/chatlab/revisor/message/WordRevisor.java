@@ -84,7 +84,7 @@ public class WordRevisor implements Revisor {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
-        RunnableManager runnableManager = pluginService.getManagingCenter().getRunnableManager();
+        RunnableManager runnableManager = pluginService.getPlayerManager().getRunnableManager();
 
             if (utils.getBoolean("revisor.words-module.message.enabled")) {
                 playerMethod.sendMessage(player, utils.getString("revisor.words-module.message.format")

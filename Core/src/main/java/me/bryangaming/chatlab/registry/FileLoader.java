@@ -18,11 +18,9 @@ public class FileLoader {
     private Configuration sounds;
     private Configuration utils;
 
-    private final ChatLab plugin;
     private final PluginService pluginService;
 
-    public FileLoader(ChatLab plugin, PluginService pluginService) {
-        this.plugin = plugin;
+    public FileLoader(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
@@ -34,7 +32,7 @@ public class FileLoader {
         sounds = this.setConfiguration("sounds.yml");
         utils = this.setConfiguration("formats.yml");
 
-        plugin.getLogger().info("Config loaded!");
+        pluginService.getPlugin().getLogger().info("Config loaded!");
     }
 
     public Configuration setConfiguration(String string) {
@@ -42,7 +40,7 @@ public class FileLoader {
         DebugLogger log = pluginService.getLogs();
         Map<String, Configuration> configFiles = pluginService.getCache().getConfigFiles();
 
-        Configuration config = new Configuration(plugin, string);
+        Configuration config = new Configuration(pluginService.getPlugin(), string);
         configFiles.put(string.split("\\.")[0], config);
 
         log.log(string + " loaded!");

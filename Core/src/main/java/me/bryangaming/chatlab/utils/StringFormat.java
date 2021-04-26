@@ -23,7 +23,6 @@ public class StringFormat {
 
     public String getVersion(Server server) {
         String version = server.getClass().getPackage().getName().split("\\.")[3];
-
         return version.replace("_", ".").substring(1, version.length() - 3);
     }
 

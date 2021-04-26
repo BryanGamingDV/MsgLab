@@ -19,7 +19,7 @@ public class LinkRevisor implements Revisor {
 
     public LinkRevisor(PluginService pluginService) {
         this.pluginService = pluginService;
-        this.runnableManager = pluginService.getManagingCenter().getRunnableManager();
+        this.runnableManager = pluginService.getPlayerManager().getRunnableManager();
 
     }
 

@@ -66,7 +66,7 @@ public class MsgCommand implements CommandClass {
                 return true;
             }
 
-            GuiManager guiManager = pluginService.getManagingCenter().getGuiManager();
+            GuiManager guiManager = pluginService.getPlayerManager().getGuiManager();
             guiManager.openInventory(playeruuid, "online", 0);
             return true;
         }

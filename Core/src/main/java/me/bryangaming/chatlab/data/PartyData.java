@@ -49,6 +49,7 @@ public class PartyData {
     public void setPrivate(boolean isPrivate){
         this.isPrivate = isPrivate;
     }
+
     public void addPlayer(UUID uuid) {
         playerList.add(uuid);
     }

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class CheckModule implements Module {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     private final Logger logger;
 
@@ -24,7 +24,6 @@ public class CheckModule implements Module {
     public void start() {
 
         Configuration utils = pluginService.getFiles().getBasicUtils();
-
         VaultHook vaultHook = pluginService.getSupportManager().getVaultSupport();
 
         if (utils.getBoolean("format.enabled")) {
