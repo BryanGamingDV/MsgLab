@@ -276,6 +276,12 @@ public class PartyManager {
             return;
         }
 
+        if (!partyData.isInParty(target.getUniqueId())) {
+            senderManager.sendMessage(player, messagesFile.getString("error.party.target.not-your-party")
+                    .replace("%target%", target.getName()));
+            return;
+        }
+
         UserData targetData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         targetData.setPartyID(0);

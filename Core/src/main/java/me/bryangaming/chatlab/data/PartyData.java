@@ -75,12 +75,7 @@ public class PartyData {
     }
 
     public boolean isInParty(UUID uuid) {
-        for (UUID online : getInvitedPlayers()) {
-            if (uuid == online) {
-                return true;
-            }
-        }
-        return false;
+        return getPlayers().contains(uuid);
     }
 
     public List<UUID> getInvitedPlayers() {
