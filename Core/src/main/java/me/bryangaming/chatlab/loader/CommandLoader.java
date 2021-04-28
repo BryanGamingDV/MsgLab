@@ -4,6 +4,7 @@ import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.commands.*;
 import me.bryangaming.chatlab.commands.translation.CommandTranslation;
+import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilderImpl;
@@ -78,7 +79,7 @@ public class CommandLoader implements LoaderService {
                 commandManager.registerCommands(command);
                 pluginService.getLogs().log("Command: " + commandName + " loaded.");
             } else {
-                pluginService.getLogs().log("Command: " + commandName + " unloaded.", 0);
+                pluginService.getLogs().log("Command: " + commandName + " unloaded.", LoggerTypeEnum.WARNING);
             }
         }
     }

@@ -4,6 +4,7 @@ import me.bryangaming.chatlab.CacheManager;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.DebugLogger;
+import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
@@ -44,7 +45,7 @@ public class SoundManager {
             return;
         }
 
-        debug.log("Using " + versionname + ", warning the default sounds are from 1.8, 1.9, disabling it", 0);
+        debug.log("Using " + versionname + ", warning the default sounds are from 1.8, 1.9, disabling it", LoggerTypeEnum.WARNING);
         debug.log("Modify the sound, to avoid errors");
 
         sound.set("config.enabled-all", false);

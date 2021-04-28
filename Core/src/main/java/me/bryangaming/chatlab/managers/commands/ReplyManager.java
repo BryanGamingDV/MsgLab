@@ -1,6 +1,5 @@
 package me.bryangaming.chatlab.managers.commands;
 
-import me.bryangaming.chatlab.CacheManager;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 

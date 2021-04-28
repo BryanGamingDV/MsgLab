@@ -1,7 +1,6 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.debug.ErrorManager;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -128,7 +127,7 @@ public class AnnouncerCommand implements CommandClass {
             return true;
         }
 
-        if (!ErrorManager.isNumber(line)){
+        if (!TextUtils.isNumber(line)){
             senderManager.sendMessage(sender, messagesFile.getString("error.announcer.unknown-line")
                     .replace("%line%", line));
             senderManager.playSound(sender, SoundEnum.ERROR);
@@ -172,7 +171,7 @@ public class AnnouncerCommand implements CommandClass {
             return true;
         }
 
-        if (!ErrorManager.isNumber(line)){
+        if (!TextUtils.isNumber(line)){
             senderManager.sendMessage(sender, messagesFile.getString("error.announcer.unknown-line")
                     .replace("%line%", line));
             senderManager.playSound(sender, SoundEnum.ERROR);
@@ -266,6 +265,7 @@ public class AnnouncerCommand implements CommandClass {
 
     @Command(names = "set")
     public boolean onSetSubCommand(@Sender Player sender, @OptArg("") String arg1, @OptArg("") String arg2) {
+
         if (arg1.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("announcer", "set", "interval/mode")));
@@ -280,15 +280,15 @@ public class AnnouncerCommand implements CommandClass {
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
-            int number;
-            try {
-                number = Integer.parseInt(arg2);
-            } catch (NumberFormatException numberFormatException) {
+
+            if (TextUtils.isNumber(arg2)) {
                 senderManager.sendMessage(sender, messagesFile.getString("error.announcer.interval")
                         .replace("%time%", arg2));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
+
+            int number = Integer.parseInt(arg2);
 
             senderManager.sendMessage(sender, commandFile.getString("commands.announcer.set.interval")
                     .replace("%time%", String.valueOf(number)));
@@ -310,7 +310,7 @@ public class AnnouncerCommand implements CommandClass {
                 case "ordened":
                 case "random":
                     senderManager.sendMessage(sender, commandFile.getString("commands.announcer.set.interval")
-                            .replace("%mode%", arg2));
+                                .replace("%mode%", arg2));
                     commandFile.set("commands.announcer.config.mode", arg2);
                     commandFile.save();
                     break;

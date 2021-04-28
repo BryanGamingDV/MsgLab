@@ -46,25 +46,20 @@ public class SenderManager {
                     logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
 
                 }
-            } else {
-                permission = config.getString("perms." + StringUtils.remove(path, ".main"));
+
+                TextUtils.printStackTrace();
+                return false;
             }
 
-        } else {
-            if (permission.equalsIgnoreCase("none")) {
+            return player.hasPermission(config.getString("perms." + StringUtils.remove(path, ".main")));
+        }
+
+        if (permission.equalsIgnoreCase("none")) {
                 return true;
-            }
         }
 
+        return player.hasPermission(permission);
 
-        try {
-            return player.hasPermission(permission);
-
-        } catch (NullPointerException nullPointerException) {
-            sendLines(nullPointerException);
-
-        }
-        return false;
     }
 
 
@@ -78,16 +73,14 @@ public class SenderManager {
                 logger.info("Error - Could not find the path in config.");
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
             }
+
+            TextUtils.printStackTrace();
+            return;
         }
 
 
         Audience player = pluginService.getPlugin().getBukkitAudiences().player(sender);
-
-        try {
-            player.sendMessage(TextUtils.convertTextToComponent(sender, path));
-        } catch (NullPointerException nullPointerException) {
-            sendLines(nullPointerException);
-        }
+        player.sendMessage(TextUtils.convertTextToComponent(sender, path));
     }
 
     public void sendMessageTo(List<Player> playerList, String path) {
@@ -99,25 +92,21 @@ public class SenderManager {
             } else {
                 logger.info("Error - Could not find the path in config.");
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
-
             }
+            TextUtils.printStackTrace();
+            return;
         }
 
         for (Player online : playerList) {
             Audience player = pluginService.getPlugin().getBukkitAudiences().player(online);
-
-            try {
-                player.sendMessage(TextUtils.convertTextToComponent(online, path));
-            } catch (NullPointerException nullPointerException) {
-                sendLines(nullPointerException);
-                return;
-            }
+            player.sendMessage(TextUtils.convertTextToComponent(online, path));
         }
     }
 
     public void sendMessage(Player sender, String path, String message) {
         Logger logger = pluginService.getPlugin().getLogger();
         if (path == null) {
+
             if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
             } else {
@@ -125,14 +114,12 @@ public class SenderManager {
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
 
             }
+            TextUtils.printStackTrace();
+            return;
         }
 
         Audience player = pluginService.getPlugin().getBukkitAudiences().player(sender);
-        try {
-            player.sendMessage(TextUtils.convertTextToComponent(sender, path, message));
-        } catch (NullPointerException nullPointerException) {
-            sendLines(nullPointerException);
-        }
+        player.sendMessage(TextUtils.convertTextToComponent(sender, path, message));
     }
 
     public void sendMessage(Player sender, List<String> messages) {
@@ -145,17 +132,12 @@ public class SenderManager {
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
 
             }
+            TextUtils.printStackTrace();
+            return;
         }
 
         Audience player = pluginService.getPlugin().getBukkitAudiences().player(sender);
-        try {
-            messages
-                    .replaceAll(message -> TextUtils.convertText(sender, message));
-
-        } catch (NullPointerException nullPointerException) {
-            sendLines(nullPointerException);
-            return;
-        }
+        messages.replaceAll(message -> TextUtils.convertText(sender, message));
 
         for (String message : messages) {
             player.sendMessage(MiniMessage.get().parse(message));
@@ -181,14 +163,11 @@ public class SenderManager {
                 logger.info("Error - Could not find the path in config.");
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
             }
+            TextUtils.printStackTrace();
+            return;
         }
 
-        try {
-            soundManager.setSound(player.getUniqueId(), "sounds." + path);
-
-        } catch (NullPointerException nullPointerException) {
-            sendLines(nullPointerException);
-        }
+        soundManager.setSound(player.getUniqueId(), "sounds." + soundType.getName());
     }
 
     public SenderManager playSound(Player player, SoundEnum soundType, String command) {
@@ -234,13 +213,8 @@ public class SenderManager {
                 logger.info("Error - Could not find the path in config.");
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
             }
-        }
 
-        try {
-            runnableManager.waitSecond(sender, time, command);
-
-        } catch (NullPointerException nullPointerException) {
-            sendLines(nullPointerException);
+            TextUtils.printStackTrace();
             return;
         }
 
@@ -283,16 +257,9 @@ public class SenderManager {
                 logger.info("Error - Could not find the path in config.");
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
             }
-        }
-
-        try {
-            runnableManager.waitSecond(sender, time, messages);
-
-        } catch (NullPointerException nullPointerException) {
-            sendLines(nullPointerException);
+            TextUtils.printStackTrace();
             return;
         }
-
         runnableManager.waitSecond(sender, time, messages);
     }
 
@@ -311,38 +278,10 @@ public class SenderManager {
                 logger.info("Error - Could not find the path in config.");
                 logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
             }
-        }
-
-        try {
-            runnableManager.sendCommand(sender, command);
-
-        } catch (NullPointerException nullPointerException) {
-            sendLines(nullPointerException);
+            TextUtils.printStackTrace();
             return;
         }
 
         runnableManager.sendCommand(sender, command);
-    }
-
-
-    private void sendLines(NullPointerException nullPointerException) {
-        Logger logger = pluginService.getPlugin().getLogger();
-
-        logger.info("Code line:");
-        for (StackTraceElement stackTraceElement : nullPointerException.getStackTrace()) {
-
-            String errorLine = stackTraceElement.toString();
-
-            if (errorLine.contains("java.")) {
-                break;
-            }
-
-            if (!errorLine.contains("code.")) {
-                continue;
-            }
-
-            logger.info("- " + stackTraceElement.toString());
-
-        }
     }
 }

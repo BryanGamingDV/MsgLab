@@ -3,6 +3,7 @@ package me.bryangaming.chatlab.utils.hooks;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import org.bukkit.Bukkit;
 
 public class ProtocolHook {
@@ -19,7 +20,7 @@ public class ProtocolHook {
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
             pluginService.getPlugin().getLogger().info("Addons - ProtocolLib not enabled! Disabling support..");
-            pluginService.getLogs().log("Addons - ProtocolLib not enabled! Disabling support..", 0);
+            pluginService.getLogs().log("Addons - ProtocolLib not enabled! Disabling support..", LoggerTypeEnum.ERROR);
             return;
         }
 

@@ -1,6 +1,7 @@
 package me.bryangaming.chatlab.utils.hooks;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -25,7 +26,7 @@ public class VaultHook {
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             pluginService.getPlugin().getLogger().info("Addons - Vault not enabled! Disabling support..");
-            pluginService.getLogs().log("Addons - Vault not enabled! Disabling support..", 0);
+            pluginService.getLogs().log("Addons - Vault not enabled! Disabling support..", LoggerTypeEnum.WARNING);
             return;
         }
 

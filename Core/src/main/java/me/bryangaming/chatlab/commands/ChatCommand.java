@@ -335,16 +335,13 @@ public class ChatCommand implements CommandClass {
             return true;
         }
 
-        int time;
-
-        try {
-            time = Integer.parseInt(text);
-        } catch (NumberFormatException nfe) {
+        if (TextUtils.isNumber(text)){
             senderManager.sendMessage(sender, messagesFile.getString("error.flags.unknown-number")
                     .replace("%text%", text));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
+        int time = Integer.parseInt(text);
 
         chatManager.setCooldown(sender, time);
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "chat cooldown");

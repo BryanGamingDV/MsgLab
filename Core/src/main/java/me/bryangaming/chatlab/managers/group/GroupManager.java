@@ -3,6 +3,7 @@ package me.bryangaming.chatlab.managers.group;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.DebugLogger;
+import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.utils.hooks.VaultHook;
@@ -56,7 +57,7 @@ public class GroupManager {
 
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault isn't loaded..");
-            debugLogger.log("[SendTextListener] | Vault isn't loaded..", 2);
+            debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
 
@@ -64,7 +65,7 @@ public class GroupManager {
 
         if (vaultHook.getChat() == null || vaultHook.getPermissions() == null) {
             pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
-            debugLogger.log("[SendTextListener] | Vault isn't loaded..", 2);
+            debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
 
@@ -100,7 +101,7 @@ public class GroupManager {
 
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault isn't loaded..");
-            debugLogger.log("[SendTextListener] | Vault isn't loaded..", 2);
+            debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
 
@@ -108,7 +109,7 @@ public class GroupManager {
 
         if (vaultHook.getChat() == null || vaultHook.getPermissions() == null) {
             pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault complement [LuckPerms, PermissionsEx..] isn't loaded..");
-            debugLogger.log("[SendTextListener] | Vault isn't loaded..", 2);
+            debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
 
@@ -274,7 +275,7 @@ public class GroupManager {
 
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault isn't loaded..");
-            debugLogger.log("[SendTextListener] | Vault isn't loaded..", 2);
+            debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
 
@@ -282,7 +283,7 @@ public class GroupManager {
 
         if (vaultHook.getChat() == null || vaultHook.getPermissions() == null) {
             pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
-            debugLogger.log("[SendTextListener] | Vault isn't loaded..", 2);
+            debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
 

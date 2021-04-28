@@ -21,23 +21,23 @@ public class DebugLogger {
         log("Loading plugin..");
     }
 
-    public void log(String string, int number) {
-        switch (number) {
-            case 0:
-                this.getLogger(string, "WARNING");
-                break;
+    public void log(String string){
+        getLogger(string, "LOG");
+    }
 
-            case 1:
+    public void log(String string, LoggerTypeEnum loggerTypeEnum) {
+        switch (loggerTypeEnum) {
+            case WARNING:
+                break;
+            case ERROR:
                 plugin.getLogger().info("A error ocurred. Please check debug");
-                this.getLogger(string, "ERROR");
                 break;
-
-
-            case 2:
+            case SUCCESSFULL:
                 plugin.getLogger().info("Plugin successfully loaded!");
-                this.getLogger(string, "SUCCESSFULL");
                 break;
         }
+
+        getLogger(string, loggerTypeEnum.getName());
     }
 
     public void setup() {
@@ -56,12 +56,8 @@ public class DebugLogger {
         }
     }
 
-    public void log(String string) {
-        this.getLogger(string, "LOG");
-    }
 
-
-    private void getLogger(String string, String mode) {
+    private void getLogger(String string, String typeName) {
         Date now = new Date();
 
         try {
@@ -69,7 +65,7 @@ public class DebugLogger {
             BufferedWriter writer = new BufferedWriter(fw);
             SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 
-            writer.write("[" + format.format(now) + " " + mode + "] " + string);
+            writer.write("[" + format.format(now) + " " + typeName + "] " + string);
             writer.newLine();
             writer.flush();
             writer.close();

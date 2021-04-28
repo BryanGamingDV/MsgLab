@@ -1,22 +1,17 @@
 package me.bryangaming.chatlab.listeners;
 
-import me.bryangaming.chatlab.CacheManager;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SendDataEvent;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
-import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.group.GroupManager;
-import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class JoinListener implements Listener {

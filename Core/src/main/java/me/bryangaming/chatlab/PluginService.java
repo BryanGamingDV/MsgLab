@@ -2,10 +2,10 @@ package me.bryangaming.chatlab;
 
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.debug.DebugLogger;
-import me.bryangaming.chatlab.managers.MethodManager;
 import me.bryangaming.chatlab.loader.CommandLoader;
 import me.bryangaming.chatlab.loader.EventLoader;
 import me.bryangaming.chatlab.loader.FileLoader;
+import me.bryangaming.chatlab.managers.MethodManager;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.tasks.TasksManager;
 import me.bryangaming.chatlab.utils.StringFormat;

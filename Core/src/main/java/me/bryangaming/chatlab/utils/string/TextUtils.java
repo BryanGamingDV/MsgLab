@@ -6,23 +6,28 @@ import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class TextUtils {
 
     private PluginService pluginService;
+
     private static Configuration config;
     private static SenderManager senderManager;
+    private static Logger logger;
 
     public TextUtils(PluginService pluginService) {
         this.pluginService = pluginService;
 
         config = pluginService.getFiles().getConfigFile();
         senderManager = pluginService.getPlayerManager().getSender();
+        logger = pluginService.getPlugin().getLogger();
     }
 
     public static String setColor(String string) {
@@ -89,6 +94,18 @@ public class TextUtils {
         arrayList.addAll(Arrays.asList(listValues));
     }
 
+    public static boolean isNumber(String path) {
+        return StringUtils.isNumeric(path);
+    }
+
+    public static boolean isNumberOr(String... paths) {
+        for (String path : paths) {
+            return StringUtils.isNumeric(path);
+        }
+
+        return false;
+    }
+
     public static String getUsage(String command, String... args) {
 
         StringBuilder message = new StringBuilder();
@@ -103,5 +120,31 @@ public class TextUtils {
 
         return "/" + command + " " + message.toString();
 
+    }
+
+    public static void printStackTrace() {
+        logger.info("Code line:");
+
+        StackTraceElement[] stackTraceElement = new Exception().getStackTrace();
+
+        for (int stackId = 0; stackId < stackTraceElement.length; stackId++) {
+
+            if (stackId < 1) {
+                continue;
+            }
+
+            String errorLine = stackTraceElement[stackId].toString();
+
+            if (errorLine.contains("java.")) {
+                break;
+            }
+
+            if (!errorLine.contains("code.")) {
+                continue;
+            }
+
+            logger.info("- " + stackTraceElement[stackId].toString());
+
+        }
     }
 }

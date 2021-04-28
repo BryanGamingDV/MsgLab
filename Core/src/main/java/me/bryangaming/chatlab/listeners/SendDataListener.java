@@ -1,11 +1,9 @@
 package me.bryangaming.chatlab.listeners;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SendDataEvent;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 

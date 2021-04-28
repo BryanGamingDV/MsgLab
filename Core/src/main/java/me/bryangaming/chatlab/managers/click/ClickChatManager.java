@@ -2,10 +2,10 @@ package me.bryangaming.chatlab.managers.click;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.debug.ErrorManager;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.WorldData;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -75,7 +75,7 @@ public class ClickChatManager {
 
         if (chatClick.size() == 3) {
 
-            if (!ErrorManager.isNumber(chatClick.get(2))) {
+            if (!TextUtils.isNumber(chatClick.get(2))) {
                 senderManager.sendMessage(player, messages.getString("error.click-chat.unknown-number")
                         .replace("%number%", chatClick.get(2)));
                 userData.toggleClickMode(true);

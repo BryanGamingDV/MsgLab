@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.debug.ErrorManager;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 
@@ -23,7 +23,7 @@ public class ConditionManager {
             case "<":
                 return Integer.parseInt(firstObject) < Integer.parseInt(secondObject);
             case "=":
-                if (ErrorManager.isNumberOr(firstObject, secondObject)){
+                if (TextUtils.isNumberOr(firstObject, secondObject)){
                     return Integer.parseInt(firstObject) == Integer.parseInt(secondObject);
                 }
                 return firstObject.equalsIgnoreCase(secondObject);

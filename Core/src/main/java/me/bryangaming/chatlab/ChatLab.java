@@ -1,8 +1,7 @@
 package me.bryangaming.chatlab;
 
-import me.bryangaming.chatlab.api.BasicAPIDesc;
-import me.bryangaming.chatlab.api.ChatApiImpl;
 import me.bryangaming.chatlab.api.Module;
+import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import me.bryangaming.chatlab.modules.CheckModule;
 import me.bryangaming.chatlab.modules.DataModule;
 import me.bryangaming.chatlab.modules.RecoverDataModule;
@@ -15,10 +14,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ChatLab extends JavaPlugin {
 
     private PluginService basicMsg;
-
     private BukkitAudiences bukkitAudiences;
 
-    private static ChatApiImpl chatApiImpl;
 
     @Override
     public void onEnable() {
@@ -32,7 +29,7 @@ public class ChatLab extends JavaPlugin {
         getLogger().info("You are using version " + getDescription().getVersion() + ".");
         getLogger().info("If you want support, you can join in: https://discord.gg/wpSh4Bf4Es");
 
-        basicMsg.getLogs().log("- Plugin successfull loaded.", 2);
+        basicMsg.getLogs().log("- Plugin successfull loaded.", LoggerTypeEnum.SUCCESSFULL);
 
     }
 
@@ -42,10 +39,6 @@ public class ChatLab extends JavaPlugin {
 
     public BukkitAudiences getBukkitAudiences() {
         return bukkitAudiences;
-    }
-
-    public static BasicAPIDesc getAPI() {
-        return chatApiImpl;
     }
 
     public void onDisable() {
@@ -58,7 +51,6 @@ public class ChatLab extends JavaPlugin {
         basicMsg = new PluginService(this);
 
         basicMsg.getLogs().log("Loading ChatApiImpl...");
-        chatApiImpl = new ChatApiImpl(basicMsg);
         basicMsg.getLogs().log("Loaded.");
 
         if (!basicMsg.getFiles().getConfigFile().getString("version", "1.0").equalsIgnoreCase(getDescription().getVersion())) {
@@ -82,7 +74,7 @@ public class ChatLab extends JavaPlugin {
 
     public void recoverStats() {
         if (Bukkit.getServer().getOnlinePlayers().size() > 0) {
-            basicMsg.getLogs().log("The plugin was reloaded with /reload", 1);
+            basicMsg.getLogs().log("The plugin was reloaded with /reload", LoggerTypeEnum.WARNING);
             getLogger().info("Please don't use /reload to reload plugins, it can cause serious errors!");
         }
     }
@@ -107,7 +99,7 @@ public class ChatLab extends JavaPlugin {
             getLogger().info("PlaceholderAPI hooked!");
             basicMsg.getLogs().log("PlaceholderAPI loaded!");
         } else {
-            basicMsg.getLogs().log("PlaceholderAPI is not loaded !", 0);
+            basicMsg.getLogs().log("PlaceholderAPI is not loaded !", LoggerTypeEnum.WARNING);
         }
     }
 }
