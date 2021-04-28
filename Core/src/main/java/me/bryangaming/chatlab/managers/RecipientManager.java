@@ -1,12 +1,12 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.data.PartyData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.commands.IgnoreManager;
 import me.bryangaming.chatlab.managers.group.GroupEnum;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.WorldData;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -28,7 +28,7 @@ public class RecipientManager {
 
     public void setRecipients(AsyncPlayerChatEvent event) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         Player player = event.getPlayer();
         UserData playerData = pluginService.getCache().getUserDatas().get(player.getUniqueId());

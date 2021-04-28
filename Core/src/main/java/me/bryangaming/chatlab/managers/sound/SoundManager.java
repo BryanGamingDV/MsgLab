@@ -25,7 +25,7 @@ public class SoundManager {
     public SoundManager(PluginService pluginService) {
         this.pluginService = pluginService;
         this.cache = pluginService.getCache();
-        this.sound = pluginService.getFiles().getSounds();
+        this.sound = pluginService.getFiles().getSoundsFile();
         this.debug = pluginService.getLogs();
         setup();
     }
@@ -70,7 +70,7 @@ public class SoundManager {
         Sound soundType = getSound(path + ".sound");
 
         SenderManager playersender = pluginService.getPlayerManager().getSender();
-        Configuration messages = pluginService.getFiles().getMessages();
+        Configuration messages = pluginService.getFiles().getMessagesFile();
 
         if (soundType == null) {
             playersender.sendMessage(player.getPlayer(), messages.getString("error.sound.no-exists"));

@@ -16,14 +16,15 @@ public class CapsRevisor implements Revisor {
         this.pluginService = pluginService;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor.caps-module.enabled");
+    }
+
     public String revisor(Player player, String string) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
-
-        if (!(utils.getBoolean("revisor.caps-module.enabled"))) {
-            return string;
-        }
 
         int mayusmin = utils.getInt("revisor.caps-module.min-mayus", -1);
         int mayuscount = 0;

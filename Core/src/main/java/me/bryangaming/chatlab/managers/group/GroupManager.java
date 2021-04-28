@@ -1,10 +1,10 @@
 package me.bryangaming.chatlab.managers.group;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.utils.hooks.VaultHook;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -12,22 +12,22 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.Set;
 
-public class GroupMethod {
+public class GroupManager {
 
     private final PluginService pluginService;
 
-    public GroupMethod(PluginService pluginService) {
+    public GroupManager(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
     public Set<String> getGroup() {
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         return utils.getConfigurationSection("format.groups").getKeys(false);
     }
 
     public String getPlayerGroup(Player player) {
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
@@ -80,7 +80,7 @@ public class GroupMethod {
 
     public String getGroupPermission(String channel) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (channel.equalsIgnoreCase("default")) {
             return "default";
@@ -95,7 +95,7 @@ public class GroupMethod {
 
     public String getJQGroup(Player player) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         DebugLogger debugLogger = pluginService.getLogs();
 
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
@@ -135,7 +135,7 @@ public class GroupMethod {
     }
 
     public Set<String> getConfigSection(GroupEnum channelType, Player player, String playerRank) {
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (channelType == GroupEnum.CHANNEL) {
             return utils.getConfigurationSection("channel." + playerRank + ".bases").getKeys(false);
@@ -158,7 +158,7 @@ public class GroupMethod {
     }
 
     public String getPlayerFormat(GroupEnum channelType, Player player, String playerRank, String format) {
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (channelType == GroupEnum.CHANNEL) {
             return utils.getString("channel." + playerRank + ".bases." + format + ".format");
@@ -181,7 +181,7 @@ public class GroupMethod {
     }
 
     public List<String> getPlayerHover(GroupEnum channelType, Player player, String playerRank, String format) {
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (channelType == GroupEnum.CHANNEL) {
             return utils.getStringList("channel." + playerRank + ".bases." + format + ".hover");
@@ -205,7 +205,7 @@ public class GroupMethod {
     }
 
     public String getPlayerActionType(GroupEnum channelType, Player player, String playerRank, String format) {
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (channelType == GroupEnum.CHANNEL) {
             return utils.getString("channel." + playerRank + ".bases." + format + ".action.type");
@@ -229,7 +229,7 @@ public class GroupMethod {
     }
 
     public String getPlayerActionFormat(GroupEnum channelType, Player player, String playerRank, String format) {
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (channelType == GroupEnum.CHANNEL) {
             return utils.getString("channel." + playerRank + ".bases." + format + ".action.format");
@@ -254,7 +254,7 @@ public class GroupMethod {
 
 
     public boolean hasGroupPermission(Player player, String group) {
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         VaultHook vaultHook = pluginService.getSupportManager().getVaultSupport();
 
         switch (utils.getString("channel." + group + ".condition.type").toLowerCase()){
@@ -269,7 +269,7 @@ public class GroupMethod {
 
     public String getFitlerGroup(Player player) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         DebugLogger debugLogger = pluginService.getLogs();
 
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {

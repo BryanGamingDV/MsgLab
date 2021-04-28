@@ -2,7 +2,6 @@ package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
-import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
@@ -14,20 +13,22 @@ import java.util.regex.Pattern;
 
 public class WordRevisor implements Revisor {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     public WordRevisor(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
+    @Override
+    public boolean isEnabled(){
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor.words-module.enabled");
+    }
+
+    @Override
     public String revisor(Player player, String string) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
-
-        if (!(utils.getBoolean("revisor.words-module.enabled"))) {
-            return string;
-        }
         
         int words = 0;
         boolean bwstatus = false;
@@ -82,9 +83,8 @@ public class WordRevisor implements Revisor {
 
     private void sendProtocolMessage(Player player){
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
-        RunnableManager runnableManager = pluginService.getPlayerManager().getRunnableManager();
 
             if (utils.getBoolean("revisor.words-module.message.enabled")) {
                 playerMethod.sendMessage(player, utils.getString("revisor.words-module.message.format")
@@ -92,7 +92,7 @@ public class WordRevisor implements Revisor {
             }
 
             if (utils.getBoolean("revisor.words-module.command.enabled")) {
-                runnableManager.sendCommand(Bukkit.getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor.words-module.command.format")
+                playerMethod.sendCommand(Bukkit.getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor.words-module.command.format")
                         .replace("%player%", player.getName())));
             }
 

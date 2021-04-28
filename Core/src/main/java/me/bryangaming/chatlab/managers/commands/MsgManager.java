@@ -1,8 +1,8 @@
 package me.bryangaming.chatlab.managers.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
 
@@ -19,10 +19,10 @@ public class MsgManager {
 
     public void sendPrivateMessage(Player player, Player target, String message) {
 
-        Configuration command = pluginService.getFiles().getCommand();
-        Configuration players = pluginService.getFiles().getPlayers();
+        Configuration command = pluginService.getFiles().getCommandFile();
+        Configuration players = pluginService.getFiles().getPlayersFile();
 
-        SenderManager playersender = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         String playerFormat = command.getString("commands.msg-reply.player")
                 .replace("%player%", player.getName())
@@ -34,8 +34,8 @@ public class MsgManager {
 
         UUID playeruuid = player.getUniqueId();
 
-        playersender.sendMessage(player, playerFormat, message);
-        playersender.sendSound(player, SoundEnum.ARGUMENT, "msg");
+        senderManager.sendMessage(player, playerFormat, message);
+        senderManager.playSound(player, SoundEnum.ARGUMENT, "msg");
 
         List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
 
@@ -43,8 +43,8 @@ public class MsgManager {
             return;
         }
 
-        playersender.sendMessage(target, targetFormat, message);
-        playersender.sendSound(target, SoundEnum.RECEIVE_MSG);
+        senderManager.sendMessage(target, targetFormat, message);
+        senderManager.playSound(target, SoundEnum.RECEIVE_MSG);
 
     }
 

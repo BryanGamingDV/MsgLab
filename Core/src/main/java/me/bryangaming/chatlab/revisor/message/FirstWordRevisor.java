@@ -16,14 +16,15 @@ public class FirstWordRevisor implements Revisor {
     }
 
     @Override
+    public boolean isEnabled() {
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor.first-mayus-module.enabled");
+    }
+
+    @Override
     public String revisor(Player player, String message) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
-
-        if (!utils.getBoolean("revisor.first-mayus-module.enabled")){
-            return message;
-        }
 
         String firstLetter = String.valueOf(message.charAt(0));
 
@@ -32,7 +33,6 @@ public class FirstWordRevisor implements Revisor {
         }
 
         message = message.replaceFirst(firstLetter, firstLetter.toUpperCase());
-
 
         if (utils.getBoolean("revisor.first-mayus-module.warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {

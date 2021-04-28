@@ -1,13 +1,13 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SocialSpyEvent;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.SenderManager;
-import me.bryangaming.chatlab.registry.FileLoader;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
+import me.bryangaming.chatlab.loader.FileLoader;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -30,43 +30,43 @@ public class ReplyCommand implements CommandClass {
     }
 
     @Command(names = {"reply", "r"})
-    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String message) {
+    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String text) {
 
         FileLoader files = pluginService.getFiles();
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        Configuration players = files.getPlayers();
-        Configuration command = files.getCommand();
-        Configuration lang = files.getMessages();
+        Configuration playersFile = files.getPlayersFile();
+        Configuration commandFile = files.getCommandFile();
+        Configuration messagesFile = files.getMessagesFile();
 
         UUID playeruuid = sender.getUniqueId();
 
-        if (message.isEmpty()) {
-            playerMethod.sendMessage(sender, lang.getString("error.no-arg")
+        if (text.isEmpty()) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("reply", "<message>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         UserData playerCache = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
         if (!playerCache.hasRepliedPlayer()) {
-            playerMethod.sendMessage(sender, lang.getString("error.no-reply"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-reply"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         Player target = Bukkit.getPlayer(playerCache.getRepliedPlayer());
 
-        if (message.equalsIgnoreCase("-sender")) {
-            playerMethod.sendMessage(sender, command.getString("commands.msg-reply.talked")
+        if (text.equalsIgnoreCase("-sender")) {
+            senderManager.sendMessage(sender, commandFile.getString("commands.msg-reply.talked")
                     .replace("%player%", target.getName()));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (command.getBoolean("commands.msg-reply.enable-revisor")) {
-            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
+        if (commandFile.getBoolean("commands.msg-reply.enable-revisor")) {
+            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, text, TextRevisorEnum.TEXT);
             Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
 
             if (textrevisorEvent.isCancelled()){
@@ -74,34 +74,34 @@ public class ReplyCommand implements CommandClass {
             }
         }
 
-        if (!playerMethod.hasPermission(sender, "color.commands")) {
-            message = "<pre>" + message + "</pre>";
+        if (!senderManager.hasPermission(sender, "color.commands")) {
+            text = "<pre>" + text + "</pre>";
         }
 
-        playerMethod.sendMessage(sender, command.getString("commands.msg-reply.player")
+        senderManager.sendMessage(sender, commandFile.getString("commands.msg-reply.player")
                         .replace("%player%", sender.getName())
                         .replace("%arg-1%", target.getName())
-                , message);
-        playerMethod.sendSound(sender, SoundEnum.RECEIVE_MSG);
+                , text);
+        senderManager.playSound(sender, SoundEnum.RECEIVE_MSG);
 
-        List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
+        List<String> ignoredlist = playersFile.getStringList("players." + playeruuid + ".players-ignored");
 
         if (!(ignoredlist.contains(target.getName()))) {
-            playerMethod.sendMessage(target, command.getString("commands.msg-reply.player")
+            senderManager.sendMessage(target, commandFile.getString("commands.msg-reply.player")
                             .replace("%player%", sender.getName())
                             .replace("%arg-1%", target.getName())
-                    , message);
+                    , text);
 
             UserData targetCache = pluginService.getCache().getUserDatas().get(target.getUniqueId());
 
             targetCache.setRepliedPlayer(playeruuid);
-            playerMethod.sendSound(sender, SoundEnum.RECEIVE_MSG);
+            senderManager.playSound(sender, SoundEnum.RECEIVE_MSG);
         }
 
-        String socialspyFormat = command.getString("commands.socialspy.spy")
+        String socialspyFormat = commandFile.getString("commands.socialspy.spy")
                 .replace("%player%", sender.getName())
                 .replace("%arg-1%", target.getName())
-                .replace("%message%", message);
+                .replace("%message%", text);
 
         Bukkit.getPluginManager().callEvent(new SocialSpyEvent(socialspyFormat));
         return true;

@@ -1,9 +1,9 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -22,25 +22,25 @@ public class CommandSpyCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final SenderManager playerMethod;
+    private final Configuration commandFile;
+    private final Configuration messagesFile;
 
-    private Configuration command;
-    private Configuration messages;
+    private final SenderManager senderManager;
 
     public CommandSpyCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.senderManager = pluginService.getPlayerManager().getSender();
 
-        this.command = pluginService.getFiles().getCommand();
-        this.messages = pluginService.getFiles().getMessages();
+        this.commandFile = pluginService.getFiles().getCommandFile();
+        this.messagesFile = pluginService.getFiles().getMessagesFile();
     }
 
     @Command(names = {""})
     public boolean onMainSubCommand(@Sender Player sender) {
-        playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+        senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                 .replace("%usage%", TextUtils.getUsage("cspy", "on, off, list, block, unblock")));
-        playerMethod.sendSound(sender, SoundEnum.ERROR);
+        senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
     }
 
@@ -52,20 +52,20 @@ public class CommandSpyCommand implements CommandClass {
         if (offlinePlayer == null) {
 
             if (userData.isCommandspyMode()) {
-                playerMethod.sendMessage(sender, messages.getString("error.commandspy.status.player.already-enabled"));
-                playerMethod.sendSound(sender, SoundEnum.ERROR);
+                senderManager.sendMessage(sender, messagesFile.getString("error.commandspy.status.player.already-enabled"));
+                senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
             userData.setCommandspyMode(true);
-            playerMethod.sendMessage(sender, command.getString("commands.commandspy.player.enabled"));
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "commandspy on");
+            senderManager.sendMessage(sender, commandFile.getString("commands.commandspy.player.enabled"));
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "commandspy on");
             return true;
         }
 
         if (!offlinePlayer.isOnline()) {
-            playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -74,18 +74,18 @@ public class CommandSpyCommand implements CommandClass {
 
 
         if (targetData.isCommandspyMode()) {
-            playerMethod.sendMessage(sender, messages.getString("error.commandspy.status.arg-2.already-enabled")
+            senderManager.sendMessage(sender, messagesFile.getString("error.commandspy.status.arg-2.already-enabled")
                     .replace("%arg-2%", offlinePlayer.getName()));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         targetData.setCommandspyMode(true);
-        playerMethod.sendMessage(sender, command.getString("commands.commandspy.arg-2.enabled")
+        senderManager.sendMessage(sender, commandFile.getString("commands.commandspy.arg-2.enabled")
                 .replace("%arg-2%", offlinePlayer.getName()));
-        playerMethod.sendMessage(targetData.getPlayer(), command.getString("commands.commandspy.player.enabled")
+        senderManager.sendMessage(targetData.getPlayer(), commandFile.getString("commands.commandspy.player.enabled")
                 .replace("%player%", offlinePlayer.getName()));
-        playerMethod.sendSound(offlinePlayer.getPlayer(), SoundEnum.ARGUMENT, "commandspy on");
+        senderManager.playSound(offlinePlayer.getPlayer(), SoundEnum.ARGUMENT, "commandspy on");
         return true;
     }
 
@@ -97,36 +97,36 @@ public class CommandSpyCommand implements CommandClass {
         if (offlinePlayer == null) {
 
             if (!userData.isCommandspyMode()) {
-                playerMethod.sendMessage(sender, messages.getString("error.commandspy.status.already-disabled"));
-                playerMethod.sendSound(sender, SoundEnum.ERROR);
+                senderManager.sendMessage(sender, messagesFile.getString("error.commandspy.status.already-disabled"));
+                senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
             userData.setCommandspyMode(false);
-            playerMethod.sendMessage(sender, command.getString("commands.commandspy.player.disabled"));
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "commandspy off");
+            senderManager.sendMessage(sender, commandFile.getString("commands.commandspy.player.disabled"));
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "commandspy off");
             return true;
         }
 
         if (!offlinePlayer.isOnline()) {
-            playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         UserData targetData = pluginService.getCache().getUserDatas().get(offlinePlayer.getUniqueId());
 
         if (!userData.isCommandspyMode()) {
-            playerMethod.sendMessage(sender, messages.getString("error.commandspy.status.arg-2.already-disabled")
+            senderManager.sendMessage(sender, messagesFile.getString("error.commandspy.status.arg-2.already-disabled")
                     .replace("%arg-2%", offlinePlayer.getName()));
             return true;
         }
 
         targetData.setCommandspyMode(false);
-        playerMethod.sendMessage(sender, command.getString("commands.commandspy.arg-2.disabled")
+        senderManager.sendMessage(sender, commandFile.getString("commands.commandspy.arg-2.disabled")
                 .replace("%arg-2%", offlinePlayer.getName()));
-        playerMethod.sendMessage(targetData.getPlayer(), command.getString("commands.commandspy.player.disabled"));
-        playerMethod.sendSound(offlinePlayer.getPlayer(), SoundEnum.ARGUMENT, "commandspy off");
+        senderManager.sendMessage(targetData.getPlayer(), commandFile.getString("commands.commandspy.player.disabled"));
+        senderManager.playSound(offlinePlayer.getPlayer(), SoundEnum.ARGUMENT, "commandspy off");
         return true;
     }
 
@@ -134,8 +134,8 @@ public class CommandSpyCommand implements CommandClass {
     public boolean onListSubCommand(@Sender Player sender, @OptArg("") String args) {
 
         if (args.isEmpty()) {
-            playerMethod.sendMessage(sender, command.getStringList("commands.commandspy.list.format"));
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "commandspy list");
+            senderManager.sendMessage(sender, commandFile.getStringList("commands.commandspy.list.format"));
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "commandspy list");
             return true;
         }
 
@@ -153,50 +153,50 @@ public class CommandSpyCommand implements CommandClass {
             }
 
             if (playerList.isEmpty()) {
-                playerMethod.sendMessage(sender, messages.getString("error.commandspy.list.players.empty"));
-                playerMethod.sendSound(sender, SoundEnum.ERROR);
+                senderManager.sendMessage(sender, messagesFile.getString("error.commandspy.list.players.empty"));
+                senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
-            for (String message : command.getStringList("commands.commandspy.list.players.format")) {
-                playerMethod.sendMessage(sender, message);
+            for (String message : commandFile.getStringList("commands.commandspy.list.players.format")) {
+                senderManager.sendMessage(sender, message);
 
                 if (message.contains("%loop-value%")) {
 
                     for (Player onlinePlayer : playerList) {
-                        playerMethod.sendMessage(sender, message
+                        senderManager.sendMessage(sender, message
                                 .replace("%loop-value%", onlinePlayer.getName()));
 
                     }
                 }
 
-                playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "commandspy list players");
+                senderManager.playSound(sender, SoundEnum.ARGUMENT, "commandspy list players");
             }
             return true;
         }
 
         if (args.equalsIgnoreCase("blocked-commands")) {
 
-            List<String> blockedCommands = command.getStringList("commands.commandspy.blocked-commands");
+            List<String> blockedCommands = commandFile.getStringList("commands.commandspy.blocked-commands");
 
             if (blockedCommands.isEmpty()) {
-                playerMethod.sendMessage(sender, messages.getString("error.commandspy.list.blocked-commands.empty"));
-                playerMethod.sendSound(sender, SoundEnum.ERROR);
+                senderManager.sendMessage(sender, messagesFile.getString("error.commandspy.list.blocked-commands.empty"));
+                senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
-            for (String message : command.getStringList("commands.commandspy.list.blocked-commands.format")) {
+            for (String message : commandFile.getStringList("commands.commandspy.list.blocked-commands.format")) {
 
                 if (message.contains("%loop-value%")) {
                     for (String blockedCommand : blockedCommands) {
-                        playerMethod.sendMessage(sender, message
+                        senderManager.sendMessage(sender, message
                                 .replace("%loop-value%", blockedCommand));
                     }
                     continue;
                 }
 
-                playerMethod.sendMessage(sender, message);
-                playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "commandspy list blocked-commands");
+                senderManager.sendMessage(sender, message);
+                senderManager.playSound(sender, SoundEnum.ARGUMENT, "commandspy list blocked-commands");
             }
             return true;
         }
@@ -207,28 +207,28 @@ public class CommandSpyCommand implements CommandClass {
     public boolean onBlockSubCommand(@Sender Player sender, @OptArg("") String args) {
 
         if (args.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("cspy", "block", "<word>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        List<String> blockedWords = command.getStringList("commands.commandspy.blocked-commands");
+        List<String> blockedWords = commandFile.getStringList("commands.commandspy.blocked-commands");
 
         if (blockedWords.contains(args)) {
-            playerMethod.sendMessage(sender, messages.getString("error.commandspy.commands.already-blocked")
+            senderManager.sendMessage(sender, messagesFile.getString("error.commandspy.commands.already-blocked")
                     .replace("%command%", args));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         blockedWords.add(args);
-        command.set("commands.commandspy.blocked-commands", blockedWords);
-        command.save();
+        commandFile.set("commands.commandspy.blocked-commands", blockedWords);
+        commandFile.save();
 
-        playerMethod.sendMessage(sender, command.getString("commands.commandspy.commands.blocked")
+        senderManager.sendMessage(sender, commandFile.getString("commands.commandspy.commands.blocked")
                 .replace("%command%", args));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "commandspy block");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "commandspy block");
         return true;
     }
 
@@ -236,29 +236,29 @@ public class CommandSpyCommand implements CommandClass {
     public boolean onUnBlockSubCommand(@Sender Player sender, @OptArg("") String args) {
 
         if (args.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("cspy", "block", "<word>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        List<String> blockedWords = command.getStringList("commands.commandspy.blocked-commands");
+        List<String> blockedWords = commandFile.getStringList("commands.commandspy.blocked-commands");
 
         if (!blockedWords.contains(args)) {
-            playerMethod.sendMessage(sender, messages.getString("error.commandspy.commands.already-unblocked")
+            senderManager.sendMessage(sender, messagesFile.getString("error.commandspy.commands.already-unblocked")
                     .replace("%command%", args));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         blockedWords.remove(args);
 
-        command.set("commands.commandspy.blocked-commands", blockedWords);
-        command.save();
+        commandFile.set("commands.commandspy.blocked-commands", blockedWords);
+        commandFile.save();
 
-        playerMethod.sendMessage(sender, command.getString("commands.commandspy.commands.unblocked")
+        senderManager.sendMessage(sender, commandFile.getString("commands.commandspy.commands.unblocked")
                 .replace("%command%", args));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "commandspy unblock");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "commandspy unblock");
         return true;
     }
 

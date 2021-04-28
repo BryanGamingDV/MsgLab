@@ -1,10 +1,10 @@
 package me.bryangaming.chatlab.listeners.command;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.CommandSpyEvent;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -24,7 +24,7 @@ public class CommandSpyListener implements Listener {
     public void onCommandSpy(CommandSpyEvent commandSpyEvent) {
 
         SenderManager playersender = pluginService.getPlayerManager().getSender();
-        Configuration command = pluginService.getFiles().getCommand();
+        Configuration command = pluginService.getFiles().getCommandFile();
 
         List<String> blockedCommands = command.getStringList("commands.commandspy.blocked-commands");
 
@@ -46,7 +46,7 @@ public class CommandSpyListener implements Listener {
             }
 
             playersender.sendMessage(player, commandSpyFormat);
-            playersender.sendSound(player, SoundEnum.RECEIVE_COMMANDSPY);
+            playersender.playSound(player, SoundEnum.RECEIVE_COMMANDSPY);
         });
     }
 }

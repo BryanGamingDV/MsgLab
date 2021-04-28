@@ -8,12 +8,10 @@ import java.util.UUID;
 
 public class ReplyManager {
 
-    private PluginService pluginService;
-    private CacheManager cache;
+    private final PluginService pluginService;
 
     public ReplyManager(PluginService pluginService) {
         this.pluginService = pluginService;
-        this.cache = pluginService.getCache();
     }
 
     public void setReply(UUID player, UUID target) {

@@ -1,8 +1,8 @@
 package me.bryangaming.chatlab.listeners;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.api.revisor.Revisor;
+import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.revisor.commands.BlockRevisor;
 import me.bryangaming.chatlab.revisor.commands.ConditionRevisor;
 import me.bryangaming.chatlab.revisor.message.*;
@@ -65,6 +65,7 @@ public class RevisorListener implements Listener {
                     return;
             }
 
+
             String message = textRevisorEvent.getMessage();
             if (textRevisorEvent.getRevisorExcepcions().contains("ALL")){
                 return;
@@ -73,6 +74,10 @@ public class RevisorListener implements Listener {
             for (Revisor revisor : revisorList) {
 
                 if (textRevisorEvent.getRevisorExcepcions().contains(revisor.getClass().getName().split("\\.")[5])) {
+                    continue;
+                }
+
+                if (!revisor.isEnabled()){
                     continue;
                 }
 

@@ -5,8 +5,8 @@ import me.bryangaming.chatlab.data.PartyData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
-import me.bryangaming.chatlab.managers.group.GroupMethod;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -27,15 +27,15 @@ public class QuitListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
 
-        SenderManager player = pluginService.getPlayerManager().getSender();
-        Configuration command = pluginService.getFiles().getCommand();
+        Player player = event.getPlayer();
 
-        GroupMethod groupMethod = pluginService.getPlayerManager().getGroupMethod();
+        Configuration commandFile = pluginService.getFiles().getCommandFile();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        Player you = event.getPlayer();
-        UserData playerStatus = pluginService.getCache().getUserDatas().get(you.getUniqueId());
+        GroupManager groupManager = pluginService.getPlayerManager().getGroupManager();
+        String playerRank = groupManager.getJQGroup(player);
 
-        String playerRank = groupMethod.getJQGroup(you);
+        UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (playerStatus.getPartyID() > 0){
             PartyData partyData = pluginService.getServerData().getParty(playerStatus.getPartyID());
@@ -45,12 +45,12 @@ public class QuitListener implements Listener {
                 Player online = Bukkit.getPlayer(uuid);
 
                 if (playerStatus.isPlayerLeader()){
-                    player.sendMessage(online, command.getString("commands.party.on-left.player")
-                            .replace("%player%", you.getName()));
+                    senderManager.sendMessage(online, commandFile.getString("commands.party.on-left.player")
+                            .replace("%player%", player.getName()));
                     continue;
                 }
-                player.sendMessage(online, command.getString("commands.party.on-left.leader")
-                            .replace("%leader%", you.getName()));
+                senderManager.sendMessage(online, commandFile.getString("commands.party.on-left.leader")
+                            .replace("%leader%", player.getName()));
 
             }
 
@@ -74,11 +74,11 @@ public class QuitListener implements Listener {
                 return;
             }
 
-            if (target.hasRepliedPlayer(you.getUniqueId())) {
+            if (target.hasRepliedPlayer(player.getUniqueId())) {
                 target.setRepliedPlayer(null);
             }
 
-            player.sendMessage(target.getPlayer(), command.getString("commands.msg-toggle.left")
+            senderManager.sendMessage(target.getPlayer(), commandFile.getString("commands.msg-toggle.left")
                     .replace("%player%", target.getPlayer().getName())
                     .replace("%arg-1%", event.getPlayer().getName()));
         }

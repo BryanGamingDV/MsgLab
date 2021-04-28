@@ -14,23 +14,28 @@ public class BotRevisor implements Revisor {
         this.pluginService = pluginService;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return pluginService.getFiles().getFormatsFile().getBoolean("filters.enabled");
+    }
+
     public String revisor(Player player, String message) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
         if (!utils.getBoolean("filters.bot-response.enabled")){
             return message;
         }
-        for (String keys : utils.getConfigurationSection("fitlers.bot-response.lists").getKeys(false)) {
-            if (!message.startsWith(utils.getString("fitlers.bot-response.lists." + keys + ".question"))) {
+        for (String keys : utils.getConfigurationSection("filters.bot-response.lists").getKeys(false)) {
+            if (!message.startsWith(utils.getString("filters.bot-response.lists." + keys + ".question"))) {
                 continue;
             }
 
-            playerMethod.sendMessage(player, utils.getString("fitlers.bot-response.lists." + keys + ".question"));
+            playerMethod.sendMessage(player, utils.getString("filters.bot-response.lists." + keys + ".question"));
 
-            if (!(utils.getStringList("fitlers.bot-response.lists." + keys + ".commands").isEmpty())) {
-                utils.getStringList("fitlers.bot-response.lists." + keys + ".commands")
+            if (!(utils.getStringList("filters.bot-response.lists." + keys + ".commands").isEmpty())) {
+                utils.getStringList("filters.bot-response.lists." + keys + ".commands")
                         .forEach(command -> playerMethod.sendCommand(player, command));
             }
         }

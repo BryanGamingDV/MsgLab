@@ -61,16 +61,16 @@ public class ChatLab extends JavaPlugin {
         chatApiImpl = new ChatApiImpl(basicMsg);
         basicMsg.getLogs().log("Loaded.");
 
-        if (!basicMsg.getFiles().getConfig().getString("version", "1.0").equalsIgnoreCase(getDescription().getVersion())) {
+        if (!basicMsg.getFiles().getConfigFile().getString("version", "1.0").equalsIgnoreCase(getDescription().getVersion())) {
             getLogger().info("Error - Please reload the configuration!");
             getLogger().info("Error - You are using the latest version with an outdated path.");
             getLogger().info("Error - This can cause bugs..");
         }
 
-        if (basicMsg.getFiles().getConfig().getBoolean("config.metrics")) {
+        if (basicMsg.getFiles().getConfigFile().getBoolean("config.metrics")) {
             Metrics metrics = new Metrics(this, 10107);
         }
-        if (basicMsg.getFiles().getConfig().getBoolean("config.update-check")) {
+        if (basicMsg.getFiles().getConfigFile().getBoolean("config.update-check")) {
             getUpdateChecker();
         }
 

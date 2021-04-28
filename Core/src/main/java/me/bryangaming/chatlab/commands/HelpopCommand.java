@@ -1,13 +1,13 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.HelpOpEvent;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
-import me.bryangaming.chatlab.managers.commands.HelpOpManager;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.commands.HelpOpManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -26,39 +26,39 @@ public class HelpopCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final SenderManager playerMethod;
+    private final SenderManager senderManager;
     private final HelpOpManager helpOpManager;
 
-    private final Configuration command;
-    private final Configuration messages;
+    private final Configuration commandFile;
+    private final Configuration messagesFile;
 
     public HelpopCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.senderManager = pluginService.getPlayerManager().getSender();
         this.helpOpManager = pluginService.getPlayerManager().getHelpOpMethod();
 
-        this.command = pluginService.getFiles().getCommand();
-        this.messages = pluginService.getFiles().getMessages();
+        this.commandFile = pluginService.getFiles().getCommandFile();
+        this.messagesFile = pluginService.getFiles().getMessagesFile();
     }
 
     @Command(names = "")
     public boolean onSubCommand(@Sender Player sender, @OptArg("") @Text String args) {
 
         if (args.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("helpop", "<message>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        playerMethod.sendMessage(sender, command.getString("commands.helpop.received")
+        senderManager.sendMessage(sender, commandFile.getString("commands.helpop.received")
                 .replace("%player%", sender.getName()));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "helpop");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "helpop");
 
         String message = String.join(" ", args);
 
-        if (command.getBoolean("commands.helpop.enable-revisor")) {
+        if (commandFile.getBoolean("commands.helpop.enable-revisor")) {
             TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT,"Receive");
             Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
 
@@ -80,24 +80,24 @@ public class HelpopCommand implements CommandClass {
 
             UserData onlineCache = pluginService.getCache().getUserDatas().get(playeronline.getUniqueId());
 
-            if (playerMethod.hasPermission(sender, "commands.helpop.watch") && onlineCache.isPlayerHelpOp()) {
+            if (senderManager.hasPermission(sender, "commands.helpop.watch") && onlineCache.isPlayerHelpOp()) {
                 helpopList.add(playeronline.getName());
             }
         }
 
         if (helpopList.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.helpop.anybody"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.helpop.anybody"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        playerMethod.sendMessage(sender, command.getString("commands.helpop.list-helpop"));
+        senderManager.sendMessage(sender, commandFile.getString("commands.helpop.list-helpop"));
 
         for (String helpopPlayers : helpopList) {
-            playerMethod.sendMessage(sender, "&8- &f" + helpopPlayers);
+            senderManager.sendMessage(sender, "&8- &f" + helpopPlayers);
         }
 
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "helpop -list");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "helpop -list");
         return true;
     }
 
@@ -106,21 +106,21 @@ public class HelpopCommand implements CommandClass {
 
         UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
-        if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+        if (!(senderManager.hasPermission(sender, "commands.helpop.watch"))) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (userData.isPlayerHelpOp()) {
-            playerMethod.sendMessage(sender, messages.getString("error.helpop.activated"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.helpop.activated"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         helpOpManager.enableOption(sender.getUniqueId());
-        playerMethod.sendMessage(sender, command.getString("commands.helpop.player.enabled"));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "helpop -on");
+        senderManager.sendMessage(sender, commandFile.getString("commands.helpop.player.enabled"));
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "helpop -on");
         return true;
     }
 
@@ -129,36 +129,36 @@ public class HelpopCommand implements CommandClass {
 
         UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
-        if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+        if (!(senderManager.hasPermission(sender, "commands.helpop.watch"))) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (!(userData.isPlayerHelpOp())) {
-            playerMethod.sendMessage(sender, messages.getString("error.helpop.unactivated"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.helpop.unactivated"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         helpOpManager.disableOption(sender.getUniqueId());
-        playerMethod.sendMessage(sender, command.getString("commands.helpop.player.disabled"));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "helpop -off");
+        senderManager.sendMessage(sender, commandFile.getString("commands.helpop.player.disabled"));
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "helpop -off");
         return true;
     }
 
     @Command(names = "-toggle")
     public boolean onToggleSubCommand(@Sender Player sender) {
 
-        if (!(playerMethod.hasPermission(sender, "commands.helpop.watch"))) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
+        if (!(senderManager.hasPermission(sender, "commands.helpop.watch"))) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
             return true;
         }
 
         helpOpManager.toggleOption(sender.getUniqueId());
-        playerMethod.sendMessage(sender, command.getString("commands.helpop.player.toggle")
+        senderManager.sendMessage(sender, commandFile.getString("commands.helpop.player.toggle")
                 .replace("%mode%", helpOpManager.getStatus()));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "helpop -toggle");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "helpop -toggle");
         return true;
     }
 }

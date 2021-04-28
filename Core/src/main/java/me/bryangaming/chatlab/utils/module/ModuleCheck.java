@@ -5,16 +5,12 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.List;
-
 public class ModuleCheck {
 
     private PluginService pluginService;
-    private Configuration config;
 
     public ModuleCheck(PluginService pluginService) {
         this.pluginService = pluginService;
-        this.config = pluginService.getFiles().getConfig();
     }
 
     public boolean isPluginCommand(String commandName) {
@@ -32,9 +28,9 @@ public class ModuleCheck {
 
     public boolean isCommandDisabledInCooldown(String message) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
-        for (String disabledCmds : utils.getStringList("fitlers.cmd.disabled-cmds")) {
+        for (String disabledCmds : utils.getStringList("filters.cmd.disabled-cmds")) {
             if (disabledCmds.equalsIgnoreCase(StringUtils.remove(message, "/"))) {
                 return true;
             }

@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.group.GroupMethod;
+import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 
@@ -17,7 +17,7 @@ public class FitlerManager {
 
     public void onTab(PlayerCommandSendEvent playerCommandSendEvent) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (!utils.getBoolean("revisor-cmd.tab-module.filter.enabled")) {
             return;
@@ -27,9 +27,9 @@ public class FitlerManager {
         Collection<String> commands = playerCommandSendEvent.getCommands();
         commands.clear();
 
-        GroupMethod groupMethod = pluginService.getPlayerManager().getGroupMethod();
+        GroupManager groupManager = pluginService.getPlayerManager().getGroupManager();
 
-        for (String completitions : utils.getStringList("revisor-cmd.tab-module.filter.groups." + groupMethod.getFitlerGroup(playerCommandSendEvent.getPlayer()))) {
+        for (String completitions : utils.getStringList("revisor-cmd.tab-module.filter.groups." + groupManager.getFitlerGroup(playerCommandSendEvent.getPlayer()))) {
             if (completitions.startsWith("@")) {
                 commands.addAll(utils.getStringList("revisor-cmd.tab-module.filter.groups." + completitions.substring(1)));
             }

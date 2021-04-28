@@ -27,21 +27,21 @@ public class VariableUtils {
         supportManager = pluginService.getSupportManager();
         chatManager = pluginService.getPlayerManager().getChatMethod();
 
-        config = pluginService.getFiles().getConfig();
-        utils = pluginService.getFiles().getBasicUtils();
+        config = pluginService.getFiles().getConfigFile();
+        utils = pluginService.getFiles().getFormatsFile();
     }
 
     public static String replaceAllVariables(Player player, String string) {
 
-        string = setToCenter(string);
         string = replaceEmojis(string);
-        string = replacePluginVariables(string);
-
         string = replaceTags(player, string);
         string = replacePlayerVariables(player, string);
-        string = replacePAPIVariables(player, string);
-        string = replaceVaultVariables(player, string);
 
+        string = replaceVaultVariables(player, string);
+        string = replacePAPIVariables(player, string);
+        string = replacePluginVariables(string);
+
+        string = setToCenter(string);
         return string;
     }
     private static String setToCenter(String string){

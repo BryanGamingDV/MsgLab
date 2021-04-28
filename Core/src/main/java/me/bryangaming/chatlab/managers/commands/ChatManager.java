@@ -29,8 +29,8 @@ public class ChatManager {
         serverData = pluginService.getServerData();
         this.playerMethod = pluginService.getPlayerManager().getSender();
 
-        this.config = pluginService.getFiles().getConfig();
-        this.command = pluginService.getFiles().getCommand();
+        this.config = pluginService.getFiles().getConfigFile();
+        this.command = pluginService.getFiles().getCommandFile();
     }
 
     public void clearSubCommand(Player sender, int lines, String world, boolean silent) {
@@ -229,7 +229,6 @@ public class ChatManager {
     public String replaceTagsVariables(Player player, String message) {
 
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
-
         HashMap<String, String> hashmapTag = userData.gethashTags();
 
         for (String tag : checkTags()) {

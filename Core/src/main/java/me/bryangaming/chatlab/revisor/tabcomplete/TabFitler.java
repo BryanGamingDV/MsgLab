@@ -24,7 +24,7 @@ public class TabFitler {
 
     public void setup() {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         ProtocolManager protocolManager = pluginService.getSupportManager().getProtocolSupport().getManager();
         Logger logger = pluginService.getPlugin().getLogger();
 
@@ -81,7 +81,7 @@ public class TabFitler {
     public void sendMessage(Player player) {
 
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (!utils.getBoolean("revisor.tab-module.message.enabled")) {
             return;

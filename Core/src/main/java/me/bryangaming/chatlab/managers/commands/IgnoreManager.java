@@ -1,10 +1,7 @@
 package me.bryangaming.chatlab.managers.commands;
 
-import me.bryangaming.chatlab.CacheManager;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.string.TextUtils;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -17,11 +14,9 @@ import java.util.UUID;
 
 public class IgnoreManager {
 
-    private final Configuration players;
-    private final Configuration messages;
+    private final Configuration playerFile;
 
     private final PluginService pluginService;
-    private final CacheManager cache;
 
     private final Map<UUID, List<String>> ignorelist;
 
@@ -29,11 +24,8 @@ public class IgnoreManager {
     public IgnoreManager(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.cache = pluginService.getCache();
-        this.ignorelist = cache.getIgnorelist();
-        this.players = pluginService.getFiles().getPlayers();
-        this.messages = pluginService.getFiles().getMessages();
-
+        this.playerFile = pluginService.getFiles().getPlayersFile();
+        this.ignorelist = pluginService.getCache().getIgnorelist();
     }
 
     public void ignorePlayer(CommandSender sender, UUID uuid) {
@@ -53,10 +45,10 @@ public class IgnoreManager {
         ignoredPlayers.add(player.getName());
         ignorelist.put(playeruuid, ignoredPlayers);
 
-        players.set("players." + playeruuid + ".name", you.getName());
-        players.set("players." + playeruuid + ".players-ignored", ignoredPlayers);
+        playerFile.set("players." + playeruuid + ".name", you.getName());
+        playerFile.set("players." + playeruuid + ".players-ignored", ignoredPlayers);
 
-        players.save();
+        playerFile.save();
 
     }
 
@@ -69,12 +61,12 @@ public class IgnoreManager {
 
         List<String> ignoredPlayers = ignorelist.get(playeruuid);
         ignoredPlayers.remove(target.getName());
-        players.set("players." + playeruuid + ".players-ignored", ignoredPlayers);
-        players.save();
+        playerFile.set("players." + playeruuid + ".players-ignored", ignoredPlayers);
+        playerFile.save();
 
-        if (players.getStringList("players." + playeruuid + ".players-ignored").isEmpty()) {
-            players.set("players." + uuid, null);
-            players.save();
+        if (playerFile.getStringList("players." + playeruuid + ".players-ignored").isEmpty()) {
+            playerFile.set("players." + uuid, null);
+            playerFile.save();
         }
 
     }
@@ -85,7 +77,7 @@ public class IgnoreManager {
             return false;
         }
 
-        Configuration players = pluginService.getFiles().getPlayers();
+        Configuration players = pluginService.getFiles().getPlayersFile();
         String playerName = Bukkit.getPlayer(playerIgnored).getName();
 
         if (!(players.contains("players"))) return false;

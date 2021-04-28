@@ -6,9 +6,9 @@ import me.bryangaming.chatlab.events.CommandSpyEvent;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.events.text.ChatEvent;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
-import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.StringFormat;
@@ -28,7 +28,6 @@ public class SendTextListener implements Listener {
 
     public SendTextListener(PluginService pluginService) {
         this.pluginService = pluginService;
-        pluginService.getListManager().getModules().add("chat_format");
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -36,8 +35,8 @@ public class SendTextListener implements Listener {
 
         Player player = event.getPlayer();
 
-        Configuration command = pluginService.getFiles().getCommand();
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration commandFile = pluginService.getFiles().getCommandFile();
+        Configuration formatsFile = pluginService.getFiles().getFormatsFile();
 
         UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
@@ -72,7 +71,7 @@ public class SendTextListener implements Listener {
                         return;
                     }
 
-                    playerMethod.sendMessage(playeronline.getPlayer(), command.getString("commands.staff-chat.message")
+                    playerMethod.sendMessage(playeronline.getPlayer(), commandFile.getString("commands.staff-chat.message")
                             .replace("%player%", player.getName())
                             .replace("%message%", event.getMessage()));
                 });
@@ -80,7 +79,7 @@ public class SendTextListener implements Listener {
             }
         }
 
-        if (pluginService.getListManager().isEnabledOption("modules","chat_format") && utils.getBoolean("options.enabled") && utils.getBoolean("format.enabled")) {
+        if (pluginService.getListManager().isEnabledOption("modules","chat_format") && formatsFile.getBoolean("options.enabled") && formatsFile.getBoolean("format.enabled")) {
             event.setCancelled(true);
 
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
@@ -108,8 +107,8 @@ public class SendTextListener implements Listener {
 
         CooldownData cooldownData = pluginService.getCooldownData();
 
-        Configuration messages = pluginService.getFiles().getMessages();
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration messages = pluginService.getFiles().getMessagesFile();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
         StringFormat stringFormat = pluginService.getStringFormat();

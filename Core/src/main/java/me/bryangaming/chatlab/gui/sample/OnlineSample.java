@@ -1,14 +1,13 @@
 package me.bryangaming.chatlab.gui.sample;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.RunnableManager;
-import me.bryangaming.chatlab.gui.manager.GuiData;
-import me.bryangaming.chatlab.managers.GuiManager;
-import me.bryangaming.chatlab.gui.manager.GuiSample;
-import me.bryangaming.chatlab.managers.SenderManager;
-import me.bryangaming.chatlab.utils.pages.PageUUIDCreator;
 import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.gui.manager.GuiData;
+import me.bryangaming.chatlab.gui.manager.GuiSample;
+import me.bryangaming.chatlab.managers.GuiManager;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.pages.PageUUIDCreator;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -35,8 +34,8 @@ public class OnlineSample implements GuiSample {
     public GuiData getPage(UUID sender, Integer page) {
 
         GuiManager guiManager = pluginService.getPlayerManager().getGuiManager();
-        Configuration command = pluginService.getFiles().getCommand();
-        Configuration message = pluginService.getFiles().getMessages();
+        Configuration command = pluginService.getFiles().getCommandFile();
+        Configuration message = pluginService.getFiles().getMessagesFile();
 
         PageUUIDCreator pageUUIDCreator = new PageUUIDCreator(getOnlinePlayers());
         listPlayers = pageUUIDCreator.getHashMap().get(page);
@@ -110,8 +109,7 @@ public class OnlineSample implements GuiSample {
 
         ItemMeta item = event.getCurrentItem().getItemMeta();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
-        Configuration command = pluginService.getFiles().getCommand();
-        GuiManager guiManager = pluginService.getPlayerManager().getGuiManager();
+        Configuration command = pluginService.getFiles().getCommandFile();
 
         String previousName = ChatColor.RESET + command.getColoredString("commands.msg-online.previous-page.title");
         String nextName = ChatColor.RESET + command.getColoredString("commands.msg-online.next-page.title");
@@ -119,14 +117,14 @@ public class OnlineSample implements GuiSample {
         if (item.getDisplayName().equalsIgnoreCase(previousName)) {
             userData.setChangeInv(true);
             userData.changePage(userData.getPage() - 1);
-            guiManager.openInventory(player.getUniqueId(), "online", userData.getPage());
+            senderManager.openInventory(player, "online", userData.getPage());
             userData.setChangeInv(false);
         }
 
         if (item.getDisplayName().equalsIgnoreCase(nextName)) {
             userData.setChangeInv(true);
             userData.changePage(userData.getPage() + 1);
-            guiManager.openInventory(player.getUniqueId(), "online", userData.getPage());
+            senderManager.openInventory(player, "online", userData.getPage());
             userData.setChangeInv(false);
         }
 

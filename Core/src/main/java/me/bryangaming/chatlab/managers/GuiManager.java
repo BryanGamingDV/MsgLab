@@ -1,8 +1,8 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.gui.SampleManager;
 import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.gui.SampleManager;
 import me.bryangaming.chatlab.gui.manager.GuiData;
 import me.bryangaming.chatlab.gui.manager.GuiSample;
 import org.bukkit.Bukkit;

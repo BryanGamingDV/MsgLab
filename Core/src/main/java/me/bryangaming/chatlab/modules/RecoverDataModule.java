@@ -5,10 +5,12 @@ import me.bryangaming.chatlab.api.Module;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class RecoverDataModule implements Module{
@@ -21,23 +23,27 @@ public class RecoverDataModule implements Module{
 
 
     public void start() {
-        Configuration players = pluginService.getFiles().getPlayers();
+        Configuration players = pluginService.getFiles().getPlayersFile();
         Map<UUID, UserData> hashMap = pluginService.getCache().getUserDatas();
 
-        for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+        ConfigurationSection playerList = players.getConfigurationSection("players.");
 
-            UUID playeruuid = player.getUniqueId();
-            List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
+        if (playerList == null){
+            return;
+        }
+
+        for (String  keys : playerList.getKeys(false)){
+            UUID uuid = UUID.fromString(keys);
+            List<String> ignoredlist = players.getStringList("players." + keys + ".players-ignored");
 
             if (ignoredlist.isEmpty()) {
                 return;
             }
 
-            hashMap.put(playeruuid, new UserData(playeruuid));
-
+            hashMap.put(uuid, new UserData(uuid));
 
             Map<UUID, List<String>> playerIgnored = pluginService.getCache().getIgnorelist();
-            playerIgnored.put(playeruuid, ignoredlist);
+            playerIgnored.put(uuid, ignoredlist);
         }
     }
 }

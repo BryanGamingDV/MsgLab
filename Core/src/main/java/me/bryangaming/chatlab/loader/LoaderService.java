@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.registry;
+package me.bryangaming.chatlab.loader;
 
 public interface LoaderService {
 

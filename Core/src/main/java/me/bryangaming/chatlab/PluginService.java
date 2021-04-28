@@ -3,9 +3,9 @@ package me.bryangaming.chatlab;
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.managers.MethodManager;
-import me.bryangaming.chatlab.registry.CommandLoader;
-import me.bryangaming.chatlab.registry.FileLoader;
-import me.bryangaming.chatlab.registry.EventLoader;
+import me.bryangaming.chatlab.loader.CommandLoader;
+import me.bryangaming.chatlab.loader.EventLoader;
+import me.bryangaming.chatlab.loader.FileLoader;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.tasks.TasksManager;
 import me.bryangaming.chatlab.utils.StringFormat;
@@ -66,7 +66,7 @@ public class PluginService {
         commandLoader = new CommandLoader(plugin, this);
         commandLoader.setup();
 
-        eventLoader = new EventLoader(plugin, this);
+        eventLoader = new EventLoader(this);
         eventLoader.setup();
 
         cooldownData = new CooldownData(this);

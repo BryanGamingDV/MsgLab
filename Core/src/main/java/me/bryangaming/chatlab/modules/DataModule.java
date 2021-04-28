@@ -18,7 +18,7 @@ public class DataModule implements Module {
     @Override
     public void start() {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         Map<String, JQFormat> jqFormatMP = pluginService.getCache().getJQFormats();
 
         if (jqFormatMP.keySet().size() > 0) {

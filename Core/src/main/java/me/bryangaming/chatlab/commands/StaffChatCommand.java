@@ -1,10 +1,10 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.commands.StaffChatManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -16,22 +16,22 @@ import org.bukkit.entity.Player;
 @Command(names = {"staffchat", "sc"})
 public class StaffChatCommand implements CommandClass {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
-    private SenderManager playerMethod;
-    private StaffChatManager staffChatMethod;
+    private final SenderManager senderManager;
+    private final StaffChatManager staffChatMethod;
 
-    private Configuration command;
-    private Configuration messages;
+    private final Configuration commandFile;
+    private final Configuration messagesFile;
 
     public StaffChatCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.senderManager = pluginService.getPlayerManager().getSender();
         this.staffChatMethod = pluginService.getPlayerManager().getStaffChatMethod();
 
-        this.command = pluginService.getFiles().getCommand();
-        this.messages = pluginService.getFiles().getMessages();
+        this.commandFile = pluginService.getFiles().getCommandFile();
+        this.messagesFile = pluginService.getFiles().getMessagesFile();
     }
 
     @Command(names = "")
@@ -39,24 +39,24 @@ public class StaffChatCommand implements CommandClass {
 
         if (args.isEmpty()) {
             staffChatMethod.toggleOption(player.getUniqueId());
-            playerMethod.sendMessage(player, command.getString("commands.staff-chat.player.toggle")
+            senderManager.sendMessage(player, commandFile.getString("commands.staff-chat.player.toggle")
                     .replace("%mode%", staffChatMethod.getStatus()));
-            playerMethod.sendSound(player, SoundEnum.ARGUMENT, "socialspy");
+            senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy");
             return true;
         }
 
         String message = String.join(" ", args);
         Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
 
-            if (!playerMethod.hasPermission(onlinePlayer, "commands.staffchat.main")) {
+            if (!senderManager.hasPermission(onlinePlayer, "commands.staffchat.main")) {
                 return;
             }
 
-            playerMethod.sendMessage(onlinePlayer, command.getString("commands.staff-chat.message")
+            senderManager.sendMessage(onlinePlayer, commandFile.getString("commands.staff-chat.message")
                     .replace("%player%", player.getName())
                     .replace("%message%", message));
         });
-        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "socialspy");
+        senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy") ;
         return true;
     }
 
@@ -66,14 +66,14 @@ public class StaffChatCommand implements CommandClass {
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (userData.isStaffchatMode()) {
-            playerMethod.sendMessage(player, messages.getString("error.staff-chat.activated"));
-            playerMethod.sendSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(player, messagesFile.getString("error.staff-chat.activated"));
+            senderManager.playSound(player, SoundEnum.ERROR);
             return true;
         }
 
         staffChatMethod.enableOption(player.getUniqueId());
-        playerMethod.sendMessage(player, command.getString("commands.staff-chat.player.enabled"));
-        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "socialspy -on");
+        senderManager.sendMessage(player, commandFile.getString("commands.staff-chat.player.enabled"));
+        senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy -on");
         return true;
     }
 
@@ -84,23 +84,23 @@ public class StaffChatCommand implements CommandClass {
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (!(userData.isStaffchatMode())) {
-            playerMethod.sendMessage(player, messages.getString("error.staff-chat.unactivated"));
-            playerMethod.sendSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(player, messagesFile.getString("error.staff-chat.unactivated"));
+            senderManager.playSound(player, SoundEnum.ERROR);
             return true;
         }
 
         staffChatMethod.disableOption(player.getUniqueId());
-        playerMethod.sendMessage(player, command.getString("commands.staff-chat.player.disabled"));
-        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "socialspy -off");
+        senderManager.sendMessage(player, commandFile.getString("commands.staff-chat.player.disabled"));
+        senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy -off");
         return true;
     }
 
     @Command(names = "-toggle")
     public boolean onToggleSubCommand(@Sender Player player) {
         staffChatMethod.toggleOption(player.getUniqueId());
-        playerMethod.sendMessage(player, command.getString("commands.staff-chat.player.toggle")
+        senderManager.sendMessage(player, commandFile.getString("commands.staff-chat.player.toggle")
                 .replace("%mode%", staffChatMethod.getStatus()));
-        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "socialspy -toggle");
+        senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy -toggle");
         return true;
     }
 }

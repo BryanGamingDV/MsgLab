@@ -1,11 +1,11 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.modules.DataModule;
-import me.bryangaming.chatlab.registry.FileLoader;
+import me.bryangaming.chatlab.loader.FileLoader;
 import me.bryangaming.chatlab.tasks.TasksManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.module.ModuleCreator;
@@ -16,7 +16,9 @@ import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.springframework.core.ConfigurableObjectInputStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,40 +30,40 @@ public class CLabCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final Configuration soundfile;
-    private final Configuration config;
-    private final Configuration messages;
-    private final Configuration command;
-    private final Configuration utils;
+    private final Configuration configFile;
+    private final Configuration soundsFile;
+    private final Configuration messagesFile;
+    private final Configuration commandFile;
+    private final Configuration formatsFile;
 
-    private final SenderManager playerMethod;
+    private final SenderManager senderManager;
 
     public CLabCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.soundfile = pluginService.getFiles().getSounds();
-        this.config = pluginService.getFiles().getConfig();
-        this.messages = pluginService.getFiles().getMessages();
-        this.command = pluginService.getFiles().getCommand();
-        this.utils = pluginService.getFiles().getBasicUtils();
+        this.configFile = pluginService.getFiles().getConfigFile();
+        this.messagesFile = pluginService.getFiles().getMessagesFile();
+        this.commandFile = pluginService.getFiles().getCommandFile();
+        this.soundsFile = pluginService.getFiles().getSoundsFile();
+        this.formatsFile = pluginService.getFiles().getFormatsFile();
 
-        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.senderManager = pluginService.getPlayerManager().getSender();
     }
 
     @Command(names = "")
     public boolean onCommand(@Sender Player sender) {
-        playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+        senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                 .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
-        playerMethod.sendSound(sender, SoundEnum.ERROR);
+        senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
     }
 
     @Command(names = "help")
     public boolean helpSubCommand(@Sender Player sender) {
 
-        command.getStringList("commands.clab.help.pages")
-                .forEach(text -> playerMethod.sendMessage(sender, text));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab help");
+        commandFile.getStringList("commands.clab.help.pages")
+                .forEach(text -> senderManager.sendMessage(sender, text));
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab help");
 
         return true;
 
@@ -71,33 +73,33 @@ public class CLabCommand implements CommandClass {
     public boolean commandsSubCommand(@Sender Player sender, @OptArg("1") String page) {
 
         if (!(getHelp().contains(page))) {
-            playerMethod.sendMessage(sender, messages.getString("error.unknown-page"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.unknown-page"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        playerMethod.sendMessage(sender, command.getString("commands.clab.commands.format")
+        senderManager.sendMessage(sender, commandFile.getString("commands.clab.commands.format")
                 .replace("%page%", page)
                 .replace("%max_page%", String.valueOf(getMaxPage())));
-        command.getStringList("commands.clab.commands.pages." + page)
-                .forEach(text -> playerMethod.sendMessage(sender, text));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab commands");
+        commandFile.getStringList("commands.clab.commands.pages." + page)
+                .forEach(text -> senderManager.sendMessage(sender, text));
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab commands");
         return true;
     }
 
     @Command(names = "reload")
     public boolean reloadSubCommand(@Sender Player sender, @OptArg("") String file) {
 
-        if (!(playerMethod.hasPermission(sender, "commands.clab.reload"))) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+        if (!(senderManager.hasPermission(sender, "commands.clab.reload"))) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (file.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("clab", "reload", "all, <file>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -113,16 +115,16 @@ public class CLabCommand implements CommandClass {
     @Command(names = "support")
     public boolean supportSubCommand(@Sender Player sender) {
 
-        if (config.getBoolean("config.allow-support")) {
-            playerMethod.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
-            playerMethod.sendMessage(sender, "&8- &fJoin: &ahttps://discord.gg/wpSh4Bf4E");
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab support");
+        if (configFile.getBoolean("config.allow-support")) {
+            senderManager.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
+            senderManager.sendMessage(sender, "&8- &fJoin: &ahttps://discord.gg/wpSh4Bf4E");
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab support");
             return true;
         }
 
-        playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+        senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                 .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
-        playerMethod.sendSound(sender, SoundEnum.ERROR);
+        senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
 
     }
@@ -131,150 +133,197 @@ public class CLabCommand implements CommandClass {
     public boolean soundsSubCommand(@Sender Player sender) {
         UserData playerSound = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
-        if (!(soundfile.getBoolean("sounds.enabled-all"))) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-sound"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+        if (!(soundsFile.getBoolean("sounds.enabled-all"))) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-sound"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (playerSound.isPlayersoundMode()) {
             playerSound.setPlayersoundMode(false);
-            playerMethod.sendMessage(sender, command.getString("commands.clab.sounds.disabled"));
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab sounds on");
+            senderManager.sendMessage(sender, commandFile.getString("commands.clab.sounds.disabled"));
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab sounds on");
             return true;
         }
 
         playerSound.setPlayersoundMode(true);
-        playerMethod.sendMessage(sender, command.getString("commands.clab.sounds.enabled"));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab sounds off");
+        senderManager.sendMessage(sender, commandFile.getString("commands.clab.sounds.enabled"));
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab sounds off");
         return true;
     }
 
     @Command(names = "debug")
     public boolean debugSubCommand(@Sender Player sender, @OptArg("") String arg1, @OptArg("") String arg2) {
 
-        if (!(playerMethod.hasPermission(sender, "commands.clab.debug"))) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+        if (!(senderManager.hasPermission(sender, "commands.clab.debug"))) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (arg1.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("clab", "debug", "pwc, commands, modules")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (arg1.equalsIgnoreCase("pwc")) {
-            Set<String> worldlist = utils.getConfigurationSection("per-world-chat.worlds").getKeys(true);
+            Set<String> worldlist = formatsFile.getConfigurationSection("per-world-chat.worlds").getKeys(true);
 
             if (arg2.isEmpty()) {
-                playerMethod.sendMessage(sender, messages.getString("error.unknown-arg"));
-                playerMethod.sendMessage(sender, "&8- &fWorlds: " + String.join(", ", worldlist), "or -all");
-                playerMethod.sendSound(sender, SoundEnum.ERROR);
+                senderManager.sendMessage(sender, messagesFile.getString("error.unknown-arg"));
+                senderManager.sendMessage(sender, "&8- &fWorlds: " + String.join(", ", worldlist), "or -all");
+                senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
             if (arg2.equalsIgnoreCase("-all")) {
-                playerMethod.sendMessage(sender, command.getString("commands.clab.debug.list.worlds"));
+                senderManager.sendMessage(sender, commandFile.getString("commands.clab.debug.list.worlds"));
 
                 for (String worldname : worldlist) {
-                    playerMethod.sendMessage(sender, "&8- &f " + worldname);
+                    senderManager.sendMessage(sender, "&8- &f " + worldname);
                 }
 
-                playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab debug pwc -all");
+                senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab debug pwc -all");
                 return true;
             }
 
-            List<String> worldname = utils.getStringList("per-world-chat.worlds." + arg2);
+            List<String> worldname = formatsFile.getStringList("per-world-chat.worlds." + arg2);
 
             if (worldname.isEmpty()) {
-                playerMethod.sendMessage(sender, messages.getString("error.debug.unknown-world")
+                senderManager.sendMessage(sender, messagesFile.getString("error.debug.unknown-world")
                         .replace("%world%", arg2));
-                playerMethod.sendSound(sender, SoundEnum.ERROR);
+                senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
-            playerMethod.sendMessage(sender, command.getString("commands.clab.debug.worldpath-info")
+            senderManager.sendMessage(sender, commandFile.getString("commands.clab.debug.worldpath-info")
                     .replace("%world%", arg2));
 
             for (String worldnamelist : worldname) {
-                playerMethod.sendMessage(sender, "&8- &f" + worldnamelist);
+                senderManager.sendMessage(sender, "&8- &f" + worldnamelist);
             }
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab debug pwc");
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab debug pwc");
             return true;
         }
         if (arg2.equalsIgnoreCase("commands")) {
-            playerMethod.sendMessage(sender, command.getString("commands.clab.debug.list.commands"));
+            senderManager.sendMessage(sender, commandFile.getString("commands.clab.debug.list.commands"));
             for (String commandName : pluginService.getListManager().getCommands()) {
                 if (pluginService.getListManager().isEnabledOption("commands", commandName)) {
-                    playerMethod.sendMessage(sender, "&8- &f" + commandName + " &a[Enabled]");
+                    senderManager.sendMessage(sender, "&8- &f" + commandName + " &a[Enabled]");
                 } else {
-                    playerMethod.sendMessage(sender, "&8- &f" + commandName + " &c[Disabled]");
+                    senderManager.sendMessage(sender, "&8- &f" + commandName + " &c[Disabled]");
                 }
             }
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab debug commands");
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab debug commands");
             return true;
         }
         if (arg2.equalsIgnoreCase("modules")) {
-            playerMethod.sendMessage(sender, command.getString("commands.clab.debug.list.modules"));
+            senderManager.sendMessage(sender, commandFile.getString("commands.clab.debug.list.modules"));
             for (String moduleName : pluginService.getListManager().getModules()) {
                 if (pluginService.getListManager().isEnabledOption("modules", moduleName)) {
-                    playerMethod.sendMessage(sender, "&8- &f" + moduleName + " &a[Enabled]");
+                    senderManager.sendMessage(sender, "&8- &f" + moduleName + " &a[Enabled]");
                 } else {
-                    playerMethod.sendMessage(sender, "&8- &f" + moduleName + " &c[Disabled]");
+                    senderManager.sendMessage(sender, "&8- &f" + moduleName + " &c[Disabled]");
                 }
             }
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab debug modules");
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab debug modules");
             return true;
 
         }
 
-        playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+        senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                 .replace("%usage%", TextUtils.getUsage("clab", arg1, "commands, modules")));
-        playerMethod.sendSound(sender, SoundEnum.ERROR);
+        senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
     }
+    @Command(names = "config")
+    public boolean onConfig(@Sender Player sender, @OptArg("") String configName, @OptArg("") String path, @OptArg("") String value){
 
+        if (configName.isEmpty()){
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
+                    .replace("%usage%", TextUtils.getUsage("clab", "<config>", "<path>", "<value>")));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
+        Configuration config = pluginService.getCache().getConfigFiles().get(configName);
+
+        if (config == null){
+            senderManager.sendMessage(sender, messagesFile.getString("error.clab.config.unknown-config")
+                    .replace("%listconfig%", String.join(" ,", pluginService.getCache().getConfigFiles().keySet())));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
+        if (path.isEmpty()){
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
+                    .replace("%usage%", TextUtils.getUsage("clab", configName, "<path>", "<value>")));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
+        if (config.get(path) == null){
+            senderManager.sendMessage(sender, messagesFile.getString("error.unknown-path"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
+        if (value.isEmpty()){
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
+                    .replace("%usage%", TextUtils.getUsage("clab", configName, "<path>", "<value>")));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
+        senderManager.sendMessage(sender, commandFile.getString("commands.clab.config.set")
+                .replace("%config%", configName + ".yml")
+                .replace("%path%", path)
+                .replace("%value%", value));
+        senderManager.playSound(sender, SoundEnum.ERROR);
+        config.set(path, value);
+        config.save();
+        return true;
+    }
     @Command(names = "restore")
-    public boolean restoreSubCommand(@Sender Player sender, @OptArg("") String type) {
+    public boolean onRestoreSubCommand(@Sender Player sender, @OptArg("") String type) {
 
-        if (!(playerMethod.hasPermission(sender, "commands.clab.restore"))) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+        if (!(senderManager.hasPermission(sender, "commands.clab.restore"))) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (type.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("clab", "restore", "commands, modules")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         ModuleCreator moduleCreator = pluginService.getListManager();
 
         if (type.equalsIgnoreCase("commands")) {
-            config.set("config.modules.enabled-commands", moduleCreator.getCommands());
-            config.save();
-            playerMethod.sendMessage(sender, command.getString("commands.clab.restore.commands"));
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab restore commands");
+            configFile.set("config.modules.enabled-commands", moduleCreator.getCommands());
+            configFile.save();
+            senderManager.sendMessage(sender, commandFile.getString("commands.clab.restore.commands"));
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab restore commands");
             return true;
 
         }
         if (type.equalsIgnoreCase("modules")) {
-            config.set("config.modules.enabled-options", moduleCreator.getModules());
-            config.save();
-            playerMethod.sendMessage(sender, command.getString("commands.clab.restore.commands"));
-            playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "clab restore modules");
+            configFile.set("config.modules.enabled-options", moduleCreator.getModules());
+            configFile.save();
+            senderManager.sendMessage(sender, commandFile.getString("commands.clab.restore.commands"));
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab restore modules");
             return true;
 
         }
 
-        playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+        senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                 .replace("%usage%", TextUtils.getUsage("clab", "restore", "commands, modules")));
-        playerMethod.sendSound(sender, SoundEnum.ERROR);
+        senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
     }
 
@@ -286,8 +335,8 @@ public class CLabCommand implements CommandClass {
         TasksManager tasksManager = pluginService.getTasksManager();
 
         if (string.equalsIgnoreCase("you")) {
-            playerMethod.sendMessage(player, "%p &fEmmm, you are not a plugin. But symbolically, you can change your future. Be positive!");
-            playerMethod.sendMessage(player, "&8- &fEasterEgg #2");
+            senderManager.sendMessage(player, "%p &fEmmm, you are not a plugin. But symbolically, you can change your future. Be positive!");
+            senderManager.sendMessage(player, "&8- &fEasterEgg #2");
         }
 
         if (string.equalsIgnoreCase("all")) {
@@ -297,15 +346,15 @@ public class CLabCommand implements CommandClass {
             checkCommands();
             DataModule dataModule = new DataModule(pluginService);
             tasksManager.reloadTasks();
-            playerMethod.sendMessage(player, files.getCommand().getString("commands.clab.reload"));
-            playerMethod.sendSound(player, SoundEnum.ARGUMENT, "clab reload all");
+            senderManager.sendMessage(player, files.getCommandFile().getString("commands.clab.reload"));
+            senderManager.playSound(player, SoundEnum.ARGUMENT, "clab reload all");
             return;
         }
 
         if (fileMap.get(string) == null) {
-            playerMethod.sendMessage(player, files.getMessages().getString("error.unknown-arg"));
-            playerMethod.sendMessage(player, "&8- &fFiles: &a[commands, config, messages, players, sounds, utils]");
-            playerMethod.sendSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(player, files.getMessagesFile().getString("error.unknown-arg"));
+            senderManager.sendMessage(player, "&8- &fFiles: &a[commands, config, messages, players, sounds, utils]");
+            senderManager.playSound(player, SoundEnum.ERROR);
             return;
         }
 
@@ -320,9 +369,9 @@ public class CLabCommand implements CommandClass {
             DataModule dataModule = new DataModule(pluginService);
         }
 
-        playerMethod.sendMessage(player, files.getCommand().getString("commands.clab.reload-file")
+        senderManager.sendMessage(player, files.getCommandFile().getString("commands.clab.reload-file")
                 .replace("%file%", StringUtils.capitalize(string)));
-        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "clab reload");
+        senderManager.playSound(player, SoundEnum.ARGUMENT, "clab reload");
 
     }
 
@@ -341,7 +390,7 @@ public class CLabCommand implements CommandClass {
     }
 
     public Set<String> getHelp() {
-        Configuration commands = pluginService.getFiles().getCommand();
+        Configuration commands = pluginService.getFiles().getCommandFile();
         return commands.getConfigurationSection("commands.clab.commands.pages").getKeys(true);
     }
 }

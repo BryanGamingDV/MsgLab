@@ -2,7 +2,6 @@ package me.bryangaming.chatlab.revisor.message;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
-import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
@@ -15,17 +14,19 @@ public class LinkRevisor implements Revisor {
 
     private final PluginService pluginService;
 
-    private RunnableManager runnableManager;
-
     public LinkRevisor(PluginService pluginService) {
         this.pluginService = pluginService;
-        this.runnableManager = pluginService.getPlayerManager().getRunnableManager();
 
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor.link-module.enabled");
     }
 
     public String revisor(Player player, String string) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (!(utils.getBoolean("revisor.link-module.enabled"))) {
             return string;
@@ -86,7 +87,7 @@ public class LinkRevisor implements Revisor {
 
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (utils.getBoolean("revisor.link-module.message.enabled")) {
             playerMethod.sendMessage(player, utils.getString("revisor.link-module.message.format")
@@ -95,7 +96,7 @@ public class LinkRevisor implements Revisor {
         }
 
         if (utils.getBoolean("revisor.link-module.command.enabled")) {
-            runnableManager.sendCommand(Bukkit.getServer().getConsoleSender(), TextUtils.convertText(player, utils.getString("me.bryangaming.chatlab.api.revisor.link-module.command.format")
+            playerMethod.sendCommand(Bukkit.getServer().getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor.link-module.command.format")
                     .replace("%player%", player.getName())
                     .replace("%blockedword%", blockedword)));
         }

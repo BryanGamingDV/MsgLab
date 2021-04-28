@@ -29,12 +29,12 @@ public class SocialSpyManager implements MethodService {
 
         if (usercache.isSocialSpyMode()) {
             usercache.toggleSocialSpy(false);
-            status = pluginService.getFiles().getCommand().getString("commands.socialspy.player.variable-off");
+            status = pluginService.getFiles().getCommandFile().getString("commands.socialspy.player.variable-off");
             return;
         }
 
         usercache.toggleSocialSpy(true);
-        status = pluginService.getFiles().getCommand().getString("commands.socialspy.player.variable-on");
+        status = pluginService.getFiles().getCommandFile().getString("commands.socialspy.player.variable-on");
     }
 
     public void enableOption(UUID uuid) {

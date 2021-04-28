@@ -23,7 +23,7 @@ public class CheckModule implements Module {
     @Override
     public void start() {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         VaultHook vaultHook = pluginService.getSupportManager().getVaultSupport();
 
         if (utils.getBoolean("format.enabled")) {

@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.managers;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.*;
-import me.bryangaming.chatlab.managers.group.GroupMethod;
+import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.managers.sound.SoundManager;
 import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.utils.string.TextUtils;
@@ -20,7 +20,7 @@ public class MethodManager {
     private SenderManager senderManager;
 
     private ClickChatManager chatManagent;
-    private GroupMethod groupMethod;
+    private GroupManager groupManager;
 
     private HoverManager hoverManager;
     private RecipientManager recipientManager;
@@ -53,7 +53,7 @@ public class MethodManager {
         runnableManager = new RunnableManager(pluginService);
 
         chatManagent = new ClickChatManager(pluginService);
-        groupMethod = new GroupMethod(pluginService);
+        groupManager = new GroupManager(pluginService);
 
         recipientManager = new RecipientManager(pluginService);
         hoverManager = new HoverManager(pluginService);
@@ -83,8 +83,8 @@ public class MethodManager {
         return partyManager;
     }
 
-    public GroupMethod getGroupMethod() {
-        return groupMethod;
+    public GroupManager getGroupManager() {
+        return groupManager;
     }
 
     public ClickChatManager getChatManagent() {

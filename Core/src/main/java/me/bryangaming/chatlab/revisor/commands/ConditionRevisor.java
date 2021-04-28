@@ -17,13 +17,15 @@ public class ConditionRevisor implements Revisor {
         this.pluginService = pluginService;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor-cmd.commands-module.conditions.enabled");
+    }
+
+    @Override
     public String revisor(Player player, String command) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
-
-        if (!utils.getBoolean(" revisor-cmd.commands-module.conditions.enabled")) {
-            return command;
-        }
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
         ConditionManager conditionManager = pluginService.getPlayerManager().getConditionManager();

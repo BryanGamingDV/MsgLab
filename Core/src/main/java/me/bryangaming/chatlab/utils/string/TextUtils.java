@@ -21,7 +21,7 @@ public class TextUtils {
     public TextUtils(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        config = pluginService.getFiles().getConfig();
+        config = pluginService.getFiles().getConfigFile();
         senderManager = pluginService.getPlayerManager().getSender();
     }
 

@@ -1,7 +1,6 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.RunnableManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.sound.SoundManager;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -10,6 +9,7 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -24,8 +24,8 @@ public class SenderManager {
 
     public SenderManager(PluginService pluginService) {
         this.pluginService = pluginService;
-        this.config = pluginService.getFiles().getConfig();
-        this.sounds = pluginService.getFiles().getSounds();
+        this.config = pluginService.getFiles().getConfigFile();
+        this.sounds = pluginService.getFiles().getSoundsFile();
     }
 
 
@@ -163,11 +163,11 @@ public class SenderManager {
     }
 
 
-    public void sendSound(Player player, SoundEnum soundType) {
+    public void playSound(Player player, SoundEnum soundType) {
 
         String path = soundType.getName();
 
-        Configuration soundsFile = pluginService.getFiles().getSounds();
+        Configuration soundsFile = pluginService.getFiles().getSoundsFile();
         SoundManager soundManager = pluginService.getPlayerManager().getSoundManager();
 
         Logger logger = pluginService.getPlugin().getLogger();
@@ -191,33 +191,111 @@ public class SenderManager {
         }
     }
 
-    public void sendSound(Player player, SoundEnum soundType, String command) {
+    public SenderManager playSound(Player player, SoundEnum soundType, String command) {
 
         SoundManager sound = pluginService.getPlayerManager().getSoundManager();
 
         if (soundType != SoundEnum.ARGUMENT) {
-            return;
+            return this;
         }
 
         if (!sounds.getBoolean("sounds.argument")) {
-            return;
+            return this;
         }
 
         for (String keys : sounds.getConfigurationSection("group").getKeys(false)) {
             for (String newCommand : sounds.getStringList("group." + keys + ".commands")) {
                 if (command.equalsIgnoreCase(newCommand.trim().replace(",", " "))) {
                     sound.setSound(player.getUniqueId(), "group." + keys);
-                    return;
+                    return this;
                 }
             }
         }
 
         if (sounds.getConfigurationSection("argument." + command) == null) {
-            return;
+            return this;
         }
 
         sound.setSound(player.getUniqueId(), "argument." + command);
+        return this;
     }
+
+    public void sendMessageLater(Player sender, int time, String command) {
+
+        RunnableManager runnableManager = pluginService.getPlayerManager().getRunnableManager();
+
+        Logger logger = pluginService.getPlugin().getLogger();
+
+        if (command == null) {
+            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+                logger.info("Please change the configuration section! Your config is old.");
+
+            } else {
+                logger.info("Error - Could not find the path in config.");
+                logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
+            }
+        }
+
+        try {
+            runnableManager.waitSecond(sender, time, command);
+
+        } catch (NullPointerException nullPointerException) {
+            sendLines(nullPointerException);
+            return;
+        }
+
+        runnableManager.waitSecond(sender, time, command);
+    }
+
+
+    public void openInventory(HumanEntity sender, String guiName) {
+        GuiManager guiManager = pluginService.getPlayerManager().getGuiManager();
+        guiManager.openInventory(sender.getUniqueId(), guiName, 0);
+    }
+    public void openInventory(HumanEntity sender, String guiName, int page) {
+        GuiManager guiManager = pluginService.getPlayerManager().getGuiManager();
+        guiManager.openInventory(sender.getUniqueId(), guiName, page);
+    }
+
+    public void openInventory(Player sender, String guiName, int page) {
+
+        GuiManager guiManager = pluginService.getPlayerManager().getGuiManager();
+        guiManager.openInventory(sender.getUniqueId(), guiName, page);
+    }
+
+    public void openInventory(Player sender, String guiName) {
+
+        GuiManager guiManager = pluginService.getPlayerManager().getGuiManager();
+        guiManager.openInventory(sender.getUniqueId(), guiName, 0);
+    }
+
+    public void sendMessagesLater(Player sender, int time, String... messages) {
+
+        RunnableManager runnableManager = pluginService.getPlayerManager().getRunnableManager();
+
+        Logger logger = pluginService.getPlugin().getLogger();
+
+        if (messages == null) {
+            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+                logger.info("Please change the configuration section! Your config is old.");
+
+            } else {
+                logger.info("Error - Could not find the path in config.");
+                logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
+            }
+        }
+
+        try {
+            runnableManager.waitSecond(sender, time, messages);
+
+        } catch (NullPointerException nullPointerException) {
+            sendLines(nullPointerException);
+            return;
+        }
+
+        runnableManager.waitSecond(sender, time, messages);
+    }
+
 
     public void sendCommand(CommandSender sender, String command) {
 

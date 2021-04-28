@@ -11,8 +11,8 @@ public class ModuleCreator {
 
     private PluginService pluginService;
 
-    private List<String> commandsList;
-    private List<String> modulesList;
+    private final List<String> commandsList = new ArrayList<>();;
+    private final List<String> modulesList = new ArrayList<>();
 
     public ModuleCreator(PluginService pluginService) {
         this.pluginService = pluginService;
@@ -20,7 +20,6 @@ public class ModuleCreator {
     }
 
     public void setup() {
-        commandsList = new ArrayList<>();
         TextUtils.addToList(commandsList,
                 "chat",
                 "clab",
@@ -56,7 +55,7 @@ public class ModuleCreator {
     }
 
     public boolean isEnabledOption(String moduleType, String value){
-        Configuration config = pluginService.getFiles().getConfig();
+        Configuration config = pluginService.getFiles().getConfigFile();
        return !config.getStringList(moduleType).contains(value);
     }
 

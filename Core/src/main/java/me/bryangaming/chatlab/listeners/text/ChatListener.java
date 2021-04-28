@@ -31,8 +31,8 @@ public class ChatListener implements Listener{
 
         Player player = event.getSender();
 
-        Configuration messages = pluginService.getFiles().getBasicUtils();
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration messages = pluginService.getFiles().getMessagesFile();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
 
         ServerData serverData = pluginService.getServerData();
         CooldownData cooldownData = pluginService.getCooldownData();

@@ -2,10 +2,10 @@ package me.bryangaming.chatlab.listeners.command;
 
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.events.SocialSpyEvent;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,7 +31,7 @@ public class SocialSpyListener implements Listener {
             }
 
             playersender.sendMessage(player, socialSpyEvent.getMessage());
-            playersender.sendSound(player, SoundEnum.RECEIVE_SOCIALSPY);
+            playersender.playSound(player, SoundEnum.RECEIVE_SOCIALSPY);
         });
     }
 }

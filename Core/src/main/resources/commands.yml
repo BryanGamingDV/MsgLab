@@ -9,8 +9,8 @@
 
 commands:
 
-  channel:
 
+  channel:
     player:
       join: "%c &f You have joined channel &a%channel%&f."
       left: "%c &fYou have left channel &a%beforechannel%&f. Now you are in the %afterchannel% channel."
@@ -40,6 +40,10 @@ commands:
       status:
         yes_permission: "&2-> &aYou have the condition to join to the channel."
         no_permission: "&4-> &cYou don't have the condition to join to the channel"
+
+    config:
+      # When the player join to the server.
+      default-channel: default
 
   msg-online:
     mode: text
@@ -208,7 +212,8 @@ commands:
         modules: "%c &fList of modules:"
 
       worldpath-info: "%c &fInfo of &a%world%&f:"
-
+    config:
+      set: "%e &fPath set in &a%config% on &a%path% &f: &a%value%."
     sounds:
       enabled: "%c &fNow you can hear the sounds of the plugin."
       disabled: "%c &fNow you can't hear the sounds of the plugin."

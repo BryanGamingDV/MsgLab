@@ -1,10 +1,9 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
-import me.bryangaming.chatlab.managers.commands.IgnoreManager;
 import me.bryangaming.chatlab.managers.SenderManager;
-import me.bryangaming.chatlab.registry.FileLoader;
+import me.bryangaming.chatlab.managers.commands.IgnoreManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -29,33 +28,31 @@ public class UnIgnoreCommand implements CommandClass {
     }
 
     @Command(names = "unignore")
-    public boolean onCommand(@Sender Player player, @OptArg OfflinePlayer target) {
+    public boolean onCommand(@Sender Player player, @OptArg("") OfflinePlayer target) {
 
         IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        FileLoader files = pluginService.getFiles();
+        Configuration playersFile = pluginService.getFiles().getPlayersFile();
+        Configuration commandFile = pluginService.getFiles().getCommandFile();
+        Configuration messagesFile = pluginService.getFiles().getMessagesFile();
 
-        Configuration players = files.getPlayers();
-        Configuration command = files.getCommand();
-        Configuration messages = files.getMessages();
-
-        if (target == null) {
-            playerMethod.sendMessage(player, messages.getString("error.no-arg")
+        if (target.getName().isEmpty()) {
+            senderManager.sendMessage(player, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("unignore", "<player>")));
-            playerMethod.sendSound(player, SoundEnum.ERROR);
+            senderManager.playSound(player, SoundEnum.ERROR);
             return true;
         }
 
         if (!(target.isOnline())) {
-            playerMethod.sendMessage(player, messages.getString("error.player-offline"));
-            playerMethod.sendSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(player, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(player, SoundEnum.ERROR);
             return true;
         }
 
         if (target.getName().equalsIgnoreCase(player.getName())) {
-            playerMethod.sendMessage(player, messages.getString("error.ignore.ignore-yourself"));
-            playerMethod.sendSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(player, messagesFile.getString("error.ignore.ignore-yourself"));
+            senderManager.playSound(player, SoundEnum.ERROR);
             return true;
         }
 
@@ -65,24 +62,24 @@ public class UnIgnoreCommand implements CommandClass {
         Map<UUID, List<String>> ignorelist = pluginService.getCache().getIgnorelist();
 
         if (!(ignorelist.containsKey(playeruuid))) {
-            playerMethod.sendMessage(player, messages.getString("error.ignore.anybody"));
-            playerMethod.sendSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(player, messagesFile.getString("error.ignore.anybody"));
+            senderManager.playSound(player, SoundEnum.ERROR);
             return true;
         }
 
-        List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
+        List<String> ignoredlist = playersFile.getStringList("players." + playeruuid + ".players-ignored");
         UUID targetuuid = target.getPlayer().getUniqueId();
 
         if (!(ignoredlist.contains(targetname))) {
-            playerMethod.sendMessage(player, messages.getString("error.ignore.already-unignored"));
-            playerMethod.sendSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(player, messagesFile.getString("error.ignore.already-unignored"));
+            senderManager.playSound(player, SoundEnum.ERROR);
             return true;
         }
 
         ignoreManager.unignorePlayer(player, targetuuid);
-        playerMethod.sendMessage(player, command.getString("commands.ignore.player-unignored")
+        senderManager.sendMessage(player, commandFile.getString("commands.ignore.player-unignored")
                 .replace("%player%", targetname));
-        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "ignore");
+        senderManager.playSound(player, SoundEnum.ARGUMENT, "ignore");
         return true;
     }
 }

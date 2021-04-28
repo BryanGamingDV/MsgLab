@@ -3,13 +3,9 @@ package me.bryangaming.chatlab.utils;
 import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.debug.DebugLogger;
-import me.bryangaming.chatlab.utils.Configuration;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +20,7 @@ public class WorldData {
 
     public WorldData(PluginService pluginService) {
         this.pluginService = pluginService;
-        utils = pluginService.getFiles().getBasicUtils();
+        utils = pluginService.getFiles().getFormatsFile();
 
         plugin = pluginService.getPlugin();
         debugLogger = pluginService.getLogs();

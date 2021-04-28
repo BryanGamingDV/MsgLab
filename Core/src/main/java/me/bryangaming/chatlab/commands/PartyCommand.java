@@ -1,11 +1,11 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.data.PartyData;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.commands.PartyManager;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.commands.PartyManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -25,26 +25,26 @@ public class PartyCommand implements CommandClass {
 
     private PluginService pluginService;
 
-    private Configuration command;
-    private Configuration messages;
+    private final Configuration commandFile;
+    private final Configuration messagesFile;
 
-    private PartyManager partyManager;
-    private SenderManager playerMethod;
+    private final PartyManager partyManager;
+    private final SenderManager senderManager;
 
     public PartyCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.command = pluginService.getFiles().getCommand();
-        this.messages = pluginService.getFiles().getMessages();
+        this.commandFile = pluginService.getFiles().getCommandFile();
+        this.messagesFile = pluginService.getFiles().getMessagesFile();
 
         this.partyManager = pluginService.getPlayerManager().getPartyMethod();
-        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.senderManager = pluginService.getPlayerManager().getSender();
     }
 
     @Command(names = "")
     public boolean onMainSubCommand(@Sender Player sender) {
-        playerMethod.sendMessage(sender, command.getStringList("commands.party.help"));
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "party");
+        senderManager.sendMessage(sender, commandFile.getStringList("commands.party.help"));
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "party");
         return true;
     }
 
@@ -58,17 +58,17 @@ public class PartyCommand implements CommandClass {
     public boolean onJoinSubCommand(@Sender Player sender, @OptArg("") String leader) {
 
         if (leader.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("party", "join", "<player>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         Player player = Bukkit.getPlayerExact(leader);
 
         if (player == null) {
-            playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -88,50 +88,50 @@ public class PartyCommand implements CommandClass {
         UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
         if (userData.getPartyID() < 1) {
-            playerMethod.sendMessage(sender, messages.getString("error.party.no-party"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.party.no-party"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         PartyData partyData = partyManager.getPartyData(sender);
 
         if (!userData.isPlayerLeader()) {
-            playerMethod.sendMessage(sender, messages.getString("error.party.no-perms.set"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.party.no-perms.set"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (mode.isEmpty()) {
             if (!partyData.isPrivate()) {
                 partyData.setPrivate(true);
-                playerMethod.sendMessage(sender, command.getString("commands.party.set.mode")
-                        .replace("%mode%", command.getString("commands.party.mode.private")));
+                senderManager.sendMessage(sender, commandFile.getString("commands.party.set.mode")
+                        .replace("%mode%", commandFile.getString("commands.party.mode.private")));
                 return true;
             }
 
             partyData.setPrivate(false);
-            playerMethod.sendMessage(sender, command.getString("commands.party.set.mode")
-                    .replace("%mode%", command.getString("commands.party.mode.public")));
+            senderManager.sendMessage(sender, commandFile.getString("commands.party.set.mode")
+                    .replace("%mode%", commandFile.getString("commands.party.mode.public")));
             return true;
         }
 
         if (mode.equalsIgnoreCase("private")) {
             partyData.setPrivate(true);
-            playerMethod.sendMessage(sender, command.getString("commands.party.set.mode")
-                    .replace("%mode%", command.getString("commands.party.mode.private")));
+            senderManager.sendMessage(sender, commandFile.getString("commands.party.set.mode")
+                    .replace("%mode%", commandFile.getString("commands.party.mode.private")));
             return true;
         }
 
         if (mode.equalsIgnoreCase("public")) {
             partyData.setPrivate(false);
-            playerMethod.sendMessage(sender, command.getString("commands.party.set.mode")
-                    .replace("%mode%", command.getString("commands.party.mode.public")));
+            senderManager.sendMessage(sender, commandFile.getString("commands.party.set.mode")
+                    .replace("%mode%", commandFile.getString("commands.party.mode.public")));
             return true;
         }
 
-        playerMethod.sendMessage(sender, messages.getString("error.unknown-args")
+        senderManager.sendMessage(sender, messagesFile.getString("error.unknown-args")
                 .replace("%usage%", TextUtils.getUsage("party", "set", "[private/public]")));
-        playerMethod.sendSound(sender, SoundEnum.ERROR);
+        senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
     }
 
@@ -145,12 +145,12 @@ public class PartyCommand implements CommandClass {
             arrayList.add(Bukkit.getPlayer(uuid).getName());
         }
 
-        List<String> partyList = command.getStringList("commands.party.info.format");
+        List<String> partyList = commandFile.getStringList("commands.party.info.format");
         partyList.replaceAll(players -> players
                 .replace("%loop-players%", String.join(",", arrayList))
                 .replace("%leader%", Bukkit.getPlayer(partyData.getPlayerLeader()).getName()));
 
-        playerMethod.sendMessage(sender, partyList);
+        senderManager.sendMessage(sender, partyList);
         return true;
     }
 
@@ -158,17 +158,17 @@ public class PartyCommand implements CommandClass {
     public boolean onInviteSubCommand(@Sender Player sender, @OptArg("") String target) {
 
         if (target.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("party", "invite", "<player>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         Player player = Bukkit.getPlayerExact(target);
 
         if (player == null) {
-            playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -179,17 +179,17 @@ public class PartyCommand implements CommandClass {
     @Command(names = "removeinvite")
     public boolean onRemoveInviteSubCommand(@Sender Player sender, @OptArg("") String target) {
         if (target.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("party", "removeinvite", "<player>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         Player player = Bukkit.getPlayerExact(target);
 
         if (player == null) {
-            playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -206,17 +206,17 @@ public class PartyCommand implements CommandClass {
     @Command(names = "promote")
     public boolean onPromoteSubCommand(@Sender Player sender, @OptArg("") String target) {
         if (target.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("party", "promote", "<player>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         Player player = Bukkit.getPlayerExact(target);
 
         if (player == null) {
-            playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -227,17 +227,17 @@ public class PartyCommand implements CommandClass {
     @Command(names = "kick")
     public boolean onKickSubCommand(@Sender Player sender, @OptArg("") String target) {
         if (target.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("party", "removeinvite", "<player>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         Player player = Bukkit.getPlayerExact(target);
 
         if (player == null) {
-            playerMethod.sendMessage(sender, messages.getString("error.player-offline"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 

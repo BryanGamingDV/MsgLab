@@ -1,14 +1,13 @@
-package me.bryangaming.chatlab.registry;
+package me.bryangaming.chatlab.loader;
 
-import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.debug.DebugLogger;
+import me.bryangaming.chatlab.events.ChatClickEvent;
 import me.bryangaming.chatlab.listeners.*;
 import me.bryangaming.chatlab.listeners.command.CommandSpyListener;
 import me.bryangaming.chatlab.listeners.command.HelpOpListener;
 import me.bryangaming.chatlab.listeners.command.SocialSpyListener;
 import me.bryangaming.chatlab.listeners.text.ChatListener;
-import me.bryangaming.chatlab.events.ChatClickEvent;
 import me.bryangaming.chatlab.revisor.tabcomplete.TabFitler;
 import me.bryangaming.chatlab.utils.StringFormat;
 import org.bukkit.Bukkit;
@@ -17,11 +16,9 @@ import org.bukkit.plugin.PluginManager;
 
 public class EventLoader {
 
-    private final ChatLab plugin;
     private final PluginService pluginService;
 
-    public EventLoader(ChatLab plugin, PluginService pluginService) {
-        this.plugin = plugin;
+    public EventLoader(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
@@ -49,7 +46,7 @@ public class EventLoader {
         if (Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
             TabFitler tabFitler = new TabFitler(pluginService);
         }
-        plugin.getLogger().info("Events loaded!");
+        pluginService.getPlugin().getLogger().info("Events loaded!");
     }
 
     public void loadEvents(Listener... listeners) {
@@ -60,7 +57,7 @@ public class EventLoader {
         for (Listener listener : listeners) {
             String className = listener.getClass().getName();
             debug.log(className + " loaded!");
-            pl.registerEvents(listener, plugin);
+            pl.registerEvents(listener, pluginService.getPlugin());
         }
 
     }

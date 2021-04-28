@@ -3,10 +3,11 @@ package me.bryangaming.chatlab.listeners;
 import me.bryangaming.chatlab.CacheManager;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.events.SendDataEvent;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
-import me.bryangaming.chatlab.managers.group.GroupMethod;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,53 +23,35 @@ public class JoinListener implements Listener {
 
     private final PluginService pluginService;
 
-    private final Configuration players;
-    private final Configuration sounds;
-
-    private final CacheManager cache;
 
     public JoinListener(PluginService pluginService) {
         this.pluginService = pluginService;
-        // All methods:
-        this.players = pluginService.getFiles().getPlayers();
-        this.sounds = pluginService.getFiles().getSounds();
-        this.cache = pluginService.getCache();
     }
 
     @EventHandler
     public boolean onJoin(PlayerJoinEvent event) {
 
+        GroupManager groupManager = pluginService.getPlayerManager().getGroupManager();
+
         Player player = event.getPlayer();
-        UUID uuid = player.getUniqueId();
+        UUID playerUUID = player.getUniqueId();
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
-        GroupMethod groupMethod = pluginService.getPlayerManager().getGroupMethod();
+        String playerRank = groupManager.getJQGroup(player);
 
-        if (cache.getUserDatas().get(uuid) == null) {
-            cache.getUserDatas().put(uuid, new UserData(uuid));
+        UserData userData = pluginService.getCache().getUserDatas().get(playerUUID);
+
+        if (userData == null){
+            pluginService.getCache().getUserDatas().put(playerUUID, new UserData(playerUUID));
         }
-        if (playerMethod.hasPermission(player, "commands.helpop.watch")) {
-            cache.getUserDatas().get(uuid).toggleHelpOp(true);
-        }
-        String playerRank = groupMethod.getJQGroup(player);
+        Bukkit.getPluginManager().callEvent(new SendDataEvent(player, userData));
 
         if (pluginService.getListManager().isEnabledOption("modules", "join_quit")) {
             if (!event.getPlayer().hasPlayedBefore()) {
-                Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, event.getPlayer(), playerRank, ChangeMode.FIRST_JOIN));
+                Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, player, playerRank, ChangeMode.FIRST_JOIN));
             } else {
-                Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, event.getPlayer(), playerRank, ChangeMode.JOIN));
+                Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, player, playerRank, ChangeMode.JOIN));
             }
         }
-
-        if (pluginService.getListManager().isEnabledOption("modules", "ignore")) {
-            Map<UUID, List<String>> ignorelist = cache.getIgnorelist();
-            List<String> playerlist = players.getStringList("players." + player.getUniqueId().toString() + ".players-ignored");
-
-            if (!ignorelist.containsKey(uuid) && (!(playerlist.isEmpty()))) {
-                ignorelist.put(uuid, playerlist);
-            }
-        }
-
 
         return true;
     }

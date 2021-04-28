@@ -3,8 +3,8 @@ package me.bryangaming.chatlab.managers.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.MethodService;
-import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -35,13 +35,13 @@ public class StaffChatManager implements MethodService {
 
         if (usercache.isStaffchatMode()) {
             usercache.toggleStaffChat(false);
-            status = pluginService.getFiles().getCommand().getString("commands.staff-chat.player.variable-off");
+            status = pluginService.getFiles().getCommandFile().getString("commands.staff-chat.player.variable-off");
             return;
         }
         ;
 
         usercache.toggleStaffChat(true);
-        status = pluginService.getFiles().getCommand().getString("commands.staff-chat.player.variable-on");
+        status = pluginService.getFiles().getCommandFile().getString("commands.staff-chat.player.variable-on");
     }
 
     public void enableOption(UUID uuid) {
@@ -54,13 +54,13 @@ public class StaffChatManager implements MethodService {
 
     public boolean isUsingStaffSymbol(AsyncPlayerChatEvent event) {
 
-        Configuration command = pluginService.getFiles().getCommand();
+        Configuration command = pluginService.getFiles().getCommandFile();
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         Player player = event.getPlayer();
 
         if (event.getMessage().startsWith(command.getString("commands.staff-chat.symbol"))) {
-            return playerMethod.hasPermission(player, "commands.staffchat.watch");
+            return senderManager.hasPermission(player, "commands.staffchat.watch");
         }
 
         return false;
@@ -73,7 +73,7 @@ public class StaffChatManager implements MethodService {
         }
 
         Player player = event.getPlayer();
-        Configuration command = pluginService.getFiles().getCommand();
+        Configuration command = pluginService.getFiles().getCommandFile();
 
         ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();

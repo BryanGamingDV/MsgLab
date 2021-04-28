@@ -18,7 +18,7 @@ public class CommandTranslation extends BukkitDefaultTranslationProvider {
 
     public CommandTranslation(PluginService pluginService) {
         this.pluginService = pluginService;
-        this.messages = pluginService.getFiles().getMessages();
+        this.messages = pluginService.getFiles().getMessagesFile();
         translations = new HashMap<>();
         setup();
     }

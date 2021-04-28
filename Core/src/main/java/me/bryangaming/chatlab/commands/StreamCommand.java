@@ -1,11 +1,10 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.SenderManager;
-import me.bryangaming.chatlab.registry.FileLoader;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -27,18 +26,15 @@ public class StreamCommand implements CommandClass {
     @Command(names = "stream")
     public boolean onCommand(@Sender Player player, @OptArg("") @Text String args) {
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        FileLoader files = pluginService.getFiles();
-
-        Configuration command = files.getCommand();
-        Configuration messages = files.getMessages();
-
+        Configuration commandFile = pluginService.getFiles().getCommandFile();
+        Configuration messagesFile = pluginService.getFiles().getMessagesFile();
 
         if (args.isEmpty()) {
-            playerMethod.sendMessage(player, messages.getString("error.no-arg")
+            senderManager.sendMessage(player, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("stream", "<message>")));
-            playerMethod.sendSound(player, SoundEnum.ERROR);
+            senderManager.playSound(player, SoundEnum.ERROR);
             return true;
         }
 
@@ -47,10 +43,10 @@ public class StreamCommand implements CommandClass {
         boolean allowmode = false;
 
         String[] blockedRevisors;
-        if (command.getBoolean("commands.stream.only-link")) {
+        if (commandFile.getBoolean("commands.stream.only-link")) {
             blockedRevisors = new String[]{"ALL"};
             if (message.startsWith("https://")) {
-                for (String string : command.getStringList("commands.stream.allowed-links")) {
+                for (String string : commandFile.getStringList("commands.stream.allowed-links")) {
                     if (message.substring(8).startsWith(string)) {
                         allowmode = true;
                         break;
@@ -58,7 +54,7 @@ public class StreamCommand implements CommandClass {
                 }
 
             } else {
-                for (String string : command.getStringList("commands.stream.allowed-links")) {
+                for (String string : commandFile.getStringList("commands.stream.allowed-links")) {
                     if (message.startsWith(string)) {
                         allowmode = true;
                         break;
@@ -73,7 +69,7 @@ public class StreamCommand implements CommandClass {
         } else {
             blockedRevisors = new String[]{"BotRevisor", "LinkRevisor"};
             if (message.contains(".")) {
-                for (String string : command.getStringList("commands.stream.allowed-links")) {
+                for (String string : commandFile.getStringList("commands.stream.allowed-links")) {
                     if (message.contains(string)) {
                         allowmode = true;
                         break;
@@ -83,13 +79,13 @@ public class StreamCommand implements CommandClass {
         }
 
         if (!allowmode) {
-            playerMethod.sendMessage(player, messages.getString("error.stream.valid-link")
+            senderManager.sendMessage(player, messagesFile.getString("error.stream.valid-link")
                     .replace("%message%", message));
-            playerMethod.sendSound(player, SoundEnum.ERROR);
+            senderManager.playSound(player, SoundEnum.ERROR);
             return true;
         }
 
-        if (command.getBoolean("commands.stream.enable-revisor")) {
+        if (commandFile.getBoolean("commands.stream.enable-revisor")) {
             TextRevisorEvent textrevisorEvent = new TextRevisorEvent(player, message, TextRevisorEnum.TEXT, blockedRevisors);
             Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
 
@@ -101,13 +97,13 @@ public class StreamCommand implements CommandClass {
         }
 
         for (Player playerOnline : Bukkit.getServer().getOnlinePlayers()) {
-            playerMethod.sendMessage(playerOnline, command.getString("commands.stream.text")
+            senderManager.sendMessage(playerOnline, commandFile.getString("commands.stream.text")
                     .replace("%player%", player.getName())
                     .replace("%message%", message));
-            playerMethod.sendSound(playerOnline, SoundEnum.RECEIVE_STREAM);
+            senderManager.playSound(playerOnline, SoundEnum.RECEIVE_STREAM);
         }
 
-        playerMethod.sendSound(player, SoundEnum.ARGUMENT, "stream");
+        senderManager.playSound(player, SoundEnum.ARGUMENT, "stream");
         return true;
     }
 

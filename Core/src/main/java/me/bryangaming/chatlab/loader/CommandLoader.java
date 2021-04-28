@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.registry;
+package me.bryangaming.chatlab.loader;
 
 import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;

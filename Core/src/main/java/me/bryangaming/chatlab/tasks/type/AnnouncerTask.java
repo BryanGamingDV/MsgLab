@@ -31,7 +31,7 @@ public class AnnouncerTask implements Task {
 
     public void loadTask() {
 
-        Configuration command = pluginService.getFiles().getCommand();
+        Configuration command = pluginService.getFiles().getCommandFile();
 
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 

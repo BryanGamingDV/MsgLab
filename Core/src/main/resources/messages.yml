@@ -17,6 +17,10 @@ error:
   no-arg: "%c &fUnknown argument. %newline%&8- &fUsage: &a%usage%"
   unknown-arg: "%c &fUnknown argument."
 
+  clab:
+    config:
+      unknown-config: "%c &fUnknown config. %newline%&8- &fList of configs: &a%configlist%"
+      unknown-path: "%c &fUnknown path."
   modules:
     command-disabled: "%c &fSorry &a%player%&f, the command &a%command% &fis disabled :(."
     option-disabled: "%c &fSorry &a%player%&f,the option &a%option% &fis disabled :(."

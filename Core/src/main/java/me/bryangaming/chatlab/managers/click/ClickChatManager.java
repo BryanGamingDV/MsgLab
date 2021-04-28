@@ -1,12 +1,11 @@
 package me.bryangaming.chatlab.managers.click;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.managers.RunnableManager;
-import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.ErrorManager;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.WorldData;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -43,33 +42,31 @@ public class ClickChatManager {
 
         UserData userData = pluginService.getCache().getUserDatas().get(uuid);
 
-        SenderManager playersender = pluginService.getPlayerManager().getSender();
-        RunnableManager runnableManager = pluginService.getPlayerManager().getRunnableManager();
-
         Player player = Bukkit.getPlayer(uuid);
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        Configuration command = pluginService.getFiles().getCommand();
-        Configuration messages = pluginService.getFiles().getMessages();
+        Configuration command = pluginService.getFiles().getCommandFile();
+        Configuration messages = pluginService.getFiles().getMessagesFile();
 
         List<String> chatClick = userData.getClickChat();
 
         if (chatClick.size() < 1) {
             userData.toggleClickMode(true);
-            playersender.sendMessage(player, command.getString("commands.broadcast.mode.load"));
-            playersender.sendMessage(player, command.getString("commands.broadcast.mode.select.message"));
-            playersender.sendMessage(player, "&eUse &6\"-cancel\" &eto cancel the clickchat mode.");
+            senderManager.sendMessage(player, command.getString("commands.broadcast.mode.load"));
+            senderManager.sendMessage(player, command.getString("commands.broadcast.mode.select.message"));
+            senderManager.sendMessage(player, "&eUse &6\"-cancel\" &eto cancel the clickchat mode.");
             return;
         }
 
         if (chatClick.size() < 2) {
-            runnableManager.waitSecond(player, 1,
+            senderManager.sendMessagesLater(player, 1,
                     command.getString("commands.broadcast.mode.select.command"),
                     "&aYou don't need to use '/' in this case.");
             return;
         }
 
         if (chatClick.size() < 3) {
-            runnableManager.waitSecond(player, 1,
+            senderManager.sendMessagesLater(player, 1,
                     command.getString("commands.broadcast.mode.select.cooldown"),
                     "&aIf you want to broadcast now, use &8[&f-now&8]&a.");
             return;
@@ -79,7 +76,7 @@ public class ClickChatManager {
         if (chatClick.size() == 3) {
 
             if (!ErrorManager.isNumber(chatClick.get(2))) {
-                playersender.sendMessage(player, messages.getString("error.click-chat.unknown-number")
+                senderManager.sendMessage(player, messages.getString("error.click-chat.unknown-number")
                         .replace("%number%", chatClick.get(2)));
                 userData.toggleClickMode(true);
                 chatClick.remove(2);
@@ -88,7 +85,7 @@ public class ClickChatManager {
 
             int cooldown = Integer.parseInt(chatClick.get(2));
 
-            runnableManager.waitSecond(player, 1, command.getString("commands.broadcast.mode.hover"));
+            senderManager.sendMessageLater(player, 1, command.getString("commands.broadcast.mode.hover"));
 
             waitHover(player, cooldown);
 
@@ -105,7 +102,7 @@ public class ClickChatManager {
 
                 BukkitAudiences bukkitAudiences = pluginService.getPlugin().getBukkitAudiences();
 
-                Configuration command = pluginService.getFiles().getCommand();
+                Configuration command = pluginService.getFiles().getCommandFile();
 
                 UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
                 List<String> chatClick = userData.getClickChat();
@@ -126,7 +123,7 @@ public class ClickChatManager {
                 component = component.hoverEvent(HoverEvent.showText(miniMessage.parse(command.getString("commands.broadcast.click_cmd.format"))));
                 component = component.clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/" + chatClick.get(1)));
 
-                Configuration utils = pluginService.getFiles().getBasicUtils();
+                Configuration utils = pluginService.getFiles().getFormatsFile();
 
                 if (worldtype) {
                     List<Player> worldList;
@@ -172,7 +169,7 @@ public class ClickChatManager {
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
         SenderManager playersender = pluginService.getPlayerManager().getSender();
 
-        Configuration command = pluginService.getFiles().getCommand();
+        Configuration command = pluginService.getFiles().getCommandFile();
 
         playersender.sendMessage(player, command.getString("commands.broadcast.mode.disabled"));
         userData.toggleClickMode(false);

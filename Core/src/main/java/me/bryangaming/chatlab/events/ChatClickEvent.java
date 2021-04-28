@@ -2,9 +2,9 @@ package me.bryangaming.chatlab.events;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
-import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +28,7 @@ public class ChatClickEvent implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
 
         UserData userData = pluginService.getCache().getUserDatas().get(uuid);
-        SenderManager playersender = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         if (!(userData.isClickMode())) {
             return;
@@ -37,7 +37,7 @@ public class ChatClickEvent implements Listener {
         List<String> clickchat = userData.getClickChat();
         ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
 
-        Configuration command = pluginService.getFiles().getCommand();
+        Configuration command = pluginService.getFiles().getCommandFile();
 
         if (event.getMessage().startsWith("-cancel")) {
             clickChatManager.unset(uuid);
@@ -55,7 +55,7 @@ public class ChatClickEvent implements Listener {
 
         if (clickchat.size() < 1) {
             clickchat.add(event.getMessage());
-            playersender.sendMessage(event.getPlayer(), command.getString("commands.broadcast.mode.selected.message")
+            senderManager.sendMessage(event.getPlayer(), command.getString("commands.broadcast.mode.selected.message")
                     .replace("%message%", clickchat.get(0)));
             clickChatManager.setAgain(uuid);
             return;
@@ -63,7 +63,7 @@ public class ChatClickEvent implements Listener {
 
         if (clickchat.size() < 2) {
             clickchat.add(event.getMessage());
-            playersender.sendMessage(event.getPlayer(), command.getString("commands.broadcast.mode.selected.command")
+            senderManager.sendMessage(event.getPlayer(), command.getString("commands.broadcast.mode.selected.command")
                     .replace("%command%", clickchat.get(1)));
             clickChatManager.setAgain(uuid);
             return;
@@ -77,7 +77,7 @@ public class ChatClickEvent implements Listener {
                 clickchat.add(event.getMessage());
             }
 
-            playersender.sendMessage(event.getPlayer(), command.getString("commands.broadcast.mode.selected.cooldown")
+            senderManager.sendMessage(event.getPlayer(), command.getString("commands.broadcast.mode.selected.cooldown")
                     .replace("%cooldown%", clickchat.get(2)));
 
 

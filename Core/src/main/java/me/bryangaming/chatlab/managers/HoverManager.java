@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.managers;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.group.GroupEnum;
-import me.bryangaming.chatlab.managers.group.GroupMethod;
+import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -28,12 +28,12 @@ public class HoverManager {
 
         MiniMessage miniMessage = MiniMessage.get();
 
-        GroupMethod groupMethod = pluginService.getPlayerManager().getGroupMethod();
+        GroupManager groupManager = pluginService.getPlayerManager().getGroupManager();
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
         GroupEnum channelType = userData.getChannelType();
 
-        String playerRank = groupMethod.getPlayerGroup(player);
-        Set<String> configSection = groupMethod.getConfigSection(channelType, player, playerRank);
+        String playerRank = groupManager.getPlayerGroup(player);
+        Set<String> configSection = groupManager.getConfigSection(channelType, player, playerRank);
 
         if (configSection == null) {
             pluginService.getPlugin().getLogger().info("Please put the bases format in the formats.yml");
@@ -45,7 +45,7 @@ public class HoverManager {
 
         for (String format : configSection) {
 
-            String textPath = groupMethod.getPlayerFormat(channelType, player, playerRank, format);
+            String textPath = groupManager.getPlayerFormat(channelType, player, playerRank, format);
 
             if (textPath.contains("%message%")) {
                 textPath = TextUtils.convertText(player, textPath, message);
@@ -55,10 +55,10 @@ public class HoverManager {
 
             Component newComponent = miniMessage.parse(textPath);
 
-            List<String> textHover = groupMethod.getPlayerHover(channelType, player, playerRank, format);
+            List<String> textHover = groupManager.getPlayerHover(channelType, player, playerRank, format);
 
-            String textType = groupMethod.getPlayerActionType(channelType, player, playerRank, format);
-            String textCommand = groupMethod.getPlayerActionFormat(channelType, player, playerRank, format);
+            String textType = groupManager.getPlayerActionType(channelType, player, playerRank, format);
+            String textCommand = groupManager.getPlayerActionFormat(channelType, player, playerRank, format);
 
             if (!textHover.isEmpty()) {
                 textHover.replaceAll(string -> TextUtils.convertText(player, string));

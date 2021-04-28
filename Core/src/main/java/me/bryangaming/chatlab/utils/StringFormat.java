@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.utils;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.registry.FileLoader;
+import me.bryangaming.chatlab.loader.FileLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;

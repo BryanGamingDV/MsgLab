@@ -27,25 +27,23 @@ public class CooldownData {
 
         this.plugin = pluginService.getPlugin();
 
-        this.config = pluginService.getFiles().getConfig();
-        this.utils = pluginService.getFiles().getBasicUtils();
+        this.config = pluginService.getFiles().getConfigFile();
+        this.utils = pluginService.getFiles().getFormatsFile();
 
         this.cache = pluginService.getCache();
         this.playerMethod = pluginService.getPlayerManager().getSender();
-        pluginService.getServerData().setServerTextCooldown(utils.getInt("fitlers.cooldown.text.seconds"));
-        pluginService.getServerData().setServerCmdCooldown(utils.getInt("fitlers.cooldown.cmd.seconds"));
+        pluginService.getServerData().setServerTextCooldown(utils.getInt("filters.cooldown.text.seconds"));
+        pluginService.getServerData().setServerCmdCooldown(utils.getInt("filters.cooldown.cmd.seconds"));
     }
 
-
     public boolean isTextSpamming(UUID uuid) {
-
 
         if (pluginService.getListManager().isEnabledOption("module", "cooldown")) {
             return false;
         }
 
 
-        if (!(utils.getBoolean("fitlers.cooldown.text.enabled"))) {
+        if (!(utils.getBoolean("filters.cooldown.text.enabled"))) {
             return false;
         }
 
@@ -57,7 +55,7 @@ public class CooldownData {
         }
 
         if (playerCooldown.isCooldownMode()) {
-            playerMethod.sendMessage(player, utils.getString("fitlers.cooldown.text.message")
+            playerMethod.sendMessage(player, utils.getString("filters.cooldown.text.message")
                     .replace("%seconds%", pluginService.getServerData().getServerTextCooldownInString()));
             return true;
         }
@@ -80,7 +78,7 @@ public class CooldownData {
             return false;
         }
 
-        if (!(utils.getBoolean("fitlers.cooldown.cmd.enabled"))) {
+        if (!(utils.getBoolean("filters.cooldown.cmd.enabled"))) {
             return false;
         }
 
@@ -92,7 +90,7 @@ public class CooldownData {
         }
 
         if (playerCooldown.isCooldownCmdMode()) {
-            playerMethod.sendMessage(player, utils.getString("fitlers.cooldown.cmd.message")
+            playerMethod.sendMessage(player, utils.getString("filters.cooldown.cmd.message")
                     .replace("%seconds%", pluginService.getServerData().getServerCmdCooldownInString()));
             return true;
         }

@@ -28,12 +28,12 @@ public class HelpOpManager implements MethodService {
 
         if (usercache.isPlayerHelpOp()) {
             usercache.toggleHelpOp(false);
-            status = pluginService.getFiles().getCommand().getString("commands.helpop.player.variable-off");
+            status = pluginService.getFiles().getCommandFile().getString("commands.helpop.player.variable-off");
             return;
         }
 
         usercache.toggleHelpOp(true);
-        status = pluginService.getFiles().getCommand().getString("commands.helpop.player.variable-on");
+        status = pluginService.getFiles().getCommandFile().getString("commands.helpop.player.variable-on");
     }
 
     public void enableOption(UUID uuid) {

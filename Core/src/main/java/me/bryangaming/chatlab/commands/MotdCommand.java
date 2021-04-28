@@ -1,11 +1,11 @@
 package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.utils.pages.PageCreator;
-import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.StringFormat;
+import me.bryangaming.chatlab.utils.pages.PageCreator;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -22,23 +22,23 @@ public class MotdCommand implements CommandClass {
 
     private final PluginService pluginService;
 
-    private final Configuration utils;
-    private final Configuration command;
-    private final Configuration messages;
+    private final Configuration formatFile;
+    private final Configuration commandFile;
+    private final Configuration messagesFile;
 
-    private final SenderManager playerMethod;
+    private final SenderManager senderManager;
     private final List<String> motd;
 
 
     public MotdCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.utils = pluginService.getFiles().getBasicUtils();
-        this.command = pluginService.getFiles().getCommand();
-        this.messages = pluginService.getFiles().getMessages();
+        this.formatFile = pluginService.getFiles().getFormatsFile();
+        this.commandFile = pluginService.getFiles().getCommandFile();
+        this.messagesFile = pluginService.getFiles().getMessagesFile();
 
-        this.playerMethod = pluginService.getPlayerManager().getSender();
-        this.motd = utils.getStringList("lobby.formats.default.join.motd");
+        this.senderManager = pluginService.getPlayerManager().getSender();
+        this.motd = formatFile.getStringList("lobby.formats.default.join.motd");
     }
 
     @Command(names = "")
@@ -48,35 +48,35 @@ public class MotdCommand implements CommandClass {
         StringFormat variable = pluginService.getStringFormat();
 
         if (page <= 0) {
-            playerMethod.sendMessage(sender, messages.getString("error.motd.negative-number")
+            senderManager.sendMessage(sender, messagesFile.getString("error.motd.negative-number")
                     .replace("%number%", String.valueOf(page)));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         PageCreator pageCreator = new PageCreator(motd);
 
         if (!pageCreator.pageExists(page - 1)) {
-            playerMethod.sendMessage(sender, messages.getString("error.motd.unknown-page")
+            senderManager.sendMessage(sender, messagesFile.getString("error.motd.unknown-page")
                     .replace("%page%", String.valueOf(page)));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         List<String> motdPage = pageCreator.getHashString().get(page - 1);
-        List<String> motdList = command.getStringList("commands.motd.list.message");
+        List<String> motdList = commandFile.getStringList("commands.motd.list.message");
 
         motdList.replaceAll(text -> text
                 .replace("%page%", String.valueOf(page))
                 .replace("%maxpage%", String.valueOf(pageCreator.getMaxPage())));
         motdPage.replaceAll(text -> variable.replacePlayerVariables(sender, text));
 
-        motdList.forEach(text -> playerMethod.sendMessage(sender, text));
-        playerMethod.sendMessage(sender, command.getString("commands.motd.list.space"));
-        motdPage.forEach(text -> playerMethod.sendMessage(sender, text));
-        playerMethod.sendMessage(sender, command.getString("commands.motd.list.space"));
+        motdList.forEach(text -> senderManager.sendMessage(sender, text));
+        senderManager.sendMessage(sender, commandFile.getString("commands.motd.list.space"));
+        motdPage.forEach(text -> senderManager.sendMessage(sender, text));
+        senderManager.sendMessage(sender, commandFile.getString("commands.motd.list.space"));
 
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "motd");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "motd");
         return true;
     }
 
@@ -84,28 +84,28 @@ public class MotdCommand implements CommandClass {
     @Command(names = "addline")
     public boolean addLine(@Sender Player sender, @OptArg("") @Text String text) {
 
-        if (!playerMethod.hasPermission(sender, "commands.motd.admin")) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+        if (!senderManager.hasPermission(sender, "commands.motd.admin")) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (text.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("motd", "addline/removeline/setline")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         String message = String.join(" ", text);
 
-        playerMethod.sendMessage(sender, command.getString("commands.motd.add-line")
+        senderManager.sendMessage(sender, commandFile.getString("commands.motd.add-line")
                 .replace("%line%", message));
 
         motd.add(message);
-        utils.set("lobby.formats.default.join.motd", motd);
-        utils.save();
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "motd addline");
+        formatFile.set("lobby.formats.default.join.motd", motd);
+        formatFile.save();
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "motd addline");
         return true;
 
 
@@ -114,16 +114,16 @@ public class MotdCommand implements CommandClass {
     @Command(names = "removeline")
     public boolean removeLine(@Sender Player sender, @OptArg("1") int page) {
 
-        if (!playerMethod.hasPermission(sender, "commands.motd.admin")) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+        if (!senderManager.hasPermission(sender, "commands.motd.admin")) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         String pageArg = String.valueOf(page);
 
         if (pageArg.isEmpty()) {
-            playerMethod.sendMessage(sender, command.getString("commands.motd.remove-line")
+            senderManager.sendMessage(sender, commandFile.getString("commands.motd.remove-line")
                     .replace("%line%", motd.get(motd.size() - 1))
                     .replace("%number%", String.valueOf(motd.size())));
             motd.remove(motd.size() - 1);
@@ -134,45 +134,45 @@ public class MotdCommand implements CommandClass {
                 linePath = motd.get(page - 1);
 
             } catch (IndexOutOfBoundsException index) {
-                playerMethod.sendMessage(sender, messages.getString("error.motd.unknown-line")
+                senderManager.sendMessage(sender, messagesFile.getString("error.motd.unknown-line")
                         .replace("%line%", String.valueOf(page)));
-                playerMethod.sendSound(sender, SoundEnum.ERROR);
+                senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
 
             }
 
-            playerMethod.sendMessage(sender, command.getString("commands.motd.remove-line")
+            senderManager.sendMessage(sender, commandFile.getString("commands.motd.remove-line")
                     .replace("%line%", linePath)
                     .replace("%number%", String.valueOf(page)));
             motd.remove(page - 1);
         }
 
 
-        utils.set("lobby.formats.default.join.motd", motd);
-        utils.save();
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "motd removeline");
+        formatFile.set("lobby.formats.default.join.motd", motd);
+        formatFile.save();
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "motd removeline");
         return true;
     }
 
     @Command(names = {"setline"})
     public boolean setLine(@Sender Player sender, @OptArg("-1") int page, @OptArg("") @Text String text) {
 
-        if (!playerMethod.hasPermission(sender, "commands.motd.admin")) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-perms"));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+        if (!senderManager.hasPermission(sender, "commands.motd.admin")) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
         if (page < 0) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("motd", "setline", "<page>", "<text>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (text.isEmpty()) {
-            playerMethod.sendMessage(sender, messages.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("motd", "setline", "<page>", "<text>")));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -184,22 +184,22 @@ public class MotdCommand implements CommandClass {
             linePath = motd.get(page - 1);
 
         } catch (IndexOutOfBoundsException index) {
-            playerMethod.sendMessage(sender, messages.getString("error.motd.unknown-line")
+            senderManager.sendMessage(sender, messagesFile.getString("error.motd.unknown-line")
                     .replace("%line%", String.valueOf(page)));
-            playerMethod.sendSound(sender, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
 
         }
         motd.set(page - 1, messagePath);
 
-        playerMethod.sendMessage(sender, command.getString("commands.motd.set-line")
+        senderManager.sendMessage(sender, commandFile.getString("commands.motd.set-line")
                 .replace("%beforeline%", linePath)
                 .replace("%line%", motd.get(page - 1))
                 .replace("%number%", String.valueOf(page)));
 
-        utils.set("lobby.formats.default.join.motd", motd);
-        utils.save();
-        playerMethod.sendSound(sender, SoundEnum.ARGUMENT, "motd setline");
+        formatFile.set("lobby.formats.default.join.motd", motd);
+        formatFile.save();
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "motd setline");
         return true;
     }
 

@@ -504,7 +504,6 @@ revisor-cmd:
   # Commands module:
   #
   commands-module:
-    enabled: true
 
     #
     # Conditions:
@@ -515,13 +514,15 @@ revisor-cmd:
       enabled: false
 
       commands:
-        test: 500$
+        test: "%pmoney% = 500"
 
       message:
         enabled: true
         format: "%e &fYou don't have the condition to use that command."
 
     block:
+      enabled: true
+
       op:
         message:
           enabled: true

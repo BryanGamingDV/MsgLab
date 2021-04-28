@@ -18,15 +18,16 @@ public class FloodRevisor implements Revisor {
         this.pluginService = pluginService;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor.anti-flood.enabled");
+    }
+
+    @Override
     public String revisor(Player player, String string) {
 
-        Configuration utils = pluginService.getFiles().getBasicUtils();
+        Configuration utils = pluginService.getFiles().getFormatsFile();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
-
-        if (!(utils.getBoolean("revisor.anti-flood.enabled"))) {
-            return string;
-        }
-
 
         int floodstatus = 0;
         int minflood = Math.max(0, utils.getInt("revisor.anti-flood.min-chars"));
