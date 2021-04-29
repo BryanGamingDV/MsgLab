@@ -61,20 +61,23 @@ public class LinkRevisor implements Revisor {
         List<String> blockList = utils.getStringList("revisor.link-module.blocked-links");
 
         for (String blockedWord : blockList) {
-            if (string.contains(blockedWord)) {
+            for (String word : string.split(" ")) {
+                if (string.contains(blockedWord)) {
 
-                string = string.replace(".", utils.getString("revisor.link-module.replace-link"));
-                sendMessage(player, blockedWord);
+                    string = string.replace(word, utils.getString("revisor.link-module.replace-link"));
+                    sendMessage(player, blockedWord);
 
-                if (!(player.isOnline())) {
-                    return null;
+                    if (!(player.isOnline())) {
+                        return null;
+                    }
+
+                    if (string.trim().isEmpty()) {
+                        return null;
+                    }
+
+                    return string;
                 }
 
-                if (string.trim().isEmpty()) {
-                    return null;
-                }
-
-                return string;
             }
 
         }

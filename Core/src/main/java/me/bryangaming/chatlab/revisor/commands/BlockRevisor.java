@@ -34,7 +34,6 @@ public class BlockRevisor implements Revisor{
                 playerMethod.sendMessage(player, formatFile.getString("revisor-cmd.commands-module.block.op.message.format")
                         .replace("%command%", commandName));
             }
-
             return null;
         }
 
