@@ -24,7 +24,7 @@ public class BlockRevisor implements Revisor{
         Configuration formatFile = pluginService.getFiles().getFormatsFile();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
-        for (String commandName : formatFile.getStringList("revisor-cmd.commands-module.block.default.list")) {
+        for (String commandName : formatFile.getStringList("revisor-cmd.commands-module.block.op.list")) {
 
             if (!command.equalsIgnoreCase(commandName)) {
                 continue;
@@ -48,7 +48,7 @@ public class BlockRevisor implements Revisor{
                 continue;
             }
 
-            if (formatFile.getBoolean("revisor-cmd.commands-module.block.default.message.format")) {
+            if (formatFile.getBoolean("revisor-cmd.commands-module.block.default.message.enabled")) {
                 playerMethod.sendMessage(player, formatFile.getString("revisor-cmd.commands-module.block.default.message.format")
                         .replace("%command%", commandName));
             }
