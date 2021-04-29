@@ -6,6 +6,8 @@ import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import me.bryangaming.chatlab.listeners.DiscordSrvListener;
 import org.bukkit.Bukkit;
 
+import java.util.Arrays;
+
 public class DiscordHook {
 
     private final PluginService pluginService;

@@ -1,6 +1,6 @@
 package me.bryangaming.chatlab.listeners;
 
-import com.google.common.eventbus.Subscribe;
+import github.scarsz.discordsrv.api.Subscribe;
 import github.scarsz.discordsrv.api.events.DiscordGuildMessagePreProcessEvent;
 import github.scarsz.discordsrv.util.DiscordUtil;
 import me.bryangaming.chatlab.PluginService;
