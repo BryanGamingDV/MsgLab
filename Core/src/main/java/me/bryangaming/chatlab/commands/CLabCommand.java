@@ -16,6 +16,7 @@ import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "reload")
-    public boolean reloadSubCommand(@Sender Player sender, @OptArg("") String file) {
+    public boolean reloadSubCommand(CommandSender sender, @OptArg("") String file) {
 
         if (!(senderManager.hasPermission(sender, "commands.clab.reload"))) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
@@ -325,7 +326,7 @@ public class CLabCommand implements CommandClass {
         return true;
     }
 
-    public void getReloadEvent(Player player, String string) {
+    public void getReloadEvent(CommandSender sender, String string) {
 
         FileLoader files = pluginService.getFiles();
 
@@ -333,8 +334,8 @@ public class CLabCommand implements CommandClass {
         TasksManager tasksManager = pluginService.getTasksManager();
 
         if (string.equalsIgnoreCase("you")) {
-            senderManager.sendMessage(player, "%p &fEmmm, you are not a plugin. But symbolically, you can change your future. Be positive!");
-            senderManager.sendMessage(player, "&8- &fEasterEgg #2");
+            senderManager.sendMessage(sender, "%p &fEmmm, you are not a plugin. But symbolically, you can change your future. Be positive!");
+            senderManager.sendMessage(sender, "&8- &fEasterEgg #2");
         }
 
         if (string.equalsIgnoreCase("all")) {
@@ -344,15 +345,15 @@ public class CLabCommand implements CommandClass {
             checkCommands();
             DataModule dataModule = new DataModule(pluginService);
             tasksManager.reloadTasks();
-            senderManager.sendMessage(player, files.getCommandFile().getString("commands.clab.reload"));
-            senderManager.playSound(player, SoundEnum.ARGUMENT, "clab reload all");
+            senderManager.sendMessage(sender, files.getCommandFile().getString("commands.clab.reload"));
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab reload all");
             return;
         }
 
         if (fileMap.get(string) == null) {
-            senderManager.sendMessage(player, files.getMessagesFile().getString("error.unknown-arg"));
-            senderManager.sendMessage(player, "&8- &fFiles: &a[commands, config, messages, players, sounds, utils]");
-            senderManager.playSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, files.getMessagesFile().getString("error.unknown-arg"));
+            senderManager.sendMessage(sender, "&8- &fFiles: &a[commands, config, messages, players, sounds, utils]");
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return;
         }
 
@@ -367,9 +368,9 @@ public class CLabCommand implements CommandClass {
             DataModule dataModule = new DataModule(pluginService);
         }
 
-        senderManager.sendMessage(player, files.getCommandFile().getString("commands.clab.reload-file")
+        senderManager.sendMessage(sender, files.getCommandFile().getString("commands.clab.reload-file")
                 .replace("%file%", StringUtils.capitalize(string)));
-        senderManager.playSound(player, SoundEnum.ARGUMENT, "clab reload");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab reload");
 
     }
 

@@ -52,6 +52,14 @@ public class SenderManager {
         return player.hasPermission(path);
     }
 
+    public boolean hasPermission(CommandSender sender, String path) {
+        if (!(sender instanceof Player)) {
+            return true;
+        }
+
+        return hasPermission((Player) sender, path);
+    }
+
     public boolean hasPermission(Player player, String path) {
 
         Logger logger = pluginService.getPlugin().getLogger();
@@ -82,6 +90,33 @@ public class SenderManager {
         }
 
         return player.hasPermission(permission);
+
+    }
+
+
+    public void sendMessage(CommandSender sender, String path) {
+
+        Logger logger = pluginService.getPlugin().getLogger();
+
+        if (path == null) {
+            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+                logger.info("Please change the configuration section! Your config is old.");
+            } else {
+                logger.info("Error - Could not find the path in config.");
+                logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
+            }
+
+            TextUtils.printStackTrace();
+            return;
+        }
+
+        if (!(sender instanceof Player)) {
+            System.out.println(path);
+            return;
+        }
+
+        Audience player = pluginService.getPlugin().getBukkitAudiences().player((Player) sender);
+        player.sendMessage(TextUtils.convertTextToComponent((Player) sender, path));
 
     }
 
@@ -168,6 +203,14 @@ public class SenderManager {
     }
 
 
+    public void playSound(CommandSender sender, SoundEnum soundType) {
+        if (!(sender instanceof Player)){
+            return;
+        }
+
+        playSound((Player) sender, soundType);
+    }
+
     public void playSound(Player player, SoundEnum soundType) {
 
         String path = soundType.getName();
@@ -193,6 +236,16 @@ public class SenderManager {
         soundManager.setSound(player.getUniqueId(), "sounds." + soundType.getName());
     }
 
+
+    public SenderManager playSound(CommandSender sender, SoundEnum soundType, String command) {
+
+        if (!(sender instanceof Player)){
+            return this;
+        }
+
+        playSound((Player) sender, soundType, command);
+        return this;
+    }
     public SenderManager playSound(Player player, SoundEnum soundType, String command) {
 
         SoundManager sound = pluginService.getPlayerManager().getSoundManager();
