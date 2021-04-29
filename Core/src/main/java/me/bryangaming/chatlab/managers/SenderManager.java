@@ -29,6 +29,29 @@ public class SenderManager {
     }
 
 
+    public boolean hasUtilsPermission(Player player, String path) {
+
+        Logger logger = pluginService.getPlugin().getLogger();
+
+        if (path == null) {
+
+            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+                logger.info("Please change the configuration section! Your config is old.");
+            } else {
+                logger.info("Error - Could not find the path in config.");
+                logger.info("Please copy the lines and post in: https://discord.gg/wpSh4Bf4Es");
+            }
+            TextUtils.printStackTrace();
+            return false;
+        }
+
+        if (path.equalsIgnoreCase("none")) {
+            return true;
+        }
+
+        return player.hasPermission(path);
+    }
+
     public boolean hasPermission(Player player, String path) {
 
         Logger logger = pluginService.getPlugin().getLogger();

@@ -89,7 +89,7 @@ public class ChatListener implements Listener{
 
         if (utils.getBoolean("format.discord-srv.enabled")){
             if (Bukkit.getPluginManager().isPluginEnabled("DiscordSRV")){
-                DiscordUtil.sendMessage(DiscordUtil.getTextChannelById(utils.getString("format.discord-srv.channel")), utils.getString("format.discord-srv.format")
+                DiscordUtil.sendMessage(DiscordUtil.getTextChannelById(utils.getString("format.discord-srv.messages.from-mc")), utils.getString("format.discord-srv.format")
                         .replace("%player%", player.getName())
                         .replace("%message%", message));
             }

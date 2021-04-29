@@ -5,6 +5,7 @@ import me.bryangaming.chatlab.api.task.Task;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
@@ -35,7 +36,13 @@ public class AnnouncerTask implements Task {
 
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
-        List<String> announcerList = new ArrayList<>(command.getConfigurationSection("commands.announcer.config.messages").getKeys(false));
+        ConfigurationSection configurationSection = command.getConfigurationSection("commands.announcer.config.messages");
+
+        if (configurationSection == null){
+            return;
+        }
+
+        List<String> announcerList = new ArrayList<>(configurationSection.getKeys(false));
 
         String announcerType = command.getString("commands.announcer.config.type");
 

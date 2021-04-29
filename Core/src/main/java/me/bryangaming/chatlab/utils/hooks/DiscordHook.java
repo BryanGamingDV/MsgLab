@@ -3,6 +3,7 @@ package me.bryangaming.chatlab.utils.hooks;
 import github.scarsz.discordsrv.DiscordSRV;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
+import me.bryangaming.chatlab.listeners.DiscordSrvListener;
 import org.bukkit.Bukkit;
 
 public class DiscordHook {
@@ -21,6 +22,8 @@ public class DiscordHook {
             return;
         }
 
+        DiscordSRV.api.subscribe(new DiscordSrvListener(pluginService));
         pluginService.getPlugin().getLogger().info("Addons - Loaded DiscordSRV..");
+
     }
 }

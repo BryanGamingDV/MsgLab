@@ -57,7 +57,12 @@ format:
   discord-srv:
     enabled: false
     channelID: channelID
-    format: "%player% > %message%"
+
+    permission: staff.receive
+
+    messages:
+      from-mc: "%player% > %message%"
+      from-discord: "%author% > %messages%"
 
   default:
     bases:

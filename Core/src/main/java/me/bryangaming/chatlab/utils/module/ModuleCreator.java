@@ -56,7 +56,7 @@ public class ModuleCreator {
 
     public boolean isEnabledOption(String moduleType, String value){
         Configuration config = pluginService.getFiles().getConfigFile();
-       return !config.getStringList(moduleType).contains(value);
+       return config.getStringList(moduleType).contains(value);
     }
 
     public List<String> getCommands() {
