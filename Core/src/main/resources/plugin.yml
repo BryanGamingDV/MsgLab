@@ -1,6 +1,6 @@
 main: me.bryangaming.chatlab.ChatLab
 name: ChatLab
-version: 2.1.1
+version: 2.1.2
 author: BryanGaming
 softdepend: [ PlaceholderAPI, Multiverse-Core, Vault, ProtocolLib ]
 api-version: 1.16
