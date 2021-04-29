@@ -28,7 +28,7 @@ public class UnIgnoreCommand implements CommandClass {
     }
 
     @Command(names = "unignore")
-    public boolean onCommand(@Sender Player player, @OptArg("") OfflinePlayer target) {
+    public boolean onCommand(@Sender Player player, @OptArg OfflinePlayer target) {
 
         IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
@@ -37,7 +37,7 @@ public class UnIgnoreCommand implements CommandClass {
         Configuration commandFile = pluginService.getFiles().getCommandFile();
         Configuration messagesFile = pluginService.getFiles().getMessagesFile();
 
-        if (target.getName().isEmpty()) {
+        if (target == null) {
             senderManager.sendMessage(player, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("unignore", "<player>")));
             senderManager.playSound(player, SoundEnum.ERROR);

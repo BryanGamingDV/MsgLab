@@ -32,7 +32,7 @@ public class MsgCommand implements CommandClass {
 
     @Command(names = {"msg", "pm", "tell", "t", "w", "whisper"})
 
-    public boolean onCommand(@Sender Player sender, @OptArg("") OfflinePlayer target, @OptArg("") @Text String msg) {
+    public boolean onCommand(@Sender Player sender, @OptArg OfflinePlayer target, @OptArg("") @Text String msg) {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
@@ -41,7 +41,7 @@ public class MsgCommand implements CommandClass {
 
         UUID playeruuid = sender.getUniqueId();
 
-        if (target.getName().isEmpty()) {
+        if (target == null) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("msg", "<player>", "<message>")));
             senderManager.playSound(sender, SoundEnum.ERROR);

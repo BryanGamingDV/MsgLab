@@ -56,6 +56,15 @@ public class ModuleCreator {
 
     public boolean isEnabledOption(String moduleType, String value){
         Configuration config = pluginService.getFiles().getConfigFile();
+
+        switch (moduleType){
+            case "commands":
+                moduleType = "config.modules.enabled-commands";
+                break;
+            case "modules":
+                moduleType = "config.modules.enabled-options";
+                break;
+        }
        return config.getStringList(moduleType).contains(value);
     }
 

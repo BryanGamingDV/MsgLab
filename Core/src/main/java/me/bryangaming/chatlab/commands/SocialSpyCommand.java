@@ -84,11 +84,11 @@ public class SocialSpyCommand implements CommandClass {
 
 
     @Command(names = "on")
-    public boolean onOnSubCommand(@Sender Player player, @OptArg("") OfflinePlayer target) {
+    public boolean onOnSubCommand(@Sender Player player, OfflinePlayer target) {
 
         UserData playerSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
-        if (target.getName().isEmpty()) {
+        if (target == null){
             if (playerSpy.isSocialSpyMode()) {
                 senderManager.sendMessage(player, messagesFile.getString("error.socialspy.activated"));
                 senderManager.playSound(player, SoundEnum.ERROR);

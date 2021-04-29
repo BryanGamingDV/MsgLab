@@ -56,16 +56,16 @@ public class GroupManager {
         DebugLogger debugLogger = pluginService.getLogs();
 
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-            pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault isn't loaded..");
-            debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
+            pluginService.getPlugin().getLogger().info("[Server] | Error: Vault isn't loaded..");
+            debugLogger.log("[Server] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
 
         VaultHook vaultHook = pluginService.getSupportManager().getVaultSupport();
 
         if (vaultHook.getChat() == null || vaultHook.getPermissions() == null) {
-            pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
-            debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
+            pluginService.getPlugin().getLogger().info("[Server] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
+            debugLogger.log("[Server] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
 
@@ -78,21 +78,6 @@ public class GroupManager {
         return "default";
     }
 
-
-    public String getGroupPermission(String channel) {
-
-        Configuration utils = pluginService.getFiles().getFormatsFile();
-
-        if (channel.equalsIgnoreCase("default")) {
-            return "default";
-        }
-
-        if (channel.equalsIgnoreCase("op")) {
-            return "op";
-        }
-
-        return utils.getString("format.groups." + channel + ".permission");
-    }
 
     public String getJQGroup(Player player) {
 
