@@ -9,8 +9,6 @@ public class DiscordHook {
 
     private final PluginService pluginService;
 
-    private DiscordSRV discordSRV;
-
     public DiscordHook(PluginService pluginService) {
         this.pluginService = pluginService;
         setup();
@@ -23,11 +21,6 @@ public class DiscordHook {
             return;
         }
 
-        pluginService.getPlugin().getLogger().info("Addons - Loading DiscordSRV..");
-        discordSRV = new DiscordSRV();
-    }
-
-    public DiscordSRV getVariable(){
-        return discordSRV;
+        pluginService.getPlugin().getLogger().info("Addons - Loaded DiscordSRV..");
     }
 }
