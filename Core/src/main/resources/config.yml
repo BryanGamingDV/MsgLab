@@ -1,41 +1,41 @@
 #
 # ChatLab by BryanGaming
-# Version: 2.1.3
+# Version: 2.1.4
 #
 
-version: 2.1.3
+version: 2.1.4
 
-config:
 
-  # List of enabled commands and options:
-  modules:
-    enabled-commands:
-      - chat
-      - clab
-      - msg
-      - reply
-      - socialspy
-      - broadcast
-      - broadcastworld
-      - stream
-      - ignore
-      - unignore
-      - helpop
-      - staffchat
-      - channel
-      - motd
-      - commandspy
-      - announcer
-      - party
 
-    enabled-options:
-      - chat_format
-      - chat_revisor
-      - chat_manangent
-      - cooldown
-      - join_quit
-      - motd
-      - announcer
+# List of enabled commands and options:
+modules:
+  enabled-commands:
+    - chat
+    - clab
+    - msg
+    - reply
+    - socialspy
+    - broadcast
+    - broadcastworld
+    - stream
+    - ignore
+    - unignore
+    - helpop
+    - staffchat
+    - channel
+    - motd
+    - commandspy
+    - announcer
+    - party
+
+  enabled-options:
+    - chat_format
+    - chat_revisor
+    - chat_manangent
+    - cooldown
+    - join_quit
+    - motd
+    - announcer
 
 #
 # Permissions:
@@ -154,6 +154,13 @@ options:
       variable: "%ml_tag%"
       permission: clab.chat.tag
 
+  allow-hooks:
+    vault: true
+    protocollib: true
+    discordsrv: true
+    placeholderapi: true
+    supervanish: true
+
   metrics: true
   update-check: false
 
@@ -166,3 +173,4 @@ options:
 
   # If you allow the subcommand to go to the support of the plugin /clab support.
   allow-support: true
+

@@ -1,25 +1,11 @@
 package me.bryangaming.chatlab.utils;
 
-import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.loader.FileLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
 
 public class StringFormat {
-
-    private final FileLoader config;
-    private final PluginService pluginService;
-
-    private static SupportManager supportManager;
-
-    public StringFormat( PluginService pluginService) {
-        this.config = pluginService.getFiles();
-        this.pluginService = pluginService;
-        supportManager = pluginService.getSupportManager();
-    }
-
 
     public String getVersion(Server server) {
         String version = server.getClass().getPackage().getName().split("\\.")[3];

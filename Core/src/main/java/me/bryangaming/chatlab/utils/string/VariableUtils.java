@@ -93,7 +93,11 @@ public class VariableUtils {
     }
 
     private static String replaceVaultVariables(Player player, String string) {
-        if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+        if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+            return string;
+        }
+
+        if (!TextUtils.isAllowedHooked("Vault")){
             return string;
         }
 

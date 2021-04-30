@@ -122,6 +122,12 @@ public class MsgCommand implements CommandClass {
             return true;
         }
 
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(target)){
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
         if (target.getName().equalsIgnoreCase(sender.getName())) {
             senderManager.sendMessage(sender, messagesFile.getString("error.same-player")
                     .replace("%player%", sender.getName()));

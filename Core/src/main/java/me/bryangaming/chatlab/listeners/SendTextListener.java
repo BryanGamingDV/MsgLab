@@ -85,7 +85,7 @@ public class SendTextListener implements Listener {
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
                 @Override
                 public void run() {
-                    Bukkit.getServer().getPluginManager().callEvent(new ChatEvent(player, event, event.getMessage()));
+                    Bukkit.getServer().getPluginManager().callEvent(new ChatEvent(player, playerStatus, event, event.getMessage()));
                 }
             });
 

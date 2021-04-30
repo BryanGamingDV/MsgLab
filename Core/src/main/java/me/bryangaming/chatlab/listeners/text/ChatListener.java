@@ -9,6 +9,7 @@ import me.bryangaming.chatlab.events.text.ChatEvent;
 import me.bryangaming.chatlab.managers.HoverManager;
 import me.bryangaming.chatlab.managers.RecipientManager;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.managers.group.GroupEnum;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -56,9 +57,18 @@ public class ChatListener implements Listener{
             }
         }
 
+        if (event.getUserData().getChannelType() == GroupEnum.CHANNEL){
+            if (serverData.isChannelMuted(event.getUserData().getChannelGroup())){
+                playerMethod.sendMessage(player, messages.getString("error.channel.muted"));
+                return;
+            }
+        }
+
         if (cooldownData.isTextSpamming(event.getSender().getUniqueId())) {
+            playerMethod.sendMessage(player, messages.getString("error.chat.muted"));
             return;
         }
+
 
         String message = event.getMessage();
 

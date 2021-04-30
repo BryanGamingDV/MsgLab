@@ -72,6 +72,12 @@ public class PartyCommand implements CommandClass {
             return true;
         }
 
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(player)){
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
         partyManager.joinParty(sender, player);
         return true;
     }
@@ -172,6 +178,12 @@ public class PartyCommand implements CommandClass {
             return true;
         }
 
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(player)){
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
         partyManager.invitePlayer(sender, player);
         return true;
     }
@@ -188,6 +200,12 @@ public class PartyCommand implements CommandClass {
         Player player = Bukkit.getPlayerExact(target);
 
         if (player == null) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(player)){
             senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
@@ -220,6 +238,12 @@ public class PartyCommand implements CommandClass {
             return true;
         }
 
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(player)){
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
         partyManager.promoteToLeader(sender, player);
         return true;
     }
@@ -236,6 +260,12 @@ public class PartyCommand implements CommandClass {
         Player player = Bukkit.getPlayerExact(target);
 
         if (player == null) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(player)){
             senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;

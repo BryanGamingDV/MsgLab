@@ -9,6 +9,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;
@@ -23,10 +24,15 @@ public class TabFitler {
     }
 
     public void setup() {
+        Logger logger = pluginService.getPlugin().getLogger();
+
+        if (!TextUtils.isAllowedHooked("ProtocolLib")){
+            logger.info("The hook was disabled in config.");
+            return;
+        }
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
         ProtocolManager protocolManager = pluginService.getSupportManager().getProtocolSupport().getManager();
-        Logger logger = pluginService.getPlugin().getLogger();
 
         if (protocolManager == null) {
             logger.info("Error you don't have ProtocolLib installed");

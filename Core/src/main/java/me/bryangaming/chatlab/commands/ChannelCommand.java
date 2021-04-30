@@ -165,6 +165,12 @@ public class ChannelCommand implements CommandClass {
             return true;
         }
 
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(target)){
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
         UUID targetuuid = target.getUniqueId();
         UserData userData = pluginService.getCache().getUserDatas().get(targetuuid);
 
@@ -239,8 +245,14 @@ public class ChannelCommand implements CommandClass {
         for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
             UserData onlineData = pluginService.getCache().getUserDatas().get(onlinePlayer.getUniqueId());
 
+            if (pluginService.getSupportManager().getVanishSupport().isVanished(onlinePlayer)){
+                senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+                senderManager.playSound(sender, SoundEnum.ERROR);
+                continue;
+            }
+
             if (!onlineData.equalsChannelGroup(channel)) {
-                break;
+                continue;
             }
 
             online++;

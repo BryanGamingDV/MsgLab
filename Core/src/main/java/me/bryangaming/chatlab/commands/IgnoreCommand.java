@@ -32,12 +32,12 @@ public class IgnoreCommand implements CommandClass {
 
         Configuration playersFile = pluginService.getFiles().getPlayersFile();
         Configuration commandFile = pluginService.getFiles().getCommandFile();
-        Configuration messageFile = pluginService.getFiles().getMessagesFile();
+        Configuration messagesFile = pluginService.getFiles().getMessagesFile();
 
         UUID playeruuid = sender.getUniqueId();
 
         if (target == null) {
-            senderManager.sendMessage(sender, messageFile.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("ignore", "<sender>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
@@ -49,7 +49,7 @@ public class IgnoreCommand implements CommandClass {
         if (target.getName().equalsIgnoreCase("-list")) {
 
             if (ignorelist.containsKey(playeruuid) || ignoredlist.isEmpty()) {
-                senderManager.sendMessage(sender, messageFile.getString("error.ignore.anybody"));
+                senderManager.sendMessage(sender, messagesFile.getString("error.ignore.anybody"));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
@@ -64,14 +64,19 @@ public class IgnoreCommand implements CommandClass {
         }
 
         if (!target.isOnline()) {
-            senderManager.sendMessage(sender, messageFile.getString("error.player-offline"));
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(target)){
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
 
         if (target.getName().equalsIgnoreCase(sender.getName())) {
-            senderManager.sendMessage(sender, messageFile.getString("error.ignore.ignore-yourself"));
+            senderManager.sendMessage(sender, messagesFile.getString("error.ignore.ignore-yourself"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }

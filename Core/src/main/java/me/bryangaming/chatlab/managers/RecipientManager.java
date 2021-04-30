@@ -63,12 +63,14 @@ public class RecipientManager {
 
         if (utils.getBoolean("radial-chat.enabled")) {
             for (Entity entity : player.getNearbyEntities(utils.getInt("radial-chat.x"), utils.getInt("radial-chat.y"), utils.getInt("radial-chat.z"))) {
+
                 if (entity instanceof Player) {
                     addRecipient(event, (Player) entity);
                 }
             }
             return;
         }
+
 
         if (utils.getBoolean("per-world-chat.enabled")) {
             if (utils.getBoolean("per-world-chat.all-worlds")) {

@@ -59,10 +59,10 @@ public class ModuleCreator {
 
         switch (moduleType){
             case "commands":
-                moduleType = "config.modules.enabled-commands";
+                moduleType = "modules.enabled-commands";
                 break;
             case "modules":
-                moduleType = "config.modules.enabled-options";
+                moduleType = "modules.enabled-options";
                 break;
         }
        return config.getStringList(moduleType).contains(value);

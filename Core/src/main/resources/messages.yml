@@ -69,6 +69,7 @@ error:
     no-exists: "%e &fThat sound doesn't exists in this version :(."
 
   channel:
+    muted: "%e &fThe channel is muted."
     no-exists: "%e &fThe channel doesn't exist."
     disabled: "%e &fThe channel is disabled."
 
@@ -81,6 +82,7 @@ error:
       info: "%e &fThe channel were you are is default."
 
   chat:
+    muted: "%e &fThe chat is muted."
     management:
       already-muted: "%e &fThe chat is already muted."
       already-unmuted: "%e &fThe chat is already unmuted."

@@ -28,7 +28,7 @@ public class UnIgnoreCommand implements CommandClass {
     }
 
     @Command(names = "unignore")
-    public boolean onCommand(@Sender Player player, @OptArg OfflinePlayer target) {
+    public boolean onCommand(@Sender Player sender, @OptArg OfflinePlayer target) {
 
         IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
@@ -38,32 +38,38 @@ public class UnIgnoreCommand implements CommandClass {
         Configuration messagesFile = pluginService.getFiles().getMessagesFile();
 
         if (target == null) {
-            senderManager.sendMessage(player, messagesFile.getString("error.no-arg")
+            senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                     .replace("%usage%", TextUtils.getUsage("unignore", "<player>")));
-            senderManager.playSound(player, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (!(target.isOnline())) {
-            senderManager.sendMessage(player, messagesFile.getString("error.player-offline"));
-            senderManager.playSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (target.getName().equalsIgnoreCase(player.getName())) {
-            senderManager.sendMessage(player, messagesFile.getString("error.ignore.ignore-yourself"));
-            senderManager.playSound(player, SoundEnum.ERROR);
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(target)){
+            senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
+        if (target.getName().equalsIgnoreCase(sender.getName())) {
+            senderManager.sendMessage(sender, messagesFile.getString("error.ignore.ignore-yourself"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         String targetname = target.getName();
-        UUID playeruuid = player.getUniqueId();
+        UUID playeruuid = sender.getUniqueId();
 
         Map<UUID, List<String>> ignorelist = pluginService.getCache().getIgnorelist();
 
         if (!(ignorelist.containsKey(playeruuid))) {
-            senderManager.sendMessage(player, messagesFile.getString("error.ignore.anybody"));
-            senderManager.playSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.ignore.anybody"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
@@ -71,15 +77,15 @@ public class UnIgnoreCommand implements CommandClass {
         UUID targetuuid = target.getPlayer().getUniqueId();
 
         if (!(ignoredlist.contains(targetname))) {
-            senderManager.sendMessage(player, messagesFile.getString("error.ignore.already-unignored"));
-            senderManager.playSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("error.ignore.already-unignored"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        ignoreManager.unignorePlayer(player, targetuuid);
-        senderManager.sendMessage(player, commandFile.getString("commands.ignore.player-unignored")
+        ignoreManager.unignorePlayer(sender, targetuuid);
+        senderManager.sendMessage(sender, commandFile.getString("commands.ignore.player-unignored")
                 .replace("%player%", targetname));
-        senderManager.playSound(player, SoundEnum.ARGUMENT, "ignore");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "ignore");
         return true;
     }
 }

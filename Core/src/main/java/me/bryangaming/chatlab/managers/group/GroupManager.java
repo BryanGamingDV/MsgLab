@@ -7,6 +7,7 @@ import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.utils.hooks.VaultHook;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -61,6 +62,10 @@ public class GroupManager {
             return "default";
         }
 
+        if (!TextUtils.isAllowedHooked("Vault")){
+            pluginService.getPlugin().getLogger().info("[Server] | Error: The hook is disabled..");
+            return "default";
+        }
         VaultHook vaultHook = pluginService.getSupportManager().getVaultSupport();
 
         if (vaultHook.getChat() == null || vaultHook.getPermissions() == null) {
@@ -87,6 +92,11 @@ public class GroupManager {
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault isn't loaded..");
             debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
+            return "default";
+        }
+
+        if (!TextUtils.isAllowedHooked("Vault")){
+            pluginService.getPlugin().getLogger().info("[Server] | Error: The hook is disabled..");
             return "default";
         }
 
@@ -261,6 +271,11 @@ public class GroupManager {
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault isn't loaded..");
             debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
+            return "default";
+        }
+
+        if (!TextUtils.isAllowedHooked("Vault")){
+            pluginService.getPlugin().getLogger().info("[Server] | Error: The hook is disabled..");
             return "default";
         }
 

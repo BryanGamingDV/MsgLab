@@ -1,14 +1,16 @@
 package me.bryangaming.chatlab.utils.hooks;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.HookModel;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-public class VaultHook {
+public class VaultHook implements HookModel {
 
 
     private final PluginService pluginService;
@@ -27,6 +29,10 @@ public class VaultHook {
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             pluginService.getPlugin().getLogger().info("Addons - Vault not enabled! Disabling support..");
             pluginService.getLogs().log("Addons - Vault not enabled! Disabling support..", LoggerTypeEnum.WARNING);
+            return;
+        }
+
+        if (!TextUtils.isAllowedHooked("Vault")){
             return;
         }
 
@@ -61,4 +67,6 @@ public class VaultHook {
     public Economy getEconomy() {
         return economy;
     }
+
+
 }

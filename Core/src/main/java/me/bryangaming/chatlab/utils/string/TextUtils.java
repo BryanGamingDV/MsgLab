@@ -105,6 +105,9 @@ public class TextUtils {
 
         return false;
     }
+    public static boolean isAllowedHooked(String pluginName){
+        return config.getBoolean("options.allow-hooks." + pluginName.toLowerCase());
+    }
 
     public static String getUsage(String command, String... args) {
 
