@@ -25,7 +25,7 @@ public class VanishHook implements HookModel {
             return;
         }
 
-        if (!TextUtils.isAllowedHooked("SuperVanish")) {
+        if (pluginService.getFiles().getConfigFile().getBoolean("options.hooks.protocollib")){
             return;
         }
 

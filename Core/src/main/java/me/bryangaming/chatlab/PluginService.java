@@ -58,10 +58,11 @@ public class PluginService {
 
         variables = new StringFormat();
 
+        supportManager = new SupportManager(this);
+
         methodManager = new MethodManager(this);
         methodManager.setup();
 
-        supportManager = new SupportManager(this);
 
         commandLoader = new CommandLoader(plugin, this);
         commandLoader.setup();

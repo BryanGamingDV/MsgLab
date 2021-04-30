@@ -24,7 +24,7 @@ public class DiscordHook implements HookModel {
             return;
         }
 
-        if (!TextUtils.isAllowedHooked("DiscordSRV")){
+        if (pluginService.getFiles().getConfigFile().getBoolean("options.hooks.discordsrv")){
             return;
         }
 

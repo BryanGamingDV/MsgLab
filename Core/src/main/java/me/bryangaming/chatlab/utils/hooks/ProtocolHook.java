@@ -26,7 +26,7 @@ public class ProtocolHook implements HookModel {
             return;
         }
 
-        if (!TextUtils.isAllowedHooked("ProtocolLib")){
+        if (pluginService.getFiles().getConfigFile().getBoolean("options.hooks.protocollib")){
             return;
         }
 

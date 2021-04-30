@@ -32,7 +32,7 @@ public class VaultHook implements HookModel {
             return;
         }
 
-        if (!TextUtils.isAllowedHooked("Vault")){
+        if (pluginService.getFiles().getConfigFile().getBoolean("options.hooks.vault")){
             return;
         }
 
