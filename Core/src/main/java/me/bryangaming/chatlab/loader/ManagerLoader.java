@@ -46,7 +46,6 @@ public class ManagerLoader implements Loader {
 
     public ManagerLoader(PluginService pluginService) {
         this.pluginService = pluginService;
-        load();
     }
 
     @Override

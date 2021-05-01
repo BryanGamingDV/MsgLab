@@ -47,6 +47,7 @@ public class PluginService {
         moduleUtils = new ModuleUtils(this);
         supportManager = new SupportManager(this);
         managerLoader = new ManagerLoader(this);
+        managerLoader.load();
         commandLoader = new CommandLoader(this);
         eventLoader = new EventLoader(this);
         cooldownData = new CooldownData(this);

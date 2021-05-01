@@ -17,7 +17,7 @@ import java.util.Set;
 public class ChatManager {
 
     private PluginService pluginService;
-    private SenderManager playerMethod;
+    private final SenderManager playerMethod;
     private ServerData serverData;
 
     private Configuration command;
@@ -26,9 +26,8 @@ public class ChatManager {
     public ChatManager(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        serverData = pluginService.getServerData();
+        this.serverData = pluginService.getServerData();
         this.playerMethod = pluginService.getPlayerManager().getSender();
-
         this.config = pluginService.getFiles().getConfigFile();
         this.command = pluginService.getFiles().getCommandFile();
     }
