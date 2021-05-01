@@ -47,7 +47,7 @@ radial-chat:
 # Chat Format:
 # - Requires Vault.
 
-format:
+chat:
   enabled: true
 
   log:

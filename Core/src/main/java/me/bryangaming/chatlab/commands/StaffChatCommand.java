@@ -19,7 +19,7 @@ public class StaffChatCommand implements CommandClass {
     private final PluginService pluginService;
 
     private final SenderManager senderManager;
-    private final StaffChatManager staffChatMethod;
+    private final StaffChatManager staffChatManagerMethod;
 
     private final Configuration commandFile;
     private final Configuration messagesFile;
@@ -28,7 +28,7 @@ public class StaffChatCommand implements CommandClass {
         this.pluginService = pluginService;
 
         this.senderManager = pluginService.getPlayerManager().getSender();
-        this.staffChatMethod = pluginService.getPlayerManager().getStaffChatMethod();
+        this.staffChatManagerMethod = pluginService.getPlayerManager().getStaffChatMethod();
 
         this.commandFile = pluginService.getFiles().getCommandFile();
         this.messagesFile = pluginService.getFiles().getMessagesFile();
@@ -38,9 +38,9 @@ public class StaffChatCommand implements CommandClass {
     public boolean onMainCommand(@Sender Player player, @OptArg("") String args) {
 
         if (args.isEmpty()) {
-            staffChatMethod.toggleOption(player.getUniqueId());
+            staffChatManagerMethod.toggleOption(player.getUniqueId());
             senderManager.sendMessage(player, commandFile.getString("commands.staff-chat.player.toggle")
-                    .replace("%mode%", staffChatMethod.getStatus()));
+                    .replace("%mode%", staffChatManagerMethod.getStatus()));
             senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy");
             return true;
         }
@@ -71,7 +71,7 @@ public class StaffChatCommand implements CommandClass {
             return true;
         }
 
-        staffChatMethod.enableOption(player.getUniqueId());
+        staffChatManagerMethod.enableOption(player.getUniqueId());
         senderManager.sendMessage(player, commandFile.getString("commands.staff-chat.player.enabled"));
         senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy -on");
         return true;
@@ -89,7 +89,7 @@ public class StaffChatCommand implements CommandClass {
             return true;
         }
 
-        staffChatMethod.disableOption(player.getUniqueId());
+        staffChatManagerMethod.disableOption(player.getUniqueId());
         senderManager.sendMessage(player, commandFile.getString("commands.staff-chat.player.disabled"));
         senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy -off");
         return true;
@@ -97,9 +97,9 @@ public class StaffChatCommand implements CommandClass {
 
     @Command(names = "-toggle")
     public boolean onToggleSubCommand(@Sender Player player) {
-        staffChatMethod.toggleOption(player.getUniqueId());
+        staffChatManagerMethod.toggleOption(player.getUniqueId());
         senderManager.sendMessage(player, commandFile.getString("commands.staff-chat.player.toggle")
-                .replace("%mode%", staffChatMethod.getStatus()));
+                .replace("%mode%", staffChatManagerMethod.getStatus()));
         senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy -toggle");
         return true;
     }

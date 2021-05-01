@@ -1,9 +1,9 @@
-package me.bryangaming.chatlab.managers;
+package me.bryangaming.chatlab.api;
 
 
 import java.util.UUID;
 
-public interface MethodService {
+public interface Option {
 
     void enableOption(UUID uuid);
 

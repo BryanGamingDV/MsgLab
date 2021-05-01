@@ -1,6 +1,8 @@
-package me.bryangaming.chatlab.managers;
+package me.bryangaming.chatlab.loader;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.Loader;
+import me.bryangaming.chatlab.managers.*;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.*;
 import me.bryangaming.chatlab.managers.group.GroupManager;
@@ -9,7 +11,7 @@ import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.bryangaming.chatlab.utils.string.VariableUtils;
 
-public class MethodManager {
+public class ManagerLoader implements Loader {
 
 
     private SoundManager soundManager;
@@ -34,7 +36,7 @@ public class MethodManager {
 
     private PartyManager partyManager;
     private ReplyManager replyManager;
-    private StaffChatManager staffChatMethod;
+    private StaffChatManager staffChatManagerMethod;
 
     private VariableUtils variableUtils;
     private TextUtils textUtils;
@@ -42,11 +44,13 @@ public class MethodManager {
 
     private final PluginService pluginService;
 
-    public MethodManager(PluginService pluginService) {
+    public ManagerLoader(PluginService pluginService) {
         this.pluginService = pluginService;
+        load();
     }
 
-    public void setup() {
+    @Override
+    public void load() {
         soundManager = new SoundManager(pluginService);
         worldData = new WorldData(pluginService);
         guiManager = new GuiManager(pluginService);
@@ -62,7 +66,7 @@ public class MethodManager {
         chatManager = new ChatManager(pluginService);
 
         fitlerManager = new FitlerManager(pluginService);
-        staffChatMethod = new StaffChatManager(pluginService);
+        staffChatManagerMethod = new StaffChatManager(pluginService);
         helpOpManager = new HelpOpManager(pluginService);
         ignoreManager = new IgnoreManager(pluginService);
         socialSpyManager = new SocialSpyManager(pluginService);
@@ -105,7 +109,7 @@ public class MethodManager {
     }
 
     public StaffChatManager getStaffChatMethod() {
-        return staffChatMethod;
+        return staffChatManagerMethod;
     }
 
     public SocialSpyManager getSocialSpyMethod() {

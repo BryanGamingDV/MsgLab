@@ -3,12 +3,11 @@ package me.bryangaming.chatlab.utils.hooks;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.api.HookModel;
+import me.bryangaming.chatlab.api.Hook;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
-import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 
-public class ProtocolHook implements HookModel {
+public class ProtocolHook implements Hook {
 
     private final PluginService pluginService;
 

@@ -11,7 +11,8 @@ import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.StringFormat;
+import me.bryangaming.chatlab.utils.module.ModuleType;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -41,18 +42,18 @@ public class SendTextListener implements Listener {
         UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
-        StaffChatManager staffChatMethod = pluginService.getPlayerManager().getStaffChatMethod();
+        StaffChatManager staffChatManagerMethod = pluginService.getPlayerManager().getStaffChatMethod();
 
         if (playerStatus.isClickMode()) {
             return;
         }
 
-        if (pluginService.getListManager().isEnabledOption("commands", "staffchat")) {
+        if (pluginService.getListManager().isEnabledOption(ModuleType.COMMAND, "staffchat")) {
             ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
 
-            if (staffChatMethod.isUsingStaffSymbol(event)) {
+            if (staffChatManagerMethod.isUsingStaffSymbol(event)) {
                 event.setCancelled(true);
-                staffChatMethod.getStaffSymbol(event);
+                staffChatManagerMethod.getStaffSymbol(event);
                 return;
             }
 
@@ -79,7 +80,7 @@ public class SendTextListener implements Listener {
             }
         }
 
-        if (pluginService.getListManager().isEnabledOption("modules","chat_format") && formatsFile.getBoolean("options.enabled") && formatsFile.getBoolean("format.enabled")) {
+        if (pluginService.getListManager().isEnabledOption(ModuleType.MODULE,"chat_format") && formatsFile.getBoolean("options.enabled") && formatsFile.getBoolean("format.enabled")) {
             event.setCancelled(true);
 
             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
@@ -97,7 +98,7 @@ public class SendTextListener implements Listener {
     public void onServerCommand(ServerCommandEvent event) {
         StringFormat stringFormat = pluginService.getStringFormat();
 
-        String command = event.getCommand().substring(stringFormat.countRepeatedCharacters(event.getCommand(), '/')).toLowerCase();
+        String command = event.getCommand().substring(TextUtils.countRepeatedCharacters(event.getCommand(), '/')).toLowerCase();
         Bukkit.getPluginManager().callEvent(new CommandSpyEvent("Console", command));
 
     }
@@ -113,16 +114,16 @@ public class SendTextListener implements Listener {
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
         StringFormat stringFormat = pluginService.getStringFormat();
 
+        String commandText = event.getMessage().replace("/", "").split(" ")[0].toLowerCase();
+
         if (cooldownData.isCmdSpamming(event.getPlayer().getUniqueId())) {
-            if (!pluginService.getPathManager().isCommandDisabledInCooldown(event.getMessage())) {
+            if (!utils.getStringList("filters.cmd.disabled-cmds").contains(commandText)){
                 event.setCancelled(true);
+                return;
             }
-            return;
         }
 
-        Bukkit.getPluginManager().callEvent(new CommandSpyEvent(event.getPlayer().getName(), event.getMessage().substring(stringFormat.countRepeatedCharacters(event.getMessage(), '/')).toLowerCase()));
-
-        String commandText = event.getMessage().replace("/", "").split(" ")[0].toLowerCase();
+        Bukkit.getPluginManager().callEvent(new CommandSpyEvent(event.getPlayer().getName(), event.getMessage().substring(TextUtils.countRepeatedCharacters(event.getMessage(), '/')).toLowerCase()));
 
         if (utils.getBoolean("options.allow-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(event.getPlayer(), commandText, TextRevisorEnum.COMMAND);
@@ -134,7 +135,7 @@ public class SendTextListener implements Listener {
             }
         }
 
-        if (!pluginService.getPathManager().isPluginCommand(commandText)) {
+        if (!pluginService.getListManager().isPluginCommand(commandText)) {
             return;
         }
 

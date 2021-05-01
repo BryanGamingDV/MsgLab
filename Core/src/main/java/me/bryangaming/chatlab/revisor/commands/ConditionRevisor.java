@@ -12,9 +12,16 @@ public class ConditionRevisor implements Revisor {
 
 
     private PluginService pluginService;
+    private String revisorName;
 
-    public ConditionRevisor(PluginService pluginService) {
+    public ConditionRevisor(PluginService pluginService, String revisorName) {
         this.pluginService = pluginService;
+        this.revisorName = revisorName;
+    }
+
+    @Override
+    public String getName(){
+        return revisorName;
     }
 
     @Override

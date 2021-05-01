@@ -2,13 +2,12 @@ package me.bryangaming.chatlab.utils.hooks;
 
 import github.scarsz.discordsrv.DiscordSRV;
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.api.HookModel;
+import me.bryangaming.chatlab.api.Hook;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import me.bryangaming.chatlab.listeners.DiscordSrvListener;
-import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 
-public class DiscordHook implements HookModel {
+public class DiscordHook implements Hook {
 
     private final PluginService pluginService;
 

@@ -7,14 +7,14 @@ import me.bryangaming.chatlab.utils.string.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModuleCreator {
+public class ModuleUtils {
 
     private PluginService pluginService;
 
     private final List<String> commandsList = new ArrayList<>();;
     private final List<String> modulesList = new ArrayList<>();
 
-    public ModuleCreator(PluginService pluginService) {
+    public ModuleUtils(PluginService pluginService) {
         this.pluginService = pluginService;
         setup();
     }
@@ -54,18 +54,9 @@ public class ModuleCreator {
         return commandsList.contains(command);
     }
 
-    public boolean isEnabledOption(String moduleType, String value){
+    public boolean isEnabledOption(ModuleType moduleType, String value){
         Configuration config = pluginService.getFiles().getConfigFile();
-
-        switch (moduleType){
-            case "commands":
-                moduleType = "modules.enabled-commands";
-                break;
-            case "modules":
-                moduleType = "modules.enabled-options";
-                break;
-        }
-       return config.getStringList(moduleType).contains(value);
+       return config.getStringList(moduleType.getName()).contains(value);
     }
 
     public List<String> getCommands() {

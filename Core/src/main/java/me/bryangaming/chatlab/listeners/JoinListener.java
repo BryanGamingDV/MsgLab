@@ -6,6 +6,7 @@ import me.bryangaming.chatlab.events.SendDataEvent;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
 import me.bryangaming.chatlab.managers.group.GroupManager;
+import me.bryangaming.chatlab.utils.module.ModuleType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,7 +41,7 @@ public class JoinListener implements Listener {
         }
         Bukkit.getPluginManager().callEvent(new SendDataEvent(player, userData));
 
-        if (pluginService.getListManager().isEnabledOption("modules", "join_quit")) {
+        if (pluginService.getListManager().isEnabledOption(ModuleType.MODULE, "join_quit")) {
             if (!event.getPlayer().hasPlayedBefore()) {
                 Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, player, playerRank, ChangeMode.FIRST_JOIN));
             } else {

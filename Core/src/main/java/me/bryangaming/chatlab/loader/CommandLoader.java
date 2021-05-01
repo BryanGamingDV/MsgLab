@@ -1,10 +1,11 @@
 package me.bryangaming.chatlab.loader;
 
-import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.Loader;
 import me.bryangaming.chatlab.commands.*;
 import me.bryangaming.chatlab.commands.translation.CommandTranslation;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
+import me.bryangaming.chatlab.utils.module.ModuleType;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilderImpl;
@@ -18,23 +19,22 @@ import me.fixeddev.commandflow.command.Command;
 import java.util.List;
 
 
-public class CommandLoader implements LoaderService {
+public class CommandLoader implements Loader {
 
 
     private final PluginService pluginService;
-    private final ChatLab plugin;
 
     private AnnotatedCommandTreeBuilder builder;
     private CommandManager commandManager;
 
-    public CommandLoader(ChatLab plugin, PluginService pluginService) {
-        this.plugin = plugin;
+    public CommandLoader(PluginService pluginService) {
         this.pluginService = pluginService;
+        load();
     }
 
 
     @Override
-    public void setup() {
+    public void load() {
 
         pluginService.getLogs().log("Loading CommandLoader");
 
@@ -44,7 +44,7 @@ public class CommandLoader implements LoaderService {
         reCheckCommands();
 
         pluginService.getLogs().log("Commands loaded!");
-        plugin.getLogger().info("Commands loaded!");
+        pluginService.getPlugin().getLogger().info("Commands loaded!");
     }
 
     public void reCheckCommands() {
@@ -75,7 +75,7 @@ public class CommandLoader implements LoaderService {
             List<Command> command = builder.fromClass(commandClass);
             String commandName = command.get(0).getName();
 
-            if (pluginService.getListManager().isEnabledOption("commands", commandName)) {
+            if (pluginService.getListManager().isEnabledOption(ModuleType.COMMAND, commandName)) {
                 commandManager.registerCommands(command);
                 pluginService.getLogs().log("Command: " + commandName + " loaded.");
             } else {

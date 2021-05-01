@@ -13,14 +13,21 @@ import java.util.List;
 public class MentionRevisor implements Revisor {
 
     private final PluginService pluginService;
+    private final String revisorName;
 
-    public MentionRevisor(PluginService pluginService) {
+    public MentionRevisor(PluginService pluginService, String revisorName) {
         this.pluginService = pluginService;
+        this.revisorName = revisorName;
+    }
+
+    @Override
+    public String getName(){
+        return revisorName;
     }
 
     @Override
     public boolean isEnabled(){
-        return pluginService.getFiles().getFormatsFile().getBoolean("filters.mention.enabled");
+        return pluginService.getFiles().getFormatsFile().getBoolean("filters." + revisorName +  ".enabled");
     }
 
     @Override
@@ -31,7 +38,7 @@ public class MentionRevisor implements Revisor {
 
         String[] listString = string.split(" ");
 
-        String mentionTag = utils.getString("filters.mentions.char-tag");
+        String mentionTag = utils.getString("filters." + revisorName + ".char-tag");
         List<Player> playersMentioned = new ArrayList<>();
 
         for (String path : listString) {
@@ -53,9 +60,9 @@ public class MentionRevisor implements Revisor {
         }
 
         for (Player playerMentioned : playersMentioned) {
-            string = string.replace(mentionTag + playerMentioned.getName(), utils.getString("filters.mentions.replace-mention")
+            string = string.replace(mentionTag + playerMentioned.getName(), utils.getString("filters." + revisorName + ".replace-mention")
                     .replace("%player%", playerMentioned.getName()) + "&r");
-            senderManager.sendMessage(playerMentioned, utils.getString("filters.mentions.message")
+            senderManager.sendMessage(playerMentioned, utils.getString("filters." + revisorName + ".message")
                     .replace("%player%", playerMentioned.getName()));
         }
         return string;

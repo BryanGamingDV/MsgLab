@@ -8,34 +8,41 @@ import org.bukkit.entity.Player;
 
 public class BotRevisor implements Revisor {
 
-    private PluginService pluginService;
+    private final String revisorName;
+    private final PluginService pluginService;
 
-    public BotRevisor(PluginService pluginService) {
+    public BotRevisor(PluginService pluginService, String revisorName) {
         this.pluginService = pluginService;
+        this.revisorName = revisorName;
+    }
+
+    @Override
+    public String getName(){
+        return revisorName;
     }
 
     @Override
     public boolean isEnabled() {
-        return pluginService.getFiles().getFormatsFile().getBoolean("filters.enabled");
+        return pluginService.getFiles().getFormatsFile().getBoolean("filters." + revisorName + ".enabled");
     }
 
     public String revisor(Player player, String message) {
 
-        Configuration utils = pluginService.getFiles().getFormatsFile();
+        Configuration formatsFile = pluginService.getFiles().getFormatsFile();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
-        if (!utils.getBoolean("filters.bot-response.enabled")){
+        if (!formatsFile.getBoolean("filters." + revisorName + ".enabled")){
             return message;
         }
-        for (String keys : utils.getConfigurationSection("filters.bot-response.lists").getKeys(false)) {
-            if (!message.startsWith(utils.getString("filters.bot-response.lists." + keys + ".question"))) {
+        for (String keys : formatsFile.getConfigurationSection("filters." + revisorName + ".lists").getKeys(false)) {
+            if (!message.startsWith(formatsFile.getString("filters." + revisorName + ".lists." + keys + ".question"))) {
                 continue;
             }
 
-            playerMethod.sendMessage(player, utils.getString("filters.bot-response.lists." + keys + ".question"));
+            playerMethod.sendMessage(player, formatsFile.getString("filters." + revisorName + ".lists." + keys + ".question"));
 
-            if (!(utils.getStringList("filters.bot-response.lists." + keys + ".commands").isEmpty())) {
-                utils.getStringList("filters.bot-response.lists." + keys + ".commands")
+            if (!(formatsFile.getStringList("filters." + revisorName + ".lists." + keys + ".commands").isEmpty())) {
+                formatsFile.getStringList("filters." + revisorName + ".lists." + keys + ".commands")
                         .forEach(command -> playerMethod.sendCommand(player, command));
             }
         }

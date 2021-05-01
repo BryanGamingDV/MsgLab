@@ -1,12 +1,13 @@
 package me.bryangaming.chatlab.loader;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.Loader;
 import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.utils.Configuration;
 
 import java.util.Map;
 
-public class FileLoader {
+public class FileLoader implements Loader{
 
 
     private Configuration configFile;
@@ -20,9 +21,11 @@ public class FileLoader {
 
     public FileLoader(PluginService pluginService) {
         this.pluginService = pluginService;
+        load();
     }
 
-    public void setup() {
+    @Override
+    public void load() {
         configFile = this.setConfiguration("config.yml");
         commandFile = this.setConfiguration("commands.yml");
         playersFile = this.setConfiguration("players.yml");

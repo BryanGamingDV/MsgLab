@@ -1,16 +1,15 @@
 package me.bryangaming.chatlab.utils.hooks;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.api.HookModel;
+import me.bryangaming.chatlab.api.Hook;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
-import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-public class VaultHook implements HookModel {
+public class VaultHook implements Hook {
 
 
     private final PluginService pluginService;

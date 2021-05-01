@@ -9,16 +9,22 @@ import org.bukkit.entity.Player;
 
 public class DotRevisor implements Revisor {
 
+    private final PluginService pluginService;
+    private final String revisorName;
 
-    private PluginService pluginService;
-
-    public DotRevisor(PluginService pluginService) {
+    public DotRevisor(PluginService pluginService, String revisorName) {
         this.pluginService = pluginService;
+        this.revisorName = revisorName;
+    }
+
+    @Override
+    public String getName(){
+        return revisorName;
     }
 
     @Override
     public boolean isEnabled() {
-        return pluginService.getFiles().getFormatsFile().getBoolean("revisor.dot-module.enabled");
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor."+ revisorName +".enabled");
     }
 
     @Override
@@ -27,7 +33,7 @@ public class DotRevisor implements Revisor {
         Configuration utils = pluginService.getFiles().getFormatsFile();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
-        int lettermin = utils.getInt("revisor.dot-module.min-word");
+        int lettermin = utils.getInt("revisor." + revisorName + ".min-word");
 
         if (string.length() <= lettermin) {
             return string;
@@ -35,10 +41,10 @@ public class DotRevisor implements Revisor {
 
         string = string + ".";
 
-        if (utils.getBoolean("revisor.dot-module.warning.enabled")) {
+        if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
                 if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
-                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.dot-module.warning.text")
+                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                             .replace("%player%", player.getName()));
                 }
             });

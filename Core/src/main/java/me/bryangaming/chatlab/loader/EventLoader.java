@@ -1,6 +1,7 @@
 package me.bryangaming.chatlab.loader;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.api.Loader;
 import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.events.ChatClickEvent;
 import me.bryangaming.chatlab.listeners.*;
@@ -9,20 +10,22 @@ import me.bryangaming.chatlab.listeners.command.HelpOpListener;
 import me.bryangaming.chatlab.listeners.command.SocialSpyListener;
 import me.bryangaming.chatlab.listeners.text.ChatListener;
 import me.bryangaming.chatlab.revisor.tabcomplete.TabFitler;
-import me.bryangaming.chatlab.utils.StringFormat;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 
-public class EventLoader {
+public class EventLoader implements Loader {
 
     private final PluginService pluginService;
 
     public EventLoader(PluginService pluginService) {
         this.pluginService = pluginService;
+        load();
     }
 
-    public void setup() {
+    @Override
+    public void load() {
 
         StringFormat stringFormat = pluginService.getStringFormat();
 
@@ -39,7 +42,8 @@ public class EventLoader {
                 new RevisorListener(pluginService),
                 new ChatListener(pluginService));
 
-        if (stringFormat.containsVersion(stringFormat.getVersion(Bukkit.getServer()), stringFormat.getLegacyVersion())) {
+        if (TextUtils.equalsIgnoreCaseOr(TextUtils.getServerVersion(Bukkit.getServer()),
+                "1.13", "1.14", "1.15", "1.16")) {
             loadEvents(new TabListener(pluginService));
         }
 

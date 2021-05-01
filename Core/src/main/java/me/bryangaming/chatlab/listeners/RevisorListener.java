@@ -3,7 +3,7 @@ package me.bryangaming.chatlab.listeners;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
-import me.bryangaming.chatlab.revisor.commands.BlockRevisor;
+import me.bryangaming.chatlab.revisor.commands.BlockCmdRevisor;
 import me.bryangaming.chatlab.revisor.commands.ConditionRevisor;
 import me.bryangaming.chatlab.revisor.message.*;
 import org.bukkit.event.EventHandler;
@@ -24,18 +24,18 @@ public class RevisorListener implements Listener {
         this.pluginService = pluginService;
 
         loadCmdRevisor(
-                new BlockRevisor(pluginService),
-                new ConditionRevisor(pluginService));
+                new BlockCmdRevisor(pluginService, "commands-module.block"),
+                new ConditionRevisor(pluginService, "commands-module.conditions"));
 
         loadTextRevisors(
-                new BotRevisor(pluginService),
-                new MentionRevisor(pluginService),
-                new WordRevisor(pluginService),
-                new LinkRevisor(pluginService),
-                new FloodRevisor(pluginService),
-                new FirstWordRevisor(pluginService),
-                new CapsRevisor(pluginService),
-                new DotRevisor(pluginService));
+                new BotRevisor(pluginService, "bot-response"),
+                new MentionRevisor(pluginService, "mentions"),
+                new WordRevisor(pluginService, "words-module"),
+                new LinkRevisor(pluginService, "link-module"),
+                new FloodRevisor(pluginService, "anti-flood"),
+                new FirstWordRevisor(pluginService, "first-mayus-module"),
+                new CapsRevisor(pluginService, "caps-module"),
+                new DotRevisor(pluginService, "dot-module"));
 
     }
 

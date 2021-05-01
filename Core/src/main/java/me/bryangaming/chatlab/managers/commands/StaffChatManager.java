@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.managers.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.MethodService;
+import me.bryangaming.chatlab.api.Option;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -13,7 +13,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import java.util.Map;
 import java.util.UUID;
 
-public class StaffChatManager implements MethodService {
+public class StaffChatManager implements Option {
 
     private final PluginService pluginService;
 
@@ -31,16 +31,16 @@ public class StaffChatManager implements MethodService {
     }
 
     public void toggleOption(UUID uuid) {
-        UserData usercache = cache.get(uuid);
+        UserData userData = cache.get(uuid);
 
-        if (usercache.isStaffchatMode()) {
-            usercache.toggleStaffChat(false);
+        if (userData.isStaffchatMode()) {
+            userData.toggleStaffChat(false);
             status = pluginService.getFiles().getCommandFile().getString("commands.staff-chat.player.variable-off");
             return;
         }
         ;
 
-        usercache.toggleStaffChat(true);
+        userData.toggleStaffChat(true);
         status = pluginService.getFiles().getCommandFile().getString("commands.staff-chat.player.variable-on");
     }
 

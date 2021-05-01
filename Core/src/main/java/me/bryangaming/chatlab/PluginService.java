@@ -5,13 +5,11 @@ import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.loader.CommandLoader;
 import me.bryangaming.chatlab.loader.EventLoader;
 import me.bryangaming.chatlab.loader.FileLoader;
-import me.bryangaming.chatlab.managers.MethodManager;
+import me.bryangaming.chatlab.loader.ManagerLoader;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.tasks.TasksManager;
-import me.bryangaming.chatlab.utils.StringFormat;
 import me.bryangaming.chatlab.utils.SupportManager;
-import me.bryangaming.chatlab.utils.module.ModuleCheck;
-import me.bryangaming.chatlab.utils.module.ModuleCreator;
+import me.bryangaming.chatlab.utils.module.ModuleUtils;
 
 
 public class PluginService {
@@ -20,12 +18,10 @@ public class PluginService {
 
     private ServerData serverData;
 
-    private StringFormat variables;
-    private MethodManager methodManager;
+    private ManagerLoader managerLoader;
     private DebugLogger debug;
 
-    private ModuleCreator moduleCreator;
-    private ModuleCheck moduleCheck;
+    private ModuleUtils moduleUtils;
 
     private SupportManager supportManager;
     private CommandLoader commandLoader;
@@ -45,31 +41,14 @@ public class PluginService {
     public void setup() {
 
         serverData = new ServerData();
-
         debug = new DebugLogger(plugin);
-
         cache = new CacheManager(this);
-
         fileLoader = new FileLoader(this);
-        fileLoader.setup();
-
-        moduleCreator = new ModuleCreator(this);
-        moduleCheck = new ModuleCheck(this);
-
-        variables = new StringFormat();
-
+        moduleUtils = new ModuleUtils(this);
         supportManager = new SupportManager(this);
-
-        methodManager = new MethodManager(this);
-        methodManager.setup();
-
-
-        commandLoader = new CommandLoader(plugin, this);
-        commandLoader.setup();
-
+        managerLoader = new ManagerLoader(this);
+        commandLoader = new CommandLoader(this);
         eventLoader = new EventLoader(this);
-        eventLoader.setup();
-
         cooldownData = new CooldownData(this);
         tasksManager = new TasksManager(this);
     }
@@ -83,20 +62,12 @@ public class PluginService {
     }
 
 
-    public ModuleCreator getListManager() {
-        return moduleCreator;
-    }
-
-    public ModuleCheck getPathManager() {
-        return moduleCheck;
+    public ModuleUtils getListManager() {
+        return moduleUtils;
     }
 
     public DebugLogger getLogs() {
         return debug;
-    }
-
-    public StringFormat getStringFormat() {
-        return variables;
     }
 
     public CacheManager getCache() {
@@ -107,8 +78,8 @@ public class PluginService {
         return supportManager;
     }
 
-    public MethodManager getPlayerManager() {
-        return methodManager;
+    public ManagerLoader getPlayerManager() {
+        return managerLoader;
     }
 
     public FileLoader getFiles() {

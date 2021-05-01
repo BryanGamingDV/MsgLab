@@ -4,7 +4,6 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.StringFormat;
 import me.bryangaming.chatlab.utils.pages.PageCreator;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -44,9 +43,6 @@ public class MotdCommand implements CommandClass {
     @Command(names = "")
     public boolean mainCommand(@Sender Player sender, @OptArg("1") int page) {
 
-
-        StringFormat variable = pluginService.getStringFormat();
-
         if (page <= 0) {
             senderManager.sendMessage(sender, messagesFile.getString("error.motd.negative-number")
                     .replace("%number%", String.valueOf(page)));
@@ -69,7 +65,6 @@ public class MotdCommand implements CommandClass {
         motdList.replaceAll(text -> text
                 .replace("%page%", String.valueOf(page))
                 .replace("%maxpage%", String.valueOf(pageCreator.getMaxPage())));
-        motdPage.replaceAll(text -> variable.replacePlayerVariables(sender, text));
 
         motdList.forEach(text -> senderManager.sendMessage(sender, text));
         senderManager.sendMessage(sender, commandFile.getString("commands.motd.list.space"));

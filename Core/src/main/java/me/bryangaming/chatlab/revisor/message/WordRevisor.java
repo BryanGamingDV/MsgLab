@@ -14,14 +14,21 @@ import java.util.regex.Pattern;
 public class WordRevisor implements Revisor {
 
     private final PluginService pluginService;
+    private final String revisorName;
 
-    public WordRevisor(PluginService pluginService) {
+    public WordRevisor(PluginService pluginService, String revisorName) {
         this.pluginService = pluginService;
+        this.revisorName = revisorName;
+    }
+
+    @Override
+    public String getName(){
+        return revisorName;
     }
 
     @Override
     public boolean isEnabled(){
-        return pluginService.getFiles().getFormatsFile().getBoolean("revisor.words-module.enabled");
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor." + revisorName + ".enabled");
     }
 
     @Override
@@ -34,7 +41,7 @@ public class WordRevisor implements Revisor {
         boolean bwstatus = false;
 
         Pattern pattern;
-        for (String regex : utils.getStringList("revisor.words-module.list-words")) {
+        for (String regex : utils.getStringList("revisor." + revisorName + ".list-words")) {
 
             if (!utils.getBoolean("revisor.words-module.regex")) {
                 for (String wordsPath : string.split(" ")) {
@@ -71,8 +78,8 @@ public class WordRevisor implements Revisor {
         }
 
         if (bwstatus) {
-            if (utils.getBoolean("revisor.words-module.word-list.enabled")) {
-                playerMethod.sendMessage(player, utils.getString("revisor.words-module.word-list.format")
+            if (utils.getBoolean("revisor." + revisorName + ".word-list.enabled")) {
+                playerMethod.sendMessage(player, utils.getString("revisor." + revisorName + ".word-list.format")
                         .replace("%words%", String.valueOf(words)));
             }
         }
@@ -86,20 +93,20 @@ public class WordRevisor implements Revisor {
         Configuration utils = pluginService.getFiles().getFormatsFile();
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
 
-            if (utils.getBoolean("revisor.words-module.message.enabled")) {
-                playerMethod.sendMessage(player, utils.getString("revisor.words-module.message.format")
+            if (utils.getBoolean("revisor." + revisorName + ".message.enabled")) {
+                playerMethod.sendMessage(player, utils.getString("revisor." + revisorName + ".message.format")
                         .replace("%player%", player.getName()));
             }
 
-            if (utils.getBoolean("revisor.words-module.command.enabled")) {
-                playerMethod.sendCommand(Bukkit.getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor.words-module.command.format")
+            if (utils.getBoolean("revisor." + revisorName + ".command.enabled")) {
+                playerMethod.sendCommand(Bukkit.getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor." + revisorName + ".command.format")
                         .replace("%player%", player.getName())));
             }
 
-            if (utils.getBoolean("revisor.words-module.warning.enabled")) {
+            if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
                 Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
                     if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
-                        playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.words-module.warning.text")
+                        playerMethod.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                                 .replace("%player%", player.getName()));
                     }
                 });

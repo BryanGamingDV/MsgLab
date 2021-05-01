@@ -3,6 +3,7 @@ package me.bryangaming.chatlab.tasks;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.task.Task;
 import me.bryangaming.chatlab.tasks.type.AnnouncerTask;
+import me.bryangaming.chatlab.utils.module.ModuleType;
 
 import java.util.HashMap;
 
@@ -21,7 +22,7 @@ public class TasksManager {
     public void loadTasks(Task... taskTypes) {
 
         for (Task task : taskTypes) { ;
-            if (!pluginService.getListManager().isEnabledOption("modules", task.getName())){
+            if (!pluginService.getListManager().isEnabledOption(ModuleType.MODULE, task.getName())){
                 continue;
             }
 

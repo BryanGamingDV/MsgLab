@@ -13,35 +13,64 @@ import java.util.List;
 public class LinkRevisor implements Revisor {
 
     private final PluginService pluginService;
+    private final String revisorName;
 
-    public LinkRevisor(PluginService pluginService) {
+    public LinkRevisor(PluginService pluginService, String revisorName) {
         this.pluginService = pluginService;
+        this.revisorName = revisorName;
+    }
 
+    @Override
+    public String getName(){
+        return revisorName;
     }
 
     @Override
     public boolean isEnabled() {
-        return pluginService.getFiles().getFormatsFile().getBoolean("revisor.link-module.enabled");
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor." + revisorName + ".enabled");
     }
 
     public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
 
-        if (!(utils.getBoolean("revisor.link-module.enabled"))) {
+        if (utils.getBoolean("revisor." + revisorName + ".block-point")) {
+            if (!string.contains(".")) {
+                return string;
+            }
+
+            for (String word : string.split(" ")) {
+                if (word.contains(".")) {
+                    string = string.replace(word, utils.getString("revisor." + revisorName + ".replace-link"));
+                    break;
+                }
+            }
+
+            string = string.replace(".", utils.getString("revisor." + revisorName + ".replace-link"));
+            sendMessage(player, " . ");
+
+            if (!(player.isOnline())) {
+                return null;
+            }
+
+            if (string.trim().isEmpty()) {
+                return null;
+            }
+
             return string;
         }
 
-        if (utils.getBoolean("revisor.link-module.block-point")) {
-            if (string.contains(".")) {
-                for (String word : string.split(" ")) {
-                    if (word.contains(".")) {
-                        string = string.replace(word, utils.getString("revisor.link-module.replace-link"));
-                        break;
-                    }
+
+        List<String> blockList = utils.getStringList("revisor." + revisorName + ".blocked-links");
+
+        for (String blockedWord : blockList) {
+            for (String word : string.split(" ")) {
+                if (!string.contains(blockedWord)) {
+                    continue;
                 }
-                string = string.replace(".", utils.getString("revisor.link-module.replace-link"));
-                sendMessage(player, " . ");
+
+                string = string.replace(word, utils.getString("revisor." + revisorName + ".replace-link"));
+                sendMessage(player, blockedWord);
 
                 if (!(player.isOnline())) {
                     return null;
@@ -49,33 +78,6 @@ public class LinkRevisor implements Revisor {
 
                 if (string.trim().isEmpty()) {
                     return null;
-                }
-
-                return string;
-            }
-
-            return string;
-        }
-
-
-        List<String> blockList = utils.getStringList("revisor.link-module.blocked-links");
-
-        for (String blockedWord : blockList) {
-            for (String word : string.split(" ")) {
-                if (string.contains(blockedWord)) {
-
-                    string = string.replace(word, utils.getString("revisor.link-module.replace-link"));
-                    sendMessage(player, blockedWord);
-
-                    if (!(player.isOnline())) {
-                        return null;
-                    }
-
-                    if (string.trim().isEmpty()) {
-                        return null;
-                    }
-
-                    return string;
                 }
 
             }
@@ -92,22 +94,22 @@ public class LinkRevisor implements Revisor {
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
 
-        if (utils.getBoolean("revisor.link-module.message.enabled")) {
-            playerMethod.sendMessage(player, utils.getString("revisor.link-module.message.format")
+        if (utils.getBoolean("revisor." + revisorName + ".message.enabled")) {
+            playerMethod.sendMessage(player, utils.getString("revisor." + revisorName + ".message.format")
                     .replace("%player%", player.getName())
                     .replace("%blockedword%", blockedword));
         }
 
-        if (utils.getBoolean("revisor.link-module.command.enabled")) {
-            playerMethod.sendCommand(Bukkit.getServer().getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor.link-module.command.format")
+        if (utils.getBoolean("revisor." + revisorName + ".command.enabled")) {
+            playerMethod.sendCommand(Bukkit.getServer().getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor." + revisorName + ".command.format")
                     .replace("%player%", player.getName())
                     .replace("%blockedword%", blockedword)));
         }
 
-        if (utils.getBoolean("revisor.link-module.warning.enabled")) {
+        if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
                 if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
-                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.link-module.warning.text")
+                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                             .replace("%player%", player.getName()));
                 }
             });

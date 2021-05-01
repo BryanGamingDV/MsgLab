@@ -6,6 +6,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.module.ModuleType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -38,7 +39,7 @@ public class CooldownData {
 
     public boolean isTextSpamming(UUID uuid) {
 
-        if (pluginService.getListManager().isEnabledOption("module", "cooldown")) {
+        if (pluginService.getListManager().isEnabledOption(ModuleType.MODULE, "cooldown")) {
             return false;
         }
 
@@ -74,7 +75,7 @@ public class CooldownData {
 
     public boolean isCmdSpamming(UUID uuid) {
 
-        if (pluginService.getListManager().isEnabledOption("module", "cooldown")) {
+        if (pluginService.getListManager().isEnabledOption(ModuleType.MODULE, "cooldown")) {
             return false;
         }
 

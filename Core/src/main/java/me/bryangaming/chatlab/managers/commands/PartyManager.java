@@ -22,7 +22,6 @@ public class PartyManager {
     private final SenderManager senderManager;
     private final ServerData serverData;
 
-
     private int partyID = 1;
 
     public PartyManager(PluginService pluginService) {

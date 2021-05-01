@@ -8,7 +8,8 @@ import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.modules.DataModule;
 import me.bryangaming.chatlab.tasks.TasksManager;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.module.ModuleCreator;
+import me.bryangaming.chatlab.utils.module.ModuleType;
+import me.bryangaming.chatlab.utils.module.ModuleUtils;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.CommandClass;
@@ -209,7 +210,7 @@ public class CLabCommand implements CommandClass {
         if (arg2.equalsIgnoreCase("commands")) {
             senderManager.sendMessage(sender, commandFile.getString("commands.clab.debug.list.commands"));
             for (String commandName : pluginService.getListManager().getCommands()) {
-                if (pluginService.getListManager().isEnabledOption("commands", commandName)) {
+                if (pluginService.getListManager().isEnabledOption(ModuleType.COMMAND, commandName)) {
                     senderManager.sendMessage(sender, "&8- &f" + commandName + " &a[Enabled]");
                 } else {
                     senderManager.sendMessage(sender, "&8- &f" + commandName + " &c[Disabled]");
@@ -221,7 +222,7 @@ public class CLabCommand implements CommandClass {
         if (arg2.equalsIgnoreCase("modules")) {
             senderManager.sendMessage(sender, commandFile.getString("commands.clab.debug.list.modules"));
             for (String moduleName : pluginService.getListManager().getModules()) {
-                if (pluginService.getListManager().isEnabledOption("modules", moduleName)) {
+                if (pluginService.getListManager().isEnabledOption(ModuleType.MODULE, moduleName)) {
                     senderManager.sendMessage(sender, "&8- &f" + moduleName + " &a[Enabled]");
                 } else {
                     senderManager.sendMessage(sender, "&8- &f" + moduleName + " &c[Disabled]");
@@ -301,10 +302,10 @@ public class CLabCommand implements CommandClass {
             return true;
         }
 
-        ModuleCreator moduleCreator = pluginService.getListManager();
+        ModuleUtils moduleUtils = pluginService.getListManager();
 
         if (type.equalsIgnoreCase("commands")) {
-            configFile.set("config.modules.enabled-commands", moduleCreator.getCommands());
+            configFile.set("config.modules.enabled-commands", moduleUtils.getCommands());
             configFile.save();
             senderManager.sendMessage(sender, commandFile.getString("commands.clab.restore.commands"));
             senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab restore commands");
@@ -312,7 +313,7 @@ public class CLabCommand implements CommandClass {
 
         }
         if (type.equalsIgnoreCase("modules")) {
-            configFile.set("config.modules.enabled-options", moduleCreator.getModules());
+            configFile.set("config.modules.enabled-options", moduleUtils.getModules());
             configFile.save();
             senderManager.sendMessage(sender, commandFile.getString("commands.clab.restore.commands"));
             senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab restore modules");

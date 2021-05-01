@@ -1,5 +1,5 @@
 package me.bryangaming.chatlab.api;
 
-public interface HookModel {
+public interface Hook {
     void setup();
 }

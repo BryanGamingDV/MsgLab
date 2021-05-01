@@ -2,12 +2,12 @@ package me.bryangaming.chatlab.managers.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
-import me.bryangaming.chatlab.managers.MethodService;
+import me.bryangaming.chatlab.api.Option;
 
 import java.util.Map;
 import java.util.UUID;
 
-public class SocialSpyManager implements MethodService {
+public class SocialSpyManager implements Option {
 
     private final PluginService pluginService;
 
@@ -25,15 +25,15 @@ public class SocialSpyManager implements MethodService {
     }
 
     public void toggleOption(UUID uuid) {
-        UserData usercache = cache.get(uuid);
+        UserData userData = cache.get(uuid);
 
-        if (usercache.isSocialSpyMode()) {
-            usercache.toggleSocialSpy(false);
+        if (userData.isSocialSpyMode()) {
+            userData.toggleSocialSpy(false);
             status = pluginService.getFiles().getCommandFile().getString("commands.socialspy.player.variable-off");
             return;
         }
 
-        usercache.toggleSocialSpy(true);
+        userData.toggleSocialSpy(true);
         status = pluginService.getFiles().getCommandFile().getString("commands.socialspy.player.variable-on");
     }
 

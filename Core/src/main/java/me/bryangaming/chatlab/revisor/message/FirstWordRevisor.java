@@ -9,15 +9,22 @@ import org.bukkit.entity.Player;
 
 public class FirstWordRevisor implements Revisor {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
+    private final String revisorName;
 
-    public FirstWordRevisor(PluginService pluginService) {
+    public FirstWordRevisor(PluginService pluginService, String revisorName) {
         this.pluginService = pluginService;
+        this.revisorName = revisorName;
+    }
+
+    @Override
+    public String getName(){
+        return revisorName;
     }
 
     @Override
     public boolean isEnabled() {
-        return pluginService.getFiles().getFormatsFile().getBoolean("revisor.first-mayus-module.enabled");
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor." + revisorName + ".enabled");
     }
 
     @Override
@@ -34,10 +41,10 @@ public class FirstWordRevisor implements Revisor {
 
         message = message.replaceFirst(firstLetter, firstLetter.toUpperCase());
 
-        if (utils.getBoolean("revisor.first-mayus-module.warning.enabled")) {
+        if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
                 if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
-                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor.first-mayus-module.warning.text")
+                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                             .replace("%player%", player.getName()));
                 }
             });

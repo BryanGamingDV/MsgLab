@@ -8,6 +8,7 @@ import me.bryangaming.chatlab.events.server.ServerChangeEvent;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.module.ModuleType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -59,11 +60,11 @@ public class QuitListener implements Listener {
             }
         }
         playerStatus.resetStats();
-        if (pluginService.getListManager().isEnabledOption("modules", "join_quit")) {
+        if (pluginService.getListManager().isEnabledOption(ModuleType.MODULE, "join_quit")) {
             Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, event.getPlayer(), playerRank, ChangeMode.QUIT));
         }
 
-        if (pluginService.getListManager().isEnabledOption("commands", "reply")) {
+        if (pluginService.getListManager().isEnabledOption(ModuleType.COMMAND, "reply")) {
             if (!playerStatus.hasRepliedPlayer()) {
                 return;
             }

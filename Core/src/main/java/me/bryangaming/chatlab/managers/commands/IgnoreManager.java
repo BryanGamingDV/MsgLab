@@ -2,6 +2,7 @@ package me.bryangaming.chatlab.managers.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.module.ModuleType;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -73,7 +74,7 @@ public class IgnoreManager {
 
     public boolean playerIsIgnored(UUID sender, UUID playerIgnored) {
 
-        if (!pluginService.getListManager().isEnabledOption("command", "ignore")) {
+        if (!pluginService.getListManager().isEnabledOption(ModuleType.COMMAND, "ignore")) {
             return false;
         }
 

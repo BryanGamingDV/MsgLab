@@ -255,7 +255,7 @@ commands:
       enabled: "%c &fSocialspy enabled from &c%arg-2%"
       disabled: "%c &fSocialspy disabled from &c%arg-2%"
 
-    spy: "&a[SocialSpy] &8| &f%player% &8> &f%arg-1% &8: &f%message%"
+    spy: "&a[SocialSpyManager] &8| &f%player% &8> &f%arg-1% &8: &f%message%"
 
     list-spyplayers: "&8->%newline%&fList of players using socialspy.%newline%&8->"
 
@@ -301,7 +301,7 @@ commands:
       variable-on: "enabled"
       variable-off: "disabled"
 
-    message: "&d[StaffChat] &8| &f%player% &8: &f%message%"
+    message: "&d[StaffChatManager] &8| &f%player% &8: &f%message%"
 
   commandspy:
 
