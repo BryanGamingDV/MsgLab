@@ -67,7 +67,7 @@ public class WorldData {
         }
 
         for (String id : pwcKeys) {
-            List<String> worldData = new ArrayList<>(utils.getStringList("per-world-chat.worlds." + id + ".worlds"));
+            List<String> worldData = utils.getStringList("per-world-chat.worlds." + id + ".worlds");
 
             for (String world : worldData) {
                 if (player.getWorld().getName().equalsIgnoreCase(world)) {

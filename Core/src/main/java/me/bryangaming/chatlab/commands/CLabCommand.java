@@ -115,7 +115,7 @@ public class CLabCommand implements CommandClass {
     @Command(names = "support")
     public boolean supportSubCommand(@Sender Player sender) {
 
-        if (configFile.getBoolean("config.allow-support")) {
+        if (configFile.getBoolean("options.allow-support")) {
             senderManager.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
             senderManager.sendMessage(sender, "&8- &fJoin: &ahttps://discord.gg/wpSh4Bf4E");
             senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab support");
@@ -123,7 +123,7 @@ public class CLabCommand implements CommandClass {
         }
 
         senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
-                .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
+                .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, sounds, debug, restore")));
         senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
 

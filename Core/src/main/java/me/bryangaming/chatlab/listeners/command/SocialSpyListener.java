@@ -21,7 +21,7 @@ public class SocialSpyListener implements Listener {
     @EventHandler
     public void onSocialSpy(SocialSpyEvent socialSpyEvent) {
 
-        SenderManager playersender = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         Bukkit.getServer().getOnlinePlayers().forEach(player -> {
             UserData watcherSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
@@ -30,8 +30,8 @@ public class SocialSpyListener implements Listener {
                 return;
             }
 
-            playersender.sendMessage(player, socialSpyEvent.getMessage());
-            playersender.playSound(player, SoundEnum.RECEIVE_SOCIALSPY);
+            senderManager.sendMessage(player, socialSpyEvent.getMessage());
+            senderManager.playSound(player, SoundEnum.RECEIVE_SOCIALSPY);
         });
     }
 }

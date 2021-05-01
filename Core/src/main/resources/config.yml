@@ -1,11 +1,9 @@
 #
 # ChatLab by BryanGaming
-# Version: 2.1.4
+# Version: 2.1.5
 #
 
-version: 2.1.4
-
-
+version: 2.1.5
 
 # List of enabled commands and options:
 modules:

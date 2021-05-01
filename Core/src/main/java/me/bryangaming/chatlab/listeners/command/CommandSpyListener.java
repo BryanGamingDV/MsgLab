@@ -23,7 +23,7 @@ public class CommandSpyListener implements Listener {
     @EventHandler
     public void onCommandSpy(CommandSpyEvent commandSpyEvent) {
 
-        SenderManager playersender = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         Configuration command = pluginService.getFiles().getCommandFile();
 
         List<String> blockedCommands = command.getStringList("commands.commandspy.blocked-commands");
@@ -45,8 +45,8 @@ public class CommandSpyListener implements Listener {
                 return;
             }
 
-            playersender.sendMessage(player, commandSpyFormat);
-            playersender.playSound(player, SoundEnum.RECEIVE_COMMANDSPY);
+            senderManager.sendMessage(player, commandSpyFormat);
+            senderManager.playSound(player, SoundEnum.RECEIVE_COMMANDSPY);
         });
     }
 }

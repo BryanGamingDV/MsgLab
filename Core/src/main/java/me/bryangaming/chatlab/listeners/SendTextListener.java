@@ -96,8 +96,6 @@ public class SendTextListener implements Listener {
 
     @EventHandler
     public void onServerCommand(ServerCommandEvent event) {
-        StringFormat stringFormat = pluginService.getStringFormat();
-
         String command = event.getCommand().substring(TextUtils.countRepeatedCharacters(event.getCommand(), '/')).toLowerCase();
         Bukkit.getPluginManager().callEvent(new CommandSpyEvent("Console", command));
 
@@ -112,8 +110,6 @@ public class SendTextListener implements Listener {
         Configuration utils = pluginService.getFiles().getFormatsFile();
 
         SenderManager playerMethod = pluginService.getPlayerManager().getSender();
-        StringFormat stringFormat = pluginService.getStringFormat();
-
         String commandText = event.getMessage().replace("/", "").split(" ")[0].toLowerCase();
 
         if (cooldownData.isCmdSpamming(event.getPlayer().getUniqueId())) {

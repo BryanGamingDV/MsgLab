@@ -26,9 +26,6 @@ public class EventLoader implements Loader {
 
     @Override
     public void load() {
-
-        StringFormat stringFormat = pluginService.getStringFormat();
-
         loadEvents(
                 new JoinListener(pluginService),
                 new QuitListener(pluginService),

@@ -26,7 +26,7 @@ public class ConditionRevisor implements Revisor {
 
     @Override
     public boolean isEnabled() {
-        return pluginService.getFiles().getFormatsFile().getBoolean("revisor-cmd.commands-module.conditions.enabled");
+        return pluginService.getFiles().getFormatsFile().getBoolean("revisor-cmd." + revisorName +  ".enabled");
     }
 
     @Override
@@ -34,10 +34,10 @@ public class ConditionRevisor implements Revisor {
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         ConditionManager conditionManager = pluginService.getPlayerManager().getConditionManager();
 
-        String commandsPath = "revisor-cmd.commands-module.conditions.commands";
+        String commandsPath = "revisor-cmd." + revisorName + ".commands";
 
         if (!Bukkit.getServer().getPluginManager().isPluginEnabled("Vault")) {
             return command;
@@ -50,8 +50,8 @@ public class ConditionRevisor implements Revisor {
             }
 
             if (!conditionManager.hasTheCondition(player, utils.getString(commandsPath + "." + command))){
-                if (!utils.getBoolean("revisor-cmd.commands.conditions.message.enabled")){
-                    playerMethod.sendMessage(player, utils.getString("revisor-cmd.commands.conditions.message.format"));
+                if (!utils.getBoolean("revisor-cmd." + revisorName + ".message.enabled")){
+                    senderManager.sendMessage(player, utils.getString("revisor-cmd." + revisorName + ".message.format"));
                 }
                 return null;
             }
