@@ -78,7 +78,7 @@ public class ManagerLoader implements Loader {
         textUtils = new TextUtils(pluginService);
         conditionManager = new ConditionManager(pluginService);
 
-        pluginService.getLogs().log("Method registered");
+        pluginService.getLogs().log("Methods registered");
 
     }
 
