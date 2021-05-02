@@ -1,5 +1,6 @@
 package me.bryangaming.chatlab.utils.string;
 
+import annotator.find.LambdaCriterion;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -11,6 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
+import java.lang.invoke.LambdaConversionException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -30,7 +32,7 @@ public class TextUtils {
         senderManager = pluginService.getPlayerManager().getSender();
         logger = pluginService.getPlugin().getLogger();
     }
-
+    
     public static String setColor(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
     }

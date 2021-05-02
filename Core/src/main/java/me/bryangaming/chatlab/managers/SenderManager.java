@@ -19,13 +19,13 @@ public class SenderManager {
 
     private final PluginService pluginService;
 
-    private final Configuration config;
-    private final Configuration sounds;
+    private final Configuration configFile;
+    private final Configuration soundsFile;
 
     public SenderManager(PluginService pluginService) {
         this.pluginService = pluginService;
-        this.config = pluginService.getFiles().getConfigFile();
-        this.sounds = pluginService.getFiles().getSoundsFile();
+        this.configFile = pluginService.getFiles().getConfigFile();
+        this.soundsFile = pluginService.getFiles().getSoundsFile();
     }
 
 
@@ -35,7 +35,7 @@ public class SenderManager {
 
         if (path == null) {
 
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+            if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
             } else {
                 logger.info("Error - Could not find the path in config.");
@@ -63,13 +63,13 @@ public class SenderManager {
     public boolean hasPermission(Player player, String path) {
 
         Logger logger = pluginService.getPlugin().getLogger();
-        String permission = config.getString("perms." + path);
+        String permission = configFile.getString("perms." + path);
 
         if (permission == null) {
 
-            if (config.getString("perms." + StringUtils.remove(path, ".main")) == null) {
+            if (configFile.getString("perms." + StringUtils.remove(path, ".main")) == null) {
 
-                if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+                if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                     logger.info("Please change the configuration section! Your config is old.");
 
                 } else {
@@ -82,7 +82,7 @@ public class SenderManager {
                 return false;
             }
 
-            return player.hasPermission(config.getString("perms." + StringUtils.remove(path, ".main")));
+            return player.hasPermission(configFile.getString("perms." + StringUtils.remove(path, ".main")));
         }
 
         if (permission.equalsIgnoreCase("none")) {
@@ -99,7 +99,7 @@ public class SenderManager {
         Logger logger = pluginService.getPlugin().getLogger();
 
         if (path == null) {
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+            if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
             } else {
                 logger.info("Error - Could not find the path in config.");
@@ -125,7 +125,7 @@ public class SenderManager {
 
         Logger logger = pluginService.getPlugin().getLogger();
         if (path == null) {
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+            if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
             } else {
                 logger.info("Error - Could not find the path in config.");
@@ -145,7 +145,7 @@ public class SenderManager {
 
         Logger logger = pluginService.getPlugin().getLogger();
         if (path == null) {
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+            if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
             } else {
                 logger.info("Error - Could not find the path in config.");
@@ -165,7 +165,7 @@ public class SenderManager {
         Logger logger = pluginService.getPlugin().getLogger();
         if (path == null) {
 
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+            if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
             } else {
                 logger.info("Error - Could not find the path in config.");
@@ -183,7 +183,7 @@ public class SenderManager {
     public void sendMessage(Player sender, List<String> messages) {
         Logger logger = pluginService.getPlugin().getLogger();
         if (messages == null) {
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+            if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
             } else {
                 logger.info("Error - Could not find the path in config.");
@@ -222,7 +222,7 @@ public class SenderManager {
         String soundPath = soundsFile.getString("sounds." + path);
 
         if (soundPath == null) {
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+            if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
 
             } else {
@@ -254,12 +254,12 @@ public class SenderManager {
             return this;
         }
 
-        if (!sounds.getBoolean("sounds.argument")) {
+        if (!soundsFile.getBoolean("sounds.argument")) {
             return this;
         }
 
-        for (String keys : sounds.getConfigurationSection("group").getKeys(false)) {
-            for (String newCommand : sounds.getStringList("group." + keys + ".commands")) {
+        for (String keys : soundsFile.getConfigurationSection("group").getKeys(false)) {
+            for (String newCommand : soundsFile.getStringList("group." + keys + ".commands")) {
                 if (command.equalsIgnoreCase(newCommand.trim().replace(",", " "))) {
                     sound.setSound(player.getUniqueId(), "group." + keys);
                     return this;
@@ -267,7 +267,7 @@ public class SenderManager {
             }
         }
 
-        if (sounds.getConfigurationSection("argument." + command) == null) {
+        if (soundsFile.getConfigurationSection("argument." + command) == null) {
             return this;
         }
 
@@ -282,7 +282,7 @@ public class SenderManager {
         Logger logger = pluginService.getPlugin().getLogger();
 
         if (command == null) {
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+            if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
 
             } else {
@@ -326,7 +326,7 @@ public class SenderManager {
         Logger logger = pluginService.getPlugin().getLogger();
 
         if (messages == null) {
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+            if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
 
             } else {
@@ -347,7 +347,7 @@ public class SenderManager {
         Logger logger = pluginService.getPlugin().getLogger();
 
         if (command == null) {
-            if (!config.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
+            if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {
                 logger.info("Please change the configuration section! Your config is old.");
 
             } else {
