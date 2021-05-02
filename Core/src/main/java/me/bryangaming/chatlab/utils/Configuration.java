@@ -14,13 +14,14 @@ public final class Configuration extends YamlConfiguration {
 
     private final String fileName;
     private final Plugin plugin;
-    private final File folder;
+    private final File file;
 
     public Configuration(Plugin plugin, String fileName, String fileExtension,
                          File folder) {
-        this.folder = folder;
-        this.plugin = plugin;
         this.fileName = fileName + (fileName.endsWith(fileExtension) ? "" : fileExtension);
+        this.plugin = plugin;
+
+        this.file = new File(folder, this.fileName);
         this.createFile();
     }
 
@@ -34,11 +35,15 @@ public final class Configuration extends YamlConfiguration {
 
     private void createFile() {
         try {
-
-            File file = new File(folder, fileName);
             if (file.exists()) {
+
+                if (this.plugin.getResource(this.fileName) != null) {
+                    this.plugin.saveResource(this.fileName, false);
+                } else {
+                    this.save(file);
+                }
+
                 load(file);
-                save(file);
                 return;
             }
 
@@ -58,8 +63,6 @@ public final class Configuration extends YamlConfiguration {
 
 
     public void save() {
-        File folder = plugin.getDataFolder();
-        File file = new File(folder, fileName);
         try {
             save(file);
         } catch (IOException e) {
@@ -68,8 +71,6 @@ public final class Configuration extends YamlConfiguration {
     }
 
     public void reload() {
-        File folder = plugin.getDataFolder();
-        File file = new File(folder, fileName);
         try {
             load(file);
         } catch (IOException | InvalidConfigurationException e) {
