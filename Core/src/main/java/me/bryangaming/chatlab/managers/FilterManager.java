@@ -7,11 +7,11 @@ import org.bukkit.event.player.PlayerCommandSendEvent;
 
 import java.util.Collection;
 
-public class FitlerManager {
+public class FilterManager {
 
     private PluginService pluginService;
 
-    public FitlerManager(PluginService pluginService) {
+    public FilterManager(PluginService pluginService) {
         this.pluginService = pluginService;
     }
 
