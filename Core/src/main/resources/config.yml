@@ -35,6 +35,96 @@ modules:
     - motd
     - announcer
 
+#
+# Permissions:
+# - You can put 'none' to disable the permission.
+#
+
+perms:
+
+  # Revisor:
+  revisor:
+    watch: clab.revisor
+    bypass: clab.revisor
+
+  # Cooldown:
+  cooldown:
+    chat-bypass: clab.chat.bypass
+    cmd-bypass: clab.cmd.bypass
+
+  # Commands:
+  commands:
+    clab:
+      main: clab.commands.clab
+      debug: clab.commands.clab.debug
+      restore: clab.commands.clab.restore
+      reload: clab.commands.clab.reload
+
+    broadcast:
+      main: clab.commands.broadcast
+      click: clab.commands.broadcast.click
+
+    broadcastworld:
+      main: clab.commands.broadcast-world
+      click: clab.commands.broadcast-world.click
+
+    channel:
+      main: none
+      info: clab.commands.info
+      move: clab.commands.move
+
+    chat:
+      main: clab.commands.chat
+      reload: clab.commands.chat.reload
+
+    commandspy:
+      main: clab.commands.commandspy
+
+    helpop:
+      main: clab.commands.helpop
+      watch: clab.commands.helpop.watch
+
+    ignore:
+      main: none
+
+    motd:
+      main: none
+      admin: clab.commands.motd.admin
+
+    msg:
+      main: none
+      toggle: none
+
+    reply:
+      main: none
+
+    socialspy:
+      main: clab.commands.socialspy
+
+    staffchat:
+      main: clab.commands.staffchat
+      watch: clab.commands.staffchat
+
+    stream:
+      main: clab.commands.stream
+
+    unignore:
+      main: none
+
+    party:
+      main: none
+
+    announcer:
+      main: clab.commands.announcer
+
+  # Color:
+  color:
+    variable: clab.chat.variable
+
+  chat:
+    muted-bypass: clab.chat.mute.bypass
+  # Chat:
+
 # Options:
 options:
   # You can create prefixes with variables unlimited, obiously!
@@ -49,6 +139,18 @@ options:
     error:
       format: "&c[Error] &8|"
       variable: "%e"
+
+
+  # You can create tags with variables unlimited, obiously!
+  color:
+
+    color:
+      variable: "%ml_color%"
+      permission: clab.chat.color
+
+    tag:
+      variable: "%ml_tag%"
+      permission: clab.chat.tag
 
   allow-hooks:
     vault: true

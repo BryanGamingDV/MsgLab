@@ -37,7 +37,7 @@ public class JoinListener implements Listener {
         UserData userData = pluginService.getCache().getUserDatas().get(playerUUID);
 
         if (userData == null){
-            pluginService.getCache().getUserDatas().put(playerUUID, new UserData(playerUUID));
+            userData = pluginService.getCache().getUserDatas().put(playerUUID, new UserData(playerUUID));
         }
         Bukkit.getPluginManager().callEvent(new SendDataEvent(player, userData));
 

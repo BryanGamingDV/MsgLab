@@ -50,8 +50,7 @@ public class TextUtils {
     }
 
     public static Component convertTextToComponent(Player player, String path, String message) {
-        path = VariableUtils.replaceAllVariables(player, path);
-        path = TextUtils.convertLegacyToMiniMessage(path);
+
 
         if (!senderManager.hasPermission(player, "color.variable")) {
             message = "<pre>" + message + "</pre>";
@@ -62,12 +61,13 @@ public class TextUtils {
         path = path
                 .replace("%message%", message);
 
+        path = VariableUtils.replaceAllVariables(player, path);
+        path = TextUtils.convertLegacyToMiniMessage(path);
+
         return MiniMessage.get().parse(path);
     }
 
     public static String convertText(Player player, String path, String message) {
-        path = VariableUtils.replaceAllVariables(player, path);
-        path = TextUtils.convertLegacyToMiniMessage(path);
 
         if (!senderManager.hasPermission(player, "color.variable")) {
             message = "<pre>" + message + "</pre>";
@@ -75,8 +75,13 @@ public class TextUtils {
             message = TextUtils.convertLegacyToMiniMessage(message);
         }
 
-        return path
+        path = path
                 .replace("%message%", message);
+
+        path = VariableUtils.replaceAllVariables(player, path);
+        path = TextUtils.convertLegacyToMiniMessage(path);
+
+        return path;
 
     }
 

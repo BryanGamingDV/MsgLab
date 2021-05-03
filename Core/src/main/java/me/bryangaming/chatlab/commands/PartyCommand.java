@@ -101,6 +101,10 @@ public class PartyCommand implements CommandClass {
 
         PartyData partyData = partyManager.getPartyData(sender);
 
+        if (partyData == null){
+            return true;
+        }
+
         if (!userData.isPlayerLeader()) {
             senderManager.sendMessage(sender, messagesFile.getString("error.party.no-perms.set"));
             senderManager.playSound(sender, SoundEnum.ERROR);
@@ -144,6 +148,10 @@ public class PartyCommand implements CommandClass {
     @Command(names = "info")
     public boolean onInfoSubCommand(@Sender Player sender) {
         PartyData partyData = partyManager.getPartyData(sender);
+
+        if (partyData == null){
+            return true;
+        }
 
         List<String> arrayList = new ArrayList<>();
 
