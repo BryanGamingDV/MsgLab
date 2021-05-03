@@ -14,11 +14,11 @@ import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;
 
-public class TabFitler {
+public class TabFilter {
 
     private PluginService pluginService;
 
-    public TabFitler(PluginService pluginService) {
+    public TabFilter(PluginService pluginService) {
         this.pluginService = pluginService;
         setup();
     }

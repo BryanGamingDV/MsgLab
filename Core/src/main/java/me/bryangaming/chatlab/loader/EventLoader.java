@@ -9,7 +9,7 @@ import me.bryangaming.chatlab.listeners.command.CommandSpyListener;
 import me.bryangaming.chatlab.listeners.command.HelpOpListener;
 import me.bryangaming.chatlab.listeners.command.SocialSpyListener;
 import me.bryangaming.chatlab.listeners.text.ChatListener;
-import me.bryangaming.chatlab.revisor.tabcomplete.TabFitler;
+import me.bryangaming.chatlab.revisor.tabcomplete.TabFilter;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -45,7 +45,7 @@ public class EventLoader implements Loader {
         }
 
         if (Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
-            TabFitler tabFitler = new TabFitler(pluginService);
+            TabFilter tabFilter = new TabFilter(pluginService);
         }
         pluginService.getPlugin().getLogger().info("Events loaded!");
     }
