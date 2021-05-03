@@ -11,9 +11,9 @@
     <version>1.0</version>
 
     <modules>
-        <module>Api</module>
-        <module>Versions</module>
-        <module>Core</module>
+        <module>api</module>
+        <module>versions</module>
+        <module>core</module>
     </modules>
 
     <repositories>

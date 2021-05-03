@@ -29,7 +29,7 @@
     </dependencies>
 
     <modules>
-        <module>LegacyVersion</module>
+        <module>legacyversion</module>
     </modules>
 
 </project>
