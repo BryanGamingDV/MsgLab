@@ -34,11 +34,13 @@ public class JoinListener implements Listener {
 
         String playerRank = groupManager.getJQGroup(player);
 
+
+        if (pluginService.getCache().getUserDatas().get(playerUUID) == null){
+            pluginService.getCache().getUserDatas().put(playerUUID, new UserData(playerUUID));
+        }
+
         UserData userData = pluginService.getCache().getUserDatas().get(playerUUID);
 
-        if (userData == null){
-            userData = pluginService.getCache().getUserDatas().put(playerUUID, new UserData(playerUUID));
-        }
         Bukkit.getPluginManager().callEvent(new SendDataEvent(player, userData));
 
         if (pluginService.getListManager().isEnabledOption(ModuleType.MODULE, "join_quit")) {

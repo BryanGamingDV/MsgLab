@@ -21,7 +21,7 @@ public class ProtocolHook implements Hook {
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
             pluginService.getPlugin().getLogger().info("Addons - ProtocolLib not enabled! Disabling support..");
-            pluginService.getLogs().log("Addons - ProtocolLib not enabled! Disabling support..", LoggerTypeEnum.ERROR);
+            pluginService.getLogs().log("Addons - ProtocolLib not enabled! Disabling support..", LoggerTypeEnum.WARNING);
             return;
         }
 

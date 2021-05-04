@@ -35,7 +35,6 @@ public class CommandLoader implements Loader {
 
     @Override
     public void load() {
-
         pluginService.getLogs().log("Loading CommandLoader");
 
         createCommandManager();
