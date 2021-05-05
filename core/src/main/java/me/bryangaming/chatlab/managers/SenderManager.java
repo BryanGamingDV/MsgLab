@@ -111,7 +111,7 @@ public class SenderManager {
         }
 
         if (!(sender instanceof Player)) {
-            System.out.println(path);
+            System.out.println(path.replace("%newline%", "\n"));
             return;
         }
 

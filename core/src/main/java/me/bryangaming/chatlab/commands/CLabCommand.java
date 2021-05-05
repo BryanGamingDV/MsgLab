@@ -51,7 +51,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "")
-    public boolean onCommand(@Sender Player sender) {
+    public boolean onCommand(CommandSender sender) {
         senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                 .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
         senderManager.playSound(sender, SoundEnum.ERROR);
@@ -59,7 +59,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "help")
-    public boolean helpSubCommand(@Sender Player sender) {
+    public boolean helpSubCommand(CommandSender sender) {
 
         commandFile.getStringList("commands.clab.help.pages")
                 .forEach(text -> senderManager.sendMessage(sender, text));
@@ -70,7 +70,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "commands")
-    public boolean commandsSubCommand(@Sender Player sender, @OptArg("1") String page) {
+    public boolean commandsSubCommand(CommandSender sender, @OptArg("1") String page) {
 
         if (!(getHelp().contains(page))) {
             senderManager.sendMessage(sender, messagesFile.getString("error.unknown-page"));
@@ -89,7 +89,7 @@ public class CLabCommand implements CommandClass {
 
     @Command(names = "reload")
     public boolean reloadSubCommand(CommandSender sender, @OptArg("") String file) {
-
+        System.out.println(sender.getName());
         if (!(senderManager.hasPermission(sender, "commands.clab.reload"))) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
             senderManager.playSound(sender, SoundEnum.ERROR);
@@ -113,7 +113,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "support")
-    public boolean supportSubCommand(@Sender Player sender) {
+    public boolean supportSubCommand(CommandSender sender) {
 
         if (configFile.getBoolean("options.allow-support")) {
             senderManager.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
@@ -153,7 +153,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "debug")
-    public boolean debugSubCommand(@Sender Player sender, @OptArg("") String arg1, @OptArg("") String arg2) {
+    public boolean debugSubCommand(CommandSender sender, @OptArg("") String arg1, @OptArg("") String arg2) {
 
         if (!(senderManager.hasPermission(sender, "commands.clab.debug"))) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
@@ -173,7 +173,7 @@ public class CLabCommand implements CommandClass {
 
             if (arg2.isEmpty()) {
                 senderManager.sendMessage(sender, messagesFile.getString("error.unknown-arg"));
-                senderManager.sendMessage(sender, "&8- &fWorlds: " + String.join(", ", worldlist), "or -all");
+                senderManager.sendMessage(sender, "&8- &fWorlds: " + String.join(", ", worldlist) + ", or -all");
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
@@ -239,7 +239,7 @@ public class CLabCommand implements CommandClass {
         return true;
     }
     @Command(names = "config")
-    public boolean onConfig(@Sender Player sender, @OptArg("") String configName, @OptArg("") String path, @OptArg("") String value){
+    public boolean onConfig(CommandSender sender, @OptArg("") String configName, @OptArg("") String path, @OptArg("") String value){
 
         if (configName.isEmpty()){
             senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
@@ -287,7 +287,7 @@ public class CLabCommand implements CommandClass {
         return true;
     }
     @Command(names = "restore")
-    public boolean onRestoreSubCommand(@Sender Player sender, @OptArg("") String type) {
+    public boolean onRestoreSubCommand(CommandSender sender, @OptArg("") String type) {
 
         if (!(senderManager.hasPermission(sender, "commands.clab.restore"))) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
