@@ -1,0 +1,279 @@
+
+#
+# Fitlers.
+#
+
+# Cooldown filter.
+cooldown:
+  # If the message is a text.
+  text:
+    enabled: true
+    seconds: 2
+    message: "%c &fSorry, please, wait &a%seconds% &fseconds."
+
+  # If the message is a command.
+  cmd:
+    enabled: true
+    seconds: 2
+    message: "%c &fSorry, please, wait &a%seconds% &fseconds."
+
+    # Commands that obiously bypass the cooldown.
+    disabled-cmds:
+      - hwllo
+
+#
+# Tags
+#
+
+tags:
+  color:
+    variable: "%ml_color%"
+    permission: clab.chat.color
+
+  tag:
+    variable: "%ml_tag%"
+    permission: clab.chat.tag
+
+
+message:
+
+  # Emojis fitler.
+  # Format: emoji;symbol
+
+  emojis:
+    - ":happy:;:D"
+    - ":sad:;:("
+    - ":angry:;>:("
+    - ":cry:;:'c"
+    - ":scream:;:{"
+    - ":suprised:;:o"
+    - ":scared:;:O"
+
+  # Mention filter.
+  mentions:
+    enabled: true
+    message: "%c &fThe player &a%player% mentioned you."
+
+    # The char to tag:
+    char-tag: '@'
+
+    # The word that you replace in the word that the other player mention you, to stand out.
+    replace-mention: "&e@%player%"
+
+  # Bot response fitler
+  bot-respose:
+    enabled: true
+
+    lists:
+      1:
+        question: "Hello?"
+        answer: "%p &fHello player!"
+        commands:
+          - ""
+          -v
+
+  #
+  # Rule filter section.
+
+
+  # Perms.
+  perms:
+    # To watch the warning if a player is breaking a text/command rule.
+    watch: clab.revisor
+    # To bypass the text rule fitler.
+    bypass: clab.revisor
+    # To bypass the command rule fitler.
+    cmd-bypass: clab.cmd.bypass
+
+  # Anti flood - If player put a repeated character many v times.
+  anti-flood:
+    enabled: true
+
+    # Min repeated chars to detect the message.
+    min-chars: 2
+
+    message:
+      enabled: true
+      format: "%c &fPlease, don't flood."
+
+    warning:
+      enabled: true
+      text: "&e[Revisor] &8| &e%player% &fwas flooding."
+
+  # Words module - If player put a bad word:
+  words-module:
+    enabled: true
+    regex: false
+
+    list-words:
+      - "fuck; **"
+      - "idiot; **"
+      - "good; **"
+
+    message:
+      enabled: true
+      format: "%c &fPlease don't do that, &a%player%&f."
+
+    word-list:
+      enabled: true
+      format: "%c &fYou said &a%words% &fobscene words."
+
+      # Is not obligatory to use "/" in format.
+    command:
+      enabled: true
+      format: "say %player% is doing that."
+
+    warning:
+      enabled: true
+      text: "&e[Revisor] &8| &e%player% &fsaid a bad word."
+
+
+  # Dot module - If player didn't put a dot:
+  dot-module:
+    enabled: true
+
+    min-word: 1
+
+    warning:
+      enabled: false
+      text: "&e[Revisor] &8| &e%player% &fdidn't put a dot."
+
+  # First mayus module - If his first letter isn't mayus.
+  first-mayus-module:
+    enabled: true
+
+    warning:
+      enabled: false
+      text: "&e[Revisor] &8| &e%player% &fdidn't put a mayus.."
+
+  # Caps module - If player putted too much caps.
+  caps-module:
+    enabled: true
+
+    min-mayus: 5
+
+    warning:
+      enabled: true
+      text: "&e[Revisor] &8| &e%player% &fwas using caps."
+
+  # Link module - If player put a external link.
+  link-module:
+    enabled: true
+
+    # To block "." (If you enable this, you won't be able to use this)
+    block-point: false
+    blocked-links:
+      - .net
+      - .com
+      - .serv.nu
+
+    # Note: This replace the link or point (if you enabled this).
+    replace-link: " "
+
+    message:
+      enabled: true
+      format: "%c &fPlease don't use this &a%player%&f. Blocked word: &a%blockedword%&f."
+
+    command:
+      enabled: true
+      format: "kick %player% %c &fPlease don't use this %player%. Blocked word: %blockedword%."
+
+    warning:
+      enabled: true
+      text: "&e[Revisor] &8| &e%player% &fput a public link."
+
+
+commands:
+
+  tab-module:
+    enabled: false
+
+    # To block <tab>
+    # - Requires ProtocolLib.
+    #
+    block:
+      enabled: false
+
+      # When you put /<tab>:
+      empty: true
+
+      # List of blocked commands in tab.
+      commands:
+        - /ver
+        - /help
+
+      # A message when the player is using block command module.
+      message:
+        enabled: false
+        format: ""
+
+    # Fitler commands [Only 1.13+]
+    fitler:
+      enabled: true
+
+      # You can put @<group> to fill in the commands that are in such a group.
+      groups:
+        default:
+          - msg
+          - reply
+          - ignore
+        vip:
+          - "@default"
+
+  #
+  # Commands module:
+  #
+  commands-module:
+
+    #
+    # Conditions:
+    # - Requires Vault:
+    # Format: command : condition
+
+    # If you want how to use the condition section.
+    # Check in: https://bryangaming.gitbook.io/chatlab/option-guide/commandconditions
+    conditions:
+      enabled: false
+
+      commands:
+        test: "%pmoney% = 500"
+
+      # A message when the player is using block command module.
+      message:
+        enabled: true
+        format: "%e &fYou don't have the condition to use that command."
+
+    # Block Command Module.
+    block:
+      enabled: true
+
+      # To block people with op.
+      op:
+        message:
+          enabled: true
+          format: "%e &fYou can't use that command. &8[&f%command%&8]"
+
+        # List of blocked commands.
+        list:
+          - plugins
+          - pl
+          - help
+          - "?"
+
+      # To block people, and you can bypass with a permission.
+      default:
+
+        # Permission to bypass the block command module.
+        permission: test.test
+
+        # A message when the player is using block command module.
+        message:
+          enabled: true
+          format: "%e &fYou can't use that command. &8[&f%command%&8]"
+
+        # List of blocked commands.
+        list:
+          - pl
+          - test.
+          - test.t
+

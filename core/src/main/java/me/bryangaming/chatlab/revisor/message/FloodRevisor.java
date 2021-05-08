@@ -34,7 +34,7 @@ public class FloodRevisor implements Revisor {
     public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         int floodstatus = 0;
         int minflood = Math.max(0, utils.getInt("revisor." + revisorName + ".min-chars"));
@@ -49,13 +49,13 @@ public class FloodRevisor implements Revisor {
 
                     if (floodstatus < 1) {
                         if (utils.getBoolean("revisor." + revisorName + ".message.enabled")) {
-                            playerMethod.sendMessage(player, utils.getString("revisor." + revisorName + ".message.format"));
+                            senderManager.sendMessage(player, utils.getString("revisor." + revisorName + ".message.format"));
                         }
 
                         if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
                             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                                if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
-                                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
+                                if (senderManager.hasPermission(onlinePlayer, "revisor.watch")) {
+                                    senderManager.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                                             .replace("%player%", player.getName()));
                                 }
                             });

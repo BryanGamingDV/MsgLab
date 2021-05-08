@@ -38,7 +38,6 @@ public class CommandLoader implements Loader {
         pluginService.getLogs().log("Loading CommandLoader");
 
         createCommandManager();
-
         commandManager.getTranslator().setProvider(new CommandTranslation(pluginService));
         reCheckCommands();
 

@@ -11,8 +11,8 @@ import org.bukkit.entity.Player;
 
 public class DiscordSrvListener {
 
-    private PluginService pluginService;
-    private Configuration formatsFile;
+    private final PluginService pluginService;
+    private final Configuration formatsFile;
 
     public DiscordSrvListener(PluginService pluginService){
         this.pluginService = pluginService;

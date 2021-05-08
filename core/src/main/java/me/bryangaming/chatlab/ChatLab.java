@@ -27,7 +27,7 @@ public class ChatLab extends JavaPlugin {
 
         getLogger().info("Plugin created by " + getDescription().getAuthors() + "");
         getLogger().info("You are using version " + getDescription().getVersion() + ".");
-        getLogger().info("If you want support, you can join in: https://discord.gg/wpSh4Bf4Es");
+        getLogger().info("If you want support, you can join in: https://discord.gg/YjhubS3bWW");
         getLogger().info("If you want to go to the wiki, go in: https://bryangaming.gitbook.io/chatlab/");
 
         basicMsg.getLogs().log("- Plugin successfull loaded.", LoggerTypeEnum.SUCCESSFULL);

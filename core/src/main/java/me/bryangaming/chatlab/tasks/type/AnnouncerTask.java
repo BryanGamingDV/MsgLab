@@ -34,7 +34,7 @@ public class AnnouncerTask implements Task {
 
         Configuration command = pluginService.getFiles().getCommandFile();
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         ConfigurationSection configurationSection = command.getConfigurationSection("commands.announcer.config.messages");
 
@@ -74,7 +74,7 @@ public class AnnouncerTask implements Task {
                     return;
             }
             Bukkit.getServer().getOnlinePlayers().forEach(player ->
-                    playerMethod.sendMessage(player, command.getStringList("commands.announcer.config.messages." + announcerList.get(announcerID.get()))));
+                    senderManager.sendMessage(player, command.getStringList("commands.announcer.config.messages." + announcerList.get(announcerID.get()))));
 
         }, command.getInt("commands.announcer.config.interval") * 20L, command.getInt("commands.announcer.config.interval") * 20L);
     }

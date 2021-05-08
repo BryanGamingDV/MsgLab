@@ -70,11 +70,11 @@ public class SoundManager {
 
         Sound soundType = getSound(path + ".sound");
 
-        SenderManager playersender = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         Configuration messages = pluginService.getFiles().getMessagesFile();
 
         if (soundType == null) {
-            playersender.sendMessage(player.getPlayer(), messages.getString("error.sound.no-exists"));
+            senderManager.sendMessage(player.getPlayer(), messages.getString("error.sound.no-exists"));
             return;
         }
 

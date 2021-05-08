@@ -1,6 +1,6 @@
 package me.bryangaming.chatlab;
 
-import me.bryangaming.chatlab.data.JQFormat;
+import me.bryangaming.chatlab.data.JQData;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -16,7 +16,7 @@ public class CacheManager {
     private final Map<String, Configuration> listConfig = new HashMap<>();
 
     private final Map<UUID, UserData> userData = new HashMap<>();
-    private final Map<String, JQFormat> getJQFormat = new HashMap<>();
+    private final Map<String, JQData> getJQFormat = new HashMap<>();
 
     public CacheManager(PluginService pluginService) {
 
@@ -26,7 +26,7 @@ public class CacheManager {
 
     }
 
-    public Map<String, JQFormat> getJQFormats() {
+    public Map<String, JQData> getJQFormats() {
         return getJQFormat;
     }
 

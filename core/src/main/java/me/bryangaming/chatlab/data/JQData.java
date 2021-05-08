@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.data;
 
 import java.util.List;
 
-public class JQFormat {
+public class JQData {
 
     private List<String> firstJoinCommands;
     private List<String> joinCommands;
@@ -17,7 +17,7 @@ public class JQFormat {
 
     private String name;
 
-    public JQFormat(String name) {
+    public JQData(String name) {
         this.name = name;
     }
 

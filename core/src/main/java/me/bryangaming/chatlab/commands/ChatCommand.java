@@ -40,7 +40,6 @@ public class ChatCommand implements CommandClass {
         this.commandFile = pluginService.getFiles().getCommandFile();
         this.messagesFile = pluginService.getFiles().getMessagesFile();
         this.formatFile = pluginService.getFiles().getFormatsFile();
-
         this.serverData = pluginService.getServerData();
 
         this.chatManager = pluginService.getPlayerManager().getChatMethod();
@@ -75,7 +74,7 @@ public class ChatCommand implements CommandClass {
         boolean silent = false;
 
         if (text.isEmpty()) {
-            chatManager.clearSubCommand(sender, lines, world, silent);
+            chatManager.clearSubCommand(sender, lines, world, false);
             return true;
         }
 
@@ -85,7 +84,6 @@ public class ChatCommand implements CommandClass {
                 silent = true;
                 continue;
             }
-
             if (strings[id].equalsIgnoreCase("-w")) {
 
                 if (strings[id + 1].isEmpty()) {

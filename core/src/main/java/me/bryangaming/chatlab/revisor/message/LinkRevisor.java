@@ -90,26 +90,26 @@ public class LinkRevisor implements Revisor {
 
     private void sendMessage(Player player, String blockedword) {
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (utils.getBoolean("revisor." + revisorName + ".message.enabled")) {
-            playerMethod.sendMessage(player, utils.getString("revisor." + revisorName + ".message.format")
+            senderManager.sendMessage(player, utils.getString("revisor." + revisorName + ".message.format")
                     .replace("%player%", player.getName())
                     .replace("%blockedword%", blockedword));
         }
 
         if (utils.getBoolean("revisor." + revisorName + ".command.enabled")) {
-            playerMethod.sendCommand(Bukkit.getServer().getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor." + revisorName + ".command.format")
+            senderManager.sendCommand(Bukkit.getServer().getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor." + revisorName + ".command.format")
                     .replace("%player%", player.getName())
                     .replace("%blockedword%", blockedword)));
         }
 
         if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
-                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
+                if (senderManager.hasPermission(onlinePlayer, "revisor.watch")) {
+                    senderManager.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                             .replace("%player%", player.getName()));
                 }
             });

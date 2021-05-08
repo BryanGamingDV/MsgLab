@@ -30,14 +30,14 @@ public class CapsRevisor implements Revisor {
     public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         int mayusmin = utils.getInt("revisor." + revisorName + ".min-mayus", -1);
         int mayuscount = 0;
 
         if (mayusmin < 0) {
-            playerMethod.sendMessage(player, "%p &fEmmm, you either didn't put anything in the config, or you are trying to detect invisible mayus?");
-            playerMethod.sendMessage(player, "EasterEgg #4");
+            senderManager.sendMessage(player, "%p &fEmmm, you either didn't put anything in the config, or you are trying to detect invisible mayus?");
+            senderManager.sendMessage(player, "EasterEgg #4");
         }
 
         for (char letter : string.toCharArray()) {
@@ -53,8 +53,8 @@ public class CapsRevisor implements Revisor {
 
         if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
-                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
+                if (senderManager.hasPermission(onlinePlayer, "revisor.watch")) {
+                    senderManager.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                             .replace("%player%", player.getName()));
                 }
             });

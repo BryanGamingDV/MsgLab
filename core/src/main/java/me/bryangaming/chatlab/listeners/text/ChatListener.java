@@ -38,34 +38,34 @@ public class ChatListener implements Listener{
         ServerData serverData = pluginService.getServerData();
         CooldownData cooldownData = pluginService.getCooldownData();
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         HoverManager hoverManager = pluginService.getPlayerManager().getHoverMethod();
         RecipientManager recipientManager = pluginService.getPlayerManager().getRecipientMethod();
 
 
         if (serverData.isMuted()) {
-            if (!playerMethod.hasPermission(player, "chat.muted-bypass")) {
-                playerMethod.sendMessage(player, messages.getString("error.chat.muted"));
+            if (!senderManager.hasPermission(player, "chat.muted-bypass")) {
+                senderManager.sendMessage(player, messages.getString("error.chat.muted"));
                 return;
             }
         }
 
         if (serverData.isWorldMuted(player.getWorld())) {
-            if (!playerMethod.hasPermission(player, "chat.muted-bypass")) {
-                playerMethod.sendMessage(player, messages.getString("error.chat.muted"));
+            if (!senderManager.hasPermission(player, "chat.muted-bypass")) {
+                senderManager.sendMessage(player, messages.getString("error.chat.muted"));
                 return;
             }
         }
 
         if (event.getUserData().getChannelType() == GroupEnum.CHANNEL){
             if (serverData.isChannelMuted(event.getUserData().getChannelGroup())){
-                playerMethod.sendMessage(player, messages.getString("error.channel.muted"));
+                senderManager.sendMessage(player, messages.getString("error.channel.muted"));
                 return;
             }
         }
 
         if (cooldownData.isTextSpamming(event.getSender().getUniqueId())) {
-            playerMethod.sendMessage(player, messages.getString("error.chat.muted"));
+            senderManager.sendMessage(player, messages.getString("error.chat.muted"));
             return;
         }
 

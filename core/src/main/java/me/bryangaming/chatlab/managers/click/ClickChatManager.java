@@ -167,11 +167,11 @@ public class ClickChatManager {
         Player player = Bukkit.getPlayer(uuid);
 
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
-        SenderManager playersender = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         Configuration command = pluginService.getFiles().getCommandFile();
 
-        playersender.sendMessage(player, command.getString("commands.broadcast.mode.disabled"));
+        senderManager.sendMessage(player, command.getString("commands.broadcast.mode.disabled"));
         userData.toggleClickMode(false);
         userData.getClickChat().clear();
     }

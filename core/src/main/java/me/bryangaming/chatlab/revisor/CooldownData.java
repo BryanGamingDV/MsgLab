@@ -18,7 +18,7 @@ public class CooldownData {
 
     private final ChatLab plugin;
     private final CacheManager cache;
-    private final SenderManager playerMethod;
+    private final SenderManager senderManager;
 
     private final Configuration config;
     private final Configuration utils;
@@ -32,7 +32,7 @@ public class CooldownData {
         this.utils = pluginService.getFiles().getFormatsFile();
 
         this.cache = pluginService.getCache();
-        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.senderManager = pluginService.getPlayerManager().getSender();
         pluginService.getServerData().setServerTextCooldown(utils.getInt("filters.cooldown.text.seconds"));
         pluginService.getServerData().setServerCmdCooldown(utils.getInt("filters.cooldown.cmd.seconds"));
     }
@@ -51,12 +51,12 @@ public class CooldownData {
         Player player = Bukkit.getPlayer(uuid);
         UserData playerCooldown = cache.getUserDatas().get(uuid);
 
-        if (playerMethod.hasPermission(player, "cooldown.chat-bypass")) {
+        if (senderManager.hasPermission(player, "cooldown.chat-bypass")) {
             return false;
         }
 
         if (playerCooldown.isCooldownMode()) {
-            playerMethod.sendMessage(player, utils.getString("filters.cooldown.text.message")
+            senderManager.sendMessage(player, utils.getString("filters.cooldown.text.message")
                     .replace("%seconds%", pluginService.getServerData().getServerTextCooldownInString()));
             return true;
         }
@@ -86,12 +86,12 @@ public class CooldownData {
         Player player = Bukkit.getPlayer(uuid);
         UserData playerCooldown = cache.getUserDatas().get(uuid);
 
-        if (playerMethod.hasPermission(player, "cooldown.cmd-bypass")) {
+        if (senderManager.hasPermission(player, "cooldown.cmd-bypass")) {
             return false;
         }
 
         if (playerCooldown.isCooldownCmdMode()) {
-            playerMethod.sendMessage(player, utils.getString("filters.cooldown.cmd.message")
+            senderManager.sendMessage(player, utils.getString("filters.cooldown.cmd.message")
                     .replace("%seconds%", pluginService.getServerData().getServerCmdCooldownInString()));
             return true;
         }

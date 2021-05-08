@@ -198,6 +198,7 @@ public class SenderManager {
         messages.replaceAll(message -> TextUtils.convertText(sender, message));
 
         for (String message : messages) {
+
             player.sendMessage(MiniMessage.get().parse(message));
         }
     }

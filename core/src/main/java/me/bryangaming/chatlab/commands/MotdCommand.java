@@ -50,6 +50,7 @@ public class MotdCommand implements CommandClass {
             return true;
         }
 
+         
         PageCreator pageCreator = new PageCreator(motd);
 
         if (!pageCreator.pageExists(page - 1)) {

@@ -86,14 +86,14 @@ public class TabFilter {
 
     public void sendMessage(Player player) {
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         Configuration utils = pluginService.getFiles().getFormatsFile();
 
         if (!utils.getBoolean("revisor.tab-module.message.enabled")) {
             return;
         }
 
-        playerMethod.sendMessage(player, utils.getString("revisor.tab-module.message.format"));
+        senderManager.sendMessage(player, utils.getString("revisor.tab-module.message.format"));
 
 
     }

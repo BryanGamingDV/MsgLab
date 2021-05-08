@@ -26,7 +26,6 @@ public class ManagerLoader implements Loader {
 
     private HoverManager hoverManager;
     private RecipientManager recipientManager;
-    private FilterManager filterManager;
 
     private ChatManager chatManager;
     private HelpOpManager helpOpManager;
@@ -64,7 +63,6 @@ public class ManagerLoader implements Loader {
         senderManager = new SenderManager(pluginService);
         chatManager = new ChatManager(pluginService);
 
-        filterManager = new FilterManager(pluginService);
         staffChatManagerMethod = new StaffChatManager(pluginService);
         helpOpManager = new HelpOpManager(pluginService);
         ignoreManager = new IgnoreManager(pluginService);
@@ -133,10 +131,6 @@ public class ManagerLoader implements Loader {
 
     public ChatManager getChatMethod() {
         return chatManager;
-    }
-
-    public FilterManager getFitlerMethod() {
-        return filterManager;
     }
 
     public ConditionManager getConditionManager() {

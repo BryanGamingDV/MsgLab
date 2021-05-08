@@ -15,25 +15,25 @@ public class RunnableManager {
 
     public void waitSecond(Player player, int second, String path) {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
-            SenderManager playersender = pluginService.getPlayerManager().getSender();
-            playersender.sendMessage(player, path);
+            SenderManager senderManager = pluginService.getPlayerManager().getSender();
+            senderManager.sendMessage(player, path);
 
         }, 20L * second);
     }
 
     public void waitTicks(Player player, long ticks, String path) {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
-            SenderManager playersender = pluginService.getPlayerManager().getSender();
-            playersender.sendMessage(player, path);
+            SenderManager senderManager = pluginService.getPlayerManager().getSender();
+            senderManager.sendMessage(player, path);
         }, ticks);
     }
 
     public void waitSecond(Player player, int second, String... paths) {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
 
-            SenderManager playersender = pluginService.getPlayerManager().getSender();
+            SenderManager senderManager = pluginService.getPlayerManager().getSender();
             for (String path : paths) {
-                playersender.sendMessage(player, path);
+                senderManager.sendMessage(player, path);
 
             }
         }, 20L * second);
@@ -42,9 +42,9 @@ public class RunnableManager {
     public void waitTicks(Player player, long ticks, String... paths) {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
 
-            SenderManager playersender = pluginService.getPlayerManager().getSender();
+            SenderManager senderManager = pluginService.getPlayerManager().getSender();
             for (String path : paths) {
-                playersender.sendMessage(player, path);
+                senderManager.sendMessage(player, path);
 
             }
         }, ticks);

@@ -17,7 +17,7 @@ import java.util.Set;
 public class ChatManager {
 
     private PluginService pluginService;
-    private final SenderManager playerMethod;
+    private final SenderManager senderManager;
     private ServerData serverData;
 
     private Configuration command;
@@ -27,7 +27,7 @@ public class ChatManager {
         this.pluginService = pluginService;
 
         this.serverData = pluginService.getServerData();
-        this.playerMethod = pluginService.getPlayerManager().getSender();
+        this.senderManager = pluginService.getPlayerManager().getSender();
         this.config = pluginService.getFiles().getConfigFile();
         this.command = pluginService.getFiles().getCommandFile();
     }
@@ -40,14 +40,14 @@ public class ChatManager {
             onlinePlayers.addAll(Bukkit.getServer().getOnlinePlayers());
             for (Player onlinePlayer : onlinePlayers) {
                 for (int times = 0; times < lines; times++) {
-                    playerMethod.sendMessage(onlinePlayer, "");
+                    senderManager.sendMessage(onlinePlayer, "");
                 }
 
                 if (silent) {
                     continue;
                 }
 
-                playerMethod.sendMessage(onlinePlayer, command.getString("commands.chat.clear.global")
+                senderManager.sendMessage(onlinePlayer, command.getString("commands.chat.clear.global")
                         .replace("%player%", sender.getName()));
             }
 
@@ -56,14 +56,14 @@ public class ChatManager {
 
             for (Player onlinePlayer : onlinePlayers) {
                 for (int times = 0; times < lines; times++) {
-                    playerMethod.sendMessage(onlinePlayer, "");
+                    senderManager.sendMessage(onlinePlayer, "");
                 }
 
                 if (silent) {
                     continue;
                 }
 
-                playerMethod.sendMessage(onlinePlayer, command.getString("commands.chat.clear.world")
+                senderManager.sendMessage(onlinePlayer, command.getString("commands.chat.clear.world")
                         .replace("%player%", sender.getName()));
             }
 
@@ -102,10 +102,10 @@ public class ChatManager {
             if (!channelPath.equalsIgnoreCase("-none")) {
 
                 if (seconds != -1) {
-                    playerMethod.sendMessageTo(channelPlayerList, command.getString("commands.chat.mute.channel.permanent")
+                    senderManager.sendMessageTo(channelPlayerList, command.getString("commands.chat.mute.channel.permanent")
                             .replace("%player%", sender.getName()));
                 } else {
-                    playerMethod.sendMessageTo(channelPlayerList, command.getString("commands.chat.mute.channel.permanent")
+                    senderManager.sendMessageTo(channelPlayerList, command.getString("commands.chat.mute.channel.permanent")
                             .replace("%player%", sender.getName())
                             .replace("%time%", String.valueOf(seconds)));
                 }
@@ -113,19 +113,19 @@ public class ChatManager {
 
             if (worldPath.equalsIgnoreCase("-global")) {
                 if (seconds != -1) {
-                    playerMethod.sendMessageTo(onlinePlayers, command.getString("commands.chat.mute.global.permanent")
+                    senderManager.sendMessageTo(onlinePlayers, command.getString("commands.chat.mute.global.permanent")
                             .replace("%player%", sender.getName()));
                 } else {
-                    playerMethod.sendMessageTo(onlinePlayers, command.getString("commands.chat.mute.global.permanent")
+                    senderManager.sendMessageTo(onlinePlayers, command.getString("commands.chat.mute.global.permanent")
                             .replace("%player%", sender.getName())
                             .replace("%time%", String.valueOf(seconds)));
                 }
             }else{
                 if (seconds != -1) {
-                    playerMethod.sendMessageTo(onlinePlayers, command.getString("commands.chat.mute.world.permanent")
+                    senderManager.sendMessageTo(onlinePlayers, command.getString("commands.chat.mute.world.permanent")
                             .replace("%player%", sender.getName()));
                 }else{
-                    playerMethod.sendMessageTo(onlinePlayers, command.getString("commands.chat.mute.world.permanent")
+                    senderManager.sendMessageTo(onlinePlayers, command.getString("commands.chat.mute.world.permanent")
                             .replace("%player%", sender.getName())
                             .replace("%time%", String.valueOf(seconds)));
                 }
@@ -163,7 +163,7 @@ public class ChatManager {
                 }
 
                 for (Player onlinePlayer : onlinePlayers) {
-                    playerMethod.sendMessage(onlinePlayer, command.getString("commands.chat.mute.unmute-temporal"));
+                    senderManager.sendMessage(onlinePlayer, command.getString("commands.chat.mute.unmute-temporal"));
                            }
             }
         }, 20L * seconds);
@@ -186,7 +186,7 @@ public class ChatManager {
         }
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            playerMethod.sendMessage(onlinePlayer, command.getString("commands.chat.mute.unmute-temporal"));
+            senderManager.sendMessage(onlinePlayer, command.getString("commands.chat.mute.unmute-temporal"));
         }
     }
 
@@ -194,7 +194,7 @@ public class ChatManager {
     public void setCooldown(Player player, int time) {
 
         serverData.setServerTextCooldown(time);
-        playerMethod.sendMessage(player, command.getString("commands.chat.cooldown.message")
+        senderManager.sendMessage(player, command.getString("commands.chat.cooldown.message")
                 .replace("%time%", String.valueOf(time)));
     }
 

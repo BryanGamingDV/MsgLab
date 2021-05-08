@@ -31,7 +31,7 @@ public class FirstWordRevisor implements Revisor {
     public String revisor(Player player, String message) {
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         String firstLetter = String.valueOf(message.charAt(0));
 
@@ -43,8 +43,8 @@ public class FirstWordRevisor implements Revisor {
 
         if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
-                    playerMethod.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
+                if (senderManager.hasPermission(onlinePlayer, "revisor.watch")) {
+                    senderManager.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                             .replace("%player%", player.getName()));
                 }
             });

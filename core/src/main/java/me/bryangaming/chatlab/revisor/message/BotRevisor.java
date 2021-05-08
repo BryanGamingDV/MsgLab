@@ -29,7 +29,7 @@ public class BotRevisor implements Revisor {
     public String revisor(Player player, String message) {
 
         Configuration formatsFile = pluginService.getFiles().getFormatsFile();
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         if (!formatsFile.getBoolean("filters." + revisorName + ".enabled")){
             return message;
@@ -39,11 +39,11 @@ public class BotRevisor implements Revisor {
                 continue;
             }
 
-            playerMethod.sendMessage(player, formatsFile.getString("filters." + revisorName + ".lists." + keys + ".question"));
+            senderManager.sendMessage(player, formatsFile.getString("filters." + revisorName + ".lists." + keys + ".question"));
 
             if (!(formatsFile.getStringList("filters." + revisorName + ".lists." + keys + ".commands").isEmpty())) {
                 formatsFile.getStringList("filters." + revisorName + ".lists." + keys + ".commands")
-                        .forEach(command -> playerMethod.sendCommand(player, command));
+                        .forEach(command -> senderManager.sendCommand(player, command));
             }
         }
 

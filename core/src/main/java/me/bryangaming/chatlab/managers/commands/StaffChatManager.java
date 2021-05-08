@@ -1,8 +1,8 @@
 package me.bryangaming.chatlab.managers.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.api.Option;
+import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -76,11 +76,11 @@ public class StaffChatManager implements Option {
         Configuration command = pluginService.getFiles().getCommandFile();
 
         ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
-        if (!playerMethod.hasPermission(player, "commands.staffchat.watch")) {
+        if (!senderManager.hasPermission(player, "commands.staffchat.watch")) {
             return;
         }
 
@@ -89,11 +89,11 @@ public class StaffChatManager implements Option {
         }
 
         for (Player playeronline : Bukkit.getServer().getOnlinePlayers()) {
-            if (!playerMethod.hasPermission(player, "commands.staffchat.watch")) {
+            if (!senderManager.hasPermission(player, "commands.staffchat.watch")) {
                 continue;
             }
 
-            playerMethod.sendMessage(playeronline.getPlayer(), command.getString("commands.staff-chat.message")
+            senderManager.sendMessage(playeronline, command.getString("commands.staff-chat.message")
                     .replace("%player%", player.getName())
                     .replace("%message%", event.getMessage())
                     .replace(command.getString("commands.staff-chat.symbol"), ""));

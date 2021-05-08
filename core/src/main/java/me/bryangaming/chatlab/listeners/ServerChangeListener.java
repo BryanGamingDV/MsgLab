@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.listeners;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.data.JQFormat;
+import me.bryangaming.chatlab.data.JQData;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
 import me.bryangaming.chatlab.utils.string.TextUtils;
@@ -23,7 +23,7 @@ public class ServerChangeListener implements Listener {
     @EventHandler
     public void onServerChangeEvent(ServerChangeEvent serverChangeEvent) {
 
-        JQFormat jqFormat = pluginService.getCache().getJQFormats().get(serverChangeEvent.getPlayerGroup());
+        JQData jqData = pluginService.getCache().getJQFormats().get(serverChangeEvent.getPlayerGroup());
 
         Audience player = pluginService.getPlugin().getBukkitAudiences().player(serverChangeEvent.getPlayer());
         Audience global = pluginService.getPlugin().getBukkitAudiences().players();
@@ -34,8 +34,8 @@ public class ServerChangeListener implements Listener {
 
             PlayerJoinEvent playerJoinEvent = (PlayerJoinEvent) serverChangeEvent.getEvent();
 
-            if (jqFormat.getFirstJoinFormat() != null) {
-                switch (jqFormat.getFirstJoinFormat()) {
+            if (jqData.getFirstJoinFormat() != null) {
+                switch (jqData.getFirstJoinFormat()) {
                     case "none":
                         break;
                     case "silent":
@@ -43,12 +43,12 @@ public class ServerChangeListener implements Listener {
                         break;
                     default:
                         playerJoinEvent.setJoinMessage(null);
-                        global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getFirstJoinFormat()));
+                        global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqData.getFirstJoinFormat()));
                 }
             }
 
-            if (jqFormat.getFirstJoinMotdList() != null) {
-                for (String motdFormat : jqFormat.getFirstJoinMotdList()) {
+            if (jqData.getFirstJoinMotdList() != null) {
+                for (String motdFormat : jqData.getFirstJoinMotdList()) {
                     if (motdFormat.startsWith("[LOOP")) {
                         String loopTest = motdFormat.split("]")[0];
 
@@ -63,8 +63,8 @@ public class ServerChangeListener implements Listener {
                 }
             }
 
-            if (jqFormat.getFirstJoinCommands() != null) {
-                jqFormat.getFirstJoinCommands().forEach(sender::performCommand);
+            if (jqData.getFirstJoinCommands() != null) {
+                jqData.getFirstJoinCommands().forEach(sender::performCommand);
             }
             return;
         }
@@ -74,8 +74,8 @@ public class ServerChangeListener implements Listener {
             PlayerJoinEvent playerJoinEvent = (PlayerJoinEvent) serverChangeEvent.getEvent();
 
 
-            if (jqFormat.getJoinFormat() != null) {
-                switch (jqFormat.getJoinFormat()) {
+            if (jqData.getJoinFormat() != null) {
+                switch (jqData.getJoinFormat()) {
                     case "none":
                         break;
                     case "silent":
@@ -83,13 +83,13 @@ public class ServerChangeListener implements Listener {
                         break;
                     default:
                         playerJoinEvent.setJoinMessage(null);
-                        global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getJoinFormat()));
+                        global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqData.getJoinFormat()));
                 }
             }
 
 
-            if (jqFormat.getJoinMotdList() != null) {
-                for (String motdFormat : jqFormat.getJoinMotdList()) {
+            if (jqData.getJoinMotdList() != null) {
+                for (String motdFormat : jqData.getJoinMotdList()) {
                     if (motdFormat.startsWith("[LOOP")) {
                         String loopTest = motdFormat.split("]")[0];
 
@@ -105,8 +105,8 @@ public class ServerChangeListener implements Listener {
                 }
             }
 
-            if (jqFormat.getJoinCommands() != null) {
-                jqFormat.getJoinCommands().forEach(sender::performCommand);
+            if (jqData.getJoinCommands() != null) {
+                jqData.getJoinCommands().forEach(sender::performCommand);
             }
             return;
         }
@@ -115,8 +115,8 @@ public class ServerChangeListener implements Listener {
 
             PlayerQuitEvent playerQuitEvent = (PlayerQuitEvent) serverChangeEvent.getEvent();
 
-            if (jqFormat.getQuitFormat() != null) {
-                switch (jqFormat.getQuitFormat()) {
+            if (jqData.getQuitFormat() != null) {
+                switch (jqData.getQuitFormat()) {
                     case "none":
                         break;
                     case "silent":
@@ -124,13 +124,13 @@ public class ServerChangeListener implements Listener {
                         break;
                     default:
                         playerQuitEvent.setQuitMessage(null);
-                        global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqFormat.getQuitFormat()));
+                        global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqData.getQuitFormat()));
                 }
             }
 
 
-            if (jqFormat.getQuitCommands() != null) {
-                jqFormat.getQuitCommands().forEach(sender::performCommand);
+            if (jqData.getQuitCommands() != null) {
+                jqData.getQuitCommands().forEach(sender::performCommand);
             }
         }
     }

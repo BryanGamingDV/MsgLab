@@ -107,7 +107,6 @@ public class GroupManager {
             debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
-
         if (utils.getString("lobby.group-access").equalsIgnoreCase("permission")) {
             for (String group : utils.getConfigurationSection("lobby.formats").getKeys(true)) {
                 if (utils.getString("lobby.formats." + group + ".permission") == null) {

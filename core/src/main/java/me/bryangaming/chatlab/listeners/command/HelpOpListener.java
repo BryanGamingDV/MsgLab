@@ -22,21 +22,21 @@ public class HelpOpListener implements Listener {
     @EventHandler
     public void onCommandSpy(HelpOpEvent helpopEvent) {
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         Configuration command = pluginService.getFiles().getCommandFile();
 
         Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
 
             UserData onlineCache = pluginService.getCache().getUserDatas().get(onlinePlayer.getUniqueId());
 
-            if (!playerMethod.hasPermission(onlinePlayer, "commands.helpop.watch") || !onlineCache.isPlayerHelpOp()) {
+            if (!senderManager.hasPermission(onlinePlayer, "commands.helpop.watch") || !onlineCache.isPlayerHelpOp()) {
                 return;
             }
 
-            playerMethod.sendMessage(onlinePlayer, command.getString("commands.helpop.message")
+            senderManager.sendMessage(onlinePlayer, command.getString("commands.helpop.message")
                     .replace("%player%", onlinePlayer.getName())
                     .replace("%message%", helpopEvent.getMessage()));
-            playerMethod.playSound(onlinePlayer, SoundEnum.RECEIVE_HELPOP);
+            senderManager.playSound(onlinePlayer, SoundEnum.RECEIVE_HELPOP);
         });
     }
 }

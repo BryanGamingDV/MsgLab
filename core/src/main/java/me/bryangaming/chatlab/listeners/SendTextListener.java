@@ -41,7 +41,7 @@ public class SendTextListener implements Listener {
 
         UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         StaffChatManager staffChatManagerMethod = pluginService.getPlayerManager().getStaffChatMethod();
 
         if (playerStatus.isClickMode()) {
@@ -72,7 +72,7 @@ public class SendTextListener implements Listener {
                         return;
                     }
 
-                    playerMethod.sendMessage(playeronline.getPlayer(), commandFile.getString("commands.staff-chat.message")
+                    senderManager.sendMessage(playeronline.getPlayer(), commandFile.getString("commands.staff-chat.message")
                             .replace("%player%", player.getName())
                             .replace("%message%", event.getMessage()));
                 });
@@ -109,7 +109,7 @@ public class SendTextListener implements Listener {
         Configuration messages = pluginService.getFiles().getMessagesFile();
         Configuration utils = pluginService.getFiles().getFormatsFile();
 
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         String commandText = event.getMessage().replace("/", "").split(" ")[0].toLowerCase();
 
         if (cooldownData.isCmdSpamming(event.getPlayer().getUniqueId())) {
@@ -135,8 +135,8 @@ public class SendTextListener implements Listener {
             return;
         }
 
-        if (!playerMethod.hasPermission(event.getPlayer(), "commands." + commandText + ".main")) {
-            playerMethod.sendMessage(event.getPlayer(), messages.getString("error.no-perms"));
+        if (!senderManager.hasPermission(event.getPlayer(), "commands." + commandText + ".main")) {
+            senderManager.sendMessage(event.getPlayer(), messages.getString("error.no-perms"));
             event.setCancelled(true);
         }
 

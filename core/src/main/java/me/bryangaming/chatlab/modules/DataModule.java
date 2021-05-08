@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.modules;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.Module;
-import me.bryangaming.chatlab.data.JQFormat;
+import me.bryangaming.chatlab.data.JQData;
 import me.bryangaming.chatlab.utils.Configuration;
 
 import java.util.Map;
@@ -19,34 +19,34 @@ public class DataModule implements Module {
     public void start() {
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
-        Map<String, JQFormat> jqFormatMP = pluginService.getCache().getJQFormats();
+        Map<String, JQData> jqFormatMP = pluginService.getCache().getJQFormats();
 
         if (jqFormatMP.keySet().size() > 0) {
             jqFormatMP.clear();
         }
 
         for (String dataRanks : utils.getConfigurationSection("lobby.formats").getKeys(false)) {
-            JQFormat jqFormat = new JQFormat(dataRanks);
+            JQData jqData = new JQData(dataRanks);
 
             if (utils.getConfigurationSection("lobby.formats." + dataRanks + ".first-join") != null) {
 
                 // FirstJoin Format
                 if (utils.getString("lobby.formats." + dataRanks + ".first-join.message") == null) {
-                    jqFormat.setFirstJoinFormat("none");
+                    jqData.setFirstJoinFormat("none");
                 } else {
-                    jqFormat.setFirstJoinFormat(utils.getColoredString("lobby.formats." + dataRanks + ".first-join.message"));
+                    jqData.setFirstJoinFormat(utils.getColoredString("lobby.formats." + dataRanks + ".first-join.message"));
                 }
 
                 if (utils.getStringList("lobby.formats." + dataRanks + ".first-join.motd").isEmpty()) {
-                    jqFormat.setFirstJoinMotdList(null);
+                    jqData.setFirstJoinMotdList(null);
                 } else {
-                    jqFormat.setFirstJoinMotdList(utils.getColoredStringList("lobby.formats." + dataRanks + ".first-join.motd"));
+                    jqData.setFirstJoinMotdList(utils.getColoredStringList("lobby.formats." + dataRanks + ".first-join.motd"));
                 }
 
                 if (utils.getStringList("lobby.formats." + dataRanks + ".first-join.commands").isEmpty()) {
-                    jqFormat.setFirstJoinCommands(null);
+                    jqData.setFirstJoinCommands(null);
                 } else {
-                    jqFormat.setFirstJoinCommands(utils.getColoredStringList("lobby.formats." + dataRanks + ".first-join.commands"));
+                    jqData.setFirstJoinCommands(utils.getColoredStringList("lobby.formats." + dataRanks + ".first-join.commands"));
                 }
 
             }
@@ -54,21 +54,21 @@ public class DataModule implements Module {
 
                 // Join Format:
                 if (utils.getString("lobby.formats." + dataRanks + ".join.message") == null) {
-                    jqFormat.setJoinFormat("none");
+                    jqData.setJoinFormat("none");
                 } else {
-                    jqFormat.setJoinFormat(utils.getColoredString("lobby.formats." + dataRanks + ".join.message"));
+                    jqData.setJoinFormat(utils.getColoredString("lobby.formats." + dataRanks + ".join.message"));
                 }
 
                 if (utils.getStringList("lobby.formats." + dataRanks + ".join.motd").isEmpty()) {
-                    jqFormat.setJoinMotdList(null);
+                    jqData.setJoinMotdList(null);
                 } else {
-                    jqFormat.setJoinMotdList(utils.getColoredStringList("lobby.formats." + dataRanks + ".join.motd"));
+                    jqData.setJoinMotdList(utils.getColoredStringList("lobby.formats." + dataRanks + ".join.motd"));
                 }
 
                 if (utils.getStringList("lobby.formats." + dataRanks + ".join.commands").isEmpty()) {
-                    jqFormat.setJoinCommands(null);
+                    jqData.setJoinCommands(null);
                 } else {
-                    jqFormat.setJoinCommands(utils.getColoredStringList("lobby.formats." + dataRanks + ".join.commands"));
+                    jqData.setJoinCommands(utils.getColoredStringList("lobby.formats." + dataRanks + ".join.commands"));
                 }
 
             }
@@ -77,20 +77,20 @@ public class DataModule implements Module {
 
                 // Quit Format:
                 if (utils.getString("lobby.formats." + dataRanks + ".quit.message") == null) {
-                    jqFormat.setQuitFormat("none");
+                    jqData.setQuitFormat("none");
                 } else {
-                    jqFormat.setQuitFormat(utils.getColoredString("lobby.formats." + dataRanks + ".quit.message"));
+                    jqData.setQuitFormat(utils.getColoredString("lobby.formats." + dataRanks + ".quit.message"));
                 }
 
                 if (utils.getStringList("lobby.formats." + dataRanks + ".quit.commands").isEmpty()) {
-                    jqFormat.setQuitCommands(null);
+                    jqData.setQuitCommands(null);
                 } else {
-                    jqFormat.setQuitCommands(utils.getColoredStringList("lobby.formats." + dataRanks + ".quit.commands"));
+                    jqData.setQuitCommands(utils.getColoredStringList("lobby.formats." + dataRanks + ".quit.commands"));
                 }
 
             }
 
-            jqFormatMP.put(dataRanks, jqFormat);
+            jqFormatMP.put(dataRanks, jqData);
         }
     }
 }

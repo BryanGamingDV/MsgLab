@@ -1,0 +1,95 @@
+#
+# ChatLab by BryanGaming
+# Version: 2.2
+#
+
+# File Sectors:
+# config.yml = To toggle the commands and modules or global options.
+# commands.yml = To see the all config of commands [messages, perms].
+# messages.yml = To see the error messages.
+# sounds.yml = To see the sounds manager.
+# formats.yml = To see chat formats, etc.
+# filters.yml = To see the filters, etc.
+# players.yml =To see the data of players.
+#
+
+# If you want to go to the wiki: https://app.gitbook.com/@bryangaming/spaces
+# If you want to go to the support: https://discord.gg/YjhubS3bWW
+
+# Config version, please don't change this path.
+config-version: 2.2
+
+# Modules:
+modules:
+   # List of plugin commands.
+  enabled-commands:
+    - chat
+    - clab
+    - msg
+    - reply
+    - socialspy
+    - broadcast
+    - broadcastworld
+    - stream
+    - ignore
+    - unignore
+    - helpop
+    - staffchat
+    - channel
+    - motd
+    - commandspy
+    - announcer
+    - party
+    
+  # List of options.
+  enabled-options:
+    - chat_format
+    - chat_revisor
+    - chat_manangent
+    - cooldown
+    - join_quit
+    - motd
+    - announcer
+
+#
+# Options:
+#
+
+options:
+
+  # You can create prefixes with variables unlimited, obiously!
+  # This is not the chat format! If you want to go to formats go to formats.yml.
+  replacer:
+
+    # Prefix path:
+    prefix:
+      # Format path
+      format: "&b[Clab] &8|"
+      # Variable to be replaced.
+      variable: "%c"
+    
+    # Error path:
+    error:
+      # Format path
+      format: "&c[Error] &8|"
+      # Variable to be replaced.
+      variable: "%e"
+
+  # Section to activate or deactivate hooks automatically.
+  allow-hooks:
+    vault: true
+    protocollib: true
+    discordsrv: true
+    placeholderapi: true
+    # This also includes the premium version. 
+    supervanish: true
+
+  # Enable metrics
+  metrics: true
+  # Enable update checks.
+  update-check: false
+  # To use legacy colors:
+  use-legacy-colors: true
+  # If you allow the subcommand to go to the support of the plugin /clab support.
+  allow-support: true
+

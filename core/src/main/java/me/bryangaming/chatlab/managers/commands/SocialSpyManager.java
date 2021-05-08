@@ -1,8 +1,8 @@
 package me.bryangaming.chatlab.managers.commands;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.api.Option;
+import me.bryangaming.chatlab.data.UserData;
 
 import java.util.Map;
 import java.util.UUID;

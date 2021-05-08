@@ -2,6 +2,7 @@ package me.bryangaming.chatlab.gui.manager;
 
 import me.bryangaming.chatlab.api.LegacyHandler;
 import me.bryangaming.chatlab.api.NMSHandler;
+import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -48,10 +49,7 @@ public class GuiData {
 
     public void addHead(Player owner, String name, List<String> lore) {
 
-        String version = Bukkit.getServer().getClass().getName();
-        String versionname = version.split("\\.")[3].substring(1).replace("_", ".");
-
-        if (versionname.startsWith("1.8") || versionname.startsWith("1.9") || versionname.startsWith("1.10") || versionname.startsWith("1.11") || versionname.startsWith("1.12") || versionname.startsWith("1.13")) {
+        if (!TextUtils.equalsIgnoreCaseOr(TextUtils.getServerVersion(Bukkit.getServer()), "1.13", "1.14", "1.15", "1.16")) {
             nmsHandler.addHead(inv, owner, name, lore);
             return;
         }

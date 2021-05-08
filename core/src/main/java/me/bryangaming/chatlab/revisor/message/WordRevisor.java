@@ -35,7 +35,7 @@ public class WordRevisor implements Revisor {
     public String revisor(Player player, String string) {
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         
         int words = 0;
         boolean bwstatus = false;
@@ -79,7 +79,7 @@ public class WordRevisor implements Revisor {
 
         if (bwstatus) {
             if (utils.getBoolean("revisor." + revisorName + ".word-list.enabled")) {
-                playerMethod.sendMessage(player, utils.getString("revisor." + revisorName + ".word-list.format")
+                senderManager.sendMessage(player, utils.getString("revisor." + revisorName + ".word-list.format")
                         .replace("%words%", String.valueOf(words)));
             }
         }
@@ -91,22 +91,22 @@ public class WordRevisor implements Revisor {
     private void sendProtocolMessage(Player player){
 
         Configuration utils = pluginService.getFiles().getFormatsFile();
-        SenderManager playerMethod = pluginService.getPlayerManager().getSender();
+        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
             if (utils.getBoolean("revisor." + revisorName + ".message.enabled")) {
-                playerMethod.sendMessage(player, utils.getString("revisor." + revisorName + ".message.format")
+                senderManager.sendMessage(player, utils.getString("revisor." + revisorName + ".message.format")
                         .replace("%player%", player.getName()));
             }
 
             if (utils.getBoolean("revisor." + revisorName + ".command.enabled")) {
-                playerMethod.sendCommand(Bukkit.getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor." + revisorName + ".command.format")
+                senderManager.sendCommand(Bukkit.getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor." + revisorName + ".command.format")
                         .replace("%player%", player.getName())));
             }
 
             if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
                 Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
-                    if (playerMethod.hasPermission(onlinePlayer, "revisor.watch")) {
-                        playerMethod.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
+                    if (senderManager.hasPermission(onlinePlayer, "revisor.watch")) {
+                        senderManager.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                                 .replace("%player%", player.getName()));
                     }
                 });
