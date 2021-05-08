@@ -46,6 +46,7 @@ radial-chat:
 #
 # Chat Format:
 # - Requires Vault.
+#
 
 format:
   enabled: true
@@ -548,13 +549,6 @@ revisor-cmd:
           - pl
           - test.
           - test.t
-
-
-
-
-
-
-
 
 
 # Change

@@ -183,5 +183,3 @@ party:
     set: "%e &fYou aren't the leader to set the party public or private"
     promote: "%e &fYou aren't the leader to promote a player."
     kick: "%e &fYou aren't the leader to kick a player."
-
-
