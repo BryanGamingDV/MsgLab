@@ -2,7 +2,6 @@
 # Errors:
 #
 
-
 error:
 
   no-perms: "%c &fYou don't have enough permissions."
@@ -150,5 +149,3 @@ error:
     unknown-channel: "%e &fUnknown channel. &a%channel%&f."
     unknown-number: "%e &fUnknown number: &a%text%"
     negative-number: "%e &fThe number is negative: &a%number%&f."
-
-

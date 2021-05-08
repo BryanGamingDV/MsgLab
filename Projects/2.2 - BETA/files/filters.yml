@@ -229,6 +229,7 @@ commands:
     # Conditions:
     # - Requires Vault:
     # Format: command : condition
+    #
 
     # If you want how to use the condition section.
     # Check in: https://bryangaming.gitbook.io/chatlab/option-guide/commandconditions
@@ -276,4 +277,3 @@ commands:
           - pl
           - test.
           - test.t
-

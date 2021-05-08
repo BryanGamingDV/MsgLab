@@ -1,8 +1,8 @@
 # ChatLab (MsgLab)
-Advanced message plugin for your [spigot](http://spigotmc.org/) minecraft server 1.8-1.16.5
+Advanced message plugin for your [spigot](http://spigotmc.org/) minecraft server 1.8.8-1.16.5
 
 ## Introduction
-ChatLab (MsgLab) is a messaging plugin with many features, it supports bukkit and spigot; you can change the format of the chat on your server, you can use emojis in the chat, you have the ability to mention people in the chat by typing their names, you can block commands, it supports PlaceHolderAPI, and much more.
+ChatLab (MsgLab) is a messaging plugin with many features, it supports bukkit, spigot, [paper](https://papermc.io/downloads) and forks; you can change the format of the chat on your server, you can use emojis in the chat, you have the ability to mention people in the chat by typing their names, you can block commands, it supports PlaceHolderAPI, and much more.
 ## Features
 - Compatible with 1.8+. <br>
 - MiniMessage support. <br>
@@ -11,9 +11,9 @@ ChatLab (MsgLab) is a messaging plugin with many features, it supports bukkit an
 - Sounds customizables. <br>
 - Optimized code. <br>
 - Supports mentions and emojis. <br>
-- AntiTab (Requires ProtocolLib) <br>
-- CommandBlocker <br>
-- You can fitler the commands in the tab (1.13+)
+- AntiTab (Requires ProtocolLib). <br>
+- CommandBlocker. <br>
+- You can fitler the commands in the tab (1.13+).
 ## Commands
 Use the command `/clab commands` to see all commands <br>
 The default permissions of these commands are the default ones. <br>

@@ -75,7 +75,6 @@ chat-format:
       # To register messages of discord to minecraft.
       from-discord: "%author% > %messages%"
 
-  #
   # Format section.
   #
   # If you want how to create a chat format:

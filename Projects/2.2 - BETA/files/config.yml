@@ -3,6 +3,7 @@
 # Version: 2.2
 #
 
+#
 # File Sectors:
 # config.yml = To toggle the commands and modules or global options.
 # commands.yml = To see the all config of commands [messages, perms].
@@ -92,4 +93,3 @@ options:
   use-legacy-colors: true
   # If you allow the subcommand to go to the support of the plugin /clab support.
   allow-support: true
-
