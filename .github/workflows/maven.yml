@@ -7,6 +7,9 @@ jobs:
 
     runs-on: ubuntu-latest
     
+    # For Minecraft 1.8-1.12.2, Java 8 is the recommended version.
+    # For Minecraft 1.13-1.16.5, Java 11 is the recommended version.
+    # And for Minecraft 1.17, Java 16 is the version that we should use
     strategy:
       matrix:
         java: [8, 11, 16]
