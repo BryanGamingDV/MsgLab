@@ -88,10 +88,10 @@
             <id>placeholderapi</id>
             <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
-		<repository>
-			<id>sonatype-oss-snapshots</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-		</repository>
+	<repository>
+	    <id>sonatype-oss-snapshots</id>
+	    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+	</repository>
     </repositories>
 
     <dependencies>
@@ -123,7 +123,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
@@ -136,7 +135,6 @@
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
-
         <dependency>
             <groupId>org.bryangaming.chatlab</groupId>
             <artifactId>chatlab-versions-legacyversion</artifactId>
