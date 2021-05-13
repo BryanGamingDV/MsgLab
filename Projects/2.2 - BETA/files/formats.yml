@@ -228,23 +228,23 @@ chat-format:
           type: SUGGEST_COMMAND
           format: "/msg %player% message"
 
-        limit:
-          # The message part that appears when you chat, obviously.
-          format: " &7> "
+      limit:
+        # The message part that appears when you chat, obviously.
+        format: " &7> "
 
-        message:
-          # The message part that appears when you chat, obviously.
-          format: "&f%message%"
-          # The text that will be displayed when you mouse over the message.
-          hover:
-            - "&8&m------[&fHover]&8&m-------"
-            - "&fPlayer: &a%player%"
-            - "&fOnline: &a%online%"
-        # Acton when you click the hover.
-        action:
-          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
-          type: SUGGEST_COMMAND
-          format: "/msg %player% message"
+      message:
+        # The message part that appears when you chat, obviously.
+        format: "&f%message%"
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "&8&m------[&fHover]&8&m-------"
+          - "&fPlayer: &a%player%"
+          - "&fOnline: &a%online%"
+      # Acton when you click the hover.
+      action:
+        # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+        type: SUGGEST_COMMAND
+         format: "/msg %player% message"
 
       # Permission (Only works if the group access is permission):
       permission: group.vip+
