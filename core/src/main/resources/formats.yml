@@ -65,6 +65,8 @@ format:
       from-mc: "%player% > %message%"
       from-discord: "%author% > %messages%"
 
+  # If you want how to create a chat-format:
+  # - https://bryangaming.gitbook.io/chatlab/option-guide/chatformat
   default:
     bases:
       prefix:

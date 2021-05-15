@@ -196,6 +196,10 @@ commands:
           - "&8- &f/channel [join/quit/list/move] [<channel>] &8: &fTo use the channel manager."
           - "&8- &f/stream [<text>] &8: &fTo stream."
           - "&8- &f/commandspy [on/off/list..] &8: &fTo send a commandspy."
+        3:
+          - "&8- &f/party [join/quit/create..] &8: &fTo create/join/quit a party."
+          - "&8- &f/announce [add/remove/list..] &8: &fTo add/remove a announcer."
+
 
     reload: "%c &fPlugin reloaded!"
     reload-file: "%c &f%file% &freloaded!"
