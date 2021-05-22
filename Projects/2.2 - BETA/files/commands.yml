@@ -11,7 +11,7 @@
 channel:
   # Enable this module?
   enabled: true
-  # When the player join to the server.
+  # The default channel the player will be on when logging into the server.
   default-channel: default
   # Permissions of arguments. Put "none" to disable it.
   permissions:
@@ -20,6 +20,7 @@ channel:
     info: clab.commands.info
     move: clab.commands.move
 
+  # Messages of this module
   messages:
     join: "%c &f You have joined channel &a%channel%&f."
     left: "%c &fYou have left channel &a%beforechannel%&f. Now you are in the %afterchannel% channel."
@@ -28,11 +29,13 @@ channel:
       sender: "%c &fYou moved &a%arg-2% &fto &a%channel% &fsuccessfully."
       target: "%c &fYou was moved to channel &a%channel% &f."
 
+  # List of available channels
   list:
     message: "&f List of channels:"
     space: "&8->"
     format: "&8- &f%channel% &8- %mode%"
 
+  # Information of a especify channel
   info:
     format:
       - "%c &fInfo of channel &a%channel%&8:"
@@ -42,10 +45,12 @@ channel:
       - ""
       - "%status%"
 
+    # Condition that will be replaced in the %condition% variable to enter the channel.
     condition:
       perms: "Permission"
       group: "Group"
 
+    # Channel status to be replaced in the %status% variable in the above category
     status:
       yes_permission: "&2-> &aYou have the condition to join to the channel."
       no_permission: "&4-> &cYou don't have the condition to join to the channel"
@@ -65,7 +70,7 @@ msg-reply:
       main: none
 
   # GUI of /msg -online
-  online:
+  online-gui:
     mode: text
 
     title: "&a- &fOnline players &a[%page%/%max%]"
@@ -335,6 +340,7 @@ spymodule:
       # main: If player is using the command.
       main: clab.commands.socialspy
 
+    # Format that will be displayed when a message from a player is displayed in socialspy mode.
     format: "&a[SocialSpy] &8| &f%player% &8> &f%arg-1% &8: &f%message%"
     
     # Section of messages when you toggle de spymode.
@@ -363,6 +369,7 @@ spymodule:
       # main: If player is using the command.
       main: clab.commands.commandspy
 
+    # Format that will be displayed when a command executed by a player in socialspy mode is displayed.
     format: "&b[CommandSpy] &8| &a%sender% &8: &a%command%"
     
     player:
@@ -480,7 +487,7 @@ staff-chat:
 announcer:
   # Enable this module?
   enabled: true
-  # Global interval
+  # Global interval in which announcers will be shown
   global-interval: 10
   # Permissions of arguments. Put "none" to disable it.
   permissions:
@@ -529,7 +536,7 @@ announcer:
       ordened: "ordened"
       random: "random"
 
-  # Configuration of announcers.
+  # Configuration of the announcers to be displayed.
   announcers:
     # Type list:
     # Ordered (The messages will be sorted as they are in the messages section).
@@ -540,6 +547,9 @@ announcer:
         - "&fHello!"
       2:
         - "&eBye!"
+      3:
+        - "&3ChatLab &ePlugin"
+        - "&7Author: <rainbow>BryanGaming</rainbow>"
 
 party:
   # Enable this module?
