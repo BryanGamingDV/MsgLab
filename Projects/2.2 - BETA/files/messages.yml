@@ -2,7 +2,6 @@
 # Errors messages:
 #
 
-
 # Global errors
 global:
   # When you do not have permission to use this command or argument.
@@ -15,9 +14,8 @@ global:
   console: "You can't use this command in console."
   # When in the argument that asked for a player, you put one that is not connected.
   player-offline: "%c &fThat player is not online."
-  sounds:
-    # When the sound you put in sounds.yml, does not exist in the version of the software you use.
-    no-exists: "%e &fThat sound doesn't exists in this version :(."
+  # When the sound you put in sounds.yml, does not exist in the version of the software you use.
+  sound-not-available: "%e &fThat sound doesn't exists in this version :(."
 
 
 clab:
@@ -33,7 +31,6 @@ clab:
   debug:
     unknown-world: "%e &fUnknown world: &a%world%&f."
 
-  
   unknown-page: "%e &fUnknown page."
   disabled: "%c &fYou can't use the sound option."
 
@@ -159,8 +156,7 @@ announcer:
 
 # Section of /party
 party:
-  join:
-    max-players: "%e &fYou can't join to the party, the default max-players in the config is &a%max-players%"
+  reached-max-players: "%e &fYou can't join to the party, the default max-players in the config is &a%max-players%"
 
   already-have: "%e &fYou already have a party."
   already-joined: "%e &fYou already joined a party."

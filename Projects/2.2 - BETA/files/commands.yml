@@ -4,6 +4,8 @@
 
 #
 # Note: You can use MiniMessage in the message paths.
+# Example: <gradient:gold:white>Hello everyone</gradient>
+# Or with HEX colors (1.16+ only) <color:#8DDA59>Hola</color>
 # Wiki: https://docs.adventure.kyori.net/minimessage.html#format
 #
 
