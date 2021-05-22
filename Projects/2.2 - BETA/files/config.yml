@@ -65,13 +65,14 @@ options:
   # but we recommend that you leave it active, 
   # to show your support to the plugin developers.
   metrics: true
+  # Enable update checks.
+  # This will announce about a new version to the OPs.
+  update-check: false
   # Enable the use of old colors (&).
   # With this option you can make use of the colors,
   # using the & prefix, for example: "&1" and "&2".
   # It is recommended to use MiniMessage over this option,
   # as it is an easier format to understand and handle.
-  update-check: false
-  # To use legacy colors:
   use-legacy-colors: true
   # If you allow the subcommand to go to the support of the plugin /clab support.
   allow-support: true
