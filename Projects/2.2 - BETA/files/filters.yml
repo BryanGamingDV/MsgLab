@@ -1,4 +1,3 @@
-
 #
 # Fitlers.
 #
@@ -39,7 +38,6 @@ message:
 
   # Emojis fitler.
   # Format: emoji;symbol
-
   emojis:
     - ":happy:;:D"
     - ":sad:;:("
@@ -74,9 +72,10 @@ message:
 
   #
   # Rule filter section.
+  #
 
   # Perms.
-  perms:
+  permissions:
     # To bypass the text rule fitler.
     bypass: clab.text.bypass
     # To bypass the command rule fitler.

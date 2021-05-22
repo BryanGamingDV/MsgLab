@@ -9,8 +9,10 @@
 
 
 channel:
-
-
+  # Enable this module?
+  enabled: true
+  # When the player join to the server.
+  default-channel: default
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     # main: If player is using the command.
@@ -18,7 +20,7 @@ channel:
     info: clab.commands.info
     move: clab.commands.move
 
-  player:
+  messages:
     join: "%c &f You have joined channel &a%channel%&f."
     left: "%c &fYou have left channel &a%beforechannel%&f. Now you are in the %afterchannel% channel."
 
@@ -48,12 +50,9 @@ channel:
       yes_permission: "&2-> &aYou have the condition to join to the channel."
       no_permission: "&4-> &cYou don't have the condition to join to the channel"
 
-  config:
-    # When the player join to the server.
-    default-channel: default
-
 msg-reply:
-
+  # Enable this module?
+  enabled: true
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     msg:
@@ -117,7 +116,8 @@ msg-reply:
 
 
 broadcast:
-
+  # Enable this module?
+  enabled: true
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     # Permissions of /broadcast.
@@ -159,10 +159,11 @@ broadcast:
     disabled: "%c &fOption disabled!"
 
 chat:
-
+  # Enable this module?
+  enabled: true
+  
   # Permissions of arguments. Put "none" to disable it.
   permissions:
-
     # main: If player is using the command.
     main: clab.commands.chat
     reload: clab.commands.chat.reload
@@ -193,10 +194,9 @@ chat:
       permanent: "%c &fThe chat was cleared by &a%player%"
       temporal: "%c &fThe chat was muted by &a%player% &ffor &a%time% &fseconds."
 
-    unmute-temporal: "%c &fThe chat was unmuted."
-
   # /chat unmute
   unmute:
+    temporal: "%c &fThe chat was temporally unmuted."
     permanent: "%c &fThe chat was unmuted by &a%player%."
 
   # /chat cooldown.
@@ -218,7 +218,8 @@ chat:
   reload: "%c &fChat reloaded."
 
 clab:
-
+  # Enable this module?
+  enabled: true
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     # main: If player is using the command.
@@ -292,7 +293,8 @@ clab:
 
 
 motd:
-
+  # Enable this module?
+  enabled: true
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     # main: If player is using the command.
@@ -300,8 +302,6 @@ motd:
     admin: clab.commands.motd.admin
 
   list:
-
-
     message:
       - "&f"
       - "%c &fMotd list &8[&a%page%&8/&a%maxpage%&8]"
@@ -313,7 +313,8 @@ motd:
   set-line: "%c &fLine %number% setted: &a%line%&f."
 
 ignore-unignore:
-
+  # Enable this module?
+  enabled: true
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     # main: If player is using the command /ignore or unignore. Put "none" to disable it.
@@ -325,35 +326,88 @@ ignore-unignore:
   list-ignoredplayers: "&fList of ignored players:"
   nobody-ignored: "&8->%newline%%e &fYou aren't ignoring anybody.%newline%&8->"
 
-socialspy:
+spymodule:
+  socialspy:
+    # Enable this module?
+    enabled: true
+    # Permissions of arguments. Put "none" to disable it.
+    perms:
+      # main: If player is using the command.
+      main: clab.commands.socialspy
 
-  # Permissions of arguments. Put "none" to disable it.
-  perms:
-    # main: If player is using the command.
-    main: clab.commands.socialspy
+    format: "&a[SocialSpy] &8| &f%player% &8> &f%arg-1% &8: &f%message%"
+    
+    # Section of messages when you toggle de spymode.
+    message:
 
-  # Section of messages when you toggle de spymode.
-  player:
+      enabled: "%c &fSocialspy enabled"
+      disabled: "%c &fSocialspy disabled"
+      toggle: "%c &fSocialspy %mode%"
 
-    enabled: "%c &fSocialspy enabled"
-    disabled: "%c &fSocialspy disabled"
-    toggle: "%c &fSocialspy %mode%"
+      # Optional (Only if you use %mode%)
+      variable-on: "enabled"
+      variable-off: "disabled"
 
-    # Optional (Only if you use %mode%)
-    variable-on: "enabled"
-    variable-off: "disabled"
+    arg-2:
 
-  arg-2:
+      enabled: "%c &fSocialspy enabled from &c%arg-2%"
+      disabled: "%c &fSocialspy disabled from &c%arg-2%"
 
-    enabled: "%c &fSocialspy enabled from &c%arg-2%"
-    disabled: "%c &fSocialspy disabled from &c%arg-2%"
+    list-spyplayers: "&8->%newline%&fList of players using socialspy.%newline%&8->"
 
-  format: "&a[SocialSpy] &8| &f%player% &8> &f%arg-1% &8: &f%message%"
+  commandspy:
+    # Enable this module?
+    enabled: true
+    # Permissions of arguments. Put "none" to disable it.
+    permissions:
+      # main: If player is using the command.
+      main: clab.commands.commandspy
 
-  list-spyplayers: "&8->%newline%&fList of players using socialspy.%newline%&8->"
+    format: "&b[CommandSpy] &8| &a%sender% &8: &a%command%"
+    
+    player:
+      enabled: "%c &fCommandspy enabled"
+      disabled: "%c &fCommandspy disabled"
+
+    arg-2:
+      enabled: "%c &fCommandspy enabled from &c%arg-2%"
+      disabled: "%c &fCommandspy disabled from &c%arg-2%"
+
+
+    commands:
+      blocked: "%c &fBlocked &a%command%&f."
+      unblocked: "%c &fUnblocked word &a%command%&f."
+
+    list:
+      main:
+        - "%c &fList of arguments."
+        - ""
+        - "&8- &f/cspy list players"
+        - "&8- &f/cspy list blocked-commands"
+        - ""
+      players:
+        - "&8->"
+        - "&fList of players using commandspy"
+        - "&8->"
+        - "&8- &f%loop-value%"
+        - "&8->"
+      blocked-commands:
+        - "&8->"
+        - "&fList of blocked commands."
+        - "&8->"
+        - "&8- &f%loop-value%"
+        - "&8->"
+
+    # Blocked commands from the commandspy
+    blocked-commands:
+      - login
+      - log
+      - register
+      - reg
 
 helpop:
-
+  # Enable this module?
+  enabled: true
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     # main: If player is using the command.
@@ -367,7 +421,6 @@ helpop:
     toggle: "%c &fHelpop %mode%"
 
     # Optional (Only if you use %mode%)
-
     variable-on: "enabled"
     variable-off: "disabled"
 
@@ -381,7 +434,8 @@ helpop:
 
 
 stream:
-
+  # Enable this module?
+  enabled: true
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     # main: If player is using the command.
@@ -399,7 +453,8 @@ stream:
     - twitch.tv
 
 staff-chat:
-
+  # Enable this module?
+  enabled: true
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     # main: If player is using the command.
@@ -408,6 +463,8 @@ staff-chat:
     watch: clab.commands.staffchat
 
   symbol: "$"
+  
+  message: "&d[StaffChatManager] &8| &f%player% &8: &f%message%"
 
   player:
     enabled: "%c &fStaffchat enabled"
@@ -415,63 +472,16 @@ staff-chat:
     toggle: "%c &fStaffchat %mode%"
 
     # Optional (Only if you use %mode%)
-
     variable-on: "enabled"
     variable-off: "disabled"
 
-  message: "&d[StaffChatManager] &8| &f%player% &8: &f%message%"
 
-commandspy:
-
-  # Permissions of arguments. Put "none" to disable it.
-  permissions:
-    # main: If player is using the command.
-    main: clab.commands.commandspy
-
-  player:
-    enabled: "%c &fCommandspy enabled"
-    disabled: "%c &fCommandspy disabled"
-
-  arg-2:
-    enabled: "%c &fCommandspy enabled from &c%arg-2%"
-    disabled: "%c &fCommandspy disabled from &c%arg-2%"
-
-
-  commands:
-    blocked: "%c &fBlocked &a%command%&f."
-    unblocked: "%c &fUnblocked word &a%command%&f."
-
-  list:
-    main:
-      - "%c &fList of arguments."
-      - ""
-      - "&8- &f/cspy list players"
-      - "&8- &f/cspy list blocked-commands"
-      - ""
-    players:
-      - "&8->"
-      - "&fList of players using commandspy"
-      - "&8->"
-      - "&8- &f%loop-value%"
-      - "&8->"
-    blocked-commands:
-      - "&8->"
-      - "&fList of blocked commands."
-      - "&8->"
-      - "&8- &f%loop-value%"
-      - "&8->"
-
-  format: "&b[CommandSpy] &8| &a%sender% &8: &a%command%"
-
-  # Blocked commands from the commandspy
-  blocked-commands:
-    - login
-    - log
-    - register
-    - reg
 
 announcer:
-
+  # Enable this module?
+  enabled: true
+  # Global interval
+  global-interval: 10
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     # main: If player is using the command.
@@ -520,9 +530,7 @@ announcer:
       random: "random"
 
   # Configuration of announcers.
-  config:
-    interval: 10
-
+  announcers:
     # Type list:
     # Ordered (The messages will be sorted as they are in the messages section).
     # Random (The messages will be aleatory).
@@ -534,7 +542,10 @@ announcer:
         - "&eBye!"
 
 party:
-
+  # Enable this module?
+  enabled: true
+  # The limit of players that can enter in party
+  max-player-per-party: 10
   # Permissions of arguments. Put "none" to disable it.
   permissions:
     # main: If player is using the command.
@@ -586,7 +597,3 @@ party:
       - "&8- &fLeader: &a%leader%"
       - "&8- &fPlayers:"
       - "&8- %loop-players%"
-    
-  # Configuration of /party.
-  config:
-    max-player: 10
