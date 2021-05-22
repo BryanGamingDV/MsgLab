@@ -7,7 +7,10 @@
 # Wiki: https://docs.adventure.kyori.net/minimessage.html#format
 #
 
-
+#
+# Channels Module
+# Here you can configure permissions, messages and channel settings.
+#
 channel:
   # Enable this module?
   enabled: true
@@ -55,6 +58,11 @@ channel:
       yes_permission: "&2-> &aYou have the condition to join to the channel."
       no_permission: "&4-> &cYou don't have the condition to join to the channel"
 
+#
+# Private Messages and Replies module
+# Here you can configure permissions, messages,
+# formats, and the GUI of private messages.
+#
 msg-reply:
   # Enable this module?
   enabled: true
@@ -69,7 +77,7 @@ msg-reply:
       # main: If player is using the command /reply.
       main: none
 
-  # GUI of /msg -online
+  # GUI settings of /msg -online.
   online-gui:
     mode: text
 
@@ -119,7 +127,11 @@ msg-reply:
     msg: "%c &fSorry, &a%player%&f's pms are disabled."
     left: "%c &fDear %player%, &fthe player &a(%player%) &fthat you talked with or talked with you left the game."
 
-
+#
+# Broadcast module
+# Configuration and formatting of the 
+# /broadcast command.
+#
 broadcast:
   # Enable this module?
   enabled: true
@@ -222,6 +234,11 @@ chat:
 
   reload: "%c &fChat reloaded."
 
+#
+# Main command module
+# Here you can configure all the main plugin command "/clab",
+# as well as its subcommands, permissions and formatting.
+#
 clab:
   # Enable this module?
   enabled: true
@@ -296,7 +313,11 @@ clab:
     enabled: "%c &fNow you can hear the sounds of the plugin."
     disabled: "%c &fNow you can't hear the sounds of the plugin."
 
-
+#
+# Message Of The Day module
+# Here you can configure the entry message that will appear
+# to each player when entering (only to the player).
+#
 motd:
   # Enable this module?
   enabled: true
