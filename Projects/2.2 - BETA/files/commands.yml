@@ -12,7 +12,7 @@ channel:
 
 
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
     # main: If player is using the command.
     main: none
     info: clab.commands.info
@@ -55,7 +55,7 @@ channel:
 msg-reply:
 
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
     msg:
       # main: If player is using the command /msg.
       main: none
@@ -118,9 +118,8 @@ msg-reply:
 
 broadcast:
 
-
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
     # Permissions of /broadcast.
     global:
       main: clab.commands.broadcast
@@ -162,7 +161,7 @@ broadcast:
 chat:
 
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
 
     # main: If player is using the command.
     main: clab.commands.chat
@@ -221,7 +220,7 @@ chat:
 clab:
 
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
     # main: If player is using the command.
     main: clab.commands.clab
     debug: clab.commands.clab.debug
@@ -295,7 +294,7 @@ clab:
 motd:
 
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
     # main: If player is using the command.
     main: none
     admin: clab.commands.motd.admin
@@ -316,7 +315,7 @@ motd:
 ignore-unignore:
 
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
     # main: If player is using the command /ignore or unignore. Put "none" to disable it.
     main: none
 
@@ -356,7 +355,7 @@ socialspy:
 helpop:
 
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
     # main: If player is using the command.
     main: clab.commands.helpop
     # Permission for players that can watch the helpop.
@@ -383,7 +382,8 @@ helpop:
 
 stream:
 
-  perms:
+  # Permissions of arguments. Put "none" to disable it.
+  permissions:
     # main: If player is using the command.
     main: clab.commands.stream
 
@@ -401,7 +401,7 @@ stream:
 staff-chat:
 
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
     # main: If player is using the command.
     main: clab.commands.staffchat
     # Permission for players that can watch the staffchat.
@@ -423,7 +423,8 @@ staff-chat:
 
 commandspy:
 
-  perms:
+  # Permissions of arguments. Put "none" to disable it.
+  permissions:
     # main: If player is using the command.
     main: clab.commands.commandspy
 
@@ -472,7 +473,7 @@ commandspy:
 announcer:
 
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
     # main: If player is using the command.
     main: clab.commands.announcer
 
@@ -535,7 +536,7 @@ announcer:
 party:
 
   # Permissions of arguments. Put "none" to disable it.
-  perms:
+  permissions:
     # main: If player is using the command.
     main: none
 
