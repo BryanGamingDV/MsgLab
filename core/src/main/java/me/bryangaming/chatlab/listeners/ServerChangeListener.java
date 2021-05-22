@@ -73,7 +73,6 @@ public class ServerChangeListener implements Listener {
         if (serverChangeEvent.getChangeMode() == ChangeMode.JOIN) {
             PlayerJoinEvent playerJoinEvent = (PlayerJoinEvent) serverChangeEvent.getEvent();
 
-
             if (jqData.getJoinFormat() != null) {
                 switch (jqData.getJoinFormat()) {
                     case "none":

@@ -108,7 +108,7 @@ public class GroupManager {
             return "default";
         }
         if (utils.getString("lobby.group-access").equalsIgnoreCase("permission")) {
-            for (String group : utils.getConfigurationSection("lobby.formats").getKeys(true)) {
+            for (String group : utils.getConfigurationSection("lobby.formats").getKeys(false)) {
                 if (utils.getString("lobby.formats." + group + ".permission") == null) {
                     continue;
                 }
@@ -120,7 +120,7 @@ public class GroupManager {
             return "default";
         }
 
-        for (String group : utils.getConfigurationSection("lobby.formats").getKeys(true)) {
+        for (String group : utils.getConfigurationSection("lobby.formats").getKeys(false)) {
             if (vaultHook.getChat().playerInGroup(player, group)) {
                 return group;
             }
