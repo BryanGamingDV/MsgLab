@@ -26,7 +26,7 @@ commands:
     usage: /broadcastworld <message>
   sc:
     description: Send messages to staff chat
-    usage: /sc <message>
+    usage: /sc <on|off> <message>
   helpop:
     description: Send help to the help chat
     usage: /helpop <message>

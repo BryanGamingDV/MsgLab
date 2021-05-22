@@ -27,7 +27,7 @@ The default permissions of these commands are the default ones. <br>
 | chat   	       | `/chat [help/clear/mute/unmute/reload..]`            | Chat functions                              | clab.commands.chat	          |
 | socialspy      | `/socialspy [on/off] <player>`                       | Spy on a player's social activity           | clab.commands.socialspy	      |
 | broadcast      | `/broadcast <message>`                               | Send a message to all players               | clab.commands.broadcast       |
-| broadcastworld | `broadcastworld <message>`                           | Send a message to all players in a world    | clab.commands.broadcast-world |
+| broadcastworld | `/broadcastworld <message>`                           | Send a message to all players in a world    | clab.commands.broadcast-world |
 | sc             | `/sc [on/off] / /sc [message]`                       | Send messages to staff chat                 | clab.commands.staffchat       |
 | helpop         | `/helpop <message>`                                  | Send help to the help chat                  | clab.commands.helpop/watch    |
 | motd           | `/motd [addline/removeline/seline] <id/text> <text>` | To watch or modify the server motd          | clab.commands.motd.admin      |
