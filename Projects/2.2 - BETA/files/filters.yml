@@ -1,5 +1,23 @@
 #
-# Fitlers.
+# Filters.
+#
+# You can make use of actions when any user violates the rules that you have imposed. 
+#
+# Example:
+#----------------------------------------------------------------------------------
+# actions:
+#      - "[MESSAGE] &a[Server] &8| &fDon't put a flood test."
+#      - "[CONSOLECMD] warn %player%"
+#      - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fdid a flood text."
+#----------------------------------------------------------------------------------
+# [MESSAGE] 
+# It will send a message to the player.
+#
+# [CONSOLECMD]
+# It will execute a command in the console.
+#
+# [BROADCASTP] (permission)
+# Send a message to the staff with the specified permission.
 #
 
 # Cooldown filter.
@@ -23,7 +41,6 @@ cooldown:
 #
 # Tags
 #
-
 tags:
   color:
     variable: "%ml_color%"
