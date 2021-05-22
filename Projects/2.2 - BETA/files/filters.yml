@@ -75,13 +75,10 @@ message:
   #
   # Rule filter section.
 
-
   # Perms.
   perms:
-    # To watch the warning if a player is breaking a text/command rule.
-    watch: clab.revisor
     # To bypass the text rule fitler.
-    bypass: clab.revisor
+    bypass: clab.text.bypass
     # To bypass the command rule fitler.
     cmd-bypass: clab.cmd.bypass
 
@@ -92,13 +89,11 @@ message:
     # Min repeated chars to detect the message.
     min-chars: 2
 
-    message:
-      enabled: true
-      format: "%c &fPlease, don't flood."
-
-    warning:
-      enabled: true
-      text: "&e[Revisor] &8| &e%player% &fwas flooding."
+    # Actions when the player's message was detected by the fitler. [Optional]
+    actions:
+      - "[MESSAGE] &a[Server] &8| &fDon't put a flood test."
+      - "[CONSOLECMD] warn %player%"
+      - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fdid a flood text."
 
   # Words module - If player put a bad word:
   words-module:
@@ -110,22 +105,15 @@ message:
       - "idiot; **"
       - "good; **"
 
-    message:
-      enabled: true
-      format: "%c &fPlease don't do that, &a%player%&f."
-
     word-list:
       enabled: true
       format: "%c &fYou said &a%words% &fobscene words."
 
-      # Is not obligatory to use "/" in format.
-    command:
-      enabled: true
-      format: "say %player% is doing that."
-
-    warning:
-      enabled: true
-      text: "&e[Revisor] &8| &e%player% &fsaid a bad word."
+    # Actions when the player's message was detected by the fitler. [Optional]
+    actions:
+    - "[MESSAGE] &a[Server] &8| &fDon't put a bad word."
+    - "[CONSOLECMD] warn %player%"
+    - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fdid put a bad word."
 
 
   # Dot module - If player didn't put a dot:
@@ -134,17 +122,19 @@ message:
 
     min-word: 1
 
-    warning:
-      enabled: false
-      text: "&e[Revisor] &8| &e%player% &fdidn't put a dot."
+    # Actions when the player's message was detected by the fitler. [Optional]
+    # Note: Delete the '#' if you want to use]
+    # actions:
+    #  - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fdidn't put a dot."
 
   # First mayus module - If his first letter isn't mayus.
   first-mayus-module:
     enabled: true
 
-    warning:
-      enabled: false
-      text: "&e[Revisor] &8| &e%player% &fdidn't put a mayus.."
+    # Actions when the player's message was detected by the fitler. [Optional]
+    # Note: Delete the '#' if you want to use]
+    # actions:
+    #  - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &didn't put a mayus."
 
   # Caps module - If player putted too much caps.
   caps-module:
@@ -152,9 +142,10 @@ message:
 
     min-mayus: 5
 
-    warning:
-      enabled: true
-      text: "&e[Revisor] &8| &e%player% &fwas using caps."
+    # Actions when the player's message was detected by the fitler. [Optional]
+    # Note: Delete the '#' if you want to use]
+    # actions:
+    #  - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fwas using caps."
 
   # Link module - If player put a external link.
   link-module:
@@ -170,17 +161,10 @@ message:
     # Note: This replace the link or point (if you enabled this).
     replace-link: " "
 
-    message:
-      enabled: true
-      format: "%c &fPlease don't use this &a%player%&f. Blocked word: &a%blockedword%&f."
-
-    command:
-      enabled: true
-      format: "kick %player% %c &fPlease don't use this %player%. Blocked word: %blockedword%."
-
-    warning:
-      enabled: true
-      text: "&e[Revisor] &8| &e%player% &fput a public link."
+    # Actions when the player's message was detected by the fitler. [Optional]
+    actions:
+      - "[CONSOLECMD] ban %player%"
+      - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fwas putting a link."
 
 
 commands:
@@ -239,7 +223,7 @@ commands:
       commands:
         test: "%pmoney% = 500"
 
-      # A message when the player is using block command module.
+      # A message when the player is using the conditions command module.
       message:
         enabled: true
         format: "%e &fYou don't have the condition to use that command."
@@ -250,9 +234,6 @@ commands:
 
       # To block people with op.
       op:
-        message:
-          enabled: true
-          format: "%e &fYou can't use that command. &8[&f%command%&8]"
 
         # List of blocked commands.
         list:
@@ -261,16 +242,21 @@ commands:
           - help
           - "?"
 
+        # Actions when the player is using a blocked command. [Optional]
+        actions:
+          - "[MESSAGE] &fYou can't use that command."
+
       # To block people, and you can bypass with a permission.
       default:
 
         # Permission to bypass the block command module.
         permission: test.test
 
-        # A message when the player is using block command module.
-        message:
-          enabled: true
-          format: "%e &fYou can't use that command. &8[&f%command%&8]"
+        # Actions when the player is using a blocked command. [Optional]
+        actions:
+          - "[MESSAGE] &fYou can't use that command."
+          - "[CONSOLECMD] warn %player%"
+          - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fis using a blocked command."
 
         # List of blocked commands.
         list:

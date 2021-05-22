@@ -185,11 +185,11 @@ chat-format:
             - "&8&m------[&fHover]&8&m-------"
             - "&fPlayer: &a%player%"
             - "&fOnline: &a%online%"
-        # Acton when you click the hover.
-        action:
-          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
-          type: SUGGEST_COMMAND
-          format: "/msg %player% message"
+          # Acton when you click the hover.
+          action:
+            # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+            type: SUGGEST_COMMAND
+            format: "/msg %player% message"
 
         limit:
           # The message part that appears when you chat, obviously.
@@ -432,7 +432,7 @@ lobby:
   # default -> If you want to use only a one format group.
   group-access: permission
 
-  # NOTE: All options [message, motd, commands] are optional. You can combine!
+  # NOTE: All options [message, motd, commands] are optional. You can combine or disable options!
   formats:
     # Default format [When a player enter to the server]
     default:
@@ -443,9 +443,9 @@ lobby:
         # A welcome message.
         motd:
           - "A test motd"
-        # Commands from player.
-        commands:
-          -
+        # Actions from player.
+        actions:
+          - "[CONSOLECMD] give %player% diamond"
 
       # When a player join to the server.
       join:
@@ -454,16 +454,16 @@ lobby:
         # A welcome message.
         motd:
           - "A test motd"
-         # Commands from player.
-        commands:
+        # Actions from player.
+        actions:
           -
 
       # When a player quit to the server.
       quit:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
         message: "The player %player% left!"
-        # Commands from player.
-        commands:
+        # Actions from player.
+        actions:
           -
     vip:
       # When a player join for the first time.
@@ -473,8 +473,8 @@ lobby:
         # A welcome message.
         motd:
           - "A test motd"
-        # Commands from player.
-        commands:
+        # Actions from player.
+        actions:
           -
       # When a player join to the server.
       join:
@@ -483,13 +483,13 @@ lobby:
         # A welcome message.
         motd:
           - "A test motd"
-        # Commands from player.
-        commands:
+        # Actions from player.
+        actions:
           -
       # When a player quit to the server.
       quit:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
         message: "The player %player% left!"
-        # Commands from player.
-        commands:
+        # Actions from player.
+        actions:
           -

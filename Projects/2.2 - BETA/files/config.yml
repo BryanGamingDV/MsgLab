@@ -24,33 +24,31 @@ config-version: 2.2
 modules:
    # List of plugin commands.
   enabled-commands:
-    - chat
-    - clab
-    - msg
-    - reply
-    - socialspy
-    - broadcast
-    - broadcastworld
-    - stream
-    - ignore
-    - unignore
-    - helpop
-    - staffchat
-    - channel
-    - motd
-    - commandspy
-    - announcer
-    - party
+    chat: true
+    clab: true
+    msg: true
+    reply: true
+    socialspy: true
+    broadcast: true
+    broadcastworld: true
+    stream: true
+    ignore: tue
+    unignore: true
+    helpop: true
+    staffchat: true
+    channel: true
+    motd: true
+    commandspy: true
+    announcer: true
+    party: true
     
   # List of options.
   enabled-options:
-    - chat_format
-    - chat_revisor
-    - chat_manangent
-    - cooldown
-    - join_quit
-    - motd
-    - announcer
+    chat_format: true
+    revisor: true
+    cooldown: true
+    join_quit: true
+    announcer: true
 
 #
 # Options:
