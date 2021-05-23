@@ -1,7 +1,12 @@
 #
-# ChatLab by BryanGaming
-# Version: 2.2
+#   _____ _           _   _           _     
+#  / ____| |         | | | |         | |    
+# | |    | |__   __ _| |_| |     __ _| |__  
+# | |    | '_ \ / _` | __| |    / _` | '_ \ 
+# | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
 #
+# Main Config | config.yml
 
 #
 # File Sectors:
@@ -15,51 +20,19 @@
 #
 
 # If you want to go to the wiki: https://app.gitbook.com/@bryangaming/spaces
+# Visit the MiniMessage guide: https://docs.adventure.kyori.net/minimessage.html#format
 # If you want to go to the support: https://discord.gg/YjhubS3bWW
 
 # Config version, please don't change this path.
 config-version: 2.2
 
-# Modules:
-modules:
-   # List of plugin commands.
-  enabled-commands:
-    chat: true
-    clab: true
-    msg: true
-    reply: true
-    socialspy: true
-    broadcast: true
-    broadcastworld: true
-    stream: true
-    ignore: tue
-    unignore: true
-    helpop: true
-    staffchat: true
-    channel: true
-    motd: true
-    commandspy: true
-    announcer: true
-    party: true
-    
-  # List of options.
-  enabled-options:
-    chat_format: true
-    revisor: true
-    cooldown: true
-    join_quit: true
-    announcer: true
-
 #
 # Options:
 #
-
 options:
-
   # You can create prefixes with variables unlimited, obiously!
   # This is not the chat format! If you want to go to formats go to formats.yml.
   replacer:
-
     # Prefix path:
     prefix:
       # Format path
@@ -76,18 +49,36 @@ options:
 
   # Section to activate or deactivate hooks automatically.
   allow-hooks:
+    # Enables the use of money for command-conditions, 
+    # the use of prefixes or suffixes in the format, 
+    # and for inbound and outbound messages.
     vault: true
+    # Enables use of ProtocolLib to handle command autocompletion
     protocollib: true
+    # Enable the use of the bot
     discordsrv: true
+    # Enables the use of PlaceholderAPI variables in the plugin.
     placeholderapi: true
-    # This also includes the premium version. 
+    # Prevents users in vanish mode from talking,
+    # revealing their status on the server.
+    # It will also prevent incoming and outgoing messages
+    # from being displayed. 
+    # This also includes the premium version (PremiumVanish). 
     supervanish: true
 
   # Enable metrics
+  # You can deactivate it without any problem, 
+  # but we recommend that you leave it active, 
+  # to show your support to the plugin developers.
   metrics: true
   # Enable update checks.
+  # This will announce about a new version to the OPs.
   update-check: false
-  # To use legacy colors:
+  # Enable the use of old colors (&).
+  # With this option you can make use of the colors,
+  # using the & prefix, for example: "&1" and "&2".
+  # It is recommended to use MiniMessage over this option,
+  # as it is an easier format to understand and handle.
   use-legacy-colors: true
   # If you allow the subcommand to go to the support of the plugin /clab support.
   allow-support: true
