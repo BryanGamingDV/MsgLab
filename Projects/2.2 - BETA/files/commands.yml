@@ -28,26 +28,26 @@ channel:
 
   # Messages of this module
   messages:
-    join: "%c &f You have joined channel &a%channel%&f."
-    left: "%c &fYou have left channel &a%beforechannel%&f. Now you are in the %afterchannel% channel."
+    join: "%c <white>You have joined channel</white> <green>%channel%</green><white>.</white>"
+    left: "%c <white>You have left channel</white> <green>%beforechannel%</green><white>. Now you are in the <green>%afterchannel%</green> <white>channel.</white>"
 
     move:
-      sender: "%c &fYou moved &a%arg-2% &fto &a%channel% &fsuccessfully."
-      target: "%c &fYou was moved to channel &a%channel% &f."
+      sender: "%c <white>You moved <green>%arg-2% <white>to <green>%channel% <white>successfully."
+      target: "%c <white>You was moved to channel <green>%channel% <white>."
 
   # List of available channels
   list:
-    message: "&f List of channels:"
-    space: "&8->"
-    format: "&8- &f%channel% &8- %mode%"
+    message: "<white> List of channels:"
+    space: "<dark_gray>->"
+    format: "<dark_gray>- <white>%channel% <dark_gray>- %mode%"
 
   # Information of a especify channel
   info:
     format:
-      - "%c &fInfo of channel &a%channel%&8:"
+      - "%c <white>Info of channel <green>%channel%<dark_gray>:"
       - "&f"
-      - "&fPlayers chatting: &a%online_channel%"
-      - "&f%condition% to join: &a%condition_format%"
+      - "<white>Players chatting: <green>%online_channel%"
+      - "<white>%condition% to join: <green>%condition_format%"
       - ""
       - "%status%"
 
@@ -58,8 +58,8 @@ channel:
 
     # Channel status to be replaced in the %status% variable in the above category
     status:
-      yes_permission: "&2-> &aYou have the condition to join to the channel."
-      no_permission: "&4-> &cYou don't have the condition to join to the channel"
+      yes_permission: "<dark_green>-> <green>You have the condition to join to the channel."
+      no_permission: "<dark_red>-> <red>You don't have the condition to join to the channel"
 
 # Private Messages and Replies module
 # Here you can configure permissions, messages,
@@ -83,52 +83,52 @@ msg-reply:
     mode: text
 
     # Inventory title.
-    title: "&a- &fOnline players &a[%page%/%max%]"
+    title: "<green>- <white>Online players <green>[%page%/%max%]"
     player:
-      title: "&2%number%. &a%playername%"
+      title: "<dark_green>%number%. <green>%playername%"
       lore:
         - ""
-        - "&a-> &fClick to chat with them!"
+        - "<green>-> <white>Click to chat with them!"
     # Icon to go to the next page.
     next-page:
       id_name: "barrier"
-      title: "&cNext page"
+      title: "<red>Next page"
 
       # Not obligatory.
       lore:
         - ""
-        - "&fClick to go to next page."
+        - "<white>Click to go to next page."
 
     previous-page:
       id_name: "diamond"
-      title: "&cPrevious page"
+      title: "<red>Previous page"
       # Not obligatory:
       lore:
         - ""
-        - "&fClick to go to previous page."
+        - "<white>Click to go to previous page."
 
   format:
     # Enable rule filters from /msg.
     enable-revisor: true
 
-    player: "%c &fYou &8> &f%sender% &8: &f%message%"
-    arg-1: "%c &f%sender% &8> &fYou &8: &f%message%"
-    talked: "%c &fYou talked with &a%player%"
+    player: "%c <white>You <dark_gray>> <white>%sender% <dark_gray>: <white>%message%"
+    arg-1: "%c <white>%sender% <dark_gray>> <white>You <dark_gray>: <white>%message%"
+    talked: "%c <white>You talked with <green>%player%"
 
 
   # When you use /msg -toggle
   toggle:
 
     player:
-      activated: "%c &fNow nobody can't message you."
-      unactivated: "%c &fNow everyone can message you."
+      activated: "%c <white>Now nobody can't message you."
+      unactivated: "%c <white>Now everyone can message you."
 
     arg-1:
-      activated: "%c &fNow nobody can message &a%arg-1%&f."
-      unactivated: "%c &fNow everyone can message &a%arg-1%&f."
+      activated: "%c <white>Now nobody can message <green>%arg-1%<white>."
+      unactivated: "%c <white>Now everyone can message <green>%arg-1%<white>."
 
-    msg: "%c &fSorry, &a%player%&f's pms are disabled."
-    left: "%c &fDear %player%, &fthe player &a(%player%) &fthat you talked with or talked with you left the game."
+    msg: "%c <white>Sorry, <green>%player%<white>'s pms are disabled."
+    left: "%c <white>Dear %player%, <white>the player <green>(%player%) <white>that you talked with or talked with you left the game."
 
 # Broadcast module
 # Configuration and formatting of the 
@@ -151,30 +151,30 @@ broadcast:
   enable-revisor: true
 
   text:
-    global: "&a[Broadcast] &8| &f%player% &8> &f%message%"
-    world: "&a[%world%] &8| &f%player% &8> &f%message%"
+    global: "<green>[Broadcast] <dark_gray>| <white>%player% <dark_gray>> <white>%message%"
+    world: "<green>[%world%] <dark_gray>| <white>%player% <dark_gray>> <white>%message%"
 
   click_cmd:
-    global: "&a[!] &8| &f¡Click to &a%message%&f! &fGood luck! &a%player%&f."
-    world: "&a[%world%] &8| &f¡Click to &a%message%&f! &fGood luck! &a%player%&f."
-    format: "&aClick to touch that message!"
+    global: "<green>[!] <dark_gray>| <white>¡Click to <green>%message%<white>! <white>Good luck! <green>%player%<white>."
+    world: "<green>[%world%] <dark_gray>| <white>¡Click to <green>%message%<white>! <white>Good luck! <green>%player%<white>."
+    format: "<green>Click to touch that message!"
    
   # Section of /bc or /bcworld -click
   mode:
-    load: "%c &fEnabling clickchat."
+    load: "%c <white>Enabling clickchat."
 
     select:
-      message: "&d[Mode] &8| &fPlease select a messsage: "
-      command: "&c[Mode] &8| &fPlease select a command: "
-      cooldown: "&e[Mode] &8| &fPlease select a cooldown:"
+      message: "<light_purple>[Mode] <dark_gray>| <white>Please select a messsage: "
+      command: "<red>[Mode] <dark_gray>| <white>Please select a command: "
+      cooldown: "<yellow>[Mode] <dark_gray>| <white>Please select a cooldown:"
 
     selected:
-      message: "&d[Mode] &8| &fSelected message &d%message%&f."
-      command: "&c[Mode] &8| &fSelected command &c%command%&f."
-      cooldown: "&e[Mode] &8| &fSelected cooldown &e%cooldown%&f."
+      message: "<light_purple>[Mode] <dark_gray>| <white>Selected message <light_purple>%message%<white>."
+      command: "<red>[Mode] <dark_gray>| <white>Selected command <red>%command%<white>."
+      cooldown: "<yellow>[Mode] <dark_gray>| <white>Selected cooldown <yellow>%cooldown%<white>."
 
-    hover: "%c &fHover successfully created!"
-    disabled: "%c &fOption disabled!"
+    hover: "%c <white>Hover successfully created!"
+    disabled: "%c <white>Option disabled!"
 
 # Chatting module
 # Configure alternative chat features.
@@ -192,51 +192,51 @@ chat:
 
   # /chat help
   help:
-    - "%c &fList of subcommands:"
-    - "&8- &f/chat help &8: &fTo see the help command."
-    - "&8- &f/chat reload &8: &fTo reload chat options."
-    - "&8- &f/chat clear [-w world, -l lines] &8: &fTo clear the chat."
-    - "&8- &f/chat mute [-w world, -t time] &8| &fTo mute the chat."
-    - "&8- &f/chat unmute &8: &fTo unmute the chat."
-    - "&8- &f/chat cooldown [<time>;  -d default] &8: &fTo change the cooldown."
+    - "%c <white>List of subcommands:"
+    - "<dark_gray>- <white>/chat help <dark_gray>: <white>To see the help command."
+    - "<dark_gray>- <white>/chat reload <dark_gray>: <white>To reload chat options."
+    - "<dark_gray>- <white>/chat clear [-w world, -l lines] <dark_gray>: <white>To clear the chat."
+    - "<dark_gray>- <white>/chat mute [-w world, -t time] <dark_gray>| <white>To mute the chat."
+    - "<dark_gray>- <white>/chat unmute <dark_gray>: <white>To unmute the chat."
+    - "<dark_gray>- <white>/chat cooldown [<time>;  -d default] <dark_gray>: <white>To change the cooldown."
 
   # /chat clear
   clear:
     default-blank: 50
-    global: "%c &fThe chat was cleared by &a%player%"
-    world: "%c &fThe chat was cleared by &a%player%"
+    global: "%c <white>The chat was cleared by <green>%player%"
+    world: "%c <white>The chat was cleared by <green>%player%"
 
   # /chat mute
   mute:
     global:
-      permanent: "%c &fThe chat was muted by &a%player%"
-      temporal: "%c &fThe chat was muted by &a%player% &ffor &a%time% &fseconds."
+      permanent: "%c <white>The chat was muted by <green>%player%"
+      temporal: "%c <white>The chat was muted by <green>%player% <white>for <green>%time% <white>seconds."
     world:
-      permanent: "%c &fThe chat was cleared by &a%player%"
-      temporal: "%c &fThe chat was muted by &a%player% &ffor &a%time% &fseconds."
+      permanent: "%c <white>The chat was cleared by <green>%player%"
+      temporal: "%c <white>The chat was muted by <green>%player% <white>for <green>%time% <white>seconds."
 
   # /chat unmute
   unmute:
-    temporal: "%c &fThe chat was temporally unmuted."
-    permanent: "%c &fThe chat was unmuted by &a%player%."
+    temporal: "%c <white>The chat was temporally unmuted."
+    permanent: "%c <white>The chat was unmuted by <green>%player%."
 
   # /chat cooldown.
   cooldown:
-    message: "%c &fThe cooldown was changed to &a%time% &fseconds."
+    message: "%c <white>The cooldown was changed to <green>%time% <white>seconds."
 
   # /chat tags
   tags:
     selected:
-      color: "%c &fYou selected the color &a%color%&f."
-      tag: "%c &fYou selected the tag &a%tag%&f."
+      color: "%c <white>You selected the color <green>%color%<white>."
+      tag: "%c <white>You selected the tag <green>%tag%<white>."
 
     tags:
-      red: "&4"
-      green: "&2"
-      blue: "&1"
-      yellow: "&6"
+      red: "<dark_red>"
+      green: "<dark_green>"
+      blue: "<dark_blue>"
+      yellow: "<gold>"
 
-  reload: "%c &fChat reloaded."
+  reload: "%c <white>Chat reloaded."
 
 # Main command module
 # Here you can configure all the main plugin command "/clab",
@@ -255,65 +255,65 @@ clab:
   # /clab help
   help:
     pages:
-      - "%c &fList of subcommands:"
-      - "&8- &f/clab commands &8: &fTo watch all plugin commands."
-      - "&8- &f/clab reload [all/<file>] &8: &fTo reload the plugin."
-      - "&8- &f/clab debug [pwc] &8| &fTo see a debug."
-      - "&8- &f/clab sounds [on/off] &8| &fTo turn on/off sounds."
-      - "&8- &f/clab support &8| &fTo get to discord support."
-      - "&8- &f/clab reset [commands/modules] &8| &fTo reset the configuration."
+      - "%c <white>List of subcommands:"
+      - "<dark_gray>- <white>/clab commands <dark_gray>: <white>To watch all plugin commands."
+      - "<dark_gray>- <white>/clab reload [all/<file>] <dark_gray>: <white>To reload the plugin."
+      - "<dark_gray>- <white>/clab debug [pwc] <dark_gray>| <white>To see a debug."
+      - "<dark_gray>- <white>/clab sounds [on/off] <dark_gray>| <white>To turn on/off sounds."
+      - "<dark_gray>- <white>/clab support <dark_gray>| <white>To get to discord support."
+      - "<dark_gray>- <white>/clab reset [commands/modules] <dark_gray>| <white>To reset the configuration."
       
   # /clab commands
   commands:
-    format: "%c &fList of commands &8- &a%page%&8/&a%max_page%&8:"
+    format: "%c <white>List of commands <dark_gray>- <green>%page%<dark_gray>/<green>%max_page%<dark_gray>:"
     # You can put unlimited pages [1,2..].
     pages:
       1:
-        - "&8- &f/clab [reload/help/debug..] &8: &fTo use the plugin."
-        - "&8- &f/chat [help/clear/mute/unmute/reload..] &8: &fTo use the chat plugin."
-        - "&8- &f/msg [<player>] [<message>] &8: &fTo send a private message."
-        - "&8- &f/reply [<message>] &8: &fTo reply."
-        - "&8- &f/socialspy [on/off] [<player>]: &fTo activate socialspy."
-        - "&8- &f/ignore [<player>] &8: &fTo ignore a player"
-        - "&8- &f/unignore [<player>] &8: &fTo stop ignoring a player."
+        - "<dark_gray>- <white>/clab [reload/help/debug..] <dark_gray>: <white>To use the plugin."
+        - "<dark_gray>- <white>/chat [help/clear/mute/unmute/reload..] <dark_gray>: <white>To use the chat plugin."
+        - "<dark_gray>- <white>/msg [<player>] [<message>] <dark_gray>: <white>To send a private message."
+        - "<dark_gray>- <white>/reply [<message>] <dark_gray>: <white>To reply."
+        - "<dark_gray>- <white>/socialspy [on/off] [<player>]: <white>To activate socialspy."
+        - "<dark_gray>- <white>/ignore [<player>] <dark_gray>: <white>To ignore a player"
+        - "<dark_gray>- <white>/unignore [<player>] <dark_gray>: <white>To stop ignoring a player."
       2:
-        - "&8- &f/broadcast [<message>] &8: &fTo broadcast a message."
-        - "&8- &f/broadcastworld [<message>] &8: &fTo broadcast in a world a message."
-        - "&8- &f/sc [on/off] or /sc [<message>] &8: &fTo send a message to staff."
-        - "&8- &f/helpop [<message>] &8: &fTo send a help chat."
-        - "&8- &f/motd [addline/removeline/seline] [id/<text>] [<text>] &8: &fTo watch or modify the server motd."
-        - "&8- &f/channel [join/quit/list/move] [<channel>] &8: &fTo use the channel manager."
-        - "&8- &f/stream [<text>] &8: &fTo stream."
-        - "&8- &f/commandspy [on/off/list..] &8: &fTo send a commandspy."
+        - "<dark_gray>- <white>/broadcast [<message>] <dark_gray>: <white>To broadcast a message."
+        - "<dark_gray>- <white>/broadcastworld [<message>] <dark_gray>: <white>To broadcast in a world a message."
+        - "<dark_gray>- <white>/sc [on/off] or /sc [<message>] <dark_gray>: <white>To send a message to staff."
+        - "<dark_gray>- <white>/helpop [<message>] <dark_gray>: <white>To send a help chat."
+        - "<dark_gray>- <white>/motd [addline/removeline/seline] [id/<text>] [<text>] <dark_gray>: <white>To watch or modify the server motd."
+        - "<dark_gray>- <white>/channel [join/quit/list/move] [<channel>] <dark_gray>: <white>To use the channel manager."
+        - "<dark_gray>- <white>/stream [<text>] <dark_gray>: <white>To stream."
+        - "<dark_gray>- <white>/commandspy [on/off/list..] <dark_gray>: <white>To send a commandspy."
 
   # /clab reload
   reload:
-    plugin: "%c &fPlugin reloaded!"
-    file: "%c &f%file% &freloaded!"
+    plugin: "%c <white>Plugin reloaded!"
+    file: "%c <white>%file% <white>reloaded!"
 
   # /clab restore
   restore:
-    commands: "%c &fCommands restored."
-    modules: "%c &fModules restored."
+    commands: "%c <white>Commands restored."
+    modules: "%c <white>Modules restored."
 
   # /clab debug
   debug:
 
     list:
-      worlds: "%c &fList of worlds:"
-      commands: "%c &fList of commands:"
-      modules: "%c &fList of modules:"
+      worlds: "%c <white>List of worlds:"
+      commands: "%c <white>List of commands:"
+      modules: "%c <white>List of modules:"
 
-    worldpath-info: "%c &fInfo of &a%world%&f:"
+    worldpath-info: "%c <white>Info of <green>%world%<white>:"
 
   # /clab config
   config:
-    set: "%e &fPath set in &a%config% on &a%path% &f: &a%value%."
+    set: "%e <white>Path set in <green>%config% on <green>%path% <white>: <green>%value%."
 
   # /clab sounds
   sounds:
-    enabled: "%c &fNow you can hear the sounds of the plugin."
-    disabled: "%c &fNow you can't hear the sounds of the plugin."
+    enabled: "%c <white>Now you can hear the sounds of the plugin."
+    disabled: "%c <white>Now you can't hear the sounds of the plugin."
 
 # Message Of The Day module
 # Here you can configure the entry message that will appear
@@ -330,13 +330,13 @@ motd:
   list:
     message:
       - "&f"
-      - "%c &fMotd list &8[&a%page%&8/&a%maxpage%&8]"
+      - "%c <white>Motd list <dark_gray>[<green>%page%<dark_gray>/<green>%maxpage%<dark_gray>]"
       - "&f"
-    space: "&8->"
+    space: "<dark_gray>->"
 
-  add-line: "%c &fLine added: &a%line%&f."
-  remove-line: "%c &fLine %number% deleted: &a%line%&f."
-  set-line: "%c &fLine %number% setted: &a%line%&f."
+  add-line: "%c <white>Line added: <green>%line%<white>."
+  remove-line: "%c <white>Line %number% deleted: <green>%line%<white>."
+  set-line: "%c <white>Line %number% setted: <green>%line%<white>."
 
 ignore-unignore:
   # Enable this module?
@@ -346,11 +346,11 @@ ignore-unignore:
     # main: If player is using the command /ignore or unignore. Put "none" to disable it.
     main: none
 
-  player-ignored: "%c &fNow you can't watch messages from &c%player%&f."
-  player-unignored: "%c &fNow you can watch messages from &c%player%&f."
+  player-ignored: "%c <white>Now you can't watch messages from <red>%player%<white>."
+  player-unignored: "%c <white>Now you can watch messages from <red>%player%<white>."
 
-  list-ignoredplayers: "&fList of ignored players:"
-  nobody-ignored: "&8->%newline%%e &fYou aren't ignoring anybody.%newline%&8->"
+  list-ignoredplayers: "<white>List of ignored players:"
+  nobody-ignored: "<dark_gray>->%newline%%e <white>You aren't ignoring anybody.%newline%<dark_gray>->"
 
 spymodule:
   socialspy:
@@ -362,13 +362,13 @@ spymodule:
       main: clab.commands.socialspy
 
     # Format that will be displayed when a message from a player is displayed in socialspy mode.
-    format: "&a[SocialSpy] &8| &f%player% &8> &f%arg-1% &8: &f%message%"
+    format: "<green>[SocialSpy] <dark_gray>| <white>%player% <dark_gray>> <white>%arg-1% <dark_gray>: <white>%message%"
     
     # Section of messages when you toggle de spymode.
     message:
-      enabled: "%c &fSocialspy enabled"
-      disabled: "%c &fSocialspy disabled"
-      toggle: "%c &fSocialspy %mode%"
+      enabled: "%c <white>Socialspy enabled"
+      disabled: "%c <white>Socialspy disabled"
+      toggle: "%c <white>Socialspy %mode%"
 
       # Optional (Only if you use %mode%)
       variable-on: "enabled"
@@ -376,10 +376,10 @@ spymodule:
 
     arg-2:
 
-      enabled: "%c &fSocialspy enabled from &c%arg-2%"
-      disabled: "%c &fSocialspy disabled from &c%arg-2%"
+      enabled: "%c <white>Socialspy enabled from <red>%arg-2%"
+      disabled: "%c <white>Socialspy disabled from <red>%arg-2%"
 
-    list-spyplayers: "&8->%newline%&fList of players using socialspy.%newline%&8->"
+    list-spyplayers: "<dark_gray>->%newline%<white>List of players using socialspy.%newline%<dark_gray>->"
 
   commandspy:
     # Enable this module?
@@ -390,40 +390,40 @@ spymodule:
       main: clab.commands.commandspy
 
     # Format that will be displayed when a command executed by a player in socialspy mode is displayed.
-    format: "&b[CommandSpy] &8| &a%sender% &8: &a%command%"
+    format: "<light_purple>[CommandSpy] <dark_gray>| <green>%sender% <dark_gray>: <green>%command%"
     
     player:
-      enabled: "%c &fCommandspy enabled"
-      disabled: "%c &fCommandspy disabled"
+      enabled: "%c <white>Commandspy enabled"
+      disabled: "%c <white>Commandspy disabled"
 
     arg-2:
-      enabled: "%c &fCommandspy enabled from &c%arg-2%"
-      disabled: "%c &fCommandspy disabled from &c%arg-2%"
+      enabled: "%c <white>Commandspy enabled from <red>%arg-2%"
+      disabled: "%c <white>Commandspy disabled from <red>%arg-2%"
 
 
     commands:
-      blocked: "%c &fBlocked &a%command%&f."
-      unblocked: "%c &fUnblocked word &a%command%&f."
+      blocked: "%c <white>Blocked <green>%command%<white>."
+      unblocked: "%c <white>Unblocked word <green>%command%<white>."
 
     list:
       main:
-        - "%c &fList of arguments."
+        - "%c <white>List of arguments."
         - ""
-        - "&8- &f/cspy list players"
-        - "&8- &f/cspy list blocked-commands"
+        - "<dark_gray>- <white>/cspy list players"
+        - "<dark_gray>- <white>/cspy list blocked-commands"
         - ""
       players:
-        - "&8->"
-        - "&fList of players using commandspy"
-        - "&8->"
-        - "&8- &f%loop-value%"
-        - "&8->"
+        - "<dark_gray>->"
+        - "<white>List of players using commandspy"
+        - "<dark_gray>->"
+        - "<dark_gray>- <white>%loop-value%"
+        - "<dark_gray>->"
       blocked-commands:
-        - "&8->"
-        - "&fList of blocked commands."
-        - "&8->"
-        - "&8- &f%loop-value%"
-        - "&8->"
+        - "<dark_gray>->"
+        - "<white>List of blocked commands."
+        - "<dark_gray>->"
+        - "<dark_gray>- <white>%loop-value%"
+        - "<dark_gray>->"
 
     # Blocked commands from the commandspy
     blocked-commands:
@@ -443,9 +443,9 @@ helpop:
     watch: clab.commands.helpop.watch
 
   player:
-    enabled: "%c &fHelpop enabled"
-    disabled: "%c &fHelpop disabled"
-    toggle: "%c &fHelpop %mode%"
+    enabled: "%c <white>Helpop enabled"
+    disabled: "%c <white>Helpop disabled"
+    toggle: "%c <white>Helpop %mode%"
 
     # Optional (Only if you use %mode%)
     variable-on: "enabled"
@@ -454,10 +454,10 @@ helpop:
   # Enable rules filters from /helpop.
   enable-revisor: true
 
-  received: "&c[HelpOP] &8| &fMessage received! Thanks &a%player%&f."
-  message: "&c[HelpOP] &8| &f%player% &8: &f%message%"
+  received: "<red>[HelpOP] <dark_gray>| <white>Message received! Thanks <green>%player%<white>."
+  message: "<red>[HelpOP] <dark_gray>| <white>%player% <dark_gray>: <white>%message%"
 
-  list-helpop: "&8->%newline%&fList of players that can watch helpop%newline%&8->"
+  list-helpop: "<dark_gray>->%newline%<white>List of players that can watch helpop%newline%<dark_gray>->"
 
 
 stream:
@@ -470,7 +470,7 @@ stream:
 
   # Enable rules filters from /stream.
   enable-revisor: true
-  text: "&e[Stream] &8| &a%player% &fis in streaming. Link: &a%message%"
+  text: "<yellow>[Stream] <dark_gray>| <green>%player% <white>is in streaming. Link: <green>%message%"
 
   # If you activate this, the streamers can only put a valid link in the text, instead of a welcome text.
   only-link: true
@@ -491,12 +491,12 @@ staff-chat:
 
   symbol: "$"
   
-  message: "&d[StaffChatManager] &8| &f%player% &8: &f%message%"
+  message: "<light_purple>[StaffChatManager] <dark_gray>| <white>%player% <dark_gray>: <white>%message%"
 
   player:
-    enabled: "%c &fStaffchat enabled"
-    disabled: "%c &fStaffchat disabled"
-    toggle: "%c &fStaffchat %mode%"
+    enabled: "%c <white>Staffchat enabled"
+    disabled: "%c <white>Staffchat disabled"
+    toggle: "%c <white>Staffchat %mode%"
 
     # Optional (Only if you use %mode%)
     variable-on: "enabled"
@@ -514,42 +514,42 @@ announcer:
 
   # /announcer help:
   help:
-    - "&a[Announcer] &8- &fList of subcommands:"
-    - "&8- &f/announcer add [<text..>] &8: &fTo add a announcer "
-    - "&8- &f/announcer addline [id] [<text>] &8: &fTo add a line to announcer."
-    - "&8- &f/announcer removeline [id] [<text>] &8: &fTo remove a line to announecr."
-    - "&8- &f/announcer remove [id] &8: &fTo remove a announcer."
-    - "&8- &f/announcer list &8: &fTo see the list of announces."
-    - "&8- &f/announcer set [interval/ordened] &8: &fTo set the repeat mode of announces."
+    - "<green>[Announcer] <dark_gray>- <white>List of subcommands:"
+    - "<dark_gray>- <white>/announcer add [<text..>] <dark_gray>: <white>To add a announcer "
+    - "<dark_gray>- <white>/announcer addline [id] [<text>] <dark_gray>: <white>To add a line to announcer."
+    - "<dark_gray>- <white>/announcer removeline [id] [<text>] <dark_gray>: <white>To remove a line to announecr."
+    - "<dark_gray>- <white>/announcer remove [id] <dark_gray>: <white>To remove a announcer."
+    - "<dark_gray>- <white>/announcer list <dark_gray>: <white>To see the list of announces."
+    - "<dark_gray>- <white>/announcer set [interval/ordened] <dark_gray>: <white>To set the repeat mode of announces."
   
   # /announcer add:
   add:
-    announcer: "&a[Announcer] &8| &fCreated message: &a%message%&f."
-    line: "&a[Announcer] &8| &fAdded line from a message: %message%"
+    announcer: "<green>[Announcer] <dark_gray>| <white>Created message: <green>%message%<white>."
+    line: "<green>[Announcer] <dark_gray>| <white>Added line from a message: %message%"
   
   # /announcer remove:
   remove:
-    announcer: "&a[Announcer] &8| &fRemoved id: &a%id%&f."
-    line: "&a[Announcer] &8| &fRemoved a line: &a%message%&f."
+    announcer: "<green>[Announcer] <dark_gray>| <white>Removed id: <green>%id%<white>."
+    line: "<green>[Announcer] <dark_gray>| <white>Removed a line: <green>%message%<white>."
 
   # /announcer list:
   list:
     format:
-      - "&8->"
-      - "&fList of messages."
-      - "&8->"
+      - "<dark_gray>->"
+      - "<white>List of messages."
+      - "<dark_gray>->"
       - "%loop-value%"
-      - "&8->"
+      - "<dark_gray>->"
     loop-value:
-      - "%pst% &8- &fID: &a%id%"
-      - "&8- &f%message%"
+      - "%pst% <dark_gray>- <white>ID: <green>%id%"
+      - "<dark_gray>- <white>%message%"
   
   # /announcer set:
   set:
-    interval: "&a[Announcer] &8| &fSetted interval to &a%time% &fseconds."
+    interval: "<green>[Announcer] <dark_gray>| <white>Setted interval to <green>%time% <white>seconds."
 
     mode:
-      selected: "&a[Announcer] &8| &fSetted mode to &a%mode%&f."
+      selected: "<green>[Announcer] <dark_gray>| <white>Setted mode to <green>%mode%<white>."
 
       ordened: "ordened"
       random: "random"
@@ -562,12 +562,12 @@ announcer:
     type: ORDERED
     messages:
       1:
-        - "&fHello!"
+        - "<white>Hello!"
       2:
-        - "&eBye!"
+        - "<yellow>Bye!"
       3:
-        - "&3ChatLab &ePlugin"
-        - "&7Author: <rainbow>BryanGaming</rainbow>"
+        - "<aqua>ChatLab <yellow>Plugin"
+        - "<gray>Author: <rainbow>BryanGaming</rainbow>"
 
 party:
   # Enable this module?
@@ -581,47 +581,47 @@ party:
 
   # /party help:
   help:
-    - "&a[Party] &8- &fList of subcommands:"
-    - "&8- &f/party help &8: &fHelp subcommand."
-    - "&8- &f/party create &8: &fTo create a party."
-    - "&8- &f/party disband &8: &fTo disband a party &c[Requires leader]."
-    - "&8- &f/party join [<leader>] &8: &fTo join a party."
-    - "&8- &f/party leave &8: &fTo quit a party."
-    - "&8- &f/party info &8: &fTo see the info of a party."
-    - "&8- &f/party invite [<player>] &8: &fTo invite a player to a party."
-    - "&8- &f/party removeinvite [<player>] &8: &fTo remove invite a player to a party."
-    - "&8- &f/party promote [<player>] &8: &f&fTo promote a player to leader &c[Requires leader]."
-    - "&8- &f/party set [public/private] &8: &fTo set a party public or private &c[Requires leader]."
-    - "&8- &f/party kick [<player>] &8: &fTo kick a player &c[Requires leader]."
+    - "<green>[Party] <dark_gray>- <white>List of subcommands:"
+    - "<dark_gray>- <white>/party help <dark_gray>: <white>Help subcommand."
+    - "<dark_gray>- <white>/party create <dark_gray>: <white>To create a party."
+    - "<dark_gray>- <white>/party disband <dark_gray>: <white>To disband a party <red>[Requires leader]."
+    - "<dark_gray>- <white>/party join [<leader>] <dark_gray>: <white>To join a party."
+    - "<dark_gray>- <white>/party leave <dark_gray>: <white>To quit a party."
+    - "<dark_gray>- <white>/party info <dark_gray>: <white>To see the info of a party."
+    - "<dark_gray>- <white>/party invite [<player>] <dark_gray>: <white>To invite a player to a party."
+    - "<dark_gray>- <white>/party removeinvite [<player>] <dark_gray>: <white>To remove invite a player to a party."
+    - "<dark_gray>- <white>/party promote [<player>] <dark_gray>: <white><white>To promote a player to leader <red>[Requires leader]."
+    - "<dark_gray>- <white>/party set [public/private] <dark_gray>: <white>To set a party public or private <red>[Requires leader]."
+    - "<dark_gray>- <white>/party kick [<player>] <dark_gray>: <white>To kick a player <red>[Requires leader]."
 
-  created: "&b[Party] &8| &fCreated party."
-  deleted: "&b[Party] &8| &fDeleted party."
+  created: "<light_purple>[Party] <dark_gray>| <white>Created party."
+  deleted: "<light_purple>[Party] <dark_gray>| <white>Deleted party."
 
-  join: "&b[Party] &8| &fJoined party."
-  left: "&b[Party] &8| &fLeft party."
+  join: "<light_purple>[Party] <dark_gray>| <white>Joined party."
+  left: "<light_purple>[Party] <dark_gray>| <white>Left party."
 
-  set: "&b[Party] &8| &fSet party mode to &a%mode% &f."
+  set: "<light_purple>[Party] <dark_gray>| <white>Set party mode to <green>%mode% <white>."
 
   # When the player of your party left the server:
   on-left:
-    player: "&a[Party] &8| &fThe player &a%player% &fleft the server, so he was removed from your party."
-    leader: "&a[Party] &8| &fThe leader &a%player% left the server, so the party is deleted."
+    player: "<green>[Party] <dark_gray>| <white>The player <green>%player% <white>left the server, so he was removed from your party."
+    leader: "<green>[Party] <dark_gray>| <white>The leader <green>%player% left the server, so the party is deleted."
 
   invite:
-    sender: "&a[Party] &8| &fYou invited &a%target%"
-    target: "&a[Party] &8| &a%sender% &finvited you. Please put &a/party join &a%sender% &fto join."
+    sender: "<green>[Party] <dark_gray>| <white>You invited <green>%target%"
+    target: "<green>[Party] <dark_gray>| <green>%sender% <white>invited you. Please put <green>/party join <green>%sender% <white>to join."
 
-  remove-invite: "&a[Party] &8| &fYou remove invite to player &a%player%&f."
+  remove-invite: "<green>[Party] <dark_gray>| <white>You remove invite to player <green>%player%<white>."
 
   kick:
-    sender: "&a[Party] &8| &fYou kicked &a%player%&f."
-    target: "&a[Party] &8| &a%leader% &fkicked you."
+    sender: "<green>[Party] <dark_gray>| <white>You kicked <green>%player%<white>."
+    target: "<green>[Party] <dark_gray>| <green>%leader% <white>kicked you."
 
-  leader: "&a[Party] &8| &fYou set leader to &a%player%"
+  leader: "<green>[Party] <dark_gray>| <white>You set leader to <green>%player%"
 
   info:
     format:
-      - "&b[Party] &8| &fParty info:"
-      - "&8- &fLeader: &a%leader%"
-      - "&8- &fPlayers:"
-      - "&8- %loop-players%"
+      - "<light_purple>[Party] <dark_gray>| <white>Party info:"
+      - "<dark_gray>- <white>Leader: <green>%leader%"
+      - "<dark_gray>- <white>Players:"
+      - "<dark_gray>- %loop-players%"
