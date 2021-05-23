@@ -1,8 +1,14 @@
 #
-# Sounds.yml.
+#   _____ _           _   _           _     
+#  / ____| |         | | | |         | |    
+# | |    | |__   __ _| |_| |     __ _| |__  
+# | |    | '_ \ / _` | __| |    / _` | '_ \ 
+# | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
 #
+# Sounds Config | config.yml
+
 # Sounds compatible in 1.8/1.9: https://www.spigotmc.org/wiki/cc-sounds-list/
-#
 
 # Configuration:
 config:

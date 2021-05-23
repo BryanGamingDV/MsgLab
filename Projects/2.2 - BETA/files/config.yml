@@ -1,7 +1,12 @@
 #
-# ChatLab by BryanGaming
-# Version: 2.2
+#   _____ _           _   _           _     
+#  / ____| |         | | | |         | |    
+# | |    | |__   __ _| |_| |     __ _| |__  
+# | |    | '_ \ / _` | __| |    / _` | '_ \ 
+# | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
 #
+# Main Config | config.yml
 
 #
 # File Sectors:
@@ -25,7 +30,6 @@ config-version: 2.2
 # Options:
 #
 options:
-
   # You can create prefixes with variables unlimited, obiously!
   # This is not the chat format! If you want to go to formats go to formats.yml.
   replacer:

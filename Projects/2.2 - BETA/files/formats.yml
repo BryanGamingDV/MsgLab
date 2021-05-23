@@ -1,6 +1,13 @@
 #
-# formats.yml
+#   _____ _           _   _           _     
+#  / ____| |         | | | |         | |    
+# | |    | |__   __ _| |_| |     __ _| |__  
+# | |    | '_ \ / _` | __| |    / _` | '_ \ 
+# | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
 #
+# Formats Config | formats.yml
+
 # Note: You can use MiniMessage in the message paths.
 # Example: <gradient:gold:white>Hello everyone</gradient>
 # Or with HEX colors (1.16+ only) <color:#8DDA59>Hola</color>

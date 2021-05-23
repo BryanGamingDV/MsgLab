@@ -1,6 +1,13 @@
 #
-# Filters.
+#   _____ _           _   _           _     
+#  / ____| |         | | | |         | |    
+# | |    | |__   __ _| |_| |     __ _| |__  
+# | |    | '_ \ / _` | __| |    / _` | '_ \ 
+# | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
 #
+# Filters Config | config.yml
+
 # You can make use of actions when any user violates the rules that you have imposed. 
 #
 # Example:
@@ -18,7 +25,6 @@
 #
 # [BROADCASTP] (permission)
 # Send a message to the staff with the specified permission.
-#
 
 # Cooldown filter.
 cooldown:
@@ -38,12 +44,10 @@ cooldown:
     disabled-cmds:
       - hwllo
 
-#
 # Tags
 #
 # Here you can set the permission and the variable
 # to be replaced to use the color and tags
-#
 tags:
   color:
     variable: "%ml_color%"
