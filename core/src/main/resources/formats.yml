@@ -381,7 +381,7 @@ revisor:
   anti-flood:
     enabled: true
 
-    min-chars: 2
+    min-chars: 3
 
     message:
       enabled: true
