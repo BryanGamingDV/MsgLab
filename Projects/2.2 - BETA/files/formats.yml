@@ -254,7 +254,7 @@ chat-format:
       action:
         # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
         type: SUGGEST_COMMAND
-         format: "/msg %player% message"
+        format: "/msg %player% message"
 
       # Permission (Only works if the group access is permission):
       permission: group.vip+
