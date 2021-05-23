@@ -36,14 +36,14 @@ options:
     # Prefix path:
     prefix:
       # Format path
-      format: "&b[Clab] &8|"
+      format: "<light_purple>[Clab] <dark_gray>|"
       # Variable to be replaced.
       variable: "%c"
     
     # Error path:
     error:
       # Format path
-      format: "&c[Error] &8|"
+      format: "<red>[Error] <dark_gray>|"
       # Variable to be replaced.
       variable: "%e"
 
