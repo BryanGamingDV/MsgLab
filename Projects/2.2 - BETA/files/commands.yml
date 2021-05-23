@@ -2,17 +2,13 @@
 # Commands.yml
 #
 
-#
 # Note: You can use MiniMessage in the message paths.
 # Example: <gradient:gold:white>Hello everyone</gradient>
 # Or with HEX colors (1.16+ only) <color:#8DDA59>Hola</color>
 # Wiki: https://docs.adventure.kyori.net/minimessage.html#format
-#
 
-#
 # Channels Module
 # Here you can configure permissions, messages and channel settings.
-#
 channel:
   # Enable this module?
   enabled: true
@@ -60,11 +56,9 @@ channel:
       yes_permission: "&2-> &aYou have the condition to join to the channel."
       no_permission: "&4-> &cYou don't have the condition to join to the channel"
 
-#
 # Private Messages and Replies module
 # Here you can configure permissions, messages,
 # formats, and the GUI of private messages.
-#
 msg-reply:
   # Enable this module?
   enabled: true
@@ -83,17 +77,19 @@ msg-reply:
   online-gui:
     mode: text
 
+    # Inventory title.
     title: "&a- &fOnline players &a[%page%/%max%]"
     player:
       title: "&2%number%. &a%playername%"
       lore:
         - ""
         - "&a-> &fClick to chat with them!"
+    # Icon to go to the next page.
     next-page:
       id_name: "barrier"
       title: "&cNext page"
 
-      # Not obligatory:
+      # Not obligatory.
       lore:
         - ""
         - "&fClick to go to next page."
@@ -129,11 +125,9 @@ msg-reply:
     msg: "%c &fSorry, &a%player%&f's pms are disabled."
     left: "%c &fDear %player%, &fthe player &a(%player%) &fthat you talked with or talked with you left the game."
 
-#
 # Broadcast module
 # Configuration and formatting of the 
 # /broadcast command.
-#
 broadcast:
   # Enable this module?
   enabled: true
@@ -177,6 +171,9 @@ broadcast:
     hover: "%c &fHover successfully created!"
     disabled: "%c &fOption disabled!"
 
+# Chatting module
+# Configure alternative chat features.
+# To see the chat formats, go to formats.yml
 chat:
   # Enable this module?
   enabled: true
@@ -236,11 +233,9 @@ chat:
 
   reload: "%c &fChat reloaded."
 
-#
 # Main command module
 # Here you can configure all the main plugin command "/clab",
 # as well as its subcommands, permissions and formatting.
-#
 clab:
   # Enable this module?
   enabled: true
@@ -315,11 +310,9 @@ clab:
     enabled: "%c &fNow you can hear the sounds of the plugin."
     disabled: "%c &fNow you can't hear the sounds of the plugin."
 
-#
 # Message Of The Day module
 # Here you can configure the entry message that will appear
 # to each player when entering (only to the player).
-#
 motd:
   # Enable this module?
   enabled: true
@@ -504,8 +497,6 @@ staff-chat:
     # Optional (Only if you use %mode%)
     variable-on: "enabled"
     variable-off: "disabled"
-
-
 
 announcer:
   # Enable this module?

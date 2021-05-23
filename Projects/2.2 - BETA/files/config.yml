@@ -29,7 +29,6 @@ options:
   # You can create prefixes with variables unlimited, obiously!
   # This is not the chat format! If you want to go to formats go to formats.yml.
   replacer:
-
     # Prefix path:
     prefix:
       # Format path
@@ -46,6 +45,9 @@ options:
 
   # Section to activate or deactivate hooks automatically.
   allow-hooks:
+    # Enables the use of money for command-conditions, 
+    # the use of prefixes or suffixes in the format, 
+    # and for inbound and outbound messages.
     vault: true
     # Enables use of ProtocolLib to handle command autocompletion
     protocollib: true

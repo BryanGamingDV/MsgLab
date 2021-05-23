@@ -190,7 +190,6 @@ commands:
 
     # To block <tab>
     # - Requires ProtocolLib.
-    #
     block:
       enabled: false
 
@@ -201,6 +200,7 @@ commands:
       commands:
         - /ver
         - /help
+        - /icanhasbukkit
 
       # A message when the player is using block command module.
       message:
