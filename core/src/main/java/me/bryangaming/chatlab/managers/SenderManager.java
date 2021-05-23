@@ -8,6 +8,7 @@ import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -120,6 +121,9 @@ public class SenderManager {
 
     }
 
+    public void sendMessage(OfflinePlayer sender, String path){
+        sendMessage((Player) sender, path);
+    }
 
     public void sendMessage(Player sender, String path) {
 

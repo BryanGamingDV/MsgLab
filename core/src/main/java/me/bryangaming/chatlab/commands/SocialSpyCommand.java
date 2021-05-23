@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Command(names = {"socialspy", "spy"})
+@Command(names = {"socialspy", "sspy"})
 public class SocialSpyCommand implements CommandClass {
 
     private final PluginService pluginService;
@@ -39,7 +39,7 @@ public class SocialSpyCommand implements CommandClass {
         this.messagesFile = pluginService.getFiles().getMessagesFile();
     }
 
-    @Command(names = "")
+    @Command(names = {""})
     public boolean onMainCommand(@Sender Player player, @OptArg("") String args) {
 
         if (args.isEmpty()) {
@@ -83,8 +83,8 @@ public class SocialSpyCommand implements CommandClass {
     }
 
 
-    @Command(names = "on")
-    public boolean onOnSubCommand(@Sender Player player, OfflinePlayer target) {
+    @Command(names = {"on"})
+    public boolean onOnSubCommand(@Sender Player player, @OptArg OfflinePlayer target) {
 
         UserData playerSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
@@ -125,12 +125,12 @@ public class SocialSpyCommand implements CommandClass {
         return true;
     }
 
-    @Command(names = "off")
-    public boolean onOffSubCommand(@Sender Player player, @OptArg("") Player target) {
+    @Command(names = {"off"})
+    public boolean onOffSubCommand(@Sender Player player, @OptArg OfflinePlayer target) {
 
         UserData playerSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
-        if (target.getName().isEmpty()) {
+        if (target == null) {
             if (!(playerSpy.isSocialSpyMode())) {
                 senderManager.sendMessage(player, messagesFile.getString("error.socialspy.unactivated"));
                 senderManager.playSound(player, SoundEnum.ERROR);
