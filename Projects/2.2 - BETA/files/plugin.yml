@@ -4,35 +4,3 @@ version: 2.2
 author: BryanGaming
 softdepend: [ PlaceholderAPI, Multiverse-Core, Vault, ProtocolLib, DiscordSRV ]
 api-version: 1.13
-
-commands:
-  clab:
-    description: Plugin main command
-  chat:
-    description: Chat functions
-  socialspy:
-    description: Spy on a players social 
-  commandspy:
-    description: Spying on the commands executed by a player
-  broadcast:
-    description: Send a message to all players
-  broadcastworld:
-    description: Send a message to all players in world.
-  sc:
-    description: Send messages to staff chat
-  helpop:
-    description: Send help to the help chat
-  motd:
-    description: To watch or modify the server motd
-  channel: 
-    description: To use the channel manager
-  stream:
-    description: To stream
-  ignore:
-    description: Ignore a player
-  unignore:
-    description: Stop ignoring a player
-  msg:
-    description: Send a message to a player
-  reply:
-    description: Reply to a received message
