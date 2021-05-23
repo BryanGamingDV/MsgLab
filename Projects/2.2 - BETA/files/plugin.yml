@@ -8,46 +8,31 @@ api-version: 1.13
 commands:
   clab:
     description: Plugin main command
-    usage: /clab reload|help|debug
   chat:
     description: Chat functions
-    usage: /chat help|clear|mute|unmute|reload
   socialspy:
-    description: Spy on a players social activity
-    usage: /socialspy on|off <player>
+    description: Spy on a players social 
   commandspy:
     description: Spying on the commands executed by a player
-    usage: /commandspy on|off|list
   broadcast:
     description: Send a message to all players
-    usage: /broadcast <message>
   broadcastworld:
     description: Send a message to all players in world.
-    usage: /broadcastworld <message>
   sc:
     description: Send messages to staff chat
-    usage: /sc <on|off> <message>
   helpop:
     description: Send help to the help chat
-    usage: /helpop <message>
   motd:
     description: To watch or modify the server motd
-    usage: /motd addline|removeline|setline <id|text> <text>
   channel: 
     description: To use the channel manager
-    usage: /channel join|quit|list|move <channel>
   stream:
     description: To stream
-    usage: /stream <text>
   ignore:
     description: Ignore a player
-    usage: /ignore <player>
   unignore:
     description: Stop ignoring a player
-    usage: /unignore <player>
   msg:
     description: Send a message to a player
-    usage: /msg <player> <message>
   reply:
     description: Reply to a received message
-    usage: /reply <message>
