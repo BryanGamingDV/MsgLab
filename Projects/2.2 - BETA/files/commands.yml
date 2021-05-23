@@ -1,6 +1,11 @@
+#   _____ _           _   _           _     
+#  / ____| |         | | | |         | |    
+# | |    | |__   __ _| |_| |     __ _| |__  
+# | |    | '_ \ / _` | __| |    / _` | '_ \ 
+# | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
 #
-# Commands.yml
-#
+# Commands Config | config.yml
 
 # Note: You can use MiniMessage in the message paths.
 # Example: <gradient:gold:white>Hello everyone</gradient>
