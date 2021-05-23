@@ -74,7 +74,7 @@ public class ReplyCommand implements CommandClass {
             }
         }
 
-        if (!senderManager.hasPermission(sender, "color.commands")) {
+        if (!senderManager.hasPermission(sender, "color.variable")) {
             text = "<pre>" + text + "</pre>";
         }
 

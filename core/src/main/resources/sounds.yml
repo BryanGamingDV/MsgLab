@@ -29,6 +29,11 @@ sounds:
     sound: LEVEL_UP
     pitch: 1
 
+  receive_msg:
+    enabled: true
+    sound: LEVEL_UP
+    pitch: 1
+
   # Sound.Broadcast
   receive_broadcast:
     enabled: true

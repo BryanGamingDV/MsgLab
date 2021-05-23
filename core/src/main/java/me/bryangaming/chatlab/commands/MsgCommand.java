@@ -173,7 +173,7 @@ public class MsgCommand implements CommandClass {
             message = textRevisorEvent.getMessageRevised();
         }
 
-        if (!senderManager.hasPermission(sender, "color.commands")) {
+        if (!senderManager.hasPermission(sender, "color.variable")) {
             message = "<pre>" + message + "</pre>";
         }
 

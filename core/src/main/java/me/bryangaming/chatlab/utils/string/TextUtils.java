@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -62,6 +63,7 @@ public class TextUtils {
         path = VariableUtils.replaceAllVariables(player, path);
         path = TextUtils.convertLegacyToMiniMessage(path);
 
+        System.out.println(path);
         return MiniMessage.get().parse(path);
     }
 
@@ -164,18 +166,17 @@ public class TextUtils {
         StackTraceElement[] stackTraceElement = new Exception().getStackTrace();
 
         for (int stackId = 0; stackId < stackTraceElement.length; stackId++) {
-
             if (stackId < 1) {
                 continue;
             }
 
             String errorLine = stackTraceElement[stackId].toString();
 
-            if (errorLine.contains("java.")) {
+            if (errorLine.contains("sun.")) {
                 break;
             }
 
-            if (!errorLine.contains("code.")) {
+            if (!errorLine.startsWith("me.bryangaming.chatlab")) {
                 continue;
             }
 
