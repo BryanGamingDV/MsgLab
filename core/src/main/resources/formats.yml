@@ -497,7 +497,7 @@ revisor-cmd:
         format: ""
 
     # Fitler commands [Only 1.13+]
-    fitler:
+    filter:
       enabled: true
 
       groups:

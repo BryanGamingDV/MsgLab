@@ -3,9 +3,12 @@ package me.bryangaming.chatlab.listeners;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.utils.Configuration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChatTabCompleteEvent;
 import org.bukkit.event.player.PlayerCommandSendEvent;
+import org.bukkit.event.server.TabCompleteEvent;
 
 import java.util.Collection;
 
@@ -23,13 +26,13 @@ public class TabListener implements Listener {
 
     @EventHandler
     public void onTab(PlayerCommandSendEvent playerCommandSendEvent) {
+
         if (!formatsFile.getBoolean("revisor-cmd.tab-module.filter.enabled")) {
             return;
         }
 
         Collection<String> commands = playerCommandSendEvent.getCommands();
         commands.clear();
-
         GroupManager groupManager = pluginService.getPlayerManager().getGroupManager();
 
         for (String completitions : formatsFile.getStringList("revisor-cmd.tab-module.filter.groups." + groupManager.getFitlerGroup(playerCommandSendEvent.getPlayer()))) {
