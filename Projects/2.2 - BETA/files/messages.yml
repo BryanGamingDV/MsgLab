@@ -1,7 +1,12 @@
 #
-# Errors messages:
+#   _____ _           _   _           _     
+#  / ____| |         | | | |         | |    
+# | |    | |__   __ _| |_| |     __ _| |__  
+# | |    | '_ \ / _` | __| |    / _` | '_ \ 
+# | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
 #
-
+# Error Messages | messages.yml
 
 # Global errors
 global:
@@ -15,10 +20,8 @@ global:
   console: "You can't use this command in console."
   # When in the argument that asked for a player, you put one that is not connected.
   player-offline: "%c &fThat player is not online."
-  sounds:
-    # When the sound you put in sounds.yml, does not exist in the version of the software you use.
-    no-exists: "%e &fThat sound doesn't exists in this version :(."
-
+  # When the sound you put in sounds.yml, does not exist in the version of the software you use.
+  sound-not-available: "%e &fThat sound doesn't exists in this version :(."
 
 clab:
   # Section of /chatlab config:
@@ -33,10 +36,8 @@ clab:
   debug:
     unknown-world: "%e &fUnknown world: &a%world%&f."
 
-  
   unknown-page: "%e &fUnknown page."
   disabled: "%c &fYou can't use the sound option."
-
 
 # Section of /msg or /reply
 msg-reply:
@@ -77,7 +78,6 @@ staff-chat:
 
 # Section of /socialspy
 socialspy:
-
   player:
     activated: "%e &fYou already activated socialspy."
     unactivated: "%e &fYou already disabled socialspy."
@@ -130,7 +130,6 @@ chat:
 
 # Section of /commandspy
 commandspy:
-
   status:
     player:
       already-enabled: "%e &fYou have already the commandspy enabled."
@@ -159,8 +158,7 @@ announcer:
 
 # Section of /party
 party:
-  join:
-    max-players: "%e &fYou can't join to the party, the default max-players in the config is &a%max-players%"
+  reached-max-players: "%e &fYou can't join to the party, the default max-players in the config is &a%max-players%"
 
   already-have: "%e &fYou already have a party."
   already-joined: "%e &fYou already joined a party."

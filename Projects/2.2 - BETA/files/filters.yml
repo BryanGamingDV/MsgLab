@@ -1,7 +1,30 @@
+#
+#   _____ _           _   _           _     
+#  / ____| |         | | | |         | |    
+# | |    | |__   __ _| |_| |     __ _| |__  
+# | |    | '_ \ / _` | __| |    / _` | '_ \ 
+# | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
+#
+# Filters Config | config.yml
 
+# You can make use of actions when any user violates the rules that you have imposed. 
 #
-# Fitlers.
+# Example:
+#----------------------------------------------------------------------------------
+# actions:
+#      - "[MESSAGE] &a[Server] &8| &fDon't put a flood test."
+#      - "[CONSOLECMD] warn %player%"
+#      - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fdid a flood text."
+#----------------------------------------------------------------------------------
+# [MESSAGE] 
+# It will send a message to the player.
 #
+# [CONSOLECMD]
+# It will execute a command in the console.
+#
+# [BROADCASTP] (permission)
+# Send a message to the staff with the specified permission.
 
 # Cooldown filter.
 cooldown:
@@ -21,10 +44,10 @@ cooldown:
     disabled-cmds:
       - hwllo
 
-#
 # Tags
 #
-
+# Here you can set the permission and the variable
+# to be replaced to use the color and tags
 tags:
   color:
     variable: "%ml_color%"
@@ -37,9 +60,8 @@ tags:
 
 message:
 
-  # Emojis fitler.
+  # Emojis filter.
   # Format: emoji;symbol
-
   emojis:
     - ":happy:;:D"
     - ":sad:;:("
@@ -60,8 +82,9 @@ message:
     # The word that you replace in the word that the other player mention you, to stand out.
     replace-mention: "&e@%player%"
 
-  # Bot response fitler
+  # Bot response filter
   bot-respose:
+    # Enable this module?
     enabled: true
 
     lists:
@@ -74,22 +97,23 @@ message:
 
   #
   # Rule filter section.
+  #
 
   # Perms.
-  perms:
-    # To bypass the text rule fitler.
+  permissions:
+    # To bypass the text rule filter.
     bypass: clab.text.bypass
-    # To bypass the command rule fitler.
+    # To bypass the command rule filter.
     cmd-bypass: clab.cmd.bypass
 
   # Anti flood - If player put a repeated character many v times.
   anti-flood:
     enabled: true
 
-    # Min repeated chars to detect the message.
-    min-chars: 2
+    # Minimum number of repeated characters to be detected as abuse.
+    min-chars: 3
 
-    # Actions when the player's message was detected by the fitler. [Optional]
+    # Actions when the player's message was detected by the filter. [Optional]
     actions:
       - "[MESSAGE] &a[Server] &8| &fDon't put a flood test."
       - "[CONSOLECMD] warn %player%"
@@ -97,19 +121,24 @@ message:
 
   # Words module - If player put a bad word:
   words-module:
+    # Enable this module?
     enabled: true
+    # Enable the regex option to improve recognition accuracy?
     regex: false
 
+    # "badword; to-replace"
     list-words:
       - "fuck; **"
       - "idiot; **"
       - "good; **"
 
+    # Message that will show the player the forbidden words he has mentioned.
     word-list:
+      # Enable this module?
       enabled: true
       format: "%c &fYou said &a%words% &fobscene words."
 
-    # Actions when the player's message was detected by the fitler. [Optional]
+    # Actions when the player's message was detected by the filter. [Optional]
     actions:
     - "[MESSAGE] &a[Server] &8| &fDon't put a bad word."
     - "[CONSOLECMD] warn %player%"
@@ -118,37 +147,43 @@ message:
 
   # Dot module - If player didn't put a dot:
   dot-module:
+    # Enable this module?
     enabled: true
 
-    min-word: 1
+    # Minimum number of words to be required to place a dot at the end.
+    min-word: 2
 
-    # Actions when the player's message was detected by the fitler. [Optional]
+    # Actions when the player's message was detected by the filter. [Optional]
     # Note: Delete the '#' if you want to use]
     # actions:
     #  - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fdidn't put a dot."
 
   # First mayus module - If his first letter isn't mayus.
   first-mayus-module:
+    # Enable this module?
     enabled: true
 
-    # Actions when the player's message was detected by the fitler. [Optional]
+    # Actions when the player's message was detected by the filter. [Optional]
     # Note: Delete the '#' if you want to use]
     # actions:
     #  - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &didn't put a mayus."
 
   # Caps module - If player putted too much caps.
   caps-module:
+    # Enable this module?
     enabled: true
 
+    # Minimum number of capital letters to be detected as abuse.
     min-mayus: 5
 
-    # Actions when the player's message was detected by the fitler. [Optional]
+    # Actions when the player's message was detected by the filter. [Optional]
     # Note: Delete the '#' if you want to use]
     # actions:
     #  - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fwas using caps."
 
   # Link module - If player put a external link.
   link-module:
+    # Enable this module?
     enabled: true
 
     # To block "." (If you enable this, you won't be able to use this)
@@ -157,25 +192,28 @@ message:
       - .net
       - .com
       - .serv.nu
+      - .server.pro
+      - .tk
+      - .org
 
     # Note: This replace the link or point (if you enabled this).
     replace-link: " "
 
-    # Actions when the player's message was detected by the fitler. [Optional]
+    # Actions when the player's message was detected by the filter. [Optional]
     actions:
       - "[CONSOLECMD] ban %player%"
       - "[BROADCASTP] server.staff, &a[Server] &8| &a%player% &fwas putting a link."
 
 
 commands:
-
   tab-module:
+    # Enable this module?
     enabled: false
 
     # To block <tab>
     # - Requires ProtocolLib.
-    #
     block:
+      # Enable this module?
       enabled: false
 
       # When you put /<tab>:
@@ -185,14 +223,16 @@ commands:
       commands:
         - /ver
         - /help
+        - /icanhasbukkit
 
       # A message when the player is using block command module.
       message:
         enabled: false
         format: ""
 
-    # Fitler commands [Only 1.13+]
-    fitler:
+    # filter commands [Only 1.13+]
+    filter:
+      # Enable this module?
       enabled: true
 
       # You can put @<group> to fill in the commands that are in such a group.
@@ -208,19 +248,19 @@ commands:
   # Commands module:
   #
   commands-module:
-
-    #
     # Conditions:
     # - Requires Vault:
-    # Format: command : condition
+    # Format: 
+    # command: "condition"
     #
-
     # If you want how to use the condition section.
     # Check in: https://bryangaming.gitbook.io/chatlab/option-guide/commandconditions
     conditions:
+      # Enable this module?
       enabled: false
 
       commands:
+        # It will be checked if when executing the command "test" the user has $500 in his account of economy.
         test: "%pmoney% = 500"
 
       # A message when the player is using the conditions command module.
@@ -230,11 +270,11 @@ commands:
 
     # Block Command Module.
     block:
+      # Enable this module?
       enabled: true
 
       # To block people with op.
       op:
-
         # List of blocked commands.
         list:
           - plugins
@@ -248,7 +288,6 @@ commands:
 
       # To block people, and you can bypass with a permission.
       default:
-
         # Permission to bypass the block command module.
         permission: test.test
 
