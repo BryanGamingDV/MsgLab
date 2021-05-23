@@ -48,7 +48,7 @@ public class VariableUtils {
         if (string.startsWith("[CENTER]")){
             String stringWithOutVariable = string.substring(8);
 
-            return StringUtils.center(stringWithOutVariable, stringWithOutVariable.length());
+            return StringUtils.center(stringWithOutVariable, 80);
         }
         return string;
     }
