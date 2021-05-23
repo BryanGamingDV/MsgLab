@@ -17,7 +17,6 @@ global:
   # When the sound you put in sounds.yml, does not exist in the version of the software you use.
   sound-not-available: "%e &fThat sound doesn't exists in this version :(."
 
-
 clab:
   # Section of /chatlab config:
   config:
@@ -33,7 +32,6 @@ clab:
 
   unknown-page: "%e &fUnknown page."
   disabled: "%c &fYou can't use the sound option."
-
 
 # Section of /msg or /reply
 msg-reply:
@@ -74,7 +72,6 @@ staff-chat:
 
 # Section of /socialspy
 socialspy:
-
   player:
     activated: "%e &fYou already activated socialspy."
     unactivated: "%e &fYou already disabled socialspy."
@@ -127,7 +124,6 @@ chat:
 
 # Section of /commandspy
 commandspy:
-
   status:
     player:
       already-enabled: "%e &fYou have already the commandspy enabled."

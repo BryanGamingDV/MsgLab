@@ -361,7 +361,6 @@ spymodule:
     
     # Section of messages when you toggle de spymode.
     message:
-
       enabled: "%c &fSocialspy enabled"
       disabled: "%c &fSocialspy disabled"
       toggle: "%c &fSocialspy %mode%"

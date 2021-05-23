@@ -1,6 +1,10 @@
 #
 # formats.yml
 #
+# Note: You can use MiniMessage in the message paths.
+# Example: <gradient:gold:white>Hello everyone</gradient>
+# Or with HEX colors (1.16+ only) <color:#8DDA59>Hola</color>
+# Wiki: https://docs.adventure.kyori.net/minimessage.html#format
 
 # Per world chat - Format.
 per-world-chat:
@@ -37,6 +41,8 @@ per-world-chat:
 #
 # Radial chat
 #
+# You will have the possibility that only people in the 
+# specified area can read the messages you send in the chat.
 radial-chat:
   enabled: false
 
@@ -47,7 +53,6 @@ radial-chat:
 #
 # Chat Format:
 #
-
 chat-format:
   perms:
     # If player can use color in the chat:
@@ -132,7 +137,6 @@ chat-format:
 
   # If player has OP or has "*" (Optional, you can remove this configuration section.)
   op:
-
     # Text components.
     # Note: The hover and action paths are optional.
     bases:
@@ -174,7 +178,6 @@ chat-format:
   # none -> To disable this option.
   group-access: group
   groups:
-
     vip:
       bases:
         prefix:
@@ -256,8 +259,6 @@ chat-format:
 # If you want how to create channel.
 # You can enter in: https://bryangaming.gitbook.io/chatlab/option-guide/channels.
 channel:
-
-
   apprendice:
     # The condition to join the channel.
     condition:
@@ -425,7 +426,6 @@ party-chat:
 # Go in: https://bryangaming.gitbook.io/chatlab/option-guide/jq-join-and-quit
 
 lobby:
-
   # Group access:
   # permission -> If player has permission of the group, he receive the data of that group.
   # group -> If player is in group, he recieve the data of that group. [Vault & complement required].
@@ -456,7 +456,7 @@ lobby:
           - "A test motd"
         # Actions from player.
         actions:
-          -
+          - ""
 
       # When a player quit to the server.
       quit:
@@ -464,7 +464,7 @@ lobby:
         message: "The player %player% left!"
         # Actions from player.
         actions:
-          -
+          - ""
     vip:
       # When a player join for the first time.
       first-join:
@@ -475,7 +475,7 @@ lobby:
           - "A test motd"
         # Actions from player.
         actions:
-          -
+          - ""
       # When a player join to the server.
       join:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
@@ -485,11 +485,11 @@ lobby:
           - "A test motd"
         # Actions from player.
         actions:
-          -
+          - ""
       # When a player quit to the server.
       quit:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
         message: "The player %player% left!"
         # Actions from player.
         actions:
-          -
+          - ""
