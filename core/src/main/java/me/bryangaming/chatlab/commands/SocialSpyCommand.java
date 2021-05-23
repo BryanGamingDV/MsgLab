@@ -8,6 +8,7 @@ import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
+import me.fixeddev.commandflow.annotated.annotation.ArgOrSub;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
@@ -40,16 +41,7 @@ public class SocialSpyCommand implements CommandClass {
     }
 
     @Command(names = {""})
-    public boolean onMainCommand(@Sender Player player, @OptArg("") String args) {
-
-        if (args.isEmpty()) {
-            socialSpyManager.toggleOption(player.getUniqueId());
-            senderManager.sendMessage(player.getPlayer(), commandFile.getString("commands.socialspy.player.toggle")
-                    .replace("%mode%", socialSpyManager.getStatus()));
-            senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy");
-            return true;
-        }
-
+    public boolean onMainCommand(@Sender Player player) {
         senderManager.sendMessage(player, messagesFile.getString("error.no-arg")
                 .replace("%usage%", TextUtils.getUsage("socialspy", "on, off, list", "<player>")));
         senderManager.playSound(player, SoundEnum.ERROR);

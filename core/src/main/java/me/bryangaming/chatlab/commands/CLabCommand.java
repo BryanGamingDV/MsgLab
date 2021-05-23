@@ -89,7 +89,6 @@ public class CLabCommand implements CommandClass {
 
     @Command(names = "reload")
     public boolean reloadSubCommand(CommandSender sender, @OptArg("") String file) {
-        System.out.println(sender.getName());
         if (!(senderManager.hasPermission(sender, "commands.clab.reload"))) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
             senderManager.playSound(sender, SoundEnum.ERROR);

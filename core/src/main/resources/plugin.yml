@@ -1,8 +1,8 @@
 main: me.bryangaming.chatlab.ChatLab
 name: ChatLab
-version: 2.1.10
+version: 2.1.11
 author: BryanGaming
-softdepend: [ PlaceholderAPI, Multiverse-Core, Vault, ProtocolLib, DiscordSRV ]
+softdepend: [PlaceholderAPI, Multiverse-Core, Vault, ProtocolLib, DiscordSRV ]
 api-version: 1.13
 
 commands:

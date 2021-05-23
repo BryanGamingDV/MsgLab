@@ -63,7 +63,6 @@ public class TextUtils {
         path = VariableUtils.replaceAllVariables(player, path);
         path = TextUtils.convertLegacyToMiniMessage(path);
 
-        System.out.println(path);
         return MiniMessage.get().parse(path);
     }
 
