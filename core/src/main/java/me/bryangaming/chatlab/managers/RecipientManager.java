@@ -82,19 +82,19 @@ public class RecipientManager {
                 }
             }
             return;
-        } else {
-            addRecipients(event, new ArrayList<>(Bukkit.getOnlinePlayers()));
         }
 
-        return;
+        addRecipients(event, new ArrayList<>(Bukkit.getOnlinePlayers()));
     }
 
     private void addRecipient(AsyncPlayerChatEvent event, Player recipient) {
         IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
 
-        if (ignoreManager.playerIsIgnored(event.getPlayer().getUniqueId(), recipient.getUniqueId())) {
-            event.getRecipients().add(recipient);
+        if (!ignoreManager.playerIsIgnored(event.getPlayer().getUniqueId(), recipient.getUniqueId())) {
+            return;
         }
+
+        event.getRecipients().add(recipient);
     }
 
     private void addRecipients(AsyncPlayerChatEvent event, Collection<Player> recipents) {

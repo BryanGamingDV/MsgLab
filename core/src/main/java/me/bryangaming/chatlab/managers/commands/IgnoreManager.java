@@ -79,12 +79,13 @@ public class IgnoreManager {
         }
 
         Configuration players = pluginService.getFiles().getPlayersFile();
-        String playerName = Bukkit.getPlayer(playerIgnored).getName();
+        String playerName = Bukkit.getPlayer(sender).getName();
 
-        if (!(players.contains("players"))) return false;
+        if (!(players.contains("players."))) return false;
 
         List<String> ignorelist = players
-                .getStringList("players." + sender.toString() + ".players-ignored");
+                .getStringList("players." + playerIgnored.toString() + ".players-ignored");
+
 
         return ignorelist.contains(playerName);
     }
