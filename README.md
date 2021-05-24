@@ -1,6 +1,6 @@
-# ChatLab (MsgLab)
-![Project Status](https://img.shields.io/github/workflow/status/BryanGamingDV/ChatLab/Maven%20Build/main)
-Advanced message plugin for your [spigot](http://spigotmc.org/) minecraft server 1.8.8-1.16.5
+# ChatLab ![Project Status](https://img.shields.io/github/workflow/status/BryanGamingDV/ChatLab/Maven%20Build/main) 
+
+Advanced message plugin for your [spigot](http://spigotmc.org/) minecraft server 1.8.8 - 1.16.5
 
 ## Introduction
 ChatLab (MsgLab) is a messaging plugin with many features, it supports bukkit, spigot, [paper](https://papermc.io/downloads) and forks; you can change the format of the chat on your server, you can use emojis in the chat, you have the ability to mention people in the chat by typing their names, you can block commands, it supports PlaceHolderAPI, and much more.
