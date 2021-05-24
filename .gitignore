@@ -1,6 +1,6 @@
 
-*.xml
 *.iml
+.idea*
 api/target
 core/Core.iml
 core/target/
