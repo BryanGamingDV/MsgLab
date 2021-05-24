@@ -51,7 +51,7 @@ public class BroadcastWorldCommand implements CommandClass {
 
         if (commandFile.getBoolean("commands.broadcast.enable-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
-            Bukkit.getServer().getPluginManager().callEvent(textRevisorEvent);
+            ServerWrapper.getData().getPluginManager().callEvent(textRevisorEvent);
 
             if (textRevisorEvent.isCancelled()) {
                 return true;

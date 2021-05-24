@@ -1,9 +1,10 @@
 package me.bryangaming.chatlab.common.events;
 
+import me.bryangaming.chatlab.api.Event;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class HelpOpEvent extends Event {
+public class HelpOpEvent implements Event {
 
     private final String message;
 

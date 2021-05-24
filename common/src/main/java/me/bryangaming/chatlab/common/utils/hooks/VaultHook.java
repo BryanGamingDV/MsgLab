@@ -37,9 +37,9 @@ public class VaultHook implements Hook {
 
         pluginService.getPlugin().getLogger().info("Addons - Loading Vault..");
 
-        RegisteredServiceProvider<Permission> rspP = Bukkit.getServer().getServicesManager().getRegistration(Permission.class);
-        RegisteredServiceProvider<Chat> rspC = Bukkit.getServer().getServicesManager().getRegistration(Chat.class);
-        RegisteredServiceProvider<Economy> rspE = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
+        RegisteredServiceProvider<Permission> rspP = ServerWrapper.getData().getServicesManager().getRegistration(Permission.class);
+        RegisteredServiceProvider<Chat> rspC = ServerWrapper.getData().getServicesManager().getRegistration(Chat.class);
+        RegisteredServiceProvider<Economy> rspE = ServerWrapper.getData().getServicesManager().getRegistration(Economy.class);
 
         if (rspP != null) {
             permission = rspP.getProvider();

@@ -7,7 +7,7 @@ import me.bryangaming.chatlab.common.wrapper.SenderWrapper;
 import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.SenderWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 import java.util.ArrayList;

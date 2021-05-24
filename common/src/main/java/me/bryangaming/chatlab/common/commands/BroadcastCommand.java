@@ -8,6 +8,7 @@ import me.bryangaming.chatlab.common.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.common.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import me.bryangaming.chatlab.common.utils.Configuration;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -49,7 +50,6 @@ public class BroadcastCommand implements CommandClass {
 
         if (commandFile.getBoolean("commands.broadcast.enable-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
-            Bukkit.getServer().getPluginManager().callEvent(textRevisorEvent);
 
             if (textRevisorEvent.isCancelled()) {
                 return true;
@@ -58,7 +58,7 @@ public class BroadcastCommand implements CommandClass {
             message = textRevisorEvent.getMessageRevised();
         }
 
-        for (PlayerWrapper onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
+        for (PlayerWrapper onlinePlayer : ServerWrapper.getData().getOnlinePlayers()) {
             senderManager.sendMessage(onlinePlayer, commandFile.getString("commands.broadcast.text.global")
                     .replace("%player%", sender.getName())
                     .replace("%message%", message));

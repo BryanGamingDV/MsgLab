@@ -1,20 +1,18 @@
 package me.bryangaming.chatlab.common.listeners;
 
+import me.bryangaming.chatlab.api.Listener;
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.common.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.common.revisor.commands.BlockCmdRevisor;
 import me.bryangaming.chatlab.common.revisor.commands.ConditionRevisor;
 import me.bryangaming.chatlab.common.revisor.message.*;
-import me.bryangaming.chatlab.revisor.message.*;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RevisorListener implements Listener {
+public class RevisorListener implements Listener<TextRevisorEvent> {
 
     private PluginService pluginService;
 
@@ -48,8 +46,9 @@ public class RevisorListener implements Listener {
         revisorCmdList.addAll(Arrays.asList(listCmdRevisors));
     }
 
-    @EventHandler
-    public void onRevisor(TextRevisorEvent textRevisorEvent) {
+
+    @Override
+    public void doAction(TextRevisorEvent textRevisorEvent) {
         
             List<Revisor> revisorList;
             switch (textRevisorEvent.getRevisorType()){

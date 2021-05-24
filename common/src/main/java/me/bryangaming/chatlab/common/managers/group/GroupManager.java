@@ -57,20 +57,20 @@ public class GroupManager {
         DebugLogger debugLogger = pluginService.getLogs();
 
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-            pluginService.getPlugin().getLogger().info("[Server] | Error: Vault isn't loaded..");
-            debugLogger.log("[Server] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
+            pluginService.getPlugin().getLogger().info("[ServerWrapper] | Error: Vault isn't loaded..");
+            debugLogger.log("[ServerWrapper] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
 
         if (!TextUtils.isAllowedHooked("Vault")){
-            pluginService.getPlugin().getLogger().info("[Server] | Error: The hook is disabled..");
+            pluginService.getPlugin().getLogger().info("[ServerWrapper] | Error: The hook is disabled..");
             return "default";
         }
         VaultHook vaultHook = pluginService.getSupportManager().getVaultSupport();
 
         if (vaultHook.getChat() == null || vaultHook.getPermissions() == null) {
-            pluginService.getPlugin().getLogger().info("[Server] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
-            debugLogger.log("[Server] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
+            pluginService.getPlugin().getLogger().info("[ServerWrapper] | Error: Vault complement [LuckPerms, Group Manager..] isn't loaded..");
+            debugLogger.log("[ServerWrapper] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
         }
 
@@ -96,7 +96,7 @@ public class GroupManager {
         }
 
         if (!TextUtils.isAllowedHooked("Vault")){
-            pluginService.getPlugin().getLogger().info("[Server] | Error: The hook is disabled..");
+            pluginService.getPlugin().getLogger().info("[ServerWrapper] | Error: The hook is disabled..");
             return "default";
         }
 
@@ -274,7 +274,7 @@ public class GroupManager {
         }
 
         if (!TextUtils.isAllowedHooked("Vault")){
-            pluginService.getPlugin().getLogger().info("[Server] | Error: The hook is disabled..");
+            pluginService.getPlugin().getLogger().info("[ServerWrapper] | Error: The hook is disabled..");
             return "default";
         }
 

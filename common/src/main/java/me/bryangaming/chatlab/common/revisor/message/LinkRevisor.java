@@ -101,13 +101,13 @@ public class LinkRevisor implements Revisor {
         }
 
         if (utils.getBoolean("revisor." + revisorName + ".command.enabled")) {
-            senderManager.sendCommand(Bukkit.getServer().getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor." + revisorName + ".command.format")
+            senderManager.sendCommand(ServerWrapper.getData().getConsoleSender(), TextUtils.convertText(player, utils.getString("revisor." + revisorName + ".command.format")
                     .replace("%player%", player.getName())
                     .replace("%blockedword%", blockedword)));
         }
 
         if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
-            Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
+            ServerWrapper.getData().getOnlinePlayers().forEach(onlinePlayer -> {
                 if (senderManager.hasPermission(onlinePlayer, "revisor.watch")) {
                     senderManager.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                             .replace("%player%", player.getName()));

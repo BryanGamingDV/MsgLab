@@ -1,18 +1,21 @@
 package me.bryangaming.chatlab.common.listeners.command;
 
+import me.bryangaming.chatlab.api.Listener;
 import me.bryangaming.chatlab.common.PluginService;
+import me.bryangaming.chatlab.common.commands.CommandSpyCommand;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.events.CommandSpyEvent;
 import me.bryangaming.chatlab.common.managers.SenderManager;
 import me.bryangaming.chatlab.common.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.common.utils.Configuration;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
+
+
 
 import java.util.List;
 
-public class CommandSpyListener implements Listener {
+public class CommandSpyListener implements Listener<CommandSpyEvent>{
 
     private PluginService pluginService;
 
@@ -20,8 +23,8 @@ public class CommandSpyListener implements Listener {
         this.pluginService = pluginService;
     }
 
-    @EventHandler
-    public void onCommandSpy(CommandSpyEvent commandSpyEvent) {
+    @Override
+    public void doAction(CommandSpyEvent commandSpyEvent) {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
         Configuration command = pluginService.getFiles().getCommandFile();
@@ -38,7 +41,7 @@ public class CommandSpyListener implements Listener {
                 .replace("%sender%", commandSpyEvent.getSender())
                 .replace("%command%", "/" + commandSpyEvent.getMessage());
 
-        Bukkit.getServer().getOnlinePlayers().forEach(player -> {
+        ServerWrapper.getData().getOnlinePlayers().forEach(player -> {
             UserData watcherSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
             if (!watcherSpy.isCommandspyMode()) {

@@ -60,7 +60,7 @@ public class HelpopCommand implements CommandClass {
 
         if (commandFile.getBoolean("commands.helpop.enable-revisor")) {
             TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT,"Receive");
-            Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
+            ServerWrapper.getData().getPluginManager().callEvent(textrevisorEvent);
 
             if (textrevisorEvent.isCancelled()){
                 return true;
@@ -76,7 +76,7 @@ public class HelpopCommand implements CommandClass {
 
         List<String> helpopList = new ArrayList<>();
 
-        for (PlayerWrapper playeronline : Bukkit.getServer().getOnlinePlayers()) {
+        for (PlayerWrapper playeronline : ServerWrapper.getData().getOnlinePlayers()) {
 
             UserData onlineCache = pluginService.getCache().getUserDatas().get(playeronline.getUniqueId());
 

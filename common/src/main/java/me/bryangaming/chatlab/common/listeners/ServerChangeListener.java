@@ -1,5 +1,6 @@
 package me.bryangaming.chatlab.common.listeners;
 
+import me.bryangaming.chatlab.api.Listener;
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.common.events.server.ChangeMode;
 import me.bryangaming.chatlab.common.events.server.ServerChangeEvent;
@@ -7,12 +8,12 @@ import me.bryangaming.chatlab.common.data.JQData;
 import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+
+
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class ServerChangeListener implements Listener {
+public class ServerChangeListener implements Listener<ServerChangeEvent>{
 
     private PluginService pluginService;
 
@@ -20,8 +21,7 @@ public class ServerChangeListener implements Listener {
         this.pluginService = pluginService;
     }
 
-    @EventHandler
-    public void onServerChangeEvent(ServerChangeEvent serverChangeEvent) {
+    public void doAction(ServerChangeEvent serverChangeEvent) {
 
         JQData jqData = pluginService.getCache().getJQFormats().get(serverChangeEvent.getPlayerGroup());
 

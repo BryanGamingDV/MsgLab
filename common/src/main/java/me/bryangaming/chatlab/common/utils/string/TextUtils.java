@@ -8,7 +8,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
+import org.bukkit.ServerWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 import java.util.Arrays;
@@ -113,7 +113,7 @@ public class TextUtils {
 
         return count;
     }
-    public static String getServerVersion(Server server){
+    public static String getServerVersion(ServerWrapper server){
         String version = server.getClass().getPackage().getName().split("\\.")[3];
         return version.replace("_", ".").substring(1, version.length() - 3);
     }

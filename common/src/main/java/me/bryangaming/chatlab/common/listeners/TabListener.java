@@ -3,8 +3,8 @@ package me.bryangaming.chatlab.common.listeners;
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.common.managers.group.GroupManager;
 import me.bryangaming.chatlab.common.utils.Configuration;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+
+
 import org.bukkit.event.player.PlayerCommandSendEvent;
 
 import java.util.Collection;

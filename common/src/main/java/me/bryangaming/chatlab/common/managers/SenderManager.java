@@ -11,7 +11,7 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.SenderWrapper;
 import org.bukkit.entity.HumanEntity;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 

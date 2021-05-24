@@ -63,7 +63,7 @@ public class CooldownData {
 
         playerCooldown.setCooldownMode(true);
 
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+        ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
                 playerCooldown.setCooldownMode(false);
@@ -98,7 +98,7 @@ public class CooldownData {
 
         playerCooldown.setCooldownCmdMode(true);
 
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+        ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
                 playerCooldown.setCooldownCmdMode(false);

@@ -37,7 +37,7 @@ public class ChatManager {
         List<PlayerWrapper> onlinePlayers = new ArrayList<>();
         if (world.equalsIgnoreCase("-global")) {
 
-            onlinePlayers.addAll(Bukkit.getServer().getOnlinePlayers());
+            onlinePlayers.addAll(ServerWrapper.getData().getOnlinePlayers());
             for (PlayerWrapper onlinePlayer : onlinePlayers) {
                 for (int times = 0; times < lines; times++) {
                     senderManager.sendMessage(onlinePlayer, "");
@@ -77,7 +77,7 @@ public class ChatManager {
         List<PlayerWrapper> channelPlayerList = new ArrayList<>();
 
         if (!channelPath.equalsIgnoreCase("-global")) {
-            for (PlayerWrapper onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
+            for (PlayerWrapper onlinePlayer : ServerWrapper.getData().getOnlinePlayers()) {
                 UserData onlineData = pluginService.getCache().getUserDatas().get(onlinePlayer.getUniqueId());
 
                 if (!onlineData.equalsChannelGroup(channelPath)) {
@@ -89,7 +89,7 @@ public class ChatManager {
         }
 
         if (worldPath.equalsIgnoreCase("-global")) {
-            onlinePlayers.addAll(Bukkit.getServer().getOnlinePlayers());
+            onlinePlayers.addAll(ServerWrapper.getData().getOnlinePlayers());
             serverData.setMuted(true);
         } else {
             World world = Bukkit.getWorld(worldPath);
@@ -137,7 +137,7 @@ public class ChatManager {
         }
 
 
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
+        ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
             @Override
             public void run() {
                 if (serverData.isMuted()) {

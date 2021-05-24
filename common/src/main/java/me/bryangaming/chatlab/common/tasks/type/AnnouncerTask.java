@@ -5,6 +5,8 @@ import me.bryangaming.chatlab.api.task.Task;
 import me.bryangaming.chatlab.common.managers.SenderManager;
 import me.bryangaming.chatlab.common.utils.Configuration;
 
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
+import me.bryangaming.chatlab.common.wrapper.configuration.ConfigurationSectionWrapper;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -36,7 +38,7 @@ public class AnnouncerTask implements Task {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        ConfigurationSection configurationSection = command.getConfigurationSection("commands.announcer.config.messages");
+        ConfigurationSectionWrapper configurationSection = command.getConfigurationSection("commands.announcer.config.messages");
 
         if (configurationSection == null){
             return;
@@ -51,7 +53,7 @@ public class AnnouncerTask implements Task {
         AtomicInteger announcerID = new AtomicInteger(0);
         AtomicBoolean firstTime = new AtomicBoolean(true);
 
-        bukkitTask = Bukkit.getServer().getScheduler().runTaskTimer(pluginService.getPlugin(), () -> {
+        bukkitTask = ServerWrapper.getData().getScheduler().runTaskTimer(pluginService.getPlugin(), () -> {
             switch (announcerType.toLowerCase()) {
                 case "random":
                     announcerID.set(random.nextInt(announcerList.size() - 1));
@@ -73,7 +75,7 @@ public class AnnouncerTask implements Task {
                 default:
                     return;
             }
-            Bukkit.getServer().getOnlinePlayers().forEach(player ->
+            ServerWrapper.getData().getOnlinePlayers().forEach(player ->
                     senderManager.sendMessage(player, command.getStringList("commands.announcer.config.messages." + announcerList.get(announcerID.get()))));
 
         }, command.getInt("commands.announcer.config.interval") * 20L, command.getInt("commands.announcer.config.interval") * 20L);

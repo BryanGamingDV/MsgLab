@@ -3,13 +3,12 @@ package me.bryangaming.chatlab.common.events;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class CommandSpyEvent extends Event {
+public class CommandSpyEvent extends  {
 
     private final String message;
 
     private final String sender;
 
-    private static final HandlerList HANDLERS = new HandlerList();
 
     public CommandSpyEvent(String sender, String message) {
         this.message = message;

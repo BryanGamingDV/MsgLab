@@ -27,7 +27,7 @@ public class DiscordSrvListener {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        for (PlayerWrapper player : Bukkit.getServer().getOnlinePlayers()){
+        for (PlayerWrapper player : ServerWrapper.getData().getOnlinePlayers()){
             if (!senderManager.hasUtilsPermission(player, formatsFile.getString("format.discord-srv.permission"))){
                 continue;
             }

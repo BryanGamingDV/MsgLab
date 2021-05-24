@@ -6,6 +6,7 @@ import me.bryangaming.chatlab.common.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.common.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.utils.Configuration;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -46,7 +47,7 @@ public class StaffChatCommand implements CommandClass {
         }
 
         String message = String.join(" ", args);
-        Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
+        ServerWrapper.getData().getOnlinePlayers().forEach(onlinePlayer -> {
 
             if (!senderManager.hasPermission(onlinePlayer, "commands.staffchat.main")) {
                 return;

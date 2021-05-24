@@ -9,8 +9,8 @@ import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.events.SendDataEvent;
 
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+
+
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.UUID;

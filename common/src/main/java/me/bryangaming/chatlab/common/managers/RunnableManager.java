@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.common.managers;
 
 import me.bryangaming.chatlab.common.PluginService;
 
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.SenderWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 public class RunnableManager {
@@ -14,7 +14,7 @@ public class RunnableManager {
     }
 
     public void waitSecond(PlayerWrapper player, int second, String path) {
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
+        ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
             SenderManager senderManager = pluginService.getPlayerManager().getSender();
             senderManager.sendMessage(player, path);
 
@@ -22,14 +22,14 @@ public class RunnableManager {
     }
 
     public void waitTicks(PlayerWrapper player, long ticks, String path) {
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
+        ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
             SenderManager senderManager = pluginService.getPlayerManager().getSender();
             senderManager.sendMessage(player, path);
         }, ticks);
     }
 
     public void waitSecond(PlayerWrapper player, int second, String... paths) {
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
+        ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
 
             SenderManager senderManager = pluginService.getPlayerManager().getSender();
             for (String path : paths) {
@@ -40,7 +40,7 @@ public class RunnableManager {
     }
 
     public void waitTicks(PlayerWrapper player, long ticks, String... paths) {
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
+        ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
 
             SenderManager senderManager = pluginService.getPlayerManager().getSender();
             for (String path : paths) {
@@ -51,8 +51,8 @@ public class RunnableManager {
     }
 
 
-    public void sendCommand(CommandSender sender, String path) {
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
+    public void sendCommand(SenderWrapper sender, String path) {
+        ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), () -> {
 
             Bukkit.dispatchCommand(sender, path);
 

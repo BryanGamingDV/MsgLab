@@ -1,13 +1,14 @@
 package me.bryangaming.chatlab.common.listeners;
 
+import me.bryangaming.chatlab.api.Listener;
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.common.managers.SenderManager;
 import me.bryangaming.chatlab.common.events.SendDataEvent;
 import me.bryangaming.chatlab.common.utils.Configuration;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 
-public class SendDataListener implements Listener {
+
+
+public class SendDataListener implements Listener<SendDataEvent> {
 
     private PluginService pluginService;
 
@@ -15,8 +16,7 @@ public class SendDataListener implements Listener {
         this.pluginService = pluginService;
     }
 
-    @EventHandler
-    public void onSend(SendDataEvent event){
+    public void doAction(SendDataEvent event){
 
         Configuration commandsFile = pluginService.getFiles().getCommandFile();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();

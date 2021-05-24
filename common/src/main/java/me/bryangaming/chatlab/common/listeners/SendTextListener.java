@@ -15,9 +15,9 @@ import me.bryangaming.chatlab.common.revisor.CooldownData;
 import me.bryangaming.chatlab.common.utils.Configuration;
 
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
-import org.bukkit.event.EventHandler;
+
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
+
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
@@ -64,7 +64,7 @@ public class SendTextListener implements Listener {
                     clickChatManager.unset(player.getUniqueId());
                 }
 
-                Bukkit.getServer().getOnlinePlayers().forEach(playeronline -> {
+                ServerWrapper.getData().getOnlinePlayers().forEach(playeronline -> {
 
                     UserData onlineCache = pluginService.getCache().getUserDatas().get(playeronline.getUniqueId());
 
@@ -83,10 +83,10 @@ public class SendTextListener implements Listener {
         if (pluginService.getListManager().isEnabledOption(ModuleType.MODULE,"chat_format") && formatsFile.getBoolean("options.enabled") && formatsFile.getBoolean("format.enabled")) {
             event.setCancelled(true);
 
-            Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
+            ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
                 @Override
                 public void run() {
-                    Bukkit.getServer().getPluginManager().callEvent(new ChatEvent(player, playerStatus, event, event.getMessage()));
+                    ServerWrapper.getData().getPluginManager().callEvent(new ChatEvent(player, playerStatus, event, event.getMessage()));
                 }
             });
 
@@ -123,7 +123,7 @@ public class SendTextListener implements Listener {
 
         if (utils.getBoolean("options.allow-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(event.getPlayer(), commandText, TextRevisorEnum.COMMAND);
-            Bukkit.getServer().getPluginManager().callEvent(textRevisorEvent);
+            ServerWrapper.getData().getPluginManager().callEvent(textRevisorEvent);
 
             if (textRevisorEvent.isCancelled()) {
                 event.setCancelled(true);

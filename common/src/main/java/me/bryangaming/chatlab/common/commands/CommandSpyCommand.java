@@ -142,7 +142,7 @@ public class CommandSpyCommand implements CommandClass {
         if (args.equalsIgnoreCase("players")) {
 
             List<PlayerWrapper> playerList = new ArrayList<>();
-            for (PlayerWrapper onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
+            for (PlayerWrapper onlinePlayer : ServerWrapper.getData().getOnlinePlayers()) {
                 UserData onlineData = pluginService.getCache().getUserDatas().get(onlinePlayer.getUniqueId());
 
                 if (!onlineData.isCommandspyMode()) {

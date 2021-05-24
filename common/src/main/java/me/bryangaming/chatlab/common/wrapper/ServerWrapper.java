@@ -1,5 +1,7 @@
 package me.bryangaming.chatlab.common.wrapper;
 
+import me.bryangaming.chatlab.api.Event;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -18,4 +20,6 @@ public interface ServerWrapper {
     PlayerWrapper getPlayer(String name);
 
     PlayerWrapper getPlayer(UUID uuid);
+
+    void callEvent(Event event);
 }

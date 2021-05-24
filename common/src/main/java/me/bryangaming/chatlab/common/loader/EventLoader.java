@@ -12,7 +12,7 @@ import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import me.bryangaming.chatlab.common.debug.DebugLogger;
 import me.bryangaming.chatlab.common.events.ChatClickEvent;
 
-import org.bukkit.event.Listener;
+
 import org.bukkit.plugin.PluginManager;
 
 public class EventLoader implements Loader {
@@ -53,7 +53,7 @@ public class EventLoader implements Loader {
     public void loadEvents(Listener... listeners) {
 
         DebugLogger debug = pluginService.getLogs();
-        PluginManager pl = Bukkit.getServer().getPluginManager();
+        PluginManager pl = ServerWrapper.getData().getPluginManager();
 
         for (Listener listener : listeners) {
             String className = listener.getClass().getName();

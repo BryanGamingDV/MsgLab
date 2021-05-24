@@ -42,7 +42,7 @@ public class FirstWordRevisor implements Revisor {
         message = message.replaceFirst(firstLetter, firstLetter.toUpperCase());
 
         if (utils.getBoolean("revisor." + revisorName + ".warning.enabled")) {
-            Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
+            ServerWrapper.getData().getOnlinePlayers().forEach(onlinePlayer -> {
                 if (senderManager.hasPermission(onlinePlayer, "revisor.watch")) {
                     senderManager.sendMessage(onlinePlayer, utils.getString("revisor." + revisorName + ".warning.text")
                             .replace("%player%", player.getName()));

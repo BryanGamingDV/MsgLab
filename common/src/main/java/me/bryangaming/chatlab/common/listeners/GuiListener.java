@@ -5,8 +5,8 @@ import me.bryangaming.chatlab.common.managers.GuiManager;
 import me.bryangaming.chatlab.common.data.UserData;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+
+
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 

@@ -1,29 +1,19 @@
 package me.bryangaming.chatlab.common.events;
 
 
+import me.bryangaming.chatlab.common.PluginService;
+import me.bryangaming.chatlab.common.listeners.command.SocialSpyListener;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class SocialSpyEvent extends Event {
+public class SocialSpyEvent  {
 
-    private final String message;
+    private String message;
 
-    private static final HandlerList HANDLERS = new HandlerList();
-
-    public SocialSpyEvent(String message) {
+    public SocialSpyEvent( String message) {
         this.message = message;
+        new SocialSpyListener(pluginService).doAction(this);
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public HandlerList getHandlers() {
-        return HANDLERS;
-    }
-
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
-    }
 
 }

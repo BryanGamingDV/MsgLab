@@ -16,8 +16,8 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+
+
 
 public class ChatListener implements Listener{
 
@@ -74,7 +74,7 @@ public class ChatListener implements Listener{
 
         if (utils.getBoolean("options.allow-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(player, message, TextRevisorEnum.TEXT);
-            Bukkit.getServer().getPluginManager().callEvent(textRevisorEvent);
+            ServerWrapper.getData().getPluginManager().callEvent(textRevisorEvent);
 
             if (textRevisorEvent.isCancelled()) {
                 return;

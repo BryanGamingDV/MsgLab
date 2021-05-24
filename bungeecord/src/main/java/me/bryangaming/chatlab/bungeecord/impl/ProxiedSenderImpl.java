@@ -13,7 +13,6 @@ public class ProxiedSenderImpl implements SenderWrapper {
 
     public ProxiedSenderImpl(CommandSender commandSender){
         this.commandSender = commandSender;
-        YamlCo
 
     }
 

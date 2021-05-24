@@ -51,7 +51,7 @@ public class RecipientManager {
         }
 
         if (playerData.getChannelType() == GroupEnum.CHANNEL) {
-            for (PlayerWrapper onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
+            for (PlayerWrapper onlinePlayer : ServerWrapper.getData().getOnlinePlayers()) {
                 UserData userData = pluginService.getCache().getUserDatas().get(onlinePlayer.getUniqueId());
 
                 if (userData.getChannelGroup().equalsIgnoreCase(playerData.getChannelGroup())) {

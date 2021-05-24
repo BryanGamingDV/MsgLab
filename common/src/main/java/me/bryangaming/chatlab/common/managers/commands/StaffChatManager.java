@@ -88,7 +88,7 @@ public class StaffChatManager implements Option {
             clickChatManager.unset(player.getUniqueId());
         }
 
-        for (PlayerWrapper playeronline : Bukkit.getServer().getOnlinePlayers()) {
+        for (PlayerWrapper playeronline : ServerWrapper.getData().getOnlinePlayers()) {
             if (!senderManager.hasPermission(player, "commands.staffchat.watch")) {
                 continue;
             }

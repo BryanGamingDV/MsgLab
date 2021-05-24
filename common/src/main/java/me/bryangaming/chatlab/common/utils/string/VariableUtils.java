@@ -57,7 +57,7 @@ public class VariableUtils {
         return string
                 .replace("%world%", player.getWorld().getName())
                 .replace("%player%", player.getName())
-                .replace("%online%", String.valueOf(Bukkit.getServer().getOnlinePlayers().size()));
+                .replace("%online%", String.valueOf(ServerWrapper.getData().getOnlinePlayers().size()));
     }
 
     private static String replacePAPIVariables(PlayerWrapper player, String string) {

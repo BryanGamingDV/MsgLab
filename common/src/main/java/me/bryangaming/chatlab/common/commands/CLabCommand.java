@@ -11,13 +11,13 @@ import me.bryangaming.chatlab.common.loader.FileLoader;
 import me.bryangaming.chatlab.common.modules.DataModule;
 import me.bryangaming.chatlab.common.tasks.TasksManager;
 import me.bryangaming.chatlab.common.utils.Configuration;
+import me.bryangaming.chatlab.common.wrapper.SenderWrapper;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.bryangaming.chatlab.common.wrapper.annotation.SenderAnnotWrapper;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.command.CommandSender;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "")
-    public boolean onCommand(CommandSender sender) {
+    public boolean onCommand(SenderWrapper sender) {
         senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
                 .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
         senderManager.playSound(sender, SoundEnum.ERROR);
@@ -59,7 +59,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "help")
-    public boolean helpSubCommand(CommandSender sender) {
+    public boolean helpSubCommand(SenderWrapper sender) {
 
         commandFile.getStringList("commands.clab.help.pages")
                 .forEach(text -> senderManager.sendMessage(sender, text));
@@ -70,7 +70,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "commands")
-    public boolean commandsSubCommand(CommandSender sender, @OptArg("1") String page) {
+    public boolean commandsSubCommand(SenderWrapper sender, @OptArg("1") String page) {
 
         if (!(getHelp().contains(page))) {
             senderManager.sendMessage(sender, messagesFile.getString("error.unknown-page"));
@@ -88,7 +88,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "reload")
-    public boolean reloadSubCommand(CommandSender sender, @OptArg("") String file) {
+    public boolean reloadSubCommand(SenderWrapper sender, @OptArg("") String file) {
         if (!(senderManager.hasPermission(sender, "commands.clab.reload"))) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
             senderManager.playSound(sender, SoundEnum.ERROR);
@@ -112,10 +112,10 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "support")
-    public boolean supportSubCommand(CommandSender sender) {
+    public boolean supportSubCommand(SenderWrapper sender) {
 
         if (configFile.getBoolean("options.allow-support")) {
-            senderManager.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
+            senderManager.sendMessage(sender, "&b[ServerWrapper] &8| &fIf you want plugin support:");
             senderManager.sendMessage(sender, "&8- &fJoin: &ahttps://discord.gg/wpSh4Bf4E");
             senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab support");
             return true;
@@ -152,7 +152,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "debug")
-    public boolean debugSubCommand(CommandSender sender, @OptArg("") String arg1, @OptArg("") String arg2) {
+    public boolean debugSubCommand(SenderWrapper sender, @OptArg("") String arg1, @OptArg("") String arg2) {
 
         if (!(senderManager.hasPermission(sender, "commands.clab.debug"))) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
@@ -238,7 +238,7 @@ public class CLabCommand implements CommandClass {
         return true;
     }
     @Command(names = "config")
-    public boolean onConfig(CommandSender sender, @OptArg("") String configName, @OptArg("") String path, @OptArg("") String value){
+    public boolean onConfig(SenderWrapper sender, @OptArg("") String configName, @OptArg("") String path, @OptArg("") String value){
 
         if (configName.isEmpty()){
             senderManager.sendMessage(sender, messagesFile.getString("error.no-arg")
@@ -286,7 +286,7 @@ public class CLabCommand implements CommandClass {
         return true;
     }
     @Command(names = "restore")
-    public boolean onRestoreSubCommand(CommandSender sender, @OptArg("") String type) {
+    public boolean onRestoreSubCommand(SenderWrapper sender, @OptArg("") String type) {
 
         if (!(senderManager.hasPermission(sender, "commands.clab.restore"))) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));
@@ -326,7 +326,7 @@ public class CLabCommand implements CommandClass {
         return true;
     }
 
-    public void getReloadEvent(CommandSender sender, String string) {
+    public void getReloadEvent(SenderWrapper sender, String string) {
 
         FileLoader files = pluginService.getFiles();
 

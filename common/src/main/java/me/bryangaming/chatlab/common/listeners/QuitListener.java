@@ -11,8 +11,8 @@ import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.utils.Configuration;
 
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+
+
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.UUID;

@@ -58,7 +58,7 @@ public class MsgCommand implements CommandClass {
 
         if (target.getName().equalsIgnoreCase("-online")) {
 
-            if (Bukkit.getServer().getOnlinePlayers().size() < 2) {
+            if (ServerWrapper.getData().getOnlinePlayers().size() < 2) {
                 senderManager.sendMessage(sender, messagesFile.getString("error.nobody-offline"));
                 return true;
             }
@@ -164,7 +164,7 @@ public class MsgCommand implements CommandClass {
 
         if (commandFile.getBoolean("commands.msg-reply.enable-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
-            Bukkit.getServer().getPluginManager().callEvent(textRevisorEvent);
+            ServerWrapper.getData().getPluginManager().callEvent(textRevisorEvent);
 
             if (textRevisorEvent.isCancelled()) {
                 return true;

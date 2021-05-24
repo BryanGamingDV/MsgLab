@@ -242,7 +242,7 @@ public class ChannelCommand implements CommandClass {
 
         int online = 0;
 
-        for (PlayerWrapper onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
+        for (PlayerWrapper onlinePlayer : ServerWrapper.getData().getOnlinePlayers()) {
             UserData onlineData = pluginService.getCache().getUserDatas().get(onlinePlayer.getUniqueId());
 
             if (pluginService.getSupportManager().getVanishSupport().isVanished(onlinePlayer)){

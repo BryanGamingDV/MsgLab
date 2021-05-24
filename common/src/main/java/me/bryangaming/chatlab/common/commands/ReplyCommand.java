@@ -1,6 +1,8 @@
 package me.bryangaming.chatlab.common.commands;
 
+import me.bryangaming.chatlab.api.Listener;
 import me.bryangaming.chatlab.common.PluginService;
+import me.bryangaming.chatlab.common.data.ServerData;
 import me.bryangaming.chatlab.common.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.common.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.common.managers.SenderManager;
@@ -10,6 +12,7 @@ import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.events.SocialSpyEvent;
 import me.bryangaming.chatlab.common.loader.FileLoader;
 import me.bryangaming.chatlab.common.utils.Configuration;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -55,7 +58,7 @@ public class ReplyCommand implements CommandClass {
             return true;
         }
 
-        PlayerWrapper target = Bukkit.getPlayer(playerCache.getRepliedPlayer());
+        PlayerWrapper target = ServerWrapper.getData().getPlayer(playerCache.getRepliedPlayer());
 
         if (text.equalsIgnoreCase("-sender")) {
             senderManager.sendMessage(sender, commandFile.getString("commands.msg-reply.talked")
@@ -65,8 +68,8 @@ public class ReplyCommand implements CommandClass {
         }
 
         if (commandFile.getBoolean("commands.msg-reply.enable-revisor")) {
-            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, text, TextRevisorEnum.TEXT);
-            Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
+            Listener<TextRevisorEvent> textrevisorEvent = new TextRevisorEvent(sender, text, TextRevisorEnum.TEXT);
+            textrevisorEvent.doaction
 
             if (textrevisorEvent.isCancelled()){
                 return true;

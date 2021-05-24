@@ -8,26 +8,20 @@ import java.util.UUID;
 
 public class ServerChangeEvent extends Event {
 
-    private static final HandlerList HANDLERS = new HandlerList();
 
-    private final Event event;
     private final PlayerWrapper sender;
     private final ChangeMode changeMode;
     private final String playerGroup;
 
     private final UUID uuid;
 
-    public ServerChangeEvent(Event event, PlayerWrapper sender, String playerGroup, ChangeMode changeMode) {
+    public ServerChangeEvent(PlayerWrapper sender, String playerGroup, ChangeMode changeMode) {
         this.sender = sender;
         this.changeMode = changeMode;
         this.uuid = sender.getUniqueId();
         this.playerGroup = playerGroup;
-        this.event = event;
     }
 
-    public Event getEvent() {
-        return event;
-    }
 
     public String getPlayerGroup() {
         return playerGroup;

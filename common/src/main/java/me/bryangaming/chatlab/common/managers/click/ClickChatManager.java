@@ -94,7 +94,7 @@ public class ClickChatManager {
 
 
     public void waitHover(PlayerWrapper sender, int second) {
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
+        ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
             @Override
             public void run() {
 
@@ -138,7 +138,7 @@ public class ClickChatManager {
                         bukkitAudiences.player(playeronline).sendMessage(component);
                     }
                 } else {
-                    for (PlayerWrapper playeronline : Bukkit.getServer().getOnlinePlayers()) {
+                    for (PlayerWrapper playeronline : ServerWrapper.getData().getOnlinePlayers()) {
                         bukkitAudiences.player(playeronline).sendMessage(component);
                     }
                 }

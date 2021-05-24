@@ -6,8 +6,8 @@ import me.bryangaming.chatlab.common.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.common.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.common.utils.Configuration;
 import me.bryangaming.chatlab.common.data.UserData;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+
+
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.List;

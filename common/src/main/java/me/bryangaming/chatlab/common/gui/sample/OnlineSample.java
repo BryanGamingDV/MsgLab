@@ -139,7 +139,7 @@ public class OnlineSample implements GuiSample {
 
     public List<UUID> getOnlinePlayers() {
         List<UUID> uuidList = new ArrayList<>();
-        Bukkit.getServer().getOnlinePlayers().forEach(player -> uuidList.add(player.getUniqueId()));
+        ServerWrapper.getData().getOnlinePlayers().forEach(player -> uuidList.add(player.getUniqueId()));
         return uuidList;
     }
 

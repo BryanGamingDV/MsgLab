@@ -29,7 +29,7 @@ public class PluginWrapperImpl implements PluginBaseWrapper {
 
     @Override
     public void loadMetrics(int pluginID) {
-        Metrics metrics = new Metrics(pluginWrapper., 10107);
+        Metrics metrics = new Metrics(plugin, 10107);
     }
 
 

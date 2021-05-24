@@ -87,7 +87,7 @@ public class StreamCommand implements CommandClass {
 
         if (commandFile.getBoolean("commands.stream.enable-revisor")) {
             TextRevisorEvent textrevisorEvent = new TextRevisorEvent(player, message, TextRevisorEnum.TEXT, blockedRevisors);
-            Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
+            ServerWrapper.getData().getPluginManager().callEvent(textrevisorEvent);
 
             if (textrevisorEvent.isCancelled()){
                 return true;
@@ -96,7 +96,7 @@ public class StreamCommand implements CommandClass {
             message = textrevisorEvent.getMessageRevised();
         }
 
-        for (PlayerWrapper playerOnline : Bukkit.getServer().getOnlinePlayers()) {
+        for (PlayerWrapper playerOnline : ServerWrapper.getData().getOnlinePlayers()) {
             senderManager.sendMessage(playerOnline, commandFile.getString("commands.stream.text")
                     .replace("%player%", player.getName())
                     .replace("%message%", message));
