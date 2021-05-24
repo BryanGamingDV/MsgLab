@@ -1,4 +1,5 @@
 # ChatLab (MsgLab)
+![Project Status](https://img.shields.io/github/workflow/status/BryanGamingDV/ChatLab/Maven%20Build/main)
 Advanced message plugin for your [spigot](http://spigotmc.org/) minecraft server 1.8.8-1.16.5
 
 ## Introduction
