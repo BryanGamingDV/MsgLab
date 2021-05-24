@@ -1,9 +1,11 @@
 package me.bryangaming.chatlab.common.utils.string;
 
 import me.bryangaming.chatlab.common.PluginService;
+import me.bryangaming.chatlab.common.data.ServerData;
 import me.bryangaming.chatlab.common.managers.commands.ChatManager;
 import me.bryangaming.chatlab.common.utils.Configuration;
 import me.bryangaming.chatlab.common.utils.SupportManager;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
@@ -57,11 +59,11 @@ public class VariableUtils {
         return string
                 .replace("%world%", player.getWorld().getName())
                 .replace("%player%", player.getName())
-                .replace("%online%", String.valueOf(ServerWrapper.getData().getOnlinePlayers().size()));
+                .replace("%online%", String.valueOf(ServerWrapper.getData().getOnlineSize()));
     }
 
     private static String replacePAPIVariables(PlayerWrapper player, String string) {
-        if (!Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+        if (!ServerWrapper.getData().isPluginEnabled("PlaceholderAPI")) {
             return string;
         }
 

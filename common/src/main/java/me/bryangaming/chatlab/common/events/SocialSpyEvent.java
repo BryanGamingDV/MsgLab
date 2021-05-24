@@ -10,9 +10,9 @@ public class SocialSpyEvent  {
 
     private String message;
 
-    public SocialSpyEvent( String message) {
+    public SocialSpyEvent(PluginService pluginService, String message) {
         this.message = message;
-        new SocialSpyListener(pluginService).doAction(this);
+        pluginService.getCache().getListeners
     }
 
 

@@ -2,6 +2,7 @@ package me.bryangaming.chatlab.common.loader;
 
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.api.Loader;
+import me.bryangaming.chatlab.common.builders.ListenerBuilder;
 import me.bryangaming.chatlab.common.listeners.*;
 import me.bryangaming.chatlab.common.listeners.command.CommandSpyListener;
 import me.bryangaming.chatlab.common.listeners.command.HelpOpListener;
@@ -19,6 +20,8 @@ public class EventLoader implements Loader {
 
     private final PluginService pluginService;
 
+    private ListenerBuilder
+
     public EventLoader(PluginService pluginService) {
         this.pluginService = pluginService;
         load();
@@ -26,7 +29,7 @@ public class EventLoader implements Loader {
 
     @Override
     public void load() {
-        loadEvents(
+        loadEvents(ListenerBuilder.create(""));
                 new JoinListener(pluginService),
                 new QuitListener(pluginService),
                 new SendTextListener(pluginService),
@@ -50,16 +53,8 @@ public class EventLoader implements Loader {
         pluginService.getPlugin().getLogger().info("Events loaded!");
     }
 
-    public void loadEvents(Listener... listeners) {
+    public void loadEvents(ListenerBuilder... listeners) {
 
-        DebugLogger debug = pluginService.getLogs();
-        PluginManager pl = ServerWrapper.getData().getPluginManager();
-
-        for (Listener listener : listeners) {
-            String className = listener.getClass().getName();
-            debug.log(className + " loaded!");
-            pl.registerEvents(listener, pluginService.getPlugin());
-        }
 
     }
 

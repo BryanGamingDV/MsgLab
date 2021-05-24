@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RevisorListener implements Listener<TextRevisorEvent> {
+public class RevisorListener implements Listener<TextRevisorEvent>{
 
     private PluginService pluginService;
 

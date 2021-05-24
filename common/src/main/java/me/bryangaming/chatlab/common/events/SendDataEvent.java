@@ -5,8 +5,6 @@ import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.listeners.SendDataListener;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
 
 public class SendDataEvent implements Event {
 
@@ -17,7 +15,7 @@ public class SendDataEvent implements Event {
     public SendDataEvent(PluginService pluginService, PlayerWrapper player, UserData userData) {
         this.player = player;
         this.userData = userData;
-        new SendDataListener(pluginService).doAction(this);
+        pluginService.getCache().getListeners().get("SendDataEvent").doAction(this);
     }
 
     public PlayerWrapper getPlayer(){

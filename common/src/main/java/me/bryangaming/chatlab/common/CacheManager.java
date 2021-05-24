@@ -1,8 +1,11 @@
 package me.bryangaming.chatlab.common;
 
+import me.bryangaming.chatlab.api.Listener;
+import me.bryangaming.chatlab.common.builders.ListenerBuilder;
 import me.bryangaming.chatlab.common.data.JQData;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.debug.DebugLogger;
+import me.bryangaming.chatlab.common.loader.EventLoader;
 import me.bryangaming.chatlab.common.utils.Configuration;
 
 import java.util.HashMap;
@@ -14,6 +17,7 @@ public class CacheManager {
 
     private final Map<UUID, List<String>> ignoreCache = new HashMap<>();
     private final Map<String, Configuration> listConfig = new HashMap<>();
+    private final Map<String, Listener> listenerBuilderMap = new HashMap<>();
 
     private final Map<UUID, UserData> userData = new HashMap<>();
     private final Map<String, JQData> getJQFormat = new HashMap<>();
@@ -26,6 +30,9 @@ public class CacheManager {
 
     }
 
+    public Map<String, Listener> getListeners(){
+        return listenerBuilderMap;
+    }
     public Map<String, JQData> getJQFormats() {
         return getJQFormat;
     }

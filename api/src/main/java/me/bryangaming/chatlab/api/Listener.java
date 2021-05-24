@@ -1,6 +1,6 @@
 package me.bryangaming.chatlab.api;
 
-public interface Listener<J>{
+public interface Listener<E> {
 
-    void doAction(J clazz);
+    void doAction(E event);
 }

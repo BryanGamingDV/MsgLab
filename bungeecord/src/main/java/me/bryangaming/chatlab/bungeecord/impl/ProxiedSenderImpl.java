@@ -25,7 +25,7 @@ public class ProxiedSenderImpl implements SenderWrapper {
     public void sendMessage(List<String> messages) {
         messages.forEach(message -> commandSender.sendMessage(TextComponent.fromLegacyText(message)));
     }
-
+    Event
     @Override
     public String getName(){
         return commandSender.getName();

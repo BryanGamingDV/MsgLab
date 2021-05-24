@@ -20,6 +20,7 @@ public class SocialSpyListener implements Listener<SocialSpyEvent>{
         this.pluginService = pluginService;
     }
 
+    @Override
     public void doAction(SocialSpyEvent socialSpyEvent) {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
