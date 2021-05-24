@@ -32,12 +32,12 @@ per-world-chat:
       # Check this: https://bryangaming.gitbook.io/chatlab/option-guide/chatformat.
       format:
         # The message that appears when you chat, obviously.
-        format: "&8| &e[Default] &f%player% &7> &f%message%"
+        format: "<dark_gray>| <yellow>[Default] <white>%player% <gray>> <white>%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
           -
         # Acton when you click the hover.
         action:
@@ -98,12 +98,12 @@ chat-format:
     bases:
       prefix:
         # The message part that appears when you chat, obviously.
-        format: "&8| &f%ml_tag% &e[Default] "
+        format: "<dark_gray>| <white>%ml_tag% <yellow>[Default] "
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -112,12 +112,12 @@ chat-format:
 
       player:
         # The message part that appears when you chat, obviously.
-        format: "&f%player%"
+        format: "<white>%player%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -126,16 +126,16 @@ chat-format:
 
       limit:
         # The message part that appears when you chat, obviously.
-        format: " &7> "
+        format: " <gray>> "
 
       message:
         # The message part that appears when you chat, obviously.
-        format: "&f%ml_color%%message%"
+        format: "<white>%ml_color%%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -149,12 +149,12 @@ chat-format:
     bases:
       prefix:
         # The message part that appears when you chat, obviously.
-        format: "&8| &f%ml_tag% &c[OP] &f%player% "
+        format: "<dark_gray>| <white>%ml_tag% <red>[OP] <white>%player% "
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -163,16 +163,16 @@ chat-format:
 
       limit:
         # The message part that appears when you chat, obviously.
-        format: " &7> "
+        format: " <gray>> "
 
       message:
         # The message part that appears when you chat, obviously.
-        format: "&f%ml_color%%message%"
+        format: "<white>%ml_color%%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -189,12 +189,12 @@ chat-format:
       bases:
         prefix:
           # The message part that appears when you chat, obviously.
-          format: "&8| &a[VIP] &f%player% "
+          format: "<dark_gray>| <green>[VIP] <white>%player% "
           # The text that will be displayed when you mouse over the message.
           hover:
-            - "&8&m------[&fHover]&8&m-------"
-            - "&fPlayer: &a%player%"
-            - "&fOnline: &a%online%"
+            - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+            - "<white>Player: <green>%player%"
+            - "<white>Online: <green>%online%"
           # Acton when you click the hover.
           action:
             # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -203,16 +203,16 @@ chat-format:
 
         limit:
           # The message part that appears when you chat, obviously.
-          format: " &7> "
+          format: " <gray>> "
 
         message:
           # The message part that appears when you chat, obviously.
-          format: "&f%message%"
+          format: "<white>%message%"
           # The text that will be displayed when you mouse over the message.
           hover:
-            - "&8&m------[&fHover]&8&m-------"
-            - "&fPlayer: &a%player%"
-            - "&fOnline: &a%online%"
+            - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+            - "<white>Player: <green>%player%"
+            - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -226,12 +226,12 @@ chat-format:
       bases:
         prefix:
           # The message part that appears when you chat, obviously.
-          format: "&8| &2[VIP+] &f%player% "
+          format: "<dark_gray>| <dark_green>[VIP+] <white>%player% "
           # The text that will be displayed when you mouse over the message.
           hover:
-            - "&8&m------[&fHover]&8&m-------"
-            - "&fPlayer: &a%player%"
-            - "&fOnline: &a%online%"
+            - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+            - "<white>Player: <green>%player%"
+            - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -240,21 +240,21 @@ chat-format:
 
       limit:
         # The message part that appears when you chat, obviously.
-        format: " &7> "
+        format: " <gray>> "
 
       message:
         # The message part that appears when you chat, obviously.
-        format: "&f%message%"
+        format: "<white>%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
       # Acton when you click the hover.
       action:
         # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
         type: SUGGEST_COMMAND
-         format: "/msg %player% message"
+        format: "/msg %player% message"
 
       # Permission (Only works if the group access is permission):
       permission: group.vip+
@@ -278,12 +278,12 @@ channel:
     bases:
       prefix:
         # The message part that appears when you chat, obviously.
-        format: "&A8| &2[VIP+] &f%player% "
+        format: "<green>| <dark_green>[VIP+] <white>%player% "
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -292,16 +292,16 @@ channel:
 
       limit:
         # The message part that appears when you chat, obviously.
-        format: " &7> "
+        format: " <gray>> "
 
       message:
         # The message part that appears when you chat, obviously.
-        format: "&f%message%"
+        format: "<white>%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -319,12 +319,12 @@ channel:
     bases:
       prefix:
         # The message part that appears when you chat, obviously.
-        format: "&8| &2[VIP+] &f%player% "
+        format: "<dark_gray>| <dark_green>[VIP+] <white>%player% "
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -333,16 +333,16 @@ channel:
 
       limit:
         # The message part that appears when you chat, obviously.
-        format: " &7> "
+        format: " <gray>> "
 
       message:
         # The message part that appears when you chat, obviously.
-        format: "&f%message%"
+        format: "<white>%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -360,12 +360,12 @@ channel:
     bases:
       prefix:
         # The message part that appears when you chat, obviously.
-        format: "&8| &2[VIP+] &f%player% "
+        format: "<dark_gray>| <dark_green>[VIP+] <white>%player% "
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -374,16 +374,16 @@ channel:
 
       limit:
         # The message part that appears when you chat, obviously.
-        format: " &7> "
+        format: " <gray>> "
 
       message:
         # The message part that appears when you chat, obviously.
-        format: "&f%message%"
+        format: "<white>%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "&8&m------[&fHover]&8&m-------"
-          - "&fPlayer: &a%player%"
-          - "&fOnline: &a%online%"
+          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
         # Acton when you click the hover.
         action:
           # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -395,12 +395,12 @@ party-chat:
   bases:
     prefix:
       # The message part that appears when you chat, obviously.
-      format: "&c[Party] &8| &f%player% "
+      format: "<red>[Party] <dark_gray>| <white>%player% "
       # The text that will be displayed when you mouse over the message.
       hover:
-        - "&8&m------[&fHover]&8&m-------"
-        - "&fPlayer: &a%player%"
-        - "&fOnline: &a%online%"
+        - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+        - "<white>Player: <green>%player%"
+        - "<white>Online: <green>%online%"
       # Acton when you click the hover.
       action:
         # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
@@ -409,16 +409,16 @@ party-chat:
 
     limit:
       # The message part that appears when you chat, obviously.
-      format: " &7> "
+      format: " <gray>> "
 
     message:
       # The message part that appears when you chat, obviously.
-      format: "&f%ml_color%%message%"
+      format: "<white>%ml_color%%message%"
       # The text that will be displayed when you mouse over the message.
       hover:
-        - "&8&m------[&fHover]&8&m-------"
-        - "&fPlayer: &a%player%"
-        - "&fOnline: &a%online%"
+        - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+        - "<white>Player: <green>%player%"
+        - "<white>Online: <green>%online%"
       # Acton when you click the hover.
       action:
         # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.

@@ -11,173 +11,173 @@
 # Global errors
 global:
   # When you do not have permission to use this command or argument.
-  no-perms: "%c &fYou don't have enough permissions."
+  no-perms: "%c <white>You don't have enough permissions."
   # When you didn't make a necessary argument.
-  no-args: "%c &fUnknown argument. %newline%&8- &fUsage: &a%usage%"
+  no-args: "%c <white>Unknown argument. %newline%<dark_gray>- <white>Usage: <green>%usage%"
   # When you put an invalid argument [that has no function].
-  unknown-args: "%c &fUnknown argument."
+  unknown-args: "%c <white>Unknown argument."
   # When you use a command in the console [except for /clab].
   console: "You can't use this command in console."
   # When in the argument that asked for a player, you put one that is not connected.
-  player-offline: "%c &fThat player is not online."
+  player-offline: "%c <white>That player is not online."
   # When the sound you put in sounds.yml, does not exist in the version of the software you use.
-  sound-not-available: "%e &fThat sound doesn't exists in this version :(."
+  sound-not-available: "%e <white>That sound doesn't exists in this version :(."
 
 clab:
   # Section of /chatlab config:
   config:
-    unknown-config: "%c &fUnknown config. %newline%&8- &fList of configs: &a%configlist%"
-    unknown-path: "%c &fUnknown path."
+    unknown-config: "%c <white>Unknown config. %newline%<dark_gray>- <white>List of configs: <green>%configlist%"
+    unknown-path: "%c <white>Unknown path."
     
   modules:
     # When an option in the config.yml is disabled and the player wants to use that option.
-    option-disabled: "%c &fSorry &a%player%&f,the option &a%option% &fis disabled :(."
+    option-disabled: "%c <white>Sorry <green>%player%<white>,the option <green>%option% <white>is disabled :(."
 
   debug:
-    unknown-world: "%e &fUnknown world: &a%world%&f."
+    unknown-world: "%e <white>Unknown world: <green>%world%<white>."
 
-  unknown-page: "%e &fUnknown page."
-  disabled: "%c &fYou can't use the sound option."
+  unknown-page: "%e <white>Unknown page."
+  disabled: "%c <white>You can't use the sound option."
 
 # Section of /msg or /reply
 msg-reply:
-  no-reply: "%c &fYou don't have anyone to reply."
-  nobody-offline: "%c &fNobody is connected, only you :c."
-  same-player: "%c &fYou can't talk to yourself."
+  no-reply: "%c <white>You don't have anyone to reply."
+  nobody-offline: "%c <white>Nobody is connected, only you :c."
+  same-player: "%c <white>You can't talk to yourself."
 
 # Section of /motd
 motd:
-  unknown-line: "%c &fUnknown line: &a%line%&f."
-  unknown-page: "%c &fUnknown page: &a%page%&f."
-  negative-number: "%c &fThe number is negative: &a%number%&f."
+  unknown-line: "%c <white>Unknown line: <green>%line%<white>."
+  unknown-page: "%c <white>Unknown page: <green>%page%<white>."
+  negative-number: "%c <white>The number is negative: <green>%number%<white>."
 
 # Section of /bc or /broadcast -click
 click-chat:
-  unknown-number: "%c &fYou didn't write a number. Number: &a%number%&f."
+  unknown-number: "%c <white>You didn't write a number. Number: <green>%number%<white>."
 
 # Section of /ignore
 ignore:
-  already-unignored: "%e &fThe player was already unignored."
-  ignore-yourself: "%e &fYou can't ignore yourself."
-  anybody: "%e &fYou aren't ignoring anybody."
+  already-unignored: "%e <white>The player was already unignored."
+  ignore-yourself: "%e <white>You can't ignore yourself."
+  anybody: "%e <white>You aren't ignoring anybody."
 
 # Section of /stream
 stream:
-  valid-link: "%e &fPlease put a valid link. Message: &a%message%"
+  valid-link: "%e <white>Please put a valid link. Message: <green>%message%"
 
 # Section of /helpop
 helpop:
-  activated: "%e &fYou already activated helpop."
-  unactivated: "%e &fYou already disabled helpop."
-  anybody: "%e &fNobody is watching helpop."
+  activated: "%e <white>You already activated helpop."
+  unactivated: "%e <white>You already disabled helpop."
+  anybody: "%e <white>Nobody is watching helpop."
 
 # Section of /staffchat
 staff-chat:
-  activated: "%e &fYou already activated staffchat."
-  unactivated: "%e &fYou already disabled staffchat."
+  activated: "%e <white>You already activated staffchat."
+  unactivated: "%e <white>You already disabled staffchat."
 
 # Section of /socialspy
 socialspy:
   player:
-    activated: "%e &fYou already activated socialspy."
-    unactivated: "%e &fYou already disabled socialspy."
+    activated: "%e <white>You already activated socialspy."
+    unactivated: "%e <white>You already disabled socialspy."
 
   arg-2:
-    activated: "%e &c%arg-2% &fAlready activated socialspy."
-    unactivated: "%e &c%arg-2% &fAlready disabled socialspy."
+    activated: "%e <red>%arg-2% <white>Already activated socialspy."
+    unactivated: "%e <red>%arg-2% <white>Already disabled socialspy."
 
-  anybody: "%e &fNobody has socialspy activated."
+  anybody: "%e <white>Nobody has socialspy activated."
 
 # Section of /channel
 channel:
-  muted: "%e &fThe channel is muted."
-  no-exists: "%e &fThe channel doesn't exist."
-  disabled: "%e &fThe channel is disabled."
+  muted: "%e <white>The channel is muted."
+  no-exists: "%e <white>The channel doesn't exist."
+  disabled: "%e <white>The channel is disabled."
 
   player:
-    already-joined: "%e &fYou have already joined to &a%rank%&f."
+    already-joined: "%e <white>You have already joined to <green>%rank%<white>."
     
-  dont-joined: "%e &fYou haven't joined to any group."
+  dont-joined: "%e <white>You haven't joined to any group."
   arg2: 
-    already-joined: "%e &fThe player &a%arg-2% &falready joined to &a%channel%&f"
+    already-joined: "%e <white>The player <green>%arg-2% <white>already joined to <green>%channel%<white>"
 
   default:
-    quit: "%e &fAre you sure that you want to leave to the default channel (?."
-    info: "%e &fThe channel were you are is default."
+    quit: "%e <white>Are you sure that you want to leave to the default channel (?."
+    info: "%e <white>The channel were you are is default."
 
 # Section of /chat
 chat:
-  muted: "%e &fThe chat is muted."
+  muted: "%e <white>The chat is muted."
   management:
-    already-muted: "%e &fThe chat is already muted."
-    already-unmuted: "%e &fThe chat is already unmuted."
+    already-muted: "%e <white>The chat is already muted."
+    already-unmuted: "%e <white>The chat is already unmuted."
 
   flags:
-    empty-arg: "%e &fPlease, provide an argument for the flag."
+    empty-arg: "%e <white>Please, provide an argument for the flag."
 
-    unknown-flag: "%e &fUnknown flag: &a%flag%&f."
-    unknown-world: "%e &fUnknown world. &a%world%&f."
-    unknown-channel: "%e &fUnknown channel. &a%channel%&f."
-    unknown-number: "%e &fUnknown number: &a%text%"
-    negative-number: "%e &fThe number is negative: &a%number%&f."
+    unknown-flag: "%e <white>Unknown flag: <green>%flag%<white>."
+    unknown-world: "%e <white>Unknown world. <green>%world%<white>."
+    unknown-channel: "%e <white>Unknown channel. <green>%channel%<white>."
+    unknown-number: "%e <white>Unknown number: <green>%text%"
+    negative-number: "%e <white>The number is negative: <green>%number%<white>."
 
   tags:
-    empty-tags: "%e &fList of tags: &a%tags% %newline%&8- &fUsage: &a%usage%"
-    empty-colortags: "%e &fList of color tags: &a%colortags% %newline%&8- &fUsage: &a%usage%"
+    empty-tags: "%e <white>List of tags: <green>%tags% %newline%<dark_gray>- <white>Usage: <green>%usage%"
+    empty-colortags: "%e <white>List of color tags: <green>%colortags% %newline%<dark_gray>- <white>Usage: <green>%usage%"
 
-    unknown-tag: "%e &fUnknown tag."
-    unknown-tagcolor: "%e &fUnknown tag color."
+    unknown-tag: "%e <white>Unknown tag."
+    unknown-tagcolor: "%e <white>Unknown tag color."
 
 # Section of /commandspy
 commandspy:
   status:
     player:
-      already-enabled: "%e &fYou have already the commandspy enabled."
-      already-disabled: "%e &fYou have already the commandspy disabled."
+      already-enabled: "%e <white>You have already the commandspy enabled."
+      already-disabled: "%e <white>You have already the commandspy disabled."
     arg-2:
-      already-enabled: "%e &fThe player &a%arg-2% &fhave already the commandspy enabled."
-      already-disabled: "%e &The player &a%arg-2% &fhave already the commandspy disabled."
+      already-enabled: "%e <white>The player <green>%arg-2% <white>have already the commandspy enabled."
+      already-disabled: "%e <white>The player <green>%arg-2% <white>have already the commandspy disabled."
       
   list:
     players:
-      empty: "%e &fNobody is using the commandspy."
+      empty: "%e <white>Nobody is using the commandspy."
       
     blocked-commands:
-      empty: "%e &fAll commands can be watched."
+      empty: "%e <white>All commands can be watched."
       
     commands:
-      already-blocked: "%e &fYou already blocked that command. &a[%command%]"
-      already-unblocked: "%e &fYou already unblocked that command. &a[%command%]"
+      already-blocked: "%e <white>You already blocked that command. <green>[%command%]"
+      already-unblocked: "%e <white>You already unblocked that command. <green>[%command%]"
 
 # Section of /announcer
 announcer:
-  unknown-id: "%e &fUnknown id. &a%id%&f."
-  unknown-line: "%e &fUnknown line. &a%line%&f."
-  unknown-mode: "%e &fUnknown mode. &a%mode%&f."
-  interval: "%e &fUnknown time. &a%time%&f."
+  unknown-id: "%e <white>Unknown id. <green>%id%<white>."
+  unknown-line: "%e <white>Unknown line. <green>%line%<white>."
+  unknown-mode: "%e <white>Unknown mode. <green>%mode%<white>."
+  interval: "%e <white>Unknown time. <green>%time%<white>."
 
 # Section of /party
 party:
-  reached-max-players: "%e &fYou can't join to the party, the default max-players in the config is &a%max-players%"
+  reached-max-players: "%e <white>You can't join to the party, the default max-players in the config is <green>%max-players%"
 
-  already-have: "%e &fYou already have a party."
-  already-joined: "%e &fYou already joined a party."
+  already-have: "%e <white>You already have a party."
+  already-joined: "%e <white>You already joined a party."
 
   invite:
-    max-players: "%e &fYou can't invite more players, the default max-players in the config is &a%max-players%"
-    already-invited: "%e &fYou already invited &a%player%&f."
-    dont-invited: "%e &fYou don't invited &a%player%&f."
+    max-players: "%e <white>You can't invite more players, the default max-players in the config is <green>%max-players%"
+    already-invited: "%e <white>You already invited <green>%player%<white>."
+    dont-invited: "%e <white>You don't invited <green>%player%<white>."
 
   target:
-    already-have: "%e &a%target% &falready have a party."
-    not-your-party: "%e &a%target% &fis not in your party."
+    already-have: "%e <green>%target% <white>already have a party."
+    not-your-party: "%e <green>%target% <white>is not in your party."
 
-  private: "%e &fThe party is private, you need that the leader invite you."
-  no-party: "%e &fYou dont have a party."
-  no-leader: "%e &fThat player don't have a party."
+  private: "%e <white>The party is private, you need that the leader invite you."
+  no-party: "%e <white>You dont have a party."
+  no-leader: "%e <white>That player don't have a party."
 
   no-perms:
-    delete: "%e &fYou aren't the leader to delete the party."
-    set: "%e &fYou aren't the leader to set the party public or private"
-    promote: "%e &fYou aren't the leader to promote a player."
-    kick: "%e &fYou aren't the leader to kick a player."
+    delete: "%e <white>You aren't the leader to delete the party."
+    set: "%e <white>You aren't the leader to set the party public or private"
+    promote: "%e <white>You aren't the leader to promote a player."
+    kick: "%e <white>You aren't the leader to kick a player."
