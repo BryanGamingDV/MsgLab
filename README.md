@@ -1,5 +1,7 @@
 # ChatLab ![Project Status](https://img.shields.io/github/workflow/status/BryanGamingDV/ChatLab/Maven%20Build/main) 
 
+![download latest](https://img.shields.io/badge/DOWNLOAD-LATEST-blue?style=for-the-badge&logo=appveyor)](https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/)
+
 Advanced message plugin for your [Spigot](http://spigotmc.org/) minecraft server 1.8.8 - 1.16.5
 
 ## Introduction
@@ -16,7 +18,7 @@ ChatLab (MsgLab) is a messaging plugin with many features, it supports Spigot, [
 - Configurable Command Blocker. <br>
 - You can filter the commands in the tab complete (1.13+).
 ## Commands
-Use the command `/clab commands` to see all commands <br>
+Use the command `/clab commands` to see all commands. <br>
 The default permissions of these commands are the default ones. <br>
 #### Note:  The permissions of each feature are customizable.
 [] = optional <br>
@@ -27,6 +29,7 @@ The default permissions of these commands are the default ones. <br>
 | clab   	       | `/clab [reload/help/debug..]`                        | Plugin main command                         | clab.commands.clab	          |
 | chat   	       | `/chat [help/clear/mute/unmute/reload..]`            | Chat functions                              | clab.commands.chat	          |
 | socialspy      | `/socialspy [on/off] <player>`                       | Spy on a player's social activity           | clab.commands.socialspy	      |
+| commandspy     | `/commandspy [on/off/list..]`                        | Spying on the commands executed by a player | clab.commands.commandspy      |
 | broadcast      | `/broadcast <message>`                               | Send a message to all players               | clab.commands.broadcast       |
 | broadcastworld | `/broadcastworld <message>`                           | Send a message to all players in a world    | clab.commands.broadcast-world |
 | sc             | `/sc [on/off] / /sc [message]`                       | Send messages to staff chat                 | clab.commands.staffchat       |
@@ -34,7 +37,6 @@ The default permissions of these commands are the default ones. <br>
 | motd           | `/motd [addline/removeline/seline] <id/text> <text>` | To watch or modify the server motd          | clab.commands.motd.admin      |
 | channel        | `/channel [join/quit/list/move] [<channel>]`         | To use the channel manager                  | clab.commands.info/move       |
 | stream         | `/stream [<text>]`                                   | To stream                                   | clab.commands.stream          |
-| commandspy     | `/commandspy [on/off/list..]`                        | Spying on the commands executed by a player | clab.commands.commandspy      |
 | ignore         | `/ignore <player>`                                   | Ignore a player                             | NONE                          |
 | unignore       | `/unignore <player>`                                 | Stop ignoring a player                      | NONE                          |
 | msg   	       | `/msg <player> <message>`                            | Send a message to a player                  | NONE	                        |
@@ -44,4 +46,4 @@ All permissions can be modified in `config.yml` file.
 ## Revisor
 A Reviewer is a function that reviews messages in the chat, the permission to view and skip them is `revisor`. Currently the reviewers check: words, flood, caps, links and dots.
 ## Support
-Check out the official [discord server](https://discord.gg/wpSh4Bf4Es)!.
+Check out the official [Discord Server](https://discord.gg/wpSh4Bf4Es)!.
