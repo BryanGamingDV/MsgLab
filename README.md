@@ -1,24 +1,24 @@
 # ChatLab ![Project Status](https://img.shields.io/github/workflow/status/BryanGamingDV/ChatLab/Maven%20Build/main) 
 
-Advanced message plugin for your [spigot](http://spigotmc.org/) minecraft server 1.8.8 - 1.16.5
+Advanced message plugin for your [Spigot](http://spigotmc.org/) minecraft server 1.8.8 - 1.16.5
 
 ## Introduction
-ChatLab (MsgLab) is a messaging plugin with many features, it supports bukkit, spigot, [paper](https://papermc.io/downloads) and forks; you can change the format of the chat on your server, you can use emojis in the chat, you have the ability to mention people in the chat by typing their names, you can block commands, it supports PlaceHolderAPI, and much more.
+ChatLab (MsgLab) is a messaging plugin with many features, it supports Spigot, [Paper](https://papermc.io/downloads) and forks. With this plugin you can change the format of the chat on your server, you can use emojis in the chat, you have the ability to mention people in the chat by typing their names with a prefix, you can block commands, it supports PlaceHolderAPI, and much more.
 ## Features
-- Compatible with 1.8+. <br>
-- MiniMessage support. <br>
+- Compatible with 1.8.8+. <br>
+- Full [MiniMessage](https://docs.adventure.kyori.net/minimessage.html) support. <br>
 - PlaceholderAPI support. <br>
 - Paths customizables. <br>
 - Sounds customizables. <br>
 - Optimized code. <br>
 - Supports mentions and emojis. <br>
-- AntiTab (Requires ProtocolLib). <br>
-- CommandBlocker. <br>
-- You can fitler the commands in the tab (1.13+).
+- Anti Tab Complete (Requires ProtocolLib). <br>
+- Configurable Command Blocker. <br>
+- You can filter the commands in the tab complete (1.13+).
 ## Commands
 Use the command `/clab commands` to see all commands <br>
 The default permissions of these commands are the default ones. <br>
-#### Note:  The permissions are customizable.
+#### Note:  The permissions of each feature are customizable.
 [] = optional <br>
 <> = required <br>
 / = or
