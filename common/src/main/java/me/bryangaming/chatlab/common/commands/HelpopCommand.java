@@ -10,6 +10,7 @@ import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.events.HelpOpEvent;
 import me.bryangaming.chatlab.common.utils.Configuration;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -60,14 +61,14 @@ public class HelpopCommand implements CommandClass {
 
         if (commandFile.getBoolean("commands.helpop.enable-revisor")) {
             TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT,"Receive");
-            ServerWrapper.getData().getPluginManager().callEvent(textrevisorEvent);
+            pluginService.getEventLoader().callEvent(textrevisorEvent);
 
             if (textrevisorEvent.isCancelled()){
                 return true;
             }
         }
 
-        Bukkit.getPluginManager().callEvent(new HelpOpEvent(message));
+        pluginService.getEventLoader().callEvent(new HelpOpEvent(message));
         return true;
     }
 

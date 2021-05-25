@@ -1,5 +1,6 @@
 package me.bryangaming.chatlab.common.loader;
 
+import me.bryangaming.chatlab.api.Event;
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.api.Loader;
 import me.bryangaming.chatlab.common.builders.ListenerBuilder;
@@ -7,6 +8,7 @@ import me.bryangaming.chatlab.common.listeners.*;
 import me.bryangaming.chatlab.common.listeners.command.CommandSpyListener;
 import me.bryangaming.chatlab.common.listeners.command.HelpOpListener;
 import me.bryangaming.chatlab.common.listeners.command.SocialSpyListener;
+import me.bryangaming.chatlab.common.listeners.listener.ListenerManager;
 import me.bryangaming.chatlab.common.listeners.text.ChatListener;
 import me.bryangaming.chatlab.common.revisor.tabcomplete.TabFilter;
 import me.bryangaming.chatlab.common.utils.string.TextUtils;
@@ -20,27 +22,21 @@ public class EventLoader implements Loader {
 
     private final PluginService pluginService;
 
-    private ListenerBuilder
+    private final ListenerManager listenerManager;
 
     public EventLoader(PluginService pluginService) {
         this.pluginService = pluginService;
+        this.listenerManager = pluginService.getPlayerManager().getListenerManager();
         load();
     }
 
     @Override
     public void load() {
-        loadEvents(ListenerBuilder.create(""));
-                new JoinListener(pluginService),
-                new QuitListener(pluginService),
-                new SendTextListener(pluginService),
-                new ChatClickEvent(pluginService),
-                new GuiListener(pluginService),
-                new HelpOpListener(pluginService),
+        listenerManager.registerListeners(
                 new SocialSpyListener(pluginService),
                 new CommandSpyListener(pluginService),
-                new ServerChangeListener(pluginService),
-                new RevisorListener(pluginService),
-                new ChatListener(pluginService));
+                new HelpOpListener(pluginService),
+                new RevisorListener(pluginService));
 
         if (TextUtils.equalsIgnoreCaseOr(TextUtils.getServerVersion(Bukkit.getServer()),
                 "1.13", "1.14", "1.15", "1.16")) {
@@ -53,9 +49,8 @@ public class EventLoader implements Loader {
         pluginService.getPlugin().getLogger().info("Events loaded!");
     }
 
-    public void loadEvents(ListenerBuilder... listeners) {
-
-
+    public void callEvent(Event event){
+        listenerManager.callEvent(event);
     }
 
 }

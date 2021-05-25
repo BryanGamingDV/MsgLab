@@ -11,7 +11,7 @@ import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.bryangaming.chatlab.common.wrapper.annotation.SenderAnnotWrapper;
-import org.bukkit.OfflinePlayer;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class SocialSpyCommand implements CommandClass {
     }
 
     @Command(names = {""})
-    public boolean onMainCommand(@SenderAnnotWrapper  PlayerWrapper player) {
+    public boolean onMainCommand(@SenderAnnotWrapper PlayerWrapper player) {
         senderManager.sendMessage(player, messagesFile.getString("error.no-arg")
                 .replace("%usage%", TextUtils.getUsage("socialspy", "on, off, list", "<player>")));
         senderManager.playSound(player, SoundEnum.ERROR);
@@ -48,7 +48,7 @@ public class SocialSpyCommand implements CommandClass {
     }
 
     @Command(names = "list")
-    public boolean onListSubCommand(@SenderAnnotWrapper  PlayerWrapper player) {
+    public boolean onListSubCommand(@SenderAnnotWrapper PlayerWrapper player) {
         List<String> socialspyList = new ArrayList<>();
 
         for (UserData cache : pluginService.getCache().getUserDatas().values()) {
@@ -75,7 +75,7 @@ public class SocialSpyCommand implements CommandClass {
 
 
     @Command(names = {"on"})
-    public boolean onOnSubCommand(@SenderAnnotWrapper  PlayerWrapper player, @OptArg OfflinePlayer target) {
+    public boolean onOnSubCommand(@SenderAnnotWrapper PlayerWrapper player, @OptArg OfflinePlayerWrapper target) {
 
         UserData playerSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
@@ -101,7 +101,7 @@ public class SocialSpyCommand implements CommandClass {
             String targetname = target.getName();
 
             if (targetSpy.isSocialSpyMode()) {
-                senderManager.sendMessage(player.getPlayer(), messagesFile.getString("error.socialspy.arg-2-activated")
+                senderManager.sendMessage(player, messagesFile.getString("error.socialspy.arg-2-activated")
                         .replace("%arg-2%", targetname));
                 senderManager.playSound(player, SoundEnum.ERROR);
                 return true;
@@ -117,7 +117,7 @@ public class SocialSpyCommand implements CommandClass {
     }
 
     @Command(names = {"off"})
-    public boolean onOffSubCommand(@SenderAnnotWrapper  PlayerWrapper player, @OptArg OfflinePlayer target) {
+    public boolean onOffSubCommand(@SenderAnnotWrapper  PlayerWrapper player, @OptArg OfflinePlayerWrapper target) {
 
         UserData playerSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 

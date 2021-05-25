@@ -96,6 +96,10 @@ public class PluginService {
         return commandLoader;
     }
 
+    public EventLoader getEventLoader() {
+        return eventLoader;
+    }
+
     public TasksManager getTasksManager() {
         return tasksManager;
     }

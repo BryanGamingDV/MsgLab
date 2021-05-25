@@ -25,4 +25,9 @@ public class PlayerWrapperImpl
     public String getWorldName() {
         return player.getWorld().getName();
     }
+
+    @Override
+    public boolean isOnline() {
+        return player.isOnline();
+    }
 }

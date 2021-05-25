@@ -1,21 +1,27 @@
 package me.bryangaming.chatlab.common.events;
 
 import me.bryangaming.chatlab.api.Event;
-import me.bryangaming.chatlab.common.PluginService;
-import me.bryangaming.chatlab.common.listeners.command.HelpOpListener;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
 
 public class HelpOpEvent implements Event {
 
     private final String message;
+    private boolean isCancelled = false;
 
-    public HelpOpEvent(PluginService pluginService, String message) {
+    public HelpOpEvent(String message) {
         this.message = message;
-        pluginService.getCache().getListeners().get("HelpopEvent").doAction(this);
     }
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public void setCancelled(boolean isCancelled) {
+        this.isCancelled = isCancelled;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return isCancelled;
     }
 }

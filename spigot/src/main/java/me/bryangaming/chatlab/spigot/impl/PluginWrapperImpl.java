@@ -5,8 +5,10 @@ import me.bryangaming.chatlab.common.wrapper.plugin.PluginBaseWrapper;
 import me.bryangaming.chatlab.common.wrapper.plugin.PluginDescriptionWrapper;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 public class PluginWrapperImpl implements PluginBaseWrapper {
@@ -15,6 +17,11 @@ public class PluginWrapperImpl implements PluginBaseWrapper {
 
     public PluginWrapperImpl(JavaPlugin plugin){
         this.plugin = plugin;
+    }
+
+    @Override
+    public File getDataFolder() {
+        return plugin.getDataFolder();
     }
 
     @Override

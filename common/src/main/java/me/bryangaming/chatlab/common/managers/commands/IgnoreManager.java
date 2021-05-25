@@ -6,7 +6,7 @@ import me.bryangaming.chatlab.common.utils.module.ModuleType;
 import me.bryangaming.chatlab.common.wrapper.SenderWrapper;
 import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 
-import org.bukkit.OfflinePlayer;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
 import org.bukkit.command.SenderWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
@@ -36,7 +36,7 @@ public class IgnoreManager {
         PlayerWrapper you = (PlayerWrapper) sender;
         UUID playeruuid = you.getUniqueId();
 
-        OfflinePlayer player = Bukkit.getPlayer(uuid);
+        OfflinePlayerWrapper player = Bukkit.getPlayer(uuid);
         List<String> ignoredPlayers;
 
         if (ignorelist.get(playeruuid) == null) {

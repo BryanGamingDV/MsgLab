@@ -10,7 +10,7 @@ import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.bryangaming.chatlab.common.wrapper.annotation.SenderAnnotWrapper;
-import org.bukkit.OfflinePlayer;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class UnIgnoreCommand implements CommandClass {
     }
 
     @Command(names = "unignore")
-    public boolean onCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayer target) {
+    public boolean onCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayerWrapper target) {
 
         IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();

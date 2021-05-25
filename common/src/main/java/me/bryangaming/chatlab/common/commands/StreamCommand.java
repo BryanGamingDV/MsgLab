@@ -88,7 +88,7 @@ public class StreamCommand implements CommandClass {
 
         if (commandFile.getBoolean("commands.stream.enable-revisor")) {
             TextRevisorEvent textrevisorEvent = new TextRevisorEvent(player, message, TextRevisorEnum.TEXT, blockedRevisors);
-            ServerWrapper.getData().getPluginManager().callEvent(textrevisorEvent);
+            pluginService.getEventLoader().callEvent(textrevisorEvent);
 
             if (textrevisorEvent.isCancelled()){
                 return true;

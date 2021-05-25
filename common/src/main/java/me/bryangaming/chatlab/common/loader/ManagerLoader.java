@@ -2,6 +2,7 @@ package me.bryangaming.chatlab.common.loader;
 
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.api.Loader;
+import me.bryangaming.chatlab.common.listeners.listener.ListenerManager;
 import me.bryangaming.chatlab.common.managers.*;
 import me.bryangaming.chatlab.common.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.common.managers.commands.*;
@@ -9,12 +10,12 @@ import me.bryangaming.chatlab.common.managers.group.GroupManager;
 import me.bryangaming.chatlab.common.managers.sound.SoundManager;
 import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import me.bryangaming.chatlab.common.utils.string.VariableUtils;
-import me.bryangaming.chatlab.managers.commands.*;
 import me.bryangaming.chatlab.common.utils.WorldData;
 
 public class ManagerLoader implements Loader {
 
 
+    private ListenerManager listenerManager;
     private SoundManager soundManager;
     private WorldData worldData;
     private GuiManager guiManager;
@@ -50,6 +51,7 @@ public class ManagerLoader implements Loader {
 
     @Override
     public void load() {
+        listenerManager = new ListenerManager();
         soundManager = new SoundManager(pluginService);
         worldData = new WorldData(pluginService);
         guiManager = new GuiManager(pluginService);
@@ -79,6 +81,10 @@ public class ManagerLoader implements Loader {
 
         pluginService.getLogs().log("Methods registered");
 
+    }
+
+    public ListenerManager getListenerManager() {
+        return listenerManager;
     }
 
     public PartyManager getPartyMethod() {

@@ -6,11 +6,12 @@ import me.bryangaming.chatlab.common.managers.commands.IgnoreManager;
 import me.bryangaming.chatlab.common.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import me.bryangaming.chatlab.common.utils.Configuration;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.bryangaming.chatlab.common.wrapper.annotation.SenderAnnotWrapper;
-import org.bukkit.OfflinePlayer;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class IgnoreCommand implements CommandClass {
     }
 
     @Command(names = "ignore")
-    public boolean onIgnoreCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayer target) {
+    public boolean onIgnoreCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayerWrapper target) {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 

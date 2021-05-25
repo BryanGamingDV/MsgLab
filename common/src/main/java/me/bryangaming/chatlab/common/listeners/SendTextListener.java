@@ -4,6 +4,7 @@ import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.common.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.common.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.common.events.text.ChatEvent;
+import me.bryangaming.chatlab.common.listeners.listener.ListenerHandler;
 import me.bryangaming.chatlab.common.managers.SenderManager;
 import me.bryangaming.chatlab.common.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.common.managers.commands.StaffChatManager;
@@ -32,6 +33,7 @@ public class SendTextListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @ListenerHandler
     public void onChat(AsyncPlayerChatEvent event) {
 
         PlayerWrapper player = event.getPlayer();
@@ -119,7 +121,7 @@ public class SendTextListener implements Listener {
             }
         }
 
-        Bukkit.getPluginManager().callEvent(new CommandSpyEvent(event.getPlayer().getName(), event.getMessage().substring(TextUtils.countRepeatedCharacters(event.getMessage(), '/')).toLowerCase()));
+        pluginService.getPluginManager().callEvent(new CommandSpyEvent(event.getPlayer().getName(), event.getMessage().substring(TextUtils.countRepeatedCharacters(event.getMessage(), '/')).toLowerCase()));
 
         if (utils.getBoolean("options.allow-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(event.getPlayer(), commandText, TextRevisorEnum.COMMAND);

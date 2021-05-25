@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.api.Module;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.utils.Configuration;
 import me.bryangaming.chatlab.common.wrapper.configuration.ConfigurationSectionWrapper;
-import org.bukkit.configuration.ConfigurationSection;
+
 
 import java.util.List;
 import java.util.Map;

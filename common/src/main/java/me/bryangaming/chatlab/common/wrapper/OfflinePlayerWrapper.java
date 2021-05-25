@@ -2,12 +2,14 @@ package me.bryangaming.chatlab.common.wrapper;
 
 import java.util.UUID;
 
-public interface PlayerWrapper extends SenderWrapper {
+public interface OfflinePlayerWrapper{
 
     UUID getUniqueId();
 
-    String getWorldName();
+    String getName();
 
     boolean isOnline();
+
+    PlayerWrapper getPlayer();
 
 }

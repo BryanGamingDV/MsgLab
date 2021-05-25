@@ -3,12 +3,14 @@ package me.bryangaming.chatlab.common.revisor;
 import me.bryangaming.chatlab.common.CacheManager;
 import me.bryangaming.chatlab.common.ChatLab;
 import me.bryangaming.chatlab.common.PluginService;
+import me.bryangaming.chatlab.common.data.ServerData;
 import me.bryangaming.chatlab.common.managers.SenderManager;
 import me.bryangaming.chatlab.common.utils.module.ModuleType;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.utils.Configuration;
 
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 
 import java.util.UUID;
 
@@ -83,7 +85,7 @@ public class CooldownData {
             return false;
         }
 
-        PlayerWrapper player = Bukkit.getPlayer(uuid);
+        PlayerWrapper player = ServerWrapper.getData().getPlayer(uuid);
         UserData playerCooldown = cache.getUserDatas().get(uuid);
 
         if (senderManager.hasPermission(player, "cooldown.cmd-bypass")) {
@@ -98,7 +100,7 @@ public class CooldownData {
 
         playerCooldown.setCooldownCmdMode(true);
 
-        ServerWrapper.getData().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+        ServerData.claswsscheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
                 playerCooldown.setCooldownCmdMode(false);

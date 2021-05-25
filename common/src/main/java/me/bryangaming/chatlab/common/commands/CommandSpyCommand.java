@@ -6,12 +6,14 @@ import me.bryangaming.chatlab.common.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.utils.Configuration;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.bryangaming.chatlab.common.wrapper.annotation.SenderAnnotWrapper;
 
-import org.bukkit.OfflinePlayer;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class CommandSpyCommand implements CommandClass {
     }
 
     @Command(names = {"on"})
-    public boolean onOnSubCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayer offlinePlayer) {
+    public boolean onOnSubCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayerWrapper offlinePlayer) {
 
         UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
@@ -90,7 +92,7 @@ public class CommandSpyCommand implements CommandClass {
     }
 
     @Command(names = {"off"})
-    public boolean onOffSubCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayer offlinePlayer) {
+    public boolean onOffSubCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayerWrapper offlinePlayer) {
 
         UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 

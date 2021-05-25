@@ -8,6 +8,7 @@ import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import me.bryangaming.chatlab.common.data.PartyData;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.utils.Configuration;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -64,7 +65,7 @@ public class PartyCommand implements CommandClass {
             return true;
         }
 
-        PlayerWrapper player = Bukkit.getPlayerExact(leader);
+        PlayerWrapper player = ServerWrapper.getData().getPlayer(leader);
 
         if (player == null) {
             senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
@@ -156,13 +157,13 @@ public class PartyCommand implements CommandClass {
         List<String> arrayList = new ArrayList<>();
 
         for (UUID uuid : partyData.getPlayers()) {
-            arrayList.add(Bukkit.getPlayer(uuid).getName());
+            arrayList.add(ServerWrapper.getData().getPlayer(uuid).getName());
         }
 
         List<String> partyList = commandFile.getStringList("commands.party.info.format");
         partyList.replaceAll(players -> players
                 .replace("%loop-players%", String.join(",", arrayList))
-                .replace("%leader%", Bukkit.getPlayer(partyData.getPlayerLeader()).getName()));
+                .replace("%leader%", ServerWrapper.getData().getPlayer(partyData.getPlayerLeader()).getName()));
 
         senderManager.sendMessage(sender, partyList);
         return true;
@@ -178,7 +179,7 @@ public class PartyCommand implements CommandClass {
             return true;
         }
 
-        PlayerWrapper player = Bukkit.getPlayerExact(target);
+        PlayerWrapper player = ServerWrapper.getData().getPlayer(target);
 
         if (player == null) {
             senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
@@ -205,7 +206,7 @@ public class PartyCommand implements CommandClass {
             return true;
         }
 
-        PlayerWrapper player = Bukkit.getPlayerExact(target);
+        PlayerWrapper player = ServerWrapper.getData().getPlayer(target);
 
         if (player == null) {
             senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
@@ -238,7 +239,7 @@ public class PartyCommand implements CommandClass {
             return true;
         }
 
-        PlayerWrapper player = Bukkit.getPlayerExact(target);
+        PlayerWrapper player = ServerWrapper.getData().getPlayer(target);
 
         if (player == null) {
             senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
@@ -265,7 +266,7 @@ public class PartyCommand implements CommandClass {
             return true;
         }
 
-        PlayerWrapper player = Bukkit.getPlayerExact(target);
+        PlayerWrapper player = ServerWrapper.getData().getPlayer(target);
 
         if (player == null) {
             senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));

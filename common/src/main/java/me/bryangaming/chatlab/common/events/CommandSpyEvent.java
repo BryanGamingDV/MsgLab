@@ -1,14 +1,12 @@
 package me.bryangaming.chatlab.common.events;
 
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
+import me.bryangaming.chatlab.api.Event;
 
-public class CommandSpyEvent extends  {
+public class CommandSpyEvent implements Event {
 
     private final String message;
-
     private final String sender;
-
+    private boolean isCancelled = false;
 
     public CommandSpyEvent(String sender, String message) {
         this.message = message;
@@ -23,12 +21,14 @@ public class CommandSpyEvent extends  {
         return message;
     }
 
-    public HandlerList getHandlers() {
-        return HANDLERS;
+
+    @Override
+    public void setCancelled(boolean isCancelled) {
+        this.isCancelled = isCancelled;
     }
 
-    public static HandlerList getHandlerList() {
-        return HANDLERS;
+    @Override
+    public boolean isCancelled() {
+        return isCancelled;
     }
-
 }

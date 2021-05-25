@@ -6,7 +6,7 @@ import me.bryangaming.chatlab.api.Hook;
 import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import me.bryangaming.chatlab.common.debug.LoggerTypeEnum;
 
-import org.bukkit.OfflinePlayer;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 public class VanishHook implements Hook {
@@ -32,7 +32,7 @@ public class VanishHook implements Hook {
         pluginService.getPlugin().getLogger().info("Addons - Loaded SuperVanish..");
     }
 
-    public boolean isVanished(OfflinePlayer offlinePlayer){
+    public boolean isVanished(OfflinePlayerWrapper offlinePlayer){
         return isVanished(offlinePlayer.getPlayer());
     }
 

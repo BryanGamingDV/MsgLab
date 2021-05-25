@@ -10,7 +10,7 @@ import me.bryangaming.chatlab.common.wrapper.SenderWrapper;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.OfflinePlayer;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
 import org.bukkit.command.SenderWrapper;
 import org.bukkit.entity.HumanEntity;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
@@ -123,7 +123,7 @@ public class SenderManager {
 
     }
 
-    public void sendMessage(OfflinePlayer sender, String path){
+    public void sendMessage(OfflinePlayerWrapper sender, String path){
         sendMessage((PlayerWrapper) sender, path);
     }
 

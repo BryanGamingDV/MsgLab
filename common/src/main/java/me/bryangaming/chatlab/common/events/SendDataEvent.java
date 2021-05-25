@@ -11,11 +11,12 @@ public class SendDataEvent implements Event {
     private final PlayerWrapper player;
     private final UserData userData;
 
+    private boolean isCancelled = false;
 
-    public SendDataEvent(PluginService pluginService, PlayerWrapper player, UserData userData) {
+
+    public SendDataEvent(PlayerWrapper player, UserData userData) {
         this.player = player;
         this.userData = userData;
-        pluginService.getCache().getListeners().get("SendDataEvent").doAction(this);
     }
 
     public PlayerWrapper getPlayer(){
@@ -24,5 +25,15 @@ public class SendDataEvent implements Event {
 
     public UserData getUserData() {
         return userData;
+    }
+
+    @Override
+    public void setCancelled(boolean isCancelled) {
+        this.isCancelled = isCancelled;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return isCancelled;
     }
 }

@@ -8,12 +8,13 @@ import me.bryangaming.chatlab.common.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.utils.Configuration;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.bryangaming.chatlab.common.wrapper.annotation.SenderAnnotWrapper;
 
-import org.bukkit.OfflinePlayer;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 import java.util.UUID;
@@ -144,7 +145,7 @@ public class ChannelCommand implements CommandClass {
     }
 
     @Command(names = {"move"})
-    public boolean moveSubCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayer target, @OptArg("") String channel) {
+    public boolean moveSubCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayerWrapper target, @OptArg("") String channel) {
 
         if (!senderManager.hasPermission(sender, "commands.channel.move")) {
             senderManager.sendMessage(sender, messagesFile.getString("error.no-perms"));

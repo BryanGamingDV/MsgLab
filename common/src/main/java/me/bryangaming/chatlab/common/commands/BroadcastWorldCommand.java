@@ -51,7 +51,7 @@ public class BroadcastWorldCommand implements CommandClass {
 
         if (commandFile.getBoolean("commands.broadcast.enable-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
-            ServerWrapper.getData().getPluginManager().callEvent(textRevisorEvent);
+            pluginService.getEventLoader().callEvent(textRevisorEvent);
 
             if (textRevisorEvent.isCancelled()) {
                 return true;
@@ -62,7 +62,7 @@ public class BroadcastWorldCommand implements CommandClass {
 
         for (PlayerWrapper onlinePlayer : clickChatManager.getWorldChat(sender)) {
             senderManager.sendMessage(onlinePlayer, commandFile.getString("commands.broadcast.text.world")
-                    .replace("%world%", sender.getWorld().getName())
+                    .replace("%world%", sender.getWorldName())
                     .replace("%player%", sender.getName())
                     .replace("%message%", message));
             senderManager.playSound(sender, SoundEnum.RECEIVE_BROADCASTWORLD);

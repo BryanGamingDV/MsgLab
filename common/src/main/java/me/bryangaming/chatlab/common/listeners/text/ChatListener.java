@@ -1,6 +1,6 @@
 package me.bryangaming.chatlab.common.listeners.text;
 
-import github.scarsz.discordsrv.util.DiscordUtil;
+import me.bryangaming.chatlab.api.Listener;
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.common.managers.group.GroupEnum;
 import me.bryangaming.chatlab.common.data.ServerData;
@@ -12,14 +12,13 @@ import me.bryangaming.chatlab.common.managers.RecipientManager;
 import me.bryangaming.chatlab.common.managers.SenderManager;
 import me.bryangaming.chatlab.common.revisor.CooldownData;
 import me.bryangaming.chatlab.common.utils.Configuration;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 
 
-public class ChatListener implements Listener{
+public class ChatListener implements Listener {
 
     private PluginService pluginService;
 
@@ -27,7 +26,7 @@ public class ChatListener implements Listener{
         this.pluginService = pluginService;
     }
 
-    @EventHandler
+    @ListenerHa
     public void onChat(ChatEvent event){
 
         PlayerWrapper player = event.getSender();

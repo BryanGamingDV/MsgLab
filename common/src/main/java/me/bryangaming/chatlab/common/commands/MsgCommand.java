@@ -1,6 +1,8 @@
 package me.bryangaming.chatlab.common.commands;
 
+import me.bryangaming.chatlab.api.Event;
 import me.bryangaming.chatlab.common.PluginService;
+import me.bryangaming.chatlab.common.data.ServerData;
 import me.bryangaming.chatlab.common.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.common.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.common.managers.SenderManager;
@@ -11,13 +13,15 @@ import me.bryangaming.chatlab.common.utils.string.TextUtils;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.events.SocialSpyEvent;
 import me.bryangaming.chatlab.common.utils.Configuration;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.bryangaming.chatlab.common.wrapper.annotation.SenderAnnotWrapper;
 
-import org.bukkit.OfflinePlayer;
+import me.bryangaming.chatlab.common.wrapper.OfflinePlayerWrapper;
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 
 import java.util.UUID;
@@ -32,7 +36,7 @@ public class MsgCommand implements CommandClass {
 
     @Command(names = {"msg", "pm", "tell", "t", "w", "whisper"})
 
-    public boolean onCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayer target, @OptArg("") @Text String msg) {
+    public boolean onCommand(@SenderAnnotWrapper  PlayerWrapper sender, @OptArg OfflinePlayerWrapper target, @OptArg("") @Text String msg) {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
@@ -89,7 +93,7 @@ public class MsgCommand implements CommandClass {
                 return true;
             }
 
-            PlayerWrapper you = Bukkit.getPlayer(msg);
+            PlayerWrapper you = ServerWrapper.getData().getPlayer(msg);
 
             if (you == null) {
                 senderManager.sendMessage(sender, messagesFile.getString("error.player-offline"));
@@ -164,7 +168,7 @@ public class MsgCommand implements CommandClass {
 
         if (commandFile.getBoolean("commands.msg-reply.enable-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
-            ServerWrapper.getData().getPluginManager().callEvent(textRevisorEvent);
+            pluginService.getEventLoader().callEvent(textRevisorEvent);
 
             if (textRevisorEvent.isCancelled()) {
                 return true;
@@ -187,7 +191,7 @@ public class MsgCommand implements CommandClass {
                 .replace("%arg-1%", target.getName())
                 .replace("%message%", message);
 
-        Bukkit.getPluginManager().callEvent(new SocialSpyEvent(socialspyFormat));
+        pluginService.getEventLoader().callEvent(new SocialSpyEvent(socialspyFormat));
 
         ReplyManager reply = pluginService.getPlayerManager().getReplyMethod();
         reply.setReply(playeruuid, targetuuid);

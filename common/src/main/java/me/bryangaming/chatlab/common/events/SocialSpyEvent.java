@@ -1,19 +1,27 @@
 package me.bryangaming.chatlab.common.events;
 
 
+import me.bryangaming.chatlab.api.Event;
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.common.listeners.command.SocialSpyListener;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
 
-public class SocialSpyEvent  {
+public class SocialSpyEvent implements Event {
 
     private String message;
+    private boolean isCancelled = false;
 
-    public SocialSpyEvent(PluginService pluginService, String message) {
+
+    public SocialSpyEvent(String message) {
         this.message = message;
-        pluginService.getCache().getListeners
     }
 
+    @Override
+    public void setCancelled(boolean isCancelled) {
+        this.isCancelled = isCancelled;
+    }
 
+    @Override
+    public boolean isCancelled() {
+        return isCancelled;
+    }
 }

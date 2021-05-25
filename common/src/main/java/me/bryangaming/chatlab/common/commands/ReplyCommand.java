@@ -1,5 +1,6 @@
 package me.bryangaming.chatlab.common.commands;
 
+import me.bryangaming.chatlab.api.Event;
 import me.bryangaming.chatlab.api.Listener;
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.common.data.ServerData;
@@ -68,12 +69,14 @@ public class ReplyCommand implements CommandClass {
         }
 
         if (commandFile.getBoolean("commands.msg-reply.enable-revisor")) {
-            Listener<TextRevisorEvent> textrevisorEvent = new TextRevisorEvent(sender, text, TextRevisorEnum.TEXT);
-            textrevisorEvent.doaction
+            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, text, TextRevisorEnum.TEXT);
+            pluginService.getEventLoader().callEvent(textrevisorEvent);
 
             if (textrevisorEvent.isCancelled()){
                 return true;
             }
+
+            text = textrevisorEvent.getMessageRevised();
         }
 
         if (!senderManager.hasPermission(sender, "color.variable")) {
@@ -105,7 +108,7 @@ public class ReplyCommand implements CommandClass {
                 .replace("%arg-1%", target.getName())
                 .replace("%message%", text);
 
-        Bukkit.getPluginManager().callEvent(new SocialSpyEvent(socialspyFormat));
+        pluginService.getEventLoader().callEvent(new SocialSpyEvent(socialspyFormat));
         return true;
     }
 }
