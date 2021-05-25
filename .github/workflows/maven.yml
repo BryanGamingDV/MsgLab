@@ -7,12 +7,13 @@ jobs:
 
     runs-on: ubuntu-latest
     
-    # For Minecraft 1.8-1.12.2, Java 8 is the recommended version.
-    # For Minecraft 1.13-1.16.5, Java 11 is the recommended version.
-    # And for Minecraft 1.17, Java 16 is the version that we should use
+    # For Minecraft 1.8.8 - 1.12.2, Java 8 is the recommended version.
+    # For Minecraft 1.13.2 - 1.16.5, Java 11 is the recommended version.
+    # And for Minecraft 1.17, Java 16 is the version that we should use.
+    # The test of compilation of Java 16 will be valid for java 11 too.
     strategy:
       matrix:
-        java: [8, 11, 16]
+        java: [8, 16]
 
     steps:
     - name: Checkout Repository
