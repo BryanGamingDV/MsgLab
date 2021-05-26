@@ -1,12 +1,3 @@
----
-name: Configuration Improvement
-about: Make a change to the plugin settings that fixes a syntax, translation or general bug.
-title: ''
-labels: enhancement
-assignees: ''
-
----
-
 # ChatLab
 
 ### Make sure you meet these requirements before proposing your changes.

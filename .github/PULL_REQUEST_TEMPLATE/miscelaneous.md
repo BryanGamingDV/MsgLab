@@ -1,12 +1,3 @@
----
-name: Miscellaneous Change
-about: Make a change that improves interaction with the product on GitHub.
-title: ''
-labels: enhancement
-assignees: ''
-
----
-
 # ChatLab
 
 ### Make sure you meet these requirements before proposing your changes.

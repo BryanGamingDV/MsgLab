@@ -1,12 +1,3 @@
----
-name: Code Improvement
-about: Make a change that may change the plugin code for the better.
-title: ''
-labels: enhancement
-assignees: ''
-
----
-
 # ChatLab
 
 ### Make sure you meet these requirements before proposing your changes.

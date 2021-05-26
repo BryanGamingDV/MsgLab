@@ -1,6 +1,6 @@
 # ChatLab ![Project Status](https://img.shields.io/github/workflow/status/BryanGamingDV/ChatLab/Maven%20Build/main) 
 
-![download latest](https://img.shields.io/badge/DOWNLOAD-LATEST-blue?style=for-the-badge&logo=appveyor)](https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/)
+![download latest](https://img.shields.io/badge/DOWNLOAD-LATEST-blue?style=for-the-badge&logo=appveyor)(https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/)
 
 Advanced message plugin for your [Spigot](http://spigotmc.org/) minecraft server 1.8.8 - 1.16.5
 
