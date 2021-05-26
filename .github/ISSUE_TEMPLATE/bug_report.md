@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+# Bug Report
+
 **Describe the bug**
 Clear description of bug, error or failure you are reporting. And how it could be reproduced in our tests.
 
