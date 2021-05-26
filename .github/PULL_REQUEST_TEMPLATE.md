@@ -6,5 +6,11 @@
 - [ ] The tests you have performed have been done in a supported software. (Spigot, Paper, Tuinity, Airplane, Purpur)
 - [ ] Your changes are really necessary for the plugin and can give a better experience when using it.
 
+## Category of your changes.
+
+- [ ] Plugin internal code (Improvements or bug fixes to the plugin's code)
+- [ ] Configuration (Changes to the default plugin configuration)
+- [ ] Miscellaneous (External changes, such as to compilation tests)
+
 ## Description.
 Describe here the changes that were made to the plugin in your pull request.
