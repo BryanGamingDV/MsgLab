@@ -269,7 +269,6 @@ channel:
   apprendice:
     # The condition to join the channel.
     condition:
-
       # List: PERMISSION, GROUP.
       type: PERMISSION
       format: test.test
@@ -281,7 +280,7 @@ channel:
         format: "<green>| <dark_green>[VIP+] <white>%player% "
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -299,7 +298,7 @@ channel:
         format: "<white>%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -310,7 +309,6 @@ channel:
   vip:
     # The condition to join the channel.
     condition:
-
       # List: PERMISSION, GROUP.
       type: GROUP
       format: VIP
@@ -322,7 +320,7 @@ channel:
         format: "<dark_gray>| <dark_green>[VIP+] <white>%player% "
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -340,7 +338,7 @@ channel:
         format: "<white>%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
