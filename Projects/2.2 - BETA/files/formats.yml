@@ -13,8 +13,10 @@
 # Or with HEX colors (1.16+ only) <color:#8DDA59>Hola</color>
 # Wiki: https://docs.adventure.kyori.net/minimessage.html#format
 
-# Per world chat - Format.
+# Per World Chat module
+# Here you can activate the chat by worlds, with the format specified in chat-format for each rank.
 per-world-chat:
+  # Enable this module?
   enabled: false
   # If the chat is only for players who are in the world.
   all-worlds: false
@@ -35,6 +37,7 @@ per-world-chat:
 # You will have the possibility that only people in the 
 # specified area can read the messages you send in the chat.
 radial-chat:
+  # Enable this module?
   enabled: false
   # Chat range
   x: 50
@@ -44,7 +47,10 @@ radial-chat:
 #
 # Chat Format:
 #
+# Here you can configure the global chat options
 chat-format:
+  # Enable this module?
+  enabled: true
   permissions:
     # If player can use color in the chat:
     color:
@@ -57,8 +63,7 @@ chat-format:
 
   # If you want to register messages of minecraft in discord or on the contrary. (Requires DiscordSRV).
   discord-srv:
-    enabled: false
-
+    # You can enable and disable this module in config.yml
     # The id where the messages will be sent o the messages from that channel that will be sent to minecraft.
     channelID: channelID
 
@@ -249,6 +254,8 @@ chat-format:
 # If you want how to create channel.
 # You can enter in: https://bryangaming.gitbook.io/chatlab/option-guide/channels.
 channel:
+  # Enable this module?
+  enabled: true
   apprendice:
     # The condition to join the channel.
     condition:
@@ -372,6 +379,8 @@ channel:
 
 # Party format.
 party-chat:
+  # Enable this module?
+  enabled: true
   bases:
     prefix:
       # The message part that appears when you chat, obviously.
@@ -413,6 +422,8 @@ party-chat:
 # Go in: https://bryangaming.gitbook.io/chatlab/option-guide/jq-join-and-quit
 
 join-and-quit:
+  # Enable this module?
+  enabled: true
   # Group access:
   # permission -> If player has permission of the group, he receive the data of that group.
   # group -> If player is in group, he recieve the data of that group. [Vault & complement required].
@@ -423,7 +434,7 @@ join-and-quit:
   formats:
     # Default format [When a player enter to the server]
     default:
-      # When a player join for the first time.
+      # Entry and exit message format for default group.
       first-join:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
         message: "<dark_gray>[</dark_gray><green>+</green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>has joined for first time</white><gold>!</gold>"
