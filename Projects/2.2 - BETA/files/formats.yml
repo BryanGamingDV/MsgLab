@@ -35,7 +35,7 @@ per-world-chat:
         format: "<dark_gray>| <yellow>[Default] <white>%player% <gray>> <white>%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
           -
@@ -52,7 +52,7 @@ per-world-chat:
 # specified area can read the messages you send in the chat.
 radial-chat:
   enabled: false
-
+  # Chat range
   x: 50
   y: 50
   z: 50
@@ -61,7 +61,7 @@ radial-chat:
 # Chat Format:
 #
 chat-format:
-  perms:
+  permissions:
     # If player can use color in the chat:
     color:
       variable: clab.chat.variable
@@ -92,7 +92,6 @@ chat-format:
   # If you want how to create a chat format:
   # Check in: https://bryangaming.gitbook.io/chatlab/option-guide/chatformat.
   default:
-
     # Text components.
     # Note: The hover and action paths are optional.
     bases:
@@ -101,7 +100,7 @@ chat-format:
         format: "<dark_gray>| <white>%ml_tag% <yellow>[Default] "
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -115,7 +114,7 @@ chat-format:
         format: "<white>%player%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -133,7 +132,7 @@ chat-format:
         format: "<white>%ml_color%%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -152,7 +151,7 @@ chat-format:
         format: "<dark_gray>| <white>%ml_tag% <red>[OP] <white>%player% "
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -170,7 +169,7 @@ chat-format:
         format: "<white>%ml_color%%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -192,7 +191,7 @@ chat-format:
           format: "<dark_gray>| <green>[VIP] <white>%player% "
           # The text that will be displayed when you mouse over the message.
           hover:
-            - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+            - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
             - "<white>Player: <green>%player%"
             - "<white>Online: <green>%online%"
           # Acton when you click the hover.
@@ -210,7 +209,7 @@ chat-format:
           format: "<white>%message%"
           # The text that will be displayed when you mouse over the message.
           hover:
-            - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+            - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
             - "<white>Player: <green>%player%"
             - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -229,7 +228,7 @@ chat-format:
           format: "<dark_gray>| <dark_green>[VIP+] <white>%player% "
           # The text that will be displayed when you mouse over the message.
           hover:
-            - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+            - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
             - "<white>Player: <green>%player%"
             - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -247,7 +246,7 @@ chat-format:
         format: "<white>%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
       # Acton when you click the hover.
@@ -349,7 +348,6 @@ channel:
   VIP+:
     # The condition to join the channel.
     condition:
-
       # List: PERMISSION, GROUP.
       type: GROUP
       format: VIP
@@ -361,7 +359,7 @@ channel:
         format: "<dark_gray>| <dark_green>[VIP+] <white>%player% "
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -379,7 +377,7 @@ channel:
         format: "<white>%message%"
         # The text that will be displayed when you mouse over the message.
         hover:
-          - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
           - "<white>Player: <green>%player%"
           - "<white>Online: <green>%online%"
         # Acton when you click the hover.
@@ -396,7 +394,7 @@ party-chat:
       format: "<red>[Party] <dark_gray>| <white>%player% "
       # The text that will be displayed when you mouse over the message.
       hover:
-        - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+        - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
         - "<white>Player: <green>%player%"
         - "<white>Online: <green>%online%"
       # Acton when you click the hover.
@@ -414,7 +412,7 @@ party-chat:
       format: "<white>%ml_color%%message%"
       # The text that will be displayed when you mouse over the message.
       hover:
-        - "<dark_gray><st>------</st>[<white>Hover]<dark_gray><st>-------</st>"
+        - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
         - "<white>Player: <green>%player%"
         - "<white>Online: <green>%online%"
       # Acton when you click the hover.
@@ -424,13 +422,13 @@ party-chat:
         format: "/msg %player% message"
 
 #
-# Lobby format [FirstJoin, Join, Quit format]
+# Join and Quit formats [FirstJoin, Join, Quit]
 #
 
 # If you want how to use this.
 # Go in: https://bryangaming.gitbook.io/chatlab/option-guide/jq-join-and-quit
 
-lobby:
+join-and-quit:
   # Group access:
   # permission -> If player has permission of the group, he receive the data of that group.
   # group -> If player is in group, he recieve the data of that group. [Vault & complement required].
