@@ -437,7 +437,7 @@ lobby:
   # permission -> If player has permission of the group, he receive the data of that group.
   # group -> If player is in group, he recieve the data of that group. [Vault & complement required].
   # default -> If you want to use only a one format group.
-  group-access: permission
+  group-access: default
 
   # NOTE: All options [message, motd, commands] are optional. You can combine or disable options!
   formats:
@@ -446,10 +446,13 @@ lobby:
       # When a player join for the first time.
       first-join:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "The player %player% joined!"
+        message: "<dark_gray>[</dark_gray><green>+</green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>has joined for first time</white><gold>!</gold>"
         # A welcome message.
         motd:
-          - "A test motd"
+          - "<rainbow>---------------</rainbow>"
+          - "<white>Welcome to </white><gold>My Server</gold>"
+          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+          - "<rainbow:2>---------------</rainbow>"
         # Actions from player.
         actions:
           - "[CONSOLECMD] give %player% diamond"
@@ -457,10 +460,13 @@ lobby:
       # When a player join to the server.
       join:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "The player %player% joined!"
+        message: "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
         # A welcome message.
         motd:
-          - "A test motd"
+          - "<rainbow>---------------</rainbow>"
+          - "<white>Welcome back to </white><gold>My Server</gold>"
+          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+          - "<rainbow:2>---------------</rainbow>"
         # Actions from player.
         actions:
           - ""
@@ -468,7 +474,7 @@ lobby:
       # When a player quit to the server.
       quit:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "The player %player% left!"
+        message: "<dark_gray>[</dark_gray><red>-</red><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%<gray> <white>left</white><gold>!</gold>"
         # Actions from player.
         actions:
           - ""
@@ -476,27 +482,33 @@ lobby:
       # When a player join for the first time.
       first-join:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "The player %player% joined!"
+        message: "<dark_gray><bold>[</dark_gray><green>+</green><dark_gray>]</bold></dark_gray> <gold><bold>VIP</bold></gold><white> player</white> <gray>%player%</gray> <white> has joined for first time</white><gold>!</gold>"
         # A welcome message.
         motd:
-          - "A test motd"
+          - "<rainbow>---------------</rainbow>"
+          - "<white>Welcome <red>%player%</red> <white>to </white><gold>My Server</gold>"
+          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+          - "<rainbow:2>---------------</rainbow>"
         # Actions from player.
         actions:
           - ""
       # When a player join to the server.
       join:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "The player %player% joined!"
+        message: "<dark_gray>[</dark_gray><green>+</green><dark_gray>]</dark_gray> <gold>VIP</gold> <white>player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
         # A welcome message.
         motd:
-          - "A test motd"
+          - "<rainbow>---------------</rainbow>"
+          - "<white>Welcome </white><red>%player%</red><white>back to </white><gold>My Server</gold>"
+          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+          - "<rainbow:2>---------------</rainbow>"
         # Actions from player.
         actions:
           - ""
       # When a player quit to the server.
       quit:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "The player %player% left!"
+        message: "<dark_gray><bold>[</dark_gray><red>-<dark_gray>]</bold></dark_gray>  <gold><bold>VIP</bold></gold><white> player</white> <gray>%player%</gray> <white>left the server</white><gold>!</gold>"
         # Actions from player.
         actions:
           - ""
