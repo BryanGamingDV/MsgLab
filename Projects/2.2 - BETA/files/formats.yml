@@ -24,26 +24,10 @@ per-world-chat:
       # List of worlds that will be able to listen to the messages of the players who are there.
       worlds:
         - world
+    2:
+      world:
         - world_nether
         - world_the_end
-
-      # Format (Optional) (Its the same in chat-format).
-      # If you don't know how to use a chat-format:
-      # Check this: https://bryangaming.gitbook.io/chatlab/option-guide/chatformat.
-      format:
-        # The message that appears when you chat, obviously.
-        format: "<dark_gray>| <yellow>[Default] <white>%player% <gray>> <white>%message%"
-        # The text that will be displayed when you mouse over the message.
-        hover:
-          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
-          - "<white>Player: <green>%player%"
-          - "<white>Online: <green>%online%"
-          -
-        # Acton when you click the hover.
-        action:
-          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
-          type: SUGGEST_COMMAND
-          format: "/msg %player% message"
 
 #
 # Radial chat
@@ -148,7 +132,7 @@ chat-format:
     bases:
       prefix:
         # The message part that appears when you chat, obviously.
-        format: "<dark_gray>| <white>%ml_tag% <red>[OP] <white>%player% "
+        format: "<dark_gray>| <white>%ml_tag% <red>[</red><dark_red>OP</dark_red><red>]</red> <white>%player%</white> "
         # The text that will be displayed when you mouse over the message.
         hover:
           - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
