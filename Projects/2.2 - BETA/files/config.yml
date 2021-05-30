@@ -314,10 +314,6 @@ modules:
         - "&f"
       space: "<dark_gray>->"
 
-    add-line: "%c <white>Line added: <green>%line%<white>."
-    remove-line: "%c <white>Line %number% deleted: <green>%line%<white>."
-    set-line: "%c <white>Line %number% setted: <green>%line%<white>."
-
   ignore-unignore:
     # Enable this module?
     enabled: true
@@ -325,9 +321,6 @@ modules:
     permissions:
       # main: If player is using the command /ignore or unignore. Put "none" to disable it.
       main: none
-
-    player-ignored: "%c <white>Now you can't watch messages from <red>%player%<white>."
-    player-unignored: "%c <white>Now you can watch messages from <red>%player%<white>."
 
     list-ignoredplayers: "<white>List of ignored players:"
     nobody-ignored: "<dark_gray>->%newline%%e <white>You aren't ignoring anybody.%newline%<dark_gray>->"
@@ -344,21 +337,6 @@ modules:
       # Format that will be displayed when a message from a player is displayed in socialspy mode.
       format: "<green>[SocialSpy] <dark_gray>| <white>%player% <dark_gray>> <white>%arg-1% <dark_gray>: <white>%message%"
     
-      # Section of messages when you toggle de spymode.
-      message:
-        enabled: "%c <white>Socialspy enabled"
-        disabled: "%c <white>Socialspy disabled"
-        toggle: "%c <white>Socialspy %mode%"
-
-        # Optional (Only if you use %mode%)
-        variable-on: "enabled"
-        variable-off: "disabled"
-
-      arg-2:
-        # Messages to be sent when the option is disabled or enabled    
-        enabled: "%c <white>Socialspy enabled from <red>%arg-2%"
-        disabled: "%c <white>Socialspy disabled from <red>%arg-2%"
-
       list-spyplayers: "<dark_gray>->%newline%<white>List of players using socialspy.%newline%<dark_gray>->"
 
     commandspy:
@@ -371,15 +349,6 @@ modules:
 
       # Format that will be displayed when a command executed by a player in socialspy mode is displayed.
       format: "<light_purple>[CommandSpy] <dark_gray>| <green>%sender% <dark_gray>: <green>%command%"
-    
-      player:
-        enabled: "%c <white>Commandspy enabled"
-        disabled: "%c <white>Commandspy disabled"
-
-      arg-2:
-        enabled: "%c <white>Commandspy enabled from <red>%arg-2%"
-        disabled: "%c <white>Commandspy disabled from <red>%arg-2%"
-
 
       commands:
         blocked: "%c <white>Blocked <green>%command%<white>."
@@ -439,7 +408,6 @@ modules:
 
     list-helpop: "<dark_gray>->%newline%<white>List of players that can watch helpop%newline%<dark_gray>->"
 
-
   stream:
     # Enable this module?
     enabled: true
@@ -475,15 +443,6 @@ modules:
     # Staff chat message
     format: "<light_purple>[StaffChatManager] <dark_gray>| <white>%player% <dark_gray>: <white>%message%"
 
-    messages:
-      enabled: "%c <white>Staffchat enabled"
-      disabled: "%c <white>Staffchat disabled"
-      toggle: "%c <white>Staffchat %mode%"
-
-      # Optional (Only if you use %mode%)
-      variable-on: "enabled"
-      variable-off: "disabled"
-
   announcer:
     # Enable this module?
     enabled: true
@@ -503,16 +462,6 @@ modules:
       - "<dark_gray>- <white>/announcer remove [id] <dark_gray>: <white>To remove a announcer."
       - "<dark_gray>- <white>/announcer list <dark_gray>: <white>To see the list of announces."
       - "<dark_gray>- <white>/announcer set [interval/ordened] <dark_gray>: <white>To set the repeat mode of announces."
-  
-    # /announcer add:
-    add:
-      announcer: "<green>[Announcer] <dark_gray>| <white>Created message: <green>%message%<white>."
-      line: "<green>[Announcer] <dark_gray>| <white>Added line from a message: %message%"
-  
-    # /announcer remove:
-    remove:
-      announcer: "<green>[Announcer] <dark_gray>| <white>Removed id: <green>%id%<white>."
-      line: "<green>[Announcer] <dark_gray>| <white>Removed a line: <green>%message%<white>."
 
     # /announcer list:
     list:
@@ -526,16 +475,6 @@ modules:
         - "%pst% <dark_gray>- <white>ID: <green>%id%"
         - "<dark_gray>- <white>%message%"
   
-    # /announcer set:
-    set:
-      interval: "<green>[Announcer] <dark_gray>| <white>Setted interval to <green>%time% <white>seconds."
-
-      mode:
-        selected: "<green>[Announcer] <dark_gray>| <white>Setted mode to <green>%mode%<white>."
-
-        ordened: "ordened"
-        random: "random"
-
     # Configuration of the announcers to be displayed.
     announcers:
       # Type list:
@@ -575,31 +514,6 @@ modules:
       - "<dark_gray>- <white>/party promote [<player>] <dark_gray>: <white><white>To promote a player to leader <red>[Requires leader]."
       - "<dark_gray>- <white>/party set [public/private] <dark_gray>: <white>To set a party public or private <red>[Requires leader]."
       - "<dark_gray>- <white>/party kick [<player>] <dark_gray>: <white>To kick a player <red>[Requires leader]."
-
-    created: "<light_purple>[Party] <dark_gray>| <white>Created party."
-    deleted: "<light_purple>[Party] <dark_gray>| <white>Deleted party."
-
-    join: "<light_purple>[Party] <dark_gray>| <white>Joined party."
-    left: "<light_purple>[Party] <dark_gray>| <white>Left party."
-
-    set: "<light_purple>[Party] <dark_gray>| <white>Set party mode to <green>%mode% <white>."
-
-    # When the player of your party left the server:
-    on-left:
-      player: "<green>[Party] <dark_gray>| <white>The player <green>%player% <white>left the server, so he was removed from your party."
-      leader: "<green>[Party] <dark_gray>| <white>The leader <green>%player% left the server, so the party is deleted."
-
-    invite:
-      sender: "<green>[Party] <dark_gray>| <white>You invited <green>%target%"
-      target: "<green>[Party] <dark_gray>| <green>%sender% <white>invited you. Please put <green>/party join <green>%sender% <white>to join."
-
-    remove-invite: "<green>[Party] <dark_gray>| <white>You remove invite to player <green>%player%<white>."
-
-    kick:
-      sender: "<green>[Party] <dark_gray>| <white>You kicked <green>%player%<white>."
-      target: "<green>[Party] <dark_gray>| <green>%leader% <white>kicked you."
-
-    leader: "<green>[Party] <dark_gray>| <white>You set leader to <green>%player%"
 
     info:
       format:

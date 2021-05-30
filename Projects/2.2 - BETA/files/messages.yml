@@ -23,6 +23,7 @@ global:
   # When the sound you put in sounds.yml, does not exist in the version of the software you use.
   sound-not-available: "%e <white>That sound doesn't exists in this version :(."
 
+# Module Messages
 clab:
   # Section of /chatlab config:
   config:
@@ -81,6 +82,10 @@ motd:
   unknown-line: "%c <white>Unknown line: <green>%line%<white>."
   unknown-page: "%c <white>Unknown page: <green>%page%<white>."
   negative-number: "%c <white>The number is negative: <green>%number%<white>."
+  
+  add-line: "%c <white>Line added: <green>%line%<white>."
+  remove-line: "%c <white>Line %number% deleted: <green>%line%<white>."
+  set-line: "%c <white>Line %number% setted: <green>%line%<white>."
 
 # Section of /bc or /broadcast -click
 broadcast:
@@ -105,6 +110,9 @@ ignore:
   already-unignored: "%e <white>The player was already unignored."
   ignore-yourself: "%e <white>You can't ignore yourself."
   anybody: "%e <white>You aren't ignoring anybody."
+  
+  player-ignored: "%c <white>Now you can't watch messages from <red>%player%<white>."
+  player-unignored: "%c <white>Now you can watch messages from <red>%player%<white>."
 
 # Section of /stream
 stream:
@@ -118,8 +126,16 @@ helpop:
 
 # Section of /staffchat
 staff-chat:
-  activated: "%e <white>You already activated staffchat."
-  unactivated: "%e <white>You already disabled staffchat."
+  enabled: "%c <white>Staffchat enabled"
+  disabled: "%c <white>Staffchat disabled"
+  toggle: "%c <white>Staffchat %mode%"
+  # Optional (Only if you use %mode%)
+  variable-on: "enabled"
+  variable-off: "disabled"
+  error:
+    activated: "%e <white>You already activated staffchat."
+    unactivated: "%e <white>You already disabled staffchat."
+  
 
 # Shuuu, spymodule
 spymodule:
@@ -130,26 +146,41 @@ spymodule:
       unactivated: "%e <white>You already disabled socialspy."
 
     argument:
-      activated: "%e <red>%arg-2% <white>Already activated socialspy."
-      unactivated: "%e <red>%arg-2% <white>Already disabled socialspy."
+      enabled: "%c <white>Socialspy enabled from <red>%arg-2%"
+      disabled: "%c <white>Socialspy disabled from <red>%arg-2%"
+      already-activated: "%e <red>%arg-2% <white>Already activated socialspy."
+      already-unactivated: "%e <red>%arg-2% <white>Already disabled socialspy."
+    
+    toggle:
+      enabled: "%c <white>Socialspy enabled"
+      disabled: "%c <white>Socialspy disabled"
+      toggle: "%c <white>Socialspy %mode%"
+
+      # Optional (Only if you use %mode%)
+      variable-on: "enabled"
+      variable-off: "disabled"
 
     anybody: "%e <white>Nobody has socialspy activated."
   # Section of /commandspy
   commandspy:
     status:
-      player:
-        already-enabled: "%e <white>You have already the commandspy enabled."
-        already-disabled: "%e <white>You have already the commandspy disabled."
+      enabled: "%c <white>Commandspy enabled"
+      disabled: "%c <white>Commandspy disabled"
+      error:
+        enabled: "%e <white>You have already the commandspy enabled."
+        disabled: "%e <white>You have already the commandspy disabled."
+  
       argument:
         already-enabled: "%e <white>The player <green>%arg-2% <white>have already the commandspy enabled."
         already-disabled: "%e <white>The player <green>%arg-2% <white>have already the commandspy disabled."
+        
+        enabled: "%c <white>Commandspy enabled from <red>%arg-2%"
+        disabled: "%c <white>Commandspy disabled from <red>%arg-2%"
       
     list:
-      players:
-        empty: "%e <white>Nobody is using the commandspy."
+      no-players: "%e <white>Nobody is using the commandspy."
       
-      blocked-commands:
-        empty: "%e <white>All commands can be watched."
+      blocked-commands-empty: "%e <white>All commands can be watched."
       
       commands:
         already-blocked: "%e <white>You already blocked that command. <green>[%command%]"
@@ -235,22 +266,60 @@ announcer:
   unknown-line: "%e <white>Unknown line. <green>%line%<white>."
   unknown-mode: "%e <white>Unknown mode. <green>%mode%<white>."
   interval: "%e <white>Unknown time. <green>%time%<white>."
+  # /announcer add:
+  add:
+    announcer: "<green>[Announcer] <dark_gray>| <white>Created message: <green>%message%<white>."
+    line: "<green>[Announcer] <dark_gray>| <white>Added line from a message: %message%"
+  # /announcer set:
+  set:
+    interval: "<green>[Announcer] <dark_gray>| <white>Setted interval to <green>%time% <white>seconds."
+  # /announcer remove:
+  remove:
+    announcer: "<green>[Announcer] <dark_gray>| <white>Removed id: <green>%id%<white>."
+    line: "<green>[Announcer] <dark_gray>| <white>Removed a line: <green>%message%<white>."
+  mode:
+    selected: "<green>[Announcer] <dark_gray>| <white>Setted mode to <green>%mode%<white>."
+
+    ordened: "ordened"
+    random: "random"
 
 # Section of /party
 party:
+  created: "<light_purple>[Party] <dark_gray>| <white>Created party."
+  deleted: "<light_purple>[Party] <dark_gray>| <white>Deleted party."
+  
+  join: "<light_purple>[Party] <dark_gray>| <white>Joined party."
+  left: "<light_purple>[Party] <dark_gray>| <white>Left party."
+ 
+  set: "<light_purple>[Party] <dark_gray>| <white>Set party mode to <green>%mode% <white>."
+  
   reached-max-players: "%e <white>You can't join to the party, the default max-players in the config is <green>%max-players%"
 
   already-have: "%e <white>You already have a party."
   already-joined: "%e <white>You already joined a party."
+  
+  # When the player of your party left the server:
+  on-left:
+    player: "<green>[Party] <dark_gray>| <white>The player <green>%player% <white>left the server, so he was removed from your party."
+    leader: "<green>[Party] <dark_gray>| <white>The leader <green>%player% left the server, so the party is deleted."
 
   invite:
+    sender: "<green>[Party] <dark_gray>| <white>You invited <green>%target%"
+    target: "<green>[Party] <dark_gray>| <green>%sender% <white>invited you. Please put <green>/party join <green>%sender% <white>to join."
     max-players: "%e <white>You can't invite more players, the default max-players in the config is <green>%max-players%"
     already-invited: "%e <white>You already invited <green>%player%<white>."
     dont-invited: "%e <white>You don't invited <green>%player%<white>."
+    remove-invite: "<green>[Party] <dark_gray>| <white>You remove invite to player <green>%player%<white>."
 
   target:
     already-have: "%e <green>%target% <white>already have a party."
     not-your-party: "%e <green>%target% <white>is not in your party."
+  
+  kick:
+    sender: "<green>[Party] <dark_gray>| <white>You kicked <green>%player%<white>."
+    target: "<green>[Party] <dark_gray>| <green>%leader% <white>kicked you."
+    
+  leader: "<green>[Party] <dark_gray>| <white>You set leader to <green>%player%"
 
   private: "%e <white>The party is private, you need that the leader invite you."
   no-party: "%e <white>You dont have a party."
