@@ -22,6 +22,7 @@ public class ChatLab extends Plugin {
         PartInjector partInjector = new LoaderModule(new BungeeModule(), new BungeeSenderModule()).getInjector();
 
         AnnotatedCommandTreeBuilder builder = new AnnotatedCommandTreeBuilderImpl(partInjector);
+        commandManager
         commandManager.registerCommands(builder.fromClass(new TestCommand()));
     }
 

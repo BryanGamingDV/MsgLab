@@ -30,4 +30,9 @@ public class PlayerWrapperImpl
     public boolean isOnline() {
         return player.isOnline();
     }
+
+    @Override
+    public boolean isOp(){
+        return player.isOp();
+    }
 }

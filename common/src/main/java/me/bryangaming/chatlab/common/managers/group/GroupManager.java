@@ -1,6 +1,7 @@
 package me.bryangaming.chatlab.common.managers.group;
 
 import me.bryangaming.chatlab.common.PluginService;
+import me.bryangaming.chatlab.common.data.ServerData;
 import me.bryangaming.chatlab.common.data.UserData;
 import me.bryangaming.chatlab.common.debug.DebugLogger;
 import me.bryangaming.chatlab.common.debug.LoggerTypeEnum;
@@ -10,6 +11,7 @@ import me.bryangaming.chatlab.common.utils.hooks.VaultHook;
 import me.bryangaming.chatlab.common.utils.string.TextUtils;
 
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
+import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
 
 import java.util.List;
 import java.util.Set;
@@ -56,7 +58,7 @@ public class GroupManager {
 
         DebugLogger debugLogger = pluginService.getLogs();
 
-        if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+        if (!ServerWrapper.getData().isPluginEnabled( "Vault")) {
             pluginService.getPlugin().getLogger().info("[ServerWrapper] | Error: Vault isn't loaded..");
             debugLogger.log("[ServerWrapper] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";
@@ -89,7 +91,7 @@ public class GroupManager {
         Configuration utils = pluginService.getFiles().getFormatsFile();
         DebugLogger debugLogger = pluginService.getLogs();
 
-        if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+        if (!ServerWrapper.getData().isPluginEnabled("Vault")) {
             pluginService.getPlugin().getLogger().info("[SendTextListener] | Error: Vault isn't loaded..");
             debugLogger.log("[SendTextListener] | Vault isn't loaded..", LoggerTypeEnum.ERROR);
             return "default";

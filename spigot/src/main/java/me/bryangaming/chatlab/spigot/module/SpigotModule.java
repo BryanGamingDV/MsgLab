@@ -15,6 +15,7 @@ import me.fixeddev.commandflow.bukkit.BukkitCommandManager;
 import me.fixeddev.commandflow.bukkit.factory.CommandSenderFactory;
 import me.fixeddev.commandflow.bukkit.factory.OfflinePlayerPartFactory;
 import me.fixeddev.commandflow.bukkit.factory.PlayerPartFactory;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -41,5 +42,6 @@ public class  SpigotModule extends AbstractModule {
                         CommandSender.class,
                         Player.class,
                         BukkitCommandManager.SENDER_NAMESPACE));
+        new Command()
     }
 }

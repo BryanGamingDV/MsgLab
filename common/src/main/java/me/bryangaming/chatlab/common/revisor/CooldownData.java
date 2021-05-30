@@ -11,6 +11,7 @@ import me.bryangaming.chatlab.common.utils.Configuration;
 
 import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
 import me.bryangaming.chatlab.common.wrapper.ServerWrapper;
+import me.bryangaming.chatlab.common.wrapper.plugin.PluginBaseWrapper;
 
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ public class CooldownData {
 
     private final PluginService pluginService;
 
-    private final ChatLab plugin;
+    private final PluginBaseWrapper plugin;
     private final CacheManager cache;
     private final SenderManager senderManager;
 
@@ -50,7 +51,7 @@ public class CooldownData {
             return false;
         }
 
-        PlayerWrapper player = Bukkit.getPlayer(uuid);
+        PlayerWrapper player = ServerWrapper.getData().getPlayer(uuid);
         UserData playerCooldown = cache.getUserDatas().get(uuid);
 
         if (senderManager.hasPermission(player, "cooldown.chat-bypass")) {

@@ -1,5 +1,6 @@
 package me.bryangaming.chatlab.common.commands.translation;
 
+import com.sun.java.accessibility.util.Translator;
 import me.bryangaming.chatlab.common.PluginService;
 import me.bryangaming.chatlab.common.utils.Configuration;
 import me.fixeddev.commandflow.Namespace;
@@ -8,7 +9,7 @@ import me.fixeddev.commandflow.bukkit.BukkitDefaultTranslationProvider;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandTranslation extends BukkitDefaultTranslationProvider {
+public class CommandTranslation extends TranslatorProvider {
 
     private final PluginService pluginService;
 

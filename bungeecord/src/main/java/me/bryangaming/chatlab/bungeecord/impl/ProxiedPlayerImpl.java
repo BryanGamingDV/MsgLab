@@ -23,6 +23,16 @@ public class ProxiedPlayerImpl extends ProxiedSenderImpl implements PlayerWrappe
 
     @Override
     public String getWorldName() {
-        proxiedPlayer.getServer().getInfo().getName();
+        return proxiedPlayer.getServer().getInfo().getName();
+    }
+
+    @Override
+    public boolean isOnline() {
+        return proxiedPlayer.isConnected();
+    }
+
+    @Override
+    public boolean isOp() {
+        return proxiedPlayer.hasPermission("*");
     }
 }

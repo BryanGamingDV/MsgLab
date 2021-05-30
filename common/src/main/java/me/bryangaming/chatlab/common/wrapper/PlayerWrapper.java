@@ -10,4 +10,6 @@ public interface PlayerWrapper extends SenderWrapper {
 
     boolean isOnline();
 
+    boolean isOp();
+
 }
