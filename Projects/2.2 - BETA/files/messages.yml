@@ -6,7 +6,12 @@
 # | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
 #  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
 #
-# Error Messages | messages.yml
+# General Messages | messages.yml
+
+# Note: You can use MiniMessage in the message paths.
+# Example: <gradient:gold:white>Hello everyone</gradient>
+# Or with HEX colors (1.16+ only) <color:#8DDA59>Hola</color>
+# Wiki: https://docs.adventure.kyori.net/minimessage.html#format
 
 # Global errors
 global:
@@ -23,10 +28,16 @@ global:
   # When the sound you put in sounds.yml, does not exist in the version of the software you use.
   sound-not-available: "%e <white>That sound doesn't exists in this version :(."
 
+#
+# Module Messages
+#
+
+# Section of main command /chatlab.
 clab:
-  # Section of /chatlab config:
   config:
+    # When the entered parameter does not match with an existing file.
     unknown-config: "%c <white>Unknown config. %newline%<dark_gray>- <white>List of configs: <green>%configlist%"
+    # Unknown configuration option.
     unknown-path: "%c <white>Unknown path."
     
   modules:
@@ -34,32 +45,109 @@ clab:
     option-disabled: "%c <white>Sorry <green>%player%<white>,the option <green>%option% <white>is disabled :(."
 
   debug:
+    # Unknown world when executing a debug in the plugin.
     unknown-world: "%e <white>Unknown world: <green>%world%<white>."
 
+  # Page unknown, non-existent or possible error when displaying it.
   unknown-page: "%e <white>Unknown page."
-  disabled: "%c <white>You can't use the sound option."
+  
+  reload:
+    # Message to display when reloading the plugin itself.
+    plugin: "%c <white>Plugin reloaded!"
+    # Message to display when reloading a specific configuration file.
+    file: "%c <white>%file% <white>reloaded!"
+  
+  restore:
+    # Message to be displayed when restoring command settings.
+    commands: "%c <white>Commands restored."
+    # Message to be displayed when restoring module configurations
+    modules: "%c <white>Modules restored."
+  
+  debug:
+    # Debug messages
+    list:
+      worlds: "%c <white>List of worlds:"
+      commands: "%c <white>List of commands:"
+      modules: "%c <white>List of modules:"
+      worldpath-info: "%c <white>Info of <green>%world%<white>:"
+  
+  config:
+    # Message to display when setting a configuration option directly in the game.
+    set: "%e <white>Path set in <green>%config% on <green>%path% <white>: <green>%value%."
+  
+  sounds:
+    # Message to display when enabling the ability to listen to sounds.
+    enabled: "%c <white>Now you can hear the sounds of the plugin."
+    # Message to display when disabling the ability to listen to sounds.
+    disabled: "%c <white>Now you can't hear the sounds of the plugin."
+    # Message to display in case you do not have permissions to use the plugin's sound functionalities.
+    no-permission: "%c <white>You can't use the sound option."
 
-# Section of /msg or /reply
+# Message section of /msg or /reply
 msg-reply:
+  # Message to display in case you have no available conversation to reply to
   no-reply: "%c <white>You don't have anyone to reply."
+  # Message to display in case you are alone on the server.
   nobody-offline: "%c <white>Nobody is connected, only you :c."
+  # You can't answer yourself.
   same-player: "%c <white>You can't talk to yourself."
+  toggle:
+    # Message to be displayed when activating private messages.
+    activated: "%c <white>Now nobody can't message you."
+    # Message to be displayed when disabling private messages.
+    unactivated: "%c <white>Now everyone can message you."
+    # Message that will be displayed when trying to send a private message to someone who has the option disabled.
+    msg-disabled: "%c <white>Sorry, <green>%player%<white>'s pms are disabled."
+    argument:
+      activated: "%c <white>Now nobody can message <green>%arg-1%<white>."
+      unactivated: "%c <white>Now everyone can message <green>%arg-1%<white>."
+  # Message to be displayed when trying to continue the conversation, but the receiver has left the server.
+  left: "%c <white>Dear %player%, <white>the player <green>(%player%) <white>that you talked with or talked with you left the game."
 
 # Section of /motd
 motd:
+  # Error message when entering an unknown or non-existing line.
   unknown-line: "%c <white>Unknown line: <green>%line%<white>."
+  # Error message when entering an unknown or non-existing page.
   unknown-page: "%c <white>Unknown page: <green>%page%<white>."
+  # Error message when entering a negative line? Really?
   negative-number: "%c <white>The number is negative: <green>%number%<white>."
+  
+  # Message to be displayed when adding a new line.
+  add-line: "%c <white>Line added: <green>%line%<white>."
+  # Message to be displayed when remove a line.
+  remove-line: "%c <white>Line %number% deleted: <green>%line%<white>."
+  # Message to be displayed when setting up a line.
+  set-line: "%c <white>Line %number% setted: <green>%line%<white>."
 
 # Section of /bc or /broadcast -click
-click-chat:
-  unknown-number: "%c <white>You didn't write a number. Number: <green>%number%<white>."
+broadcast:
+  click-chat:
+    # Message to display in case you do not enter a valid number
+    unknown-number: "%c <white>You didn't write a number. Number: <green>%number%<white>."
+  mode:
+    # Message to display when enabling click chat mode
+    load: "%c <white>Enabling clickchat."
+    select:
+      message: "<light_purple>[Mode] <dark_gray>| <white>Please select a messsage: "
+      command: "<red>[Mode] <dark_gray>| <white>Please select a command: "
+      cooldown: "<yellow>[Mode] <dark_gray>| <white>Please select a cooldown:"
+
+    selected:
+      message: "<light_purple>[Mode] <dark_gray>| <white>Selected message <light_purple>%message%<white>."
+      command: "<red>[Mode] <dark_gray>| <white>Selected command <red>%command%<white>."
+      cooldown: "<yellow>[Mode] <dark_gray>| <white>Selected cooldown <yellow>%cooldown%<white>."
+    hover: "%c <white>Hover successfully created!"
+    disabled: "%c <white>Option disabled!"
 
 # Section of /ignore
 ignore:
   already-unignored: "%e <white>The player was already unignored."
   ignore-yourself: "%e <white>You can't ignore yourself."
   anybody: "%e <white>You aren't ignoring anybody."
+  
+  player-ignored: "%c <white>Now you can't watch messages from <red>%player%<white>."
+  player-unignored: "%c <white>Now you can watch messages from <red>%player%<white>."
 
 # Section of /stream
 stream:
@@ -70,40 +158,97 @@ helpop:
   activated: "%e <white>You already activated helpop."
   unactivated: "%e <white>You already disabled helpop."
   anybody: "%e <white>Nobody is watching helpop."
+  
+  received: "<red>[HelpOP] <dark_gray>| <white>Message received! Thanks <green>%player%<white>."
+  message: "<red>[HelpOP] <dark_gray>| <white>%player% <dark_gray>: <white>%message%"
 
 # Section of /staffchat
 staff-chat:
-  activated: "%e <white>You already activated staffchat."
-  unactivated: "%e <white>You already disabled staffchat."
+  enabled: "%c <white>Staffchat enabled"
+  disabled: "%c <white>Staffchat disabled"
+  toggle: "%c <white>Staffchat %mode%"
+  # Optional (Only if you use %mode%)
+  variable-on: "enabled"
+  variable-off: "disabled"
+  error:
+    activated: "%e <white>You already activated staffchat."
+    unactivated: "%e <white>You already disabled staffchat."
+  
 
-# Section of /socialspy
-socialspy:
-  player:
-    activated: "%e <white>You already activated socialspy."
-    unactivated: "%e <white>You already disabled socialspy."
+# Shuuu, spymodule
+spymodule:
+  # Section of /socialspy
+  socialspy:
+    player:
+      activated: "%e <white>You already activated socialspy."
+      unactivated: "%e <white>You already disabled socialspy."
 
-  arg-2:
-    activated: "%e <red>%arg-2% <white>Already activated socialspy."
-    unactivated: "%e <red>%arg-2% <white>Already disabled socialspy."
+    argument:
+      enabled: "%c <white>Socialspy enabled from <red>%arg-2%"
+      disabled: "%c <white>Socialspy disabled from <red>%arg-2%"
+      already-activated: "%e <red>%arg-2% <white>Already activated socialspy."
+      already-unactivated: "%e <red>%arg-2% <white>Already disabled socialspy."
+    
+    toggle:
+      enabled: "%c <white>Socialspy enabled"
+      disabled: "%c <white>Socialspy disabled"
+      toggle: "%c <white>Socialspy %mode%"
 
-  anybody: "%e <white>Nobody has socialspy activated."
+      # Optional (Only if you use %mode%)
+      variable-on: "enabled"
+      variable-off: "disabled"
 
+    anybody: "%e <white>Nobody has socialspy activated."
+  # Section of /commandspy
+  commandspy:
+    status:
+      enabled: "%c <white>Commandspy enabled"
+      disabled: "%c <white>Commandspy disabled"
+      error:
+        enabled: "%e <white>You have already the commandspy enabled."
+        disabled: "%e <white>You have already the commandspy disabled."
+  
+      argument:
+        already-enabled: "%e <white>The player <green>%arg-2% <white>have already the commandspy enabled."
+        already-disabled: "%e <white>The player <green>%arg-2% <white>have already the commandspy disabled."
+        
+        enabled: "%c <white>Commandspy enabled from <red>%arg-2%"
+        disabled: "%c <white>Commandspy disabled from <red>%arg-2%"
+      
+    list:
+      no-players: "%e <white>Nobody is using the commandspy."
+      
+      blocked-commands-empty: "%e <white>All commands can be watched."
+      
+      commands:
+        already-blocked: "%e <white>You already blocked that command. <green>[%command%]"
+        already-unblocked: "%e <white>You already unblocked that command. <green>[%command%]"
+ 
 # Section of /channel
 channel:
-  muted: "%e <white>The channel is muted."
-  no-exists: "%e <white>The channel doesn't exist."
-  disabled: "%e <white>The channel is disabled."
+  general:
+    join: "%c <white>You have joined channel</white> <green>%channel%</green><white>.</white>"
+    left: "%c <white>You have left channel</white> <green>%beforechannel%</green><white>. Now you are in the <green>%afterchannel%</green> <white>channel.</white>"
+    move:
+      sender: "%c <white>You moved <green>%arg-2% <white>to <green>%channel% <white>successfully."
+      target: "%c <white>You was moved to channel <green>%channel% <white>."
+    status:
+      yes_permission: "<dark_green>-> <green>You have the condition to join to the channel."
+      no_permission: "<dark_red>-> <red>You don't have the condition to join to the channel"
+  error:
+    muted: "%e <white>The channel is muted."
+    no-exists: "%e <white>The channel doesn't exist."
+    disabled: "%e <white>The channel is disabled."
 
-  player:
-    already-joined: "%e <white>You have already joined to <green>%rank%<white>."
-    
-  dont-joined: "%e <white>You haven't joined to any group."
-  arg2: 
-    already-joined: "%e <white>The player <green>%arg-2% <white>already joined to <green>%channel%<white>"
+    player:
+      already-joined: "%e <white>You have already joined to <green>%rank%<white>." 
+      dont-joined: "%e <white>You haven't joined to any group."
+    arg2: 
+      already-joined: "%e <white>The player <green>%arg-2% <white>already joined to <green>%channel%<white>"
 
-  default:
-    quit: "%e <white>Are you sure that you want to leave to the default channel (?."
-    info: "%e <white>The channel were you are is default."
+    default:
+      quit: "%e <white>Are you sure that you want to leave to the default channel (?."
+      info: "%e <white>The channel were you are is default."
 
 # Section of /chat
 chat:
@@ -127,27 +272,31 @@ chat:
 
     unknown-tag: "%e <white>Unknown tag."
     unknown-tagcolor: "%e <white>Unknown tag color."
+    
+    color: "%c <white>You selected the color <green>%color%<white>."
+    tag: "%c <white>You selected the tag <green>%tag%<white>."
+  
+  clear:
+    global: "%c <white>The chat was cleared by <green>%player%"
+    world: "%c <white>The chat was cleared by <green>%player%"
+  
+  mute:
+    global:
+      permanent: "%c <white>The chat was muted by <green>%player%"
+      temporal: "%c <white>The chat was muted by <green>%player% <white>for <green>%time% <white>seconds."
+    world:
+      permanent: "%c <white>The chat was cleared by <green>%player%"
+      temporal: "%c <white>The chat was muted by <green>%player% <white>for <green>%time% <white>seconds."
+  
+  unmute:
+    temporal: "%c <white>The chat was temporally unmuted."
+    permanent: "%c <white>The chat was unmuted by <green>%player%."
+  
+  cooldown:
+    message: "%c <white>The cooldown was changed to <green>%time% <white>seconds."
+  
+  reload: "%c <white>Chat reloaded."
 
-# Section of /commandspy
-commandspy:
-  status:
-    player:
-      already-enabled: "%e <white>You have already the commandspy enabled."
-      already-disabled: "%e <white>You have already the commandspy disabled."
-    arg-2:
-      already-enabled: "%e <white>The player <green>%arg-2% <white>have already the commandspy enabled."
-      already-disabled: "%e <white>The player <green>%arg-2% <white>have already the commandspy disabled."
-      
-  list:
-    players:
-      empty: "%e <white>Nobody is using the commandspy."
-      
-    blocked-commands:
-      empty: "%e <white>All commands can be watched."
-      
-    commands:
-      already-blocked: "%e <white>You already blocked that command. <green>[%command%]"
-      already-unblocked: "%e <white>You already unblocked that command. <green>[%command%]"
 
 # Section of /announcer
 announcer:
@@ -155,28 +304,66 @@ announcer:
   unknown-line: "%e <white>Unknown line. <green>%line%<white>."
   unknown-mode: "%e <white>Unknown mode. <green>%mode%<white>."
   interval: "%e <white>Unknown time. <green>%time%<white>."
+  # /announcer add:
+  add:
+    announcer: "<green>[Announcer] <dark_gray>| <white>Created message: <green>%message%<white>."
+    line: "<green>[Announcer] <dark_gray>| <white>Added line from a message: %message%"
+  # /announcer set:
+  set:
+    interval: "<green>[Announcer] <dark_gray>| <white>Setted interval to <green>%time% <white>seconds."
+  # /announcer remove:
+  remove:
+    announcer: "<green>[Announcer] <dark_gray>| <white>Removed id: <green>%id%<white>."
+    line: "<green>[Announcer] <dark_gray>| <white>Removed a line: <green>%message%<white>."
+  mode:
+    selected: "<green>[Announcer] <dark_gray>| <white>Setted mode to <green>%mode%<white>."
+
+    ordened: "ordened"
+    random: "random"
 
 # Section of /party
 party:
+  created: "<light_purple>[Party] <dark_gray>| <white>Created party."
+  deleted: "<light_purple>[Party] <dark_gray>| <white>Deleted party."
+  
+  join: "<light_purple>[Party] <dark_gray>| <white>Joined party."
+  left: "<light_purple>[Party] <dark_gray>| <white>Left party."
+ 
+  set: "<light_purple>[Party] <dark_gray>| <white>Set party mode to <green>%mode% <white>."
+  
   reached-max-players: "%e <white>You can't join to the party, the default max-players in the config is <green>%max-players%"
 
   already-have: "%e <white>You already have a party."
   already-joined: "%e <white>You already joined a party."
+  
+  # When the player of your party left the server:
+  on-left:
+    player: "<green>[Party] <dark_gray>| <white>The player <green>%player% <white>left the server, so he was removed from your party."
+    leader: "<green>[Party] <dark_gray>| <white>The leader <green>%player% left the server, so the party is deleted."
 
   invite:
+    sender: "<green>[Party] <dark_gray>| <white>You invited <green>%target%"
+    target: "<green>[Party] <dark_gray>| <green>%sender% <white>invited you. Please put <green>/party join <green>%sender% <white>to join."
     max-players: "%e <white>You can't invite more players, the default max-players in the config is <green>%max-players%"
     already-invited: "%e <white>You already invited <green>%player%<white>."
     dont-invited: "%e <white>You don't invited <green>%player%<white>."
+    remove-invite: "<green>[Party] <dark_gray>| <white>You remove invite to player <green>%player%<white>."
 
   target:
     already-have: "%e <green>%target% <white>already have a party."
     not-your-party: "%e <green>%target% <white>is not in your party."
+  
+  kick:
+    sender: "<green>[Party] <dark_gray>| <white>You kicked <green>%player%<white>."
+    target: "<green>[Party] <dark_gray>| <green>%leader% <white>kicked you."
+    
+  leader: "<green>[Party] <dark_gray>| <white>You set leader to <green>%player%"
 
   private: "%e <white>The party is private, you need that the leader invite you."
   no-party: "%e <white>You dont have a party."
   no-leader: "%e <white>That player don't have a party."
 
-  no-perms:
+  no-permission:
     delete: "%e <white>You aren't the leader to delete the party."
     set: "%e <white>You aren't the leader to set the party public or private"
     promote: "%e <white>You aren't the leader to promote a player."
