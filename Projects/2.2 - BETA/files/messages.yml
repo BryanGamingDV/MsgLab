@@ -85,33 +85,48 @@ clab:
 
 # Message section of /msg or /reply
 msg-reply:
+  # Message to display in case you have no available conversation to reply to
   no-reply: "%c <white>You don't have anyone to reply."
+  # Message to display in case you are alone on the server.
   nobody-offline: "%c <white>Nobody is connected, only you :c."
+  # You can't answer yourself.
   same-player: "%c <white>You can't talk to yourself."
   toggle:
+    # Message to be displayed when activating private messages.
     activated: "%c <white>Now nobody can't message you."
+    # Message to be displayed when disabling private messages.
     unactivated: "%c <white>Now everyone can message you."
+    # Message that will be displayed when trying to send a private message to someone who has the option disabled.
+    msg-disabled: "%c <white>Sorry, <green>%player%<white>'s pms are disabled."
     argument:
       activated: "%c <white>Now nobody can message <green>%arg-1%<white>."
       unactivated: "%c <white>Now everyone can message <green>%arg-1%<white>."
-  msg-disabled: "%c <white>Sorry, <green>%player%<white>'s pms are disabled."
+  # Message to be displayed when trying to continue the conversation, but the receiver has left the server.
   left: "%c <white>Dear %player%, <white>the player <green>(%player%) <white>that you talked with or talked with you left the game."
 
 # Section of /motd
 motd:
+  # Error message when entering an unknown or non-existing line.
   unknown-line: "%c <white>Unknown line: <green>%line%<white>."
+  # Error message when entering an unknown or non-existing page.
   unknown-page: "%c <white>Unknown page: <green>%page%<white>."
+  # Error message when entering a negative line? Really?
   negative-number: "%c <white>The number is negative: <green>%number%<white>."
   
+  # Message to be displayed when adding a new line.
   add-line: "%c <white>Line added: <green>%line%<white>."
+  # Message to be displayed when remove a line.
   remove-line: "%c <white>Line %number% deleted: <green>%line%<white>."
+  # Message to be displayed when setting up a line.
   set-line: "%c <white>Line %number% setted: <green>%line%<white>."
 
 # Section of /bc or /broadcast -click
 broadcast:
   click-chat:
+    # Message to display in case you do not enter a valid number
     unknown-number: "%c <white>You didn't write a number. Number: <green>%number%<white>."
   mode:
+    # Message to display when enabling click chat mode
     load: "%c <white>Enabling clickchat."
     select:
       message: "<light_purple>[Mode] <dark_gray>| <white>Please select a messsage: "
