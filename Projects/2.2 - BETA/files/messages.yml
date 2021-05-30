@@ -8,6 +8,11 @@
 #
 # General Messages | messages.yml
 
+# Note: You can use MiniMessage in the message paths.
+# Example: <gradient:gold:white>Hello everyone</gradient>
+# Or with HEX colors (1.16+ only) <color:#8DDA59>Hola</color>
+# Wiki: https://docs.adventure.kyori.net/minimessage.html#format
+
 # Global errors
 global:
   # When you do not have permission to use this command or argument.
@@ -23,11 +28,16 @@ global:
   # When the sound you put in sounds.yml, does not exist in the version of the software you use.
   sound-not-available: "%e <white>That sound doesn't exists in this version :(."
 
+#
 # Module Messages
+#
+
+# Section of main command /chatlab.
 clab:
-  # Section of /chatlab config:
   config:
+    # When the entered parameter does not match with an existing file.
     unknown-config: "%c <white>Unknown config. %newline%<dark_gray>- <white>List of configs: <green>%configlist%"
+    # Unknown configuration option.
     unknown-path: "%c <white>Unknown path."
     
   modules:
@@ -35,17 +45,22 @@ clab:
     option-disabled: "%c <white>Sorry <green>%player%<white>,the option <green>%option% <white>is disabled :(."
 
   debug:
+    # Unknown world when executing a debug in the plugin.
     unknown-world: "%e <white>Unknown world: <green>%world%<white>."
 
+  # Page unknown, non-existent or possible error when displaying it.
   unknown-page: "%e <white>Unknown page."
-  disabled: "%c <white>You can't use the sound option."
   
   reload:
+    # Message to display when reloading the plugin itself.
     plugin: "%c <white>Plugin reloaded!"
+    # Message to display when reloading a specific configuration file.
     file: "%c <white>%file% <white>reloaded!"
   
   restore:
+    # Message to be displayed when restoring command settings.
     commands: "%c <white>Commands restored."
+    # Message to be displayed when restoring module configurations
     modules: "%c <white>Modules restored."
   
   debug:
@@ -57,13 +72,18 @@ clab:
       worldpath-info: "%c <white>Info of <green>%world%<white>:"
   
   config:
+    # Message to display when setting a configuration option directly in the game.
     set: "%e <white>Path set in <green>%config% on <green>%path% <white>: <green>%value%."
   
   sounds:
+    # Message to display when enabling the ability to listen to sounds.
     enabled: "%c <white>Now you can hear the sounds of the plugin."
+    # Message to display when disabling the ability to listen to sounds.
     disabled: "%c <white>Now you can't hear the sounds of the plugin."
+    # Message to display in case you do not have permissions to use the plugin's sound functionalities.
+    no-permission: "%c <white>You can't use the sound option."
 
-# Section of /msg or /reply
+# Message section of /msg or /reply
 msg-reply:
   no-reply: "%c <white>You don't have anyone to reply."
   nobody-offline: "%c <white>Nobody is connected, only you :c."
@@ -74,7 +94,7 @@ msg-reply:
     argument:
       activated: "%c <white>Now nobody can message <green>%arg-1%<white>."
       unactivated: "%c <white>Now everyone can message <green>%arg-1%<white>."
-  msg: "%c <white>Sorry, <green>%player%<white>'s pms are disabled."
+  msg-disabled: "%c <white>Sorry, <green>%player%<white>'s pms are disabled."
   left: "%c <white>Dear %player%, <white>the player <green>(%player%) <white>that you talked with or talked with you left the game."
 
 # Section of /motd
