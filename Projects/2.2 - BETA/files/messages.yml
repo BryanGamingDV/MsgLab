@@ -123,6 +123,9 @@ helpop:
   activated: "%e <white>You already activated helpop."
   unactivated: "%e <white>You already disabled helpop."
   anybody: "%e <white>Nobody is watching helpop."
+  
+  received: "<red>[HelpOP] <dark_gray>| <white>Message received! Thanks <green>%player%<white>."
+  message: "<red>[HelpOP] <dark_gray>| <white>%player% <dark_gray>: <white>%message%"
 
 # Section of /staffchat
 staff-chat:

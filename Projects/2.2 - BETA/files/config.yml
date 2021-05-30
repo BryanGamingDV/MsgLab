@@ -391,20 +391,8 @@ modules:
       # Permission for players that can watch the helpop.
       watch: clab.commands.helpop.watch
 
-    messages:
-      enabled: "%c <white>Helpop enabled"
-      disabled: "%c <white>Helpop disabled"
-      toggle: "%c <white>Helpop %mode%"
-
-      # Optional (Only if you use %mode%)
-      variable-on: "enabled"
-      variable-off: "disabled"
-
     # Enable rules filters from /helpop.
     enable-revisor: true
-
-    received: "<red>[HelpOP] <dark_gray>| <white>Message received! Thanks <green>%player%<white>."
-    message: "<red>[HelpOP] <dark_gray>| <white>%player% <dark_gray>: <white>%message%"
 
     list-helpop: "<dark_gray>->%newline%<white>List of players that can watch helpop%newline%<dark_gray>->"
 
