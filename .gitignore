@@ -1,11 +1,27 @@
+#
+# Standard Maven .gitignore
+#
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+buildNumber.properties
+.mvn/timing.properties
 
-*.xml
+#
+# IntelliJ
+#
 *.iml
-api/target
-core/Core.iml
-core/target/
-core/src/test/
-versions/Versions.iml
-versions/legacyVersion/LegacyVersion.iml
-versions/legacyVersion/target/
-api/Api.iml
+.idea/*
+!.idea/runConfigurations/
+
+#
+# Visual Studio Code
+#
+.settings/
+.classpath
+.factorypath
+.project
+.vscode/
