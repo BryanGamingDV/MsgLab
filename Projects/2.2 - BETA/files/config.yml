@@ -102,15 +102,6 @@ modules:
       info: clab.commands.info
       move: clab.commands.move
 
-    # Messages of this module
-    messages:
-      join: "%c <white>You have joined channel</white> <green>%channel%</green><white>.</white>"
-      left: "%c <white>You have left channel</white> <green>%beforechannel%</green><white>. Now you are in the <green>%afterchannel%</green> <white>channel.</white>"
-
-      move:
-        sender: "%c <white>You moved <green>%arg-2% <white>to <green>%channel% <white>successfully."
-        target: "%c <white>You was moved to channel <green>%channel% <white>."
-
     # List of available channels
     list:
       message: "<white> List of channels:"
@@ -133,9 +124,7 @@ modules:
         group: "Group"
 
       # Channel status to be replaced in the %status% variable in the above category
-      status:
-        yes_permission: "<dark_green>-> <green>You have the condition to join to the channel."
-        no_permission: "<dark_red>-> <red>You don't have the condition to join to the channel"
+      
 
   # Private Messages and Replies module
   # Here you can configure permissions, messages,
@@ -191,21 +180,6 @@ modules:
       arg-1: "%c <white>%sender% <dark_gray>> <white>You <dark_gray>: <white>%message%"
       talked: "%c <white>You talked with <green>%player%"
 
-
-    # When you use /msg -toggle
-    toggle:
-      # Messages to be sent to the player.
-      player:
-        activated: "%c <white>Now nobody can't message you."
-        unactivated: "%c <white>Now everyone can message you."
-
-      arg-1:
-        activated: "%c <white>Now nobody can message <green>%arg-1%<white>."
-        unactivated: "%c <white>Now everyone can message <green>%arg-1%<white>."
-
-      msg: "%c <white>Sorry, <green>%player%<white>'s pms are disabled."
-      left: "%c <white>Dear %player%, <white>the player <green>(%player%) <white>that you talked with or talked with you left the game."
-
   # Broadcast module
   # Configuration and formatting of the 
   # /broadcast command.
@@ -234,23 +208,6 @@ modules:
       global: "<green>[!] <dark_gray>| <white>¡Click to <green>%message%<white>! <white>Good luck! <green>%player%<white>."
       world: "<green>[%world%] <dark_gray>| <white>¡Click to <green>%message%<white>! <white>Good luck! <green>%player%<white>."
       format: "<green>Click to touch that message!"
-   
-    # Section of /bc or /bcworld -click
-    mode:
-      load: "%c <white>Enabling clickchat."
-
-      select:
-        message: "<light_purple>[Mode] <dark_gray>| <white>Please select a messsage: "
-        command: "<red>[Mode] <dark_gray>| <white>Please select a command: "
-        cooldown: "<yellow>[Mode] <dark_gray>| <white>Please select a cooldown:"
-
-      selected:
-        message: "<light_purple>[Mode] <dark_gray>| <white>Selected message <light_purple>%message%<white>."
-        command: "<red>[Mode] <dark_gray>| <white>Selected command <red>%command%<white>."
-        cooldown: "<yellow>[Mode] <dark_gray>| <white>Selected cooldown <yellow>%cooldown%<white>."
-
-      hover: "%c <white>Hover successfully created!"
-      disabled: "%c <white>Option disabled!"
 
   # Chatting module
   # Configure alternative chat features.
@@ -278,41 +235,17 @@ modules:
 
     # /chat clear
     clear:
+      # How many empty spaces will be sent to the chat to "clean it up"?
       default-blank: 50
-      global: "%c <white>The chat was cleared by <green>%player%"
-      world: "%c <white>The chat was cleared by <green>%player%"
-
-    # /chat mute
-    mute:
-      global:
-        permanent: "%c <white>The chat was muted by <green>%player%"
-        temporal: "%c <white>The chat was muted by <green>%player% <white>for <green>%time% <white>seconds."
-      world:
-        permanent: "%c <white>The chat was cleared by <green>%player%"
-        temporal: "%c <white>The chat was muted by <green>%player% <white>for <green>%time% <white>seconds."
-
-    # /chat unmute
-    unmute:
-      temporal: "%c <white>The chat was temporally unmuted."
-      permanent: "%c <white>The chat was unmuted by <green>%player%."
- 
-    # /chat cooldown.
-    cooldown:
-      message: "%c <white>The cooldown was changed to <green>%time% <white>seconds."
 
     # /chat tags
     tags:
-      selected:
-        color: "%c <white>You selected the color <green>%color%<white>."
-        tag: "%c <white>You selected the tag <green>%tag%<white>."
 
       tags:
         red: "<dark_red>"
         green: "<dark_green>"
         blue: "<dark_blue>"
         yellow: "<gold>"
-
-    reload: "%c <white>Chat reloaded."
 
   # Main command module
   # Here you can configure all the main plugin command "/clab",
@@ -361,34 +294,6 @@ modules:
           - "<dark_gray>- <white>/channel [join/quit/list/move] [<channel>] <dark_gray>: <white>To use the channel manager."
           - "<dark_gray>- <white>/stream [<text>] <dark_gray>: <white>To stream."
           - "<dark_gray>- <white>/commandspy [on/off/list..] <dark_gray>: <white>To send a commandspy."
-
-    # /clab reload
-    reload:
-      plugin: "%c <white>Plugin reloaded!"
-      file: "%c <white>%file% <white>reloaded!"
-
-    # /clab restore
-    restore:
-      commands: "%c <white>Commands restored."
-      modules: "%c <white>Modules restored."
-
-    # /clab debug
-    debug:
-    # Debug messages
-    list:
-      worlds: "%c <white>List of worlds:"
-      commands: "%c <white>List of commands:"
-      modules: "%c <white>List of modules:"
-      worldpath-info: "%c <white>Info of <green>%world%<white>:"
-
-    # /clab config
-    config:
-      set: "%e <white>Path set in <green>%config% on <green>%path% <white>: <green>%value%."
-
-    # /clab sounds
-    sounds:
-      enabled: "%c <white>Now you can hear the sounds of the plugin."
-      disabled: "%c <white>Now you can't hear the sounds of the plugin."
 
   # Message Of The Day module
   # Here you can configure the entry message that will appear
