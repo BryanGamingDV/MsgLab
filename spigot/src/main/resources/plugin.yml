@@ -1,4 +1,0 @@
-name: ChatLab
-version: ${project.version}
-main: me.bryangaming.chatlab.spigot.ChatLab
-api-version: 1.16

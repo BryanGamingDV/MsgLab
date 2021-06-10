@@ -1,6 +1,6 @@
 package me.bryangaming.chatlab.api.revisor;
 
-import me.bryangaming.chatlab.common.wrapper.PlayerWrapper;
+import org.bukkit.entity.Player;
 
 public interface Revisor {
 
@@ -8,5 +8,5 @@ public interface Revisor {
 
     boolean isEnabled();
 
-    String revisor(PlayerWrapper player, String message);
+    String revisor(Player player, String message);
 }

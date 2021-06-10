@@ -1,3 +1,0 @@
-name: BungeeCord
-version: ${project.version}
-main: me.bryangaming.chatlab.bungeecord.ChatLab

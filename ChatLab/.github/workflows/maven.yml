@@ -1,0 +1,35 @@
+name: Maven Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    # For Minecraft 1.8-1.12.2, Java 8 is the recommended version.
+    # For Minecraft 1.13-1.16.5, Java 11 is the recommended version.
+    # And for Minecraft 1.17, Java 16 is the version that we should use
+    strategy:
+      matrix:
+        java: [8, 11, 16]
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ matrix.java }}
+        distribution: 'adopt'
+
+    - name: Cache Maven packages
+      uses: actions/cache@v2.1.5
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml

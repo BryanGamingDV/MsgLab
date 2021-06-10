@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.bryangaming.chatlab</groupId>
+    <groupId>org.bryangaming.chatlab</groupId>
     <artifactId>chatlab-main</artifactId>
 
     <packaging>pom</packaging>
@@ -14,7 +14,6 @@
         <module>api</module>
         <module>versions</module>
         <module>core</module>
-        <module>common</module>
     </modules>
 
     <repositories>
@@ -22,28 +21,7 @@
             <id>nms-repo</id>
             <url>https://repo.codemc.org/repository/nms/</url>
         </repository>
-        <repository>
-            <id>sonatype-oss-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
-            <id>unnamed-releases</id>
-            <url>https://repo.unnamed.team/repository/unnamed-releases/</url>
-        </repository>
     </repositories>
-
-    <dependencies>
-        <dependency>
-            <groupId>me.fixeddev</groupId>
-            <artifactId>commandflow-universal</artifactId>
-            <version>0.4.3</version>
-        </dependency>
-        <dependency>
-            <groupId>net.kyori</groupId>
-            <artifactId>adventure-text-minimessage</artifactId>
-            <version>4.1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

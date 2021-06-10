@@ -10,8 +10,8 @@
 
 #
 # File Sectors:
-# config.yml = To toggle and configure the commands, modules, messages and permissions.
-# messages.yml = To see the error messages.
+# config.yml = To toggle and configure the commands, modules and permissions.
+# messages.yml = To see the command & error messages.
 # sounds.yml = To see the sounds manager.
 # formats.yml = To see chat formats, etc.
 # filters.yml = To see the filters, etc.
@@ -65,6 +65,7 @@ options:
     # from being displayed. 
     # This also includes the premium version (PremiumVanish). 
     supervanish: true
+    cmi: true
 
   # Enable metrics
   # You can deactivate it without any problem, 
@@ -82,14 +83,15 @@ options:
   use-legacy-colors: true
   # If you allow the subcommand to go to the support of the plugin /clab support.
   allow-support: true
-
+  # Add space limit.
+  center-space: 50
 # 
 # Modules
 #
 # Plugin modules
 modules:
   # Channels Module
-  # Here you can configure permissions, messages and channel settings.
+  # Here you can configure permissions, channel settings.
   channel:
     # Enable this module?
     enabled: true
@@ -102,36 +104,15 @@ modules:
       info: clab.commands.info
       move: clab.commands.move
 
-    # List of available channels
-    list:
-      message: "<white> List of channels:"
-      space: "<dark_gray>->"
-      format: "<dark_gray>- <white>%channel% <dark_gray>- %mode%"
-
-    # Information of a especify channel
-    info:
-      format:
-        - "%c <white>Info of channel <green>%channel%<dark_gray>:"
-        - "&f"
-        - "<white>Players chatting: <green>%online_channel%"
-        - "<white>%condition% to join: <green>%condition_format%"
-        - ""
-        - "%status%"
-
-      # Condition that will be replaced in the %condition% variable to enter the channel.
-      condition:
-        perms: "Permission"
-        group: "Group"
-
-      # Channel status to be replaced in the %status% variable in the above category
-      
 
   # Private Messages and Replies module
-  # Here you can configure permissions, messages,
-  # formats, and the GUI of private messages.
+  # Here you can configure permissions,
+  # and the GUI of private messages.
   msg-reply:
     # Enable this module?
     enabled: true
+    # Enable rule filters from /msg.
+    enable-revisor: true
     # Permissions of arguments. Put "none" to disable it.
     permissions:
       msg:
@@ -172,16 +153,8 @@ modules:
           - ""
           - "<white>Click to go to previous page."
 
-    format:
-      # Enable rule filters from /msg.
-      enable-revisor: true
-
-      player: "%c <white>You <dark_gray>> <white>%sender% <dark_gray>: <white>%message%"
-      arg-1: "%c <white>%sender% <dark_gray>> <white>You <dark_gray>: <white>%message%"
-      talked: "%c <white>You talked with <green>%player%"
-
   # Broadcast module
-  # Configuration and formatting of the 
+  # Configuration of the
   # /broadcast command.
   broadcast:
     # Enable this module?
@@ -200,52 +173,19 @@ modules:
     # Enable rules filters from /broadcast.
     enable-revisor: true
 
-    text:
-      global: "<green>[Broadcast] <dark_gray>| <white>%player% <dark_gray>> <white>%message%"
-      world: "<green>[%world%] <dark_gray>| <white>%player% <dark_gray>> <white>%message%"
-
-    click_cmd:
-      global: "<green>[!] <dark_gray>| <white>¡Click to <green>%message%<white>! <white>Good luck! <green>%player%<white>."
-      world: "<green>[%world%] <dark_gray>| <white>¡Click to <green>%message%<white>! <white>Good luck! <green>%player%<white>."
-      format: "<green>Click to touch that message!"
-
   # Chatting module
   # Configure alternative chat features.
   # To see the chat formats, go to formats.yml
   chat:
     # Enable this module?
     enabled: true
-  
+
     # Permissions of arguments. Put "none" to disable it.
     permissions:
       # main: If player is using the command.
       main: clab.commands.chat
       reload: clab.commands.chat.reload
       muted-bypass: clab.chat.mute.bypass
-
-    # /chat help
-    help:
-      - "%c <white>List of subcommands:"
-      - "<dark_gray>- <white>/chat help <dark_gray>: <white>To see the help command."
-      - "<dark_gray>- <white>/chat reload <dark_gray>: <white>To reload chat options."
-      - "<dark_gray>- <white>/chat clear [-w world, -l lines] <dark_gray>: <white>To clear the chat."
-      - "<dark_gray>- <white>/chat mute [-w world, -t time] <dark_gray>| <white>To mute the chat."
-      - "<dark_gray>- <white>/chat unmute <dark_gray>: <white>To unmute the chat."
-      - "<dark_gray>- <white>/chat cooldown [<time>;  -d default] <dark_gray>: <white>To change the cooldown."
-
-    # /chat clear
-    clear:
-      # How many empty spaces will be sent to the chat to "clean it up"?
-      default-blank: 50
-
-    # /chat tags
-    tags:
-
-      tags:
-        red: "<dark_red>"
-        green: "<dark_green>"
-        blue: "<dark_blue>"
-        yellow: "<gold>"
 
   # Main command module
   # Here you can configure all the main plugin command "/clab",
@@ -261,58 +201,16 @@ modules:
       restore: clab.commands.clab.restore
       reload: clab.commands.clab.reload
 
-    # /clab help
-    help:
-      pages:
-        - "%c <white>List of subcommands:"
-        - "<dark_gray>- <white>/clab commands <dark_gray>: <white>To watch all plugin commands."
-        - "<dark_gray>- <white>/clab reload [all/<file>] <dark_gray>: <white>To reload the plugin."
-        - "<dark_gray>- <white>/clab debug [pwc] <dark_gray>| <white>To see a debug."
-        - "<dark_gray>- <white>/clab sounds [on/off] <dark_gray>| <white>To turn on/off sounds."
-        - "<dark_gray>- <white>/clab support <dark_gray>| <white>To get to discord support."
-        - "<dark_gray>- <white>/clab reset [commands/modules] <dark_gray>| <white>To reset the configuration."
-      
-    # /clab commands
-    commands:
-      format: "%c <white>List of commands <dark_gray>- <green>%page%<dark_gray>/<green>%max_page%<dark_gray>:"
-      # You can put unlimited pages [1,2..].
-      pages:
-        1:
-          - "<dark_gray>- <white>/clab [reload/help/debug..] <dark_gray>: <white>To use the plugin."
-          - "<dark_gray>- <white>/chat [help/clear/mute/unmute/reload..] <dark_gray>: <white>To use the chat plugin."
-          - "<dark_gray>- <white>/msg [<player>] [<message>] <dark_gray>: <white>To send a private message."
-          - "<dark_gray>- <white>/reply [<message>] <dark_gray>: <white>To reply."
-          - "<dark_gray>- <white>/socialspy [on/off] [<player>]: <white>To activate socialspy."
-          - "<dark_gray>- <white>/ignore [<player>] <dark_gray>: <white>To ignore a player"
-          - "<dark_gray>- <white>/unignore [<player>] <dark_gray>: <white>To stop ignoring a player."
-        2:
-          - "<dark_gray>- <white>/broadcast [<message>] <dark_gray>: <white>To broadcast a message."
-          - "<dark_gray>- <white>/broadcastworld [<message>] <dark_gray>: <white>To broadcast in a world a message."
-          - "<dark_gray>- <white>/sc [on/off] or /sc [<message>] <dark_gray>: <white>To send a message to staff."
-          - "<dark_gray>- <white>/helpop [<message>] <dark_gray>: <white>To send a help chat."
-          - "<dark_gray>- <white>/motd [addline/removeline/seline] [id/<text>] [<text>] <dark_gray>: <white>To watch or modify the server motd."
-          - "<dark_gray>- <white>/channel [join/quit/list/move] [<channel>] <dark_gray>: <white>To use the channel manager."
-          - "<dark_gray>- <white>/stream [<text>] <dark_gray>: <white>To stream."
-          - "<dark_gray>- <white>/commandspy [on/off/list..] <dark_gray>: <white>To send a commandspy."
-
   # Message Of The Day module
-  # Here you can configure the entry message that will appear
-  # to each player when entering (only to the player).
   motd:
     # Enable this module?
     enabled: true
     # Permissions of arguments. Put "none" to disable it.
     permissions:
-      # main: If player is using the command.
-    main: none
+    # main: If player is using the command.
+      main: none
       admin: clab.commands.motd.admin
 
-    list:
-      message:
-        - "&f"
-        - "%c <white>Motd list <dark_gray>[<green>%page%<dark_gray>/<green>%maxpage%<dark_gray>]"
-        - "&f"
-      space: "<dark_gray>->"
 
   ignore-unignore:
     # Enable this module?
@@ -321,9 +219,6 @@ modules:
     permissions:
       # main: If player is using the command /ignore or unignore. Put "none" to disable it.
       main: none
-
-    list-ignoredplayers: "<white>List of ignored players:"
-    nobody-ignored: "<dark_gray>->%newline%%e <white>You aren't ignoring anybody.%newline%<dark_gray>->"
 
   spymodule:
     socialspy:
@@ -334,11 +229,6 @@ modules:
         # main: If player is using the command.
         main: clab.commands.socialspy
 
-      # Format that will be displayed when a message from a player is displayed in socialspy mode.
-      format: "<green>[SocialSpy] <dark_gray>| <white>%player% <dark_gray>> <white>%arg-1% <dark_gray>: <white>%message%"
-    
-      list-spyplayers: "<dark_gray>->%newline%<white>List of players using socialspy.%newline%<dark_gray>->"
-
     commandspy:
       # Enable this module?
       enabled: true
@@ -347,33 +237,6 @@ modules:
         # main: If player is using the command.
         main: clab.commands.commandspy
 
-      # Format that will be displayed when a command executed by a player in socialspy mode is displayed.
-      format: "<light_purple>[CommandSpy] <dark_gray>| <green>%sender% <dark_gray>: <green>%command%"
-
-      commands:
-        blocked: "%c <white>Blocked <green>%command%<white>."
-        unblocked: "%c <white>Unblocked word <green>%command%<white>."
-
-      list:
-        main:
-          - "%c <white>List of arguments."
-          - ""
-          - "<dark_gray>- <white>/cspy list players"
-          - "<dark_gray>- <white>/cspy list blocked-commands"
-          - ""
-        players:
-          - "<dark_gray>->"
-          - "<white>List of players using commandspy"
-          - "<dark_gray>->"
-          - "<dark_gray>- <white>%loop-value%"
-          - "<dark_gray>->"
-        blocked-commands:
-          - "<dark_gray>->"
-          - "<white>List of blocked commands."
-          - "<dark_gray>->"
-          - "<dark_gray>- <white>%loop-value%"
-          - "<dark_gray>->"
-  
       # Blocked commands from the commandspy
       blocked-commands:
         - login
@@ -394,8 +257,6 @@ modules:
     # Enable rules filters from /helpop.
     enable-revisor: true
 
-    list-helpop: "<dark_gray>->%newline%<white>List of players that can watch helpop%newline%<dark_gray>->"
-
   stream:
     # Enable this module?
     enabled: true
@@ -406,7 +267,6 @@ modules:
 
     # Enable rules filters from /stream.
     enable-revisor: true
-    text: "<yellow>[Stream] <dark_gray>| <green>%player% <white>is in streaming. Link: <green>%message%"
 
     # If you activate this, the streamers can only put a valid link in the text, instead of a welcome text.
     only-link: true
@@ -427,9 +287,6 @@ modules:
 
     # Symbol with which you can start the message to be detected as StaffChat
     symbol: "$"
-  
-    # Staff chat message
-    format: "<light_purple>[StaffChatManager] <dark_gray>| <white>%player% <dark_gray>: <white>%message%"
 
   announcer:
     # Enable this module?
@@ -441,42 +298,6 @@ modules:
       # main: If player is using the command.
       main: clab.commands.announcer
 
-    # /announcer help:
-    help:
-      - "<green>[Announcer] <dark_gray>- <white>List of subcommands:"
-      - "<dark_gray>- <white>/announcer add [<text..>] <dark_gray>: <white>To add a announcer "
-      - "<dark_gray>- <white>/announcer addline [id] [<text>] <dark_gray>: <white>To add a line to announcer."
-      - "<dark_gray>- <white>/announcer removeline [id] [<text>] <dark_gray>: <white>To remove a line to announecr."
-      - "<dark_gray>- <white>/announcer remove [id] <dark_gray>: <white>To remove a announcer."
-      - "<dark_gray>- <white>/announcer list <dark_gray>: <white>To see the list of announces."
-      - "<dark_gray>- <white>/announcer set [interval/ordened] <dark_gray>: <white>To set the repeat mode of announces."
-
-    # /announcer list:
-    list:
-      format:
-        - "<dark_gray>->"
-        - "<white>List of messages."
-        - "<dark_gray>->"
-        - "%loop-value%"
-        - "<dark_gray>->"
-      loop-value:
-        - "%pst% <dark_gray>- <white>ID: <green>%id%"
-        - "<dark_gray>- <white>%message%"
-  
-    # Configuration of the announcers to be displayed.
-    announcers:
-      # Type list:
-      # Ordered (The messages will be sorted as they are in the messages section).
-      # Random (The messages will be aleatory).
-      type: ORDERED
-      messages:
-        1:
-          - "<white>Hello!"
-        2:
-          - "<yellow>Bye!"
-        3:
-          - "<aqua>ChatLab <yellow>Plugin"
-          - "<gray>Author: <rainbow>BryanGaming</rainbow>"
 
   party:
     # Enable this module?
@@ -487,25 +308,3 @@ modules:
     permissions:
       # main: If player is using the command.
       main: none
-
-    # /party help:
-    help:
-      - "<green>[Party] <dark_gray>- <white>List of subcommands:"
-      - "<dark_gray>- <white>/party help <dark_gray>: <white>Help subcommand."
-      - "<dark_gray>- <white>/party create <dark_gray>: <white>To create a party."
-      - "<dark_gray>- <white>/party disband <dark_gray>: <white>To disband a party <red>[Requires leader]."
-      - "<dark_gray>- <white>/party join [<leader>] <dark_gray>: <white>To join a party."
-      - "<dark_gray>- <white>/party leave <dark_gray>: <white>To quit a party."
-      - "<dark_gray>- <white>/party info <dark_gray>: <white>To see the info of a party."
-      - "<dark_gray>- <white>/party invite [<player>] <dark_gray>: <white>To invite a player to a party."
-      - "<dark_gray>- <white>/party removeinvite [<player>] <dark_gray>: <white>To remove invite a player to a party."
-      - "<dark_gray>- <white>/party promote [<player>] <dark_gray>: <white><white>To promote a player to leader <red>[Requires leader]."
-      - "<dark_gray>- <white>/party set [public/private] <dark_gray>: <white>To set a party public or private <red>[Requires leader]."
-      - "<dark_gray>- <white>/party kick [<player>] <dark_gray>: <white>To kick a player <red>[Requires leader]."
-
-    info:
-      format:
-        - "<light_purple>[Party] <dark_gray>| <white>Party info:"
-        - "<dark_gray>- <white>Leader: <green>%leader%"
-        - "<dark_gray>- <white>Players:"
-        - "<dark_gray>- %loop-players%"
