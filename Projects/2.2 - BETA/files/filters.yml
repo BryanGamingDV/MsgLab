@@ -1,0 +1,303 @@
+#
+#   _____ _           _   _           _     
+#  / ____| |         | | | |         | |    
+# | |    | |__   __ _| |_| |     __ _| |__  
+# | |    | '_ \ / _` | __| |    / _` | '_ \ 
+# | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
+#
+# Filters Config | config.yml
+
+# You can make use of actions when any user violates the rules that you have imposed. 
+#
+# Example:
+#----------------------------------------------------------------------------------
+# actions:
+#      - "[MESSAGE] <green>[Server] <dark_gray>| <white>Don't put a flood test."
+#      - "[CONSOLECMD] warn %player%"
+#      - "[BROADCASTP] server.staff, <green>[Server] <dark_gray>| <green>%player% <white>did a flood text."
+#----------------------------------------------------------------------------------
+# [MESSAGE] 
+# It will send a message to the player.
+#
+# [CONSOLECMD]
+# It will execute a command in the console.
+#
+# [BROADCASTP] (permission)
+# Send a message to the staff with the specified permission.
+
+# Cooldown filter.
+cooldown:
+  # If the message is a text.
+  text:
+    enabled: true
+    seconds: 2
+    message: "%c <white>Sorry, please, wait <green>%seconds% <white>seconds."
+
+  # If the message is a command.
+  cmd:
+    enabled: true
+    seconds: 2
+    message: "%c <white>Sorry, please, wait <green>%seconds% <white>seconds."
+
+    # Commands that obiously bypass the cooldown.
+    disabled-cmds:
+      - hwllo
+
+# Tags
+#
+# Here you can set the permission and the variable
+# to be replaced to use the color and tags
+tags:
+  color:
+    variable: "%ml_color%"
+    permission: clab.chat.color
+
+  tag:
+    variable: "%ml_tag%"
+    permission: clab.chat.tag
+
+
+message:
+
+  # Emojis filter.
+  # Format: emoji;symbol
+  emojis:
+    - ":happy:;:D"
+    - ":sad:;:("
+    - ":angry:;>:("
+    - ":cry:;:'c"
+    - ":scream:;:{"
+    - ":suprised:;:o"
+    - ":scared:;:O"
+
+  # Mention filter.
+  mentions:
+    enabled: true
+    message: "%c <white>The player <green>%player% mentioned you."
+
+    # The char to tag:
+    char-tag: '@'
+
+    # The word that you replace in the word that the other player mention you, to stand out.
+    replace-mention: "<yellow>@%player%"
+
+  # Bot response filter
+  bot-respose:
+    # Enable this module?
+    enabled: true
+
+    lists:
+      1:
+        question: "Hello?"
+        answer: "%p <white>Hello player!"
+        commands:
+          - ""
+
+  #
+  # Rule filter section.
+  #
+
+  # Perms.
+  permissions:
+    # To bypass the text rule filter.
+    bypass: clab.text.bypass
+    # To bypass the command rule filter.
+    cmd-bypass: clab.cmd.bypass
+
+  # Anti flood - If player put a repeated character many v times.
+  anti-flood:
+    enabled: true
+
+    # Minimum number of repeated characters to be detected as abuse.
+    min-chars: 3
+
+    # Actions when the player's message was detected by the filter. [Optional]
+    actions:
+      - "[MESSAGE] <green>[Server] <dark_gray>| <white>Don't put a flood test."
+      - "[CONSOLECMD] warn %player%"
+      - "[BROADCASTP] server.staff, <green>[Server] <dark_gray>| <green>%player% <white>did a flood text."
+
+  # Words module - If player put a bad word:
+  words-module:
+    # Enable this module?
+    enabled: true
+    # Enable the regex option to improve recognition accuracy?
+    regex: false
+
+    # "badword; to-replace"
+    list-words:
+      - "fuck; **"
+      - "idiot; **"
+      - "good; **"
+
+    # Message that will show the player the forbidden words he has mentioned.
+    word-list:
+      # Enable this module?
+      enabled: true
+      format: "%c <white>You said <green>%words% <white>obscene words."
+
+    # Actions when the player's message was detected by the filter. [Optional]
+    actions:
+    - "[MESSAGE] <green>[Server] <dark_gray>| <white>Don't put a bad word."
+    - "[CONSOLECMD] warn %player%"
+    - "[BROADCASTP] server.staff, <green>[Server] <dark_gray>| <green>%player% <white>did put a bad word."
+
+
+  # Dot module - If player didn't put a dot:
+  dot-module:
+    # Enable this module?
+    enabled: true
+
+    # Minimum number of words to be required to place a dot at the end.
+    min-word: 2
+
+    # Actions when the player's message was detected by the filter. [Optional]
+    # Note: Delete the '#' if you want to use]
+    # actions:
+    #  - "[BROADCASTP] server.staff, <green>[Server] <dark_gray>| <green>%player% <white>didn't put a dot."
+
+  # First mayus module - If his first letter isn't mayus.
+  first-mayus-module:
+    # Enable this module?
+    enabled: true
+
+    # Actions when the player's message was detected by the filter. [Optional]
+    # Note: Delete the '#' if you want to use]
+    # actions:
+    #  - "[BROADCASTP] server.staff, <green>[Server] <dark_gray>| <green>%player% &didn't put a mayus."
+
+  # Caps module - If player putted too much caps.
+  caps-module:
+    # Enable this module?
+    enabled: true
+
+    # Minimum number of capital letters to be detected as abuse.
+    min-mayus: 5
+
+    # Actions when the player's message was detected by the filter. [Optional]
+    # Note: Delete the '#' if you want to use]
+    # actions:
+    #  - "[BROADCASTP] server.staff, <green>[Server] <dark_gray>| <green>%player% <white>was using caps."
+
+  # Link module - If player put a external link.
+  link-module:
+    # Enable this module?
+    enabled: true
+
+    # To block "." (If you enable this, you won't be able to use this)
+    block-point: false
+    blocked-links:
+      - .net
+      - .com
+      - .serv.nu
+      - .server.pro
+      - .tk
+      - .org
+
+    # Note: This replace the link or point (if you enabled this).
+    replace-link: " "
+
+    # Actions when the player's message was detected by the filter. [Optional]
+    actions:
+      - "[CONSOLECMD] ban %player%"
+      - "[BROADCASTP] server.staff, <green>[Server] <dark_gray>| <green>%player% <white>was putting a link."
+
+
+commands:
+  tab-module:
+    # Enable this module?
+    enabled: false
+
+    # To block <tab>
+    # - Requires ProtocolLib.
+    block:
+      # Enable this module?
+      enabled: false
+
+      # When you put /<tab>:
+      empty: true
+
+      # List of blocked commands in tab.
+      commands:
+        - /ver
+        - /help
+        - /icanhasbukkit
+
+      # A message when the player is using block command module.
+      message:
+        enabled: false
+        format: ""
+
+    # filter commands [Only 1.13+]
+    filter:
+      # Enable this module?
+      enabled: true
+
+      # You can put @<group> to fill in the commands that are in such a group.
+      groups:
+        default:
+          - msg
+          - reply
+          - ignore
+        vip:
+          - "@default"
+
+  #
+  # Commands module:
+  #
+  commands-module:
+    # Conditions:
+    # - Requires Vault:
+    # Format: 
+    # command: "condition"
+    #
+    # If you want how to use the condition section.
+    # Check in: https://bryangaming.gitbook.io/chatlab/option-guide/commandconditions
+    conditions:
+      # Enable this module?
+      enabled: false
+
+      commands:
+        # It will be checked if when executing the command "test" the user has $500 in his account of economy.
+        test: "%pmoney% = 500"
+
+      # A message when the player is using the conditions command module.
+      message:
+        enabled: true
+        format: "%e <white>You don't have the condition to use that command."
+
+    # Block Command Module.
+    block:
+      # Enable this module?
+      enabled: true
+
+      # To block people with op.
+      op:
+        # List of blocked commands.
+        list:
+          - plugins
+          - pl
+          - help
+          - "?"
+
+        # Actions when the player is using a blocked command. [Optional]
+        actions:
+          - "[MESSAGE] <white>You can't use that command."
+
+      # To block people, and you can bypass with a permission.
+      default:
+        # Permission to bypass the block command module.
+        permission: test.test
+
+        # Actions when the player is using a blocked command. [Optional]
+        actions:
+          - "[MESSAGE] <white>You can't use that command."
+          - "[CONSOLECMD] warn %player%"
+          - "[BROADCASTP] server.staff, <green>[Server] <dark_gray>| <green>%player% <white>is using a blocked command."
+
+        # List of blocked commands.
+        list:
+          - pl
+          - test.
+          - test.t

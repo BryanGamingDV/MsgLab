@@ -1,0 +1,11 @@
+
+*.xml
+*.iml
+api/target
+core/Core.iml
+core/target/
+core/src/test/
+versions/Versions.iml
+versions/legacyVersion/LegacyVersion.iml
+versions/legacyVersion/target/
+api/Api.iml

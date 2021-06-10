@@ -1,0 +1,723 @@
+#
+#   _____ _           _   _           _     
+#  / ____| |         | | | |         | |    
+# | |    | |__   __ _| |_| |     __ _| |__  
+# | |    | '_ \ / _` | __| |    / _` | '_ \ 
+# | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
+#
+# Formats Config | formats.yml
+
+# Note: You can use MiniMessage in the message paths.
+# Example: <gradient:gold:white>Hello everyone</gradient>
+# Or with HEX colors (1.16+ only) <color:#8DDA59>Hola</color>
+# Wiki: https://docs.adventure.kyori.net/minimessage.html#format
+
+# Per World Chat module
+# Here you can activate the chat by worlds, with the format specified in chat-format for each rank.
+per-world-chat:
+  # Enable this module?
+  enabled: false
+  # If the chat is only for players who are in the world.
+  all-worlds: false
+
+  worlds:
+    1:
+      # List of worlds that will be able to listen to the messages of the players who are there.
+      worlds:
+        - world
+      chat-format:
+        enabled: true
+        bases:
+          prefix:
+            # The message part that appears when you chat, obviously.
+            format: "<dark_gray>| <white>%ml_tag% <yellow>[Default] "
+            # The text that will be displayed when you mouse over the message.
+            hover:
+              - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+              - "<white>Player: <green>%player%"
+              - "<white>Online: <green>%online%"
+            # Acton when you click the hover.
+            action:
+              # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+              type: SUGGEST_COMMAND
+              format: "/msg %player% message"
+
+          player:
+            # The message part that appears when you chat, obviously.
+            format: "<white>%player%"
+            # The text that will be displayed when you mouse over the message.
+            hover:
+              - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+              - "<white>Player: <green>%player%"
+              - "<white>Online: <green>%online%"
+            # Acton when you click the hover.
+            action:
+              # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+              type: SUGGEST_COMMAND
+              format: "/msg %player% message"
+
+          limit:
+            # The message part that appears when you chat, obviously.
+            format: " <gray>> "
+
+          message:
+            # The message part that appears when you chat, obviously.
+            format: "<white>%ml_color%%message%"
+            # The text that will be displayed when you mouse over the message.
+            hover:
+              - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+              - "<white>Player: <green>%player%"
+              - "<white>Online: <green>%online%"
+            # Acton when you click the hover.
+            action:
+              # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+              type: SUGGEST_COMMAND
+              format: "/msg %player% message"
+    2:
+      world:
+        - world_nether
+        - world_the_end
+      enabled: true
+      bases:
+        prefix:
+          # The message part that appears when you chat, obviously.
+          format: "<dark_gray>| <white>%ml_tag% <yellow>[Default] "
+          # The text that will be displayed when you mouse over the message.
+          hover:
+            - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+            - "<white>Player: <green>%player%"
+            - "<white>Online: <green>%online%"
+          # Acton when you click the hover.
+          action:
+            # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+            type: SUGGEST_COMMAND
+            format: "/msg %player% message"
+
+        player:
+          # The message part that appears when you chat, obviously.
+          format: "<white>%player%"
+          # The text that will be displayed when you mouse over the message.
+          hover:
+            - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+            - "<white>Player: <green>%player%"
+            - "<white>Online: <green>%online%"
+          # Acton when you click the hover.
+          action:
+            # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+            type: SUGGEST_COMMAND
+            format: "/msg %player% message"
+
+        limit:
+          # The message part that appears when you chat, obviously.
+          format: " <gray>> "
+
+        message:
+          # The message part that appears when you chat, obviously.
+          format: "<white>%ml_color%%message%"
+          # The text that will be displayed when you mouse over the message.
+          hover:
+            - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+            - "<white>Player: <green>%player%"
+            - "<white>Online: <green>%online%"
+          # Acton when you click the hover.
+          action:
+            # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+            type: SUGGEST_COMMAND
+            format: "/msg %player% message"
+
+#
+# Radial chat
+#
+# You will have the possibility that only people in the 
+# specified area can read the messages you send in the chat.
+radial-chat:
+  # Enable this module?
+  enabled: false
+  # Chat range
+  x: 50
+  y: 50
+  z: 50
+
+#
+# Chat Format:
+#
+# Here you can configure the global chat options
+chat-format:
+  # Enable this module?
+  enabled: true
+
+  # If you want to log the message in the console.
+  log:
+    enabled: true
+    format: "%player% > %message%"
+
+  # If you want to register messages of minecraft in discord or on the contrary. (Requires DiscordSRV).
+  discord-srv:
+    # You can enable and disable this module in config.yml
+    # The id where the messages will be sent o the messages from that channel that will be sent to minecraft.
+    channelID: channelID
+
+    # Permission to watch the messages of discord.
+    permission: staff.receive
+
+    messages:
+      # To register messages of minecraft to discord.
+      from-mc: "%player% > %message%"
+      # To register messages of discord to minecraft.
+      from-discord: "%author% > %messages%"
+
+  allow-revisor: true
+  # Format section.
+  #
+  # If you want how to create a chat format:
+  # Check in: https://bryangaming.gitbook.io/chatlab/option-guide/chatformat.
+  default:
+    # Text components.
+    # Note: The hover and action paths are optional.
+    bases:
+      prefix:
+        # The message part that appears when you chat, obviously.
+        format: "<dark_gray>| <white>%ml_tag% <yellow>[Default] "
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+      player:
+        # The message part that appears when you chat, obviously.
+        format: "<white>%player%"
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+      limit:
+        # The message part that appears when you chat, obviously.
+        format: " <gray>> "
+
+      message:
+        # The message part that appears when you chat, obviously.
+        format: "<white>%ml_color%%message%"
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+  # If player has OP or has "*" (Optional, you can remove this configuration section.)
+  op:
+    # Text components.
+    # Note: The hover and action paths are optional.
+    bases:
+      prefix:
+        # The message part that appears when you chat, obviously.
+        format: "<dark_gray>| <white>%ml_tag% <red>[</red><dark_red>OP</dark_red><red>]</red> <white>%player%</white> "
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+      limit:
+        # The message part that appears when you chat, obviously.
+        format: " <gray>> "
+
+      message:
+        # The message part that appears when you chat, obviously.
+        format: "<white>%ml_color%%message%"
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+  # Group access:
+  # permission -> If player has permission of the group, he receive the data of that group.
+  # group -> If player is in group, he receive the data of that group. [Vault & complement required].
+  # none -> To disable this option.
+  group-access: permission
+  groups:
+    vip:
+      bases:
+        prefix:
+          # The message part that appears when you chat, obviously.
+          format: "<dark_gray>| <green>[VIP] <white>%player% "
+          # The text that will be displayed when you mouse over the message.
+          hover:
+            - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+            - "<white>Player: <green>%player%"
+            - "<white>Online: <green>%online%"
+          # Acton when you click the hover.
+          action:
+            # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+            type: SUGGEST_COMMAND
+            format: "/msg %player% message"
+
+        limit:
+          # The message part that appears when you chat, obviously.
+          format: " <gray>> "
+
+        message:
+          # The message part that appears when you chat, obviously.
+          format: "<white>%message%"
+          # The text that will be displayed when you mouse over the message.
+          hover:
+            - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+            - "<white>Player: <green>%player%"
+            - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+      # Permission (Only works if the group access is permission):
+      permission: group.vip
+
+    vip+:
+      bases:
+        prefix:
+          # The message part that appears when you chat, obviously.
+          format: "<dark_gray>| <dark_green>[VIP+] <white>%player% "
+          # The text that will be displayed when you mouse over the message.
+          hover:
+            - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+            - "<white>Player: <green>%player%"
+            - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+      limit:
+        # The message part that appears when you chat, obviously.
+        format: " <gray>> "
+
+      message:
+        # The message part that appears when you chat, obviously.
+        format: "<white>%message%"
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+      # Acton when you click the hover.
+      action:
+        # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+        type: SUGGEST_COMMAND
+        format: "/msg %player% message"
+
+      # Permission (Only works if the group access is permission):
+      permission: group.vip+
+
+#
+# Channel
+#
+
+# If you want how to create channel.
+# You can enter in: https://bryangaming.gitbook.io/chatlab/option-guide/channels.
+channel:
+  # Enable this module?
+  enabled: true
+  apprendice:
+    # The condition to join the channel.
+    condition:
+      # List: PERMISSION, GROUP.
+      type: PERMISSION
+      format: test.test
+
+    # The components of the channel.
+    bases:
+      prefix:
+        # The message part that appears when you chat, obviously.
+        format: "<green>| <dark_green>[VIP+] <white>%player% "
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+      limit:
+        # The message part that appears when you chat, obviously.
+        format: " <gray>> "
+
+      message:
+        # The message part that appears when you chat, obviously.
+        format: "<white>%message%"
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+  vip:
+    # The condition to join the channel.
+    condition:
+      # List: PERMISSION, GROUP.
+      type: GROUP
+      format: VIP
+
+    # The components of the channel.
+    bases:
+      prefix:
+        # The message part that appears when you chat, obviously.
+        format: "<dark_gray>| <dark_green>[VIP+] <white>%player% "
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+      limit:
+        # The message part that appears when you chat, obviously.
+        format: " <gray>> "
+
+      message:
+        # The message part that appears when you chat, obviously.
+        format: "<white>%message%"
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+  VIP+:
+    # The condition to join the channel.
+    condition:
+      # List: PERMISSION, GROUP.
+      type: GROUP
+      format: VIP
+
+    # The components of the channel.
+    bases:
+      prefix:
+        # The message part that appears when you chat, obviously.
+        format: "<dark_gray>| <dark_green>[VIP+] <white>%player% "
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+      limit:
+        # The message part that appears when you chat, obviously.
+        format: " <gray>> "
+
+      message:
+        # The message part that appears when you chat, obviously.
+        format: "<white>%message%"
+        # The text that will be displayed when you mouse over the message.
+        hover:
+          - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+          - "<white>Player: <green>%player%"
+          - "<white>Online: <green>%online%"
+        # Acton when you click the hover.
+        action:
+          # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+          type: SUGGEST_COMMAND
+          format: "/msg %player% message"
+
+# Party format.
+party-chat:
+  # Enable this module?
+  enabled: true
+  bases:
+    prefix:
+      # The message part that appears when you chat, obviously.
+      format: "<red>[Party] <dark_gray>| <white>%player% "
+      # The text that will be displayed when you mouse over the message.
+      hover:
+        - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+        - "<white>Player: <green>%player%"
+        - "<white>Online: <green>%online%"
+      # Acton when you click the hover.
+      action:
+        # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+        type: SUGGEST_COMMAND
+        format: "/msg %player% message"
+
+    limit:
+      # The message part that appears when you chat, obviously.
+      format: " <gray>> "
+
+    message:
+      # The message part that appears when you chat, obviously.
+      format: "<white>%ml_color%%message%"
+      # The text that will be displayed when you mouse over the message.
+      hover:
+        - "<dark_gray><st>------</st>[</dark_gray><white>Hover</white><dark_gray>]<st>-------</st></dark_gray>"
+        - "<white>Player: <green>%player%"
+        - "<white>Online: <green>%online%"
+      # Acton when you click the hover.
+      action:
+        # Action types: CHANGE_PAGE, COPY_TO_CLIPBOARD, OPEN_FILE, OPEN_URL, RUN_COMMAND, SUGGEST_COMMAND.
+        type: SUGGEST_COMMAND
+        format: "/msg %player% message"
+
+#
+# Join and Quit formats [FirstJoin, Join, Quit]
+#
+
+# If you want how to use this.
+# Go in: https://bryangaming.gitbook.io/chatlab/option-guide/jq-join-and-quit
+
+join-and-quit:
+  # Enable this module?
+  enabled: true
+  # Group access:
+  # permission -> If player has permission of the group, he receive the data of that group.
+  # group -> If player is in group, he recieve the data of that group. [Vault & complement required].
+  # default -> If you want to use only a one format group.
+  group-access: default
+
+  # NOTE: All options [message, motd, commands] are optional. You can combine or disable options!
+  formats:
+    # Default format [When a player enter to the server]
+    default:
+      # Entry and exit message format for default group.
+      first-join:
+        # Message format: [Put "silent" to put a empty message, or "none" to disable it].
+        message: "<dark_gray>[</dark_gray><green>+</green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>has joined for first time</white><gold>!</gold>"
+        # A welcome message.
+        motd:
+          - "<rainbow>---------------</rainbow>"
+          - "<white>Welcome to </white><gold>My Server</gold>"
+          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+          - "<rainbow:2>---------------</rainbow>"
+        # Actions from player.
+        actions:
+          - "[CONSOLECMD] give %player% diamond"
+
+      # When a player join to the server.
+      join:
+        # Message format: [Put "silent" to put a empty message, or "none" to disable it].
+        message: "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
+        # A welcome message.
+        motd:
+          - "<rainbow>---------------</rainbow>"
+          - "<white>Welcome back to </white><gold>My Server</gold>"
+          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+          - "<rainbow:2>---------------</rainbow>"
+        # Actions from player.
+        actions:
+          - ""
+
+      # When a player quit to the server.
+      quit:
+        # Message format: [Put "silent" to put a empty message, or "none" to disable it].
+        message: "<dark_gray>[</dark_gray><red>-</red><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%<gray> <white>left</white><gold>!</gold>"
+        # Actions from player.
+        actions:
+          - ""
+    vip:
+      # When a player join for the first time.
+      first-join:
+        # Message format: [Put "silent" to put a empty message, or "none" to disable it].
+        message: "<dark_gray><bold>[</dark_gray><green>+</green><dark_gray>]</bold></dark_gray> <gold><bold>VIP</bold></gold><white> player</white> <gray>%player%</gray> <white> has joined for first time</white><gold>!</gold>"
+        # A welcome message.
+        motd:
+          - "<rainbow>---------------</rainbow>"
+          - "<white>Welcome <red>%player%</red> <white>to </white><gold>My Server</gold>"
+          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+          - "<rainbow:2>---------------</rainbow>"
+        # Actions from player.
+        actions:
+          - ""
+      # When a player join to the server.
+      join:
+        # Message format: [Put "silent" to put a empty message, or "none" to disable it].
+        message: "<dark_gray>[</dark_gray><green>+</green><dark_gray>]</dark_gray> <gold>VIP</gold> <white>player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
+        # A welcome message.
+        motd:
+          - "<rainbow>---------------</rainbow>"
+          - "<white>Welcome </white><red>%player%</red><white>back to </white><gold>My Server</gold>"
+          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+          - "<rainbow:2>---------------</rainbow>"
+        # Actions from player.
+        actions:
+          - ""
+      # When a player quit to the server.
+      quit:
+        # Message format: [Put "silent" to put a empty message, or "none" to disable it].
+        message: "<dark_gray><bold>[</dark_gray><red>-<dark_gray>]</bold></dark_gray>  <gold><bold>VIP</bold></gold><white> player</white> <gray>%player%</gray> <white>left the server</white><gold>!</gold>"
+        # Actions from player.
+        actions:
+          - ""
+
+# Achievement [Only 1.10-]
+#
+achievements:
+  enabled: true
+
+  format: "&a[Server] &8| &a%player% &frealized &a%achievement%&f."
+  types:
+    aqucire_iron: "Acquire iron"
+    bake_cake: "Bake cake"
+    bookcase: "Bookcase"
+    breed_cow: "Brew potion"
+    build_better_pickaxe: "Build better pickaxe"
+    build_furnace: "Build furnace"
+    build_hoe: "Build hoe"
+    build_pickaxe: "Build pickaxe"
+    build_sword: "Build sword"
+    build_workbench: "Build workbench"
+    cook_fish: "Cook fish"
+    diamonds_to_you: "Diamonds to you"
+    end_portal: "End portal"
+    explore_all_biomes: "Explore all biomes"
+    fly_pig: "Fly pig"
+    full_beacon: "Full beacon"
+    get_blaze_rod: "Get blaze rod"
+    get_diamonds: "Get diamonds"
+    ghast_return: "Ghast return"
+    kill_cow: "Kill cow"
+    kill_enemy: "Kill enemy"
+    kill_wither: "Kill wither"
+    make_bread: "Make bread"
+    mine_wood: "Mine wood"
+    nether_portal: "Nether portal"
+    on_a_rail: "On a rail"
+    open_inventory: "Open inventory"
+    overkill: "Overkill"
+    overpowered: "Overpowered"
+    snipe_skeleton: "Snipe skeleton"
+    spawn_wither: "Spawn wither"
+    the_end: "The end"
+
+
+advancements:
+  format: "&a%player% &freached the advanced! &a%advancement%"
+
+  # Advancements [Optional paths]
+  # To send a broadcast...
+  advancements:
+    mine_stone: "Stone Age"
+    upgrade_tools: "Getting an Upgrade"
+    smelt_iron: "Acquire Hardware"
+    obtain_armor: "Suit Up"
+    lava_bucket: "Hot Stuff"
+    iron_tools: "Isn't It Iron Pick"
+    deflect_arrow: "Not Today, Thank You"
+    form_obsidian: "Ice Bucket Challenge"
+    mine_diamond: "Diamonds!"
+    enter_the_nether: "We Need to Go Deeper"
+    shiny_gear: "Cover Me With Diamonds"
+    enchant_item: "Enchanter"
+    follow_ender_eye: "Eye Spy"
+    enter_the_end: "The End?"
+    find_fortress: "A Terrible Fortress"
+    get_wither_skull: "Spooky Scary Skeleton"
+    obtain_blaze_rod: "Into Fire"
+    summon_wither: "Withering Heights"
+    brew_potion: "Local Brewery"
+    create_beacon: "Bring Home the Beacon"
+    find_bastion: "Those Were the Days"
+    obtain_ancient_debris: "Hidden in the Depths"
+    obtain_crying_obsidian: "Who is Cutting Onions?"
+    distract_piglin: "Oh Shiny"
+    ride_strider: "This Boat Has Legs"
+    loot_bastion: "War Pigs"
+    use_lodestone: "Country Lode, Take Me Home"
+    charge_respawn_anchor: "Not Quite \"Nine\" Lives"
+    kill_dragon: "Free the End"
+    denter_end_gateway: "Remote Getaway"
+    find_end_city: "The City at the End of the Game"
+    voluntary_exile: "Voluntary Exile"
+    kill_a_mob: "Monster Hunter"
+    trade: "What a Deal!"
+    honey_block_slide: "Sticky Situation"
+    ol_betsy: "Ol' Betsy"
+    sleep_in_bed: "Sweet Dreams"
+    throw_trident: "A Throwaway Joke"
+    shoot_arrow: "Take Aim"
+    whos_the_pillager_now: "Who's the Pillager Now?"
+    very_very_frightening: "Very Very Frightening"
+    safely_harvest_honey: "Bee Our Guest"
+    breed_an_animal: "The Parrots and the Bats"
+    tame_an_animal: "Best Friends Forever"
+    fishy_business: "Fishy Business"
+    silk_touch_nest: "Total Beelocation"
+    plant_seed: "A Seedy Place"
+    tactical_fishing: "Tactical Fishing"
+    cure_zombie_villager: "Zombie Doctor"
+    create_full_beacon: "Beaconator"
+    dragon_egg: "The Next Generation"
+    respawn_dragon: "The End... Again..."
+    dragon_breath: "You Need a Mint"
+    elytra: "Sky's the Limit"
+    totem_of_undying: "Postmortal"
+    summon_iron_golem: "Hired Help"
+    return_to_sender: "Return to Sender"
+    fast_travel: "Subspace Bubble"
+    uneasy_alliance: "Uneasy Alliance"
+    all_potions: "A Furious Cocktail"
+    all_effects: "How Did We Get Here?"
+    netherite_armor: "Cover Me in Debris"
+    explore_nether: "Hot Tourist Destinations"
+    levitate: "Great View From Up Here"
+    hero_of_the_village: "Hero of the Village"
+    kill_all_mobs: "Monsters Hunted"
+    two_birds_one_arrow: "Two Birds, One Arrow"
+    arbalistic: "Arbalistic"
+    adventuring_time: "Adventuring Time"
+    sniper_duel: "Sniper Duel"
+    bullseye: "Bullseye"
+    bred_all_animals: "Two by Two"
+    complete_catalogue: "A Complete Catalogue"
+    balanced_diet: "A Balanced Diet"
+    break_diamond_hoe: "Serious Dedication"
+    obtain_netherite_hoe: "Serious Dedication"
+
+
