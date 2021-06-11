@@ -29,7 +29,6 @@ public class HelpopCommand implements CommandClass {
     private final SenderManager senderManager;
     private final HelpOpManager helpOpManager;
 
-
     private final Configuration configFile;
     private final Configuration messagesFile;
 
@@ -37,7 +36,7 @@ public class HelpopCommand implements CommandClass {
         this.pluginService = pluginService;
 
         this.senderManager = pluginService.getPlayerManager().getSender();
-        this.helpOpManager = pluginService.getPlayerManager().getHelpOpMethod();
+        this.helpOpManager = pluginService.getPlayerManager().getHelpOpManager();
 
         this.configFile = pluginService.getFiles().getConfigFile();
         this.messagesFile = pluginService.getFiles().getMessagesFile();

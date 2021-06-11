@@ -42,16 +42,16 @@ public class AnnouncerCommand implements CommandClass {
     }
 
     @Command(names = "add")
-    public boolean onAddSubCommand(@Sender Player sender, @OptArg("") @Text String text) {
+    public boolean onAddSubCommand(@Sender Player sender, @OptArg("") @Text String senderMessage) {
 
-        if (text.isEmpty()) {
+        if (senderMessage.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("announcer", "add", "<text>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        String message = String.join(" ", text);
+        String message = String.join(" ", senderMessage);
 
         int announcerSize = configFile.getConfigurationSection("modules.announcer.announcers.messages").getKeys(false).size();
 
@@ -68,77 +68,77 @@ public class AnnouncerCommand implements CommandClass {
     }
 
     @Command(names = "addline")
-    public boolean onAddLineSubCommand(@Sender Player sender, @OptArg("") String id, @OptArg("") @Text String text) {
+    public boolean onAddLineSubCommand(@Sender Player sender, @OptArg("") String announcerId, @OptArg("") @Text String senderMessage) {
 
-        if (id.isEmpty()) {
+        if (announcerId.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("announcer", "addline", "<id>", "<text>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (text.isEmpty()) {
+        if (senderMessage.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("announcer", "addline", id, "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "addline", announcerId, "<text>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        List<String> announcerLines = configFile.getStringList("modules.announcer.config.messages." + id);
+        List<String> announcerLines = configFile.getStringList("modules.announcer.config.messages." + announcerId);
 
         if (announcerLines.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("announcer.error.unknown-id")
-                    .replace("%id%", id));
+                    .replace("%id%", announcerId));
             return true;
         }
 
-        announcerLines.add(text);
-        configFile.set("modules.announcer.announcers.messages." + id, announcerLines);
+        announcerLines.add(senderMessage);
+        configFile.set("modules.announcer.announcers.messages." + announcerId, announcerLines);
         configFile.save();
         senderManager.sendMessage(sender, messagesFile.getString("announcer.add.line")
-                .replace("%message%", text));
+                .replace("%message%", senderMessage));
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "announcer addline");
         return true;
     }
 
     @Command(names = "removeline")
-    public boolean onRemoveLineSubCommand(@Sender Player sender, @OptArg("") String id, @OptArg("") String line) {
+    public boolean onRemoveLineSubCommand(@Sender Player sender, @OptArg("") String announcerId, @OptArg("") String announcerLine) {
 
-        if (id.isEmpty()) {
+        if (announcerId.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("announcer", "removeline")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        List<String> announcerLines = configFile.getStringList("modules.announcer.announcers.messages." + id);
+        List<String> announcerLines = configFile.getStringList("modules.announcer.announcers.messages." + announcerId);
 
         if (announcerLines.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("announcer.error.unknown-id")
-                    .replace("%id%", id));
+                    .replace("%id%", announcerId));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (line.isEmpty()){
+        if (announcerLine.isEmpty()){
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                        .replace("%usage%", TextUtils.getUsage("announcer", "removeline", id, "<line>")));
+                        .replace("%usage%", TextUtils.getUsage("announcer", "removeline", announcerId, "<line>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (!TextUtils.isNumber(line)){
+        if (!TextUtils.isNumber(announcerLine)){
             senderManager.sendMessage(sender, messagesFile.getString("announcer.error.unknown-line")
-                    .replace("%line%", line));
+                    .replace("%line%", announcerLine));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        announcerLines.remove(Integer.parseInt(line));
-        configFile.set("modules.announcer.announcers.messages." + id, announcerLines);
+        announcerLines.remove(Integer.parseInt(announcerLine));
+        configFile.set("modules.announcer.announcers.messages." + announcerId, announcerLines);
         configFile.save();
         senderManager.sendMessage(sender, messagesFile.getString("announcer.remove.line")
-                .replace("%id%", line));
+                .replace("%id%", announcerLine));
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "announcer removeline");
 
         return true;
@@ -146,50 +146,50 @@ public class AnnouncerCommand implements CommandClass {
     }
 
     @Command(names = "setline")
-    public boolean onSetLineSubCommand(@Sender Player sender, @OptArg("") String id, @OptArg("") String line, @OptArg("") @Text String text) {
+    public boolean onSetLineSubCommand(@Sender Player sender, @OptArg("") String announcerId, @OptArg("") String announcerLine, @OptArg("") @Text String senderMessage) {
 
-        if (id.isEmpty()) {
+        if (announcerId.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("announcer", "setline")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        List<String> announcerLines = configFile.getStringList("modules.announcer.announcers.messages." + id);
+        List<String> announcerLines = configFile.getStringList("modules.announcer.announcers.messages." + announcerId);
 
         if (announcerLines.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("announcer.error.unknown-id")
-                    .replace("%id%", id));
+                    .replace("%id%", announcerId));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (line.isEmpty()){
+        if (announcerLine.isEmpty()){
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("announcer", "setline", id, "<line>", "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "setline", announcerId, "<line>", "<text>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (!TextUtils.isNumber(line)){
+        if (!TextUtils.isNumber(announcerLine)){
             senderManager.sendMessage(sender, messagesFile.getString("announcer.error.unknown-line")
-                    .replace("%line%", line));
+                    .replace("%line%", announcerLine));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (text.isEmpty()){
+        if (senderMessage.isEmpty()){
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("announcer", "setline", id, line, "<text>")));
+                    .replace("%usage%", TextUtils.getUsage("announcer", "setline", announcerId, announcerLine, "<text>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
-        String message = String.join(" ", text);
-        announcerLines.set(Integer.parseInt(line), message);
-        configFile.set("modules.announcer.announcers.messages." + id, announcerLines);
+        String message = String.join(" ", senderMessage);
+        announcerLines.set(Integer.parseInt(announcerLine), message);
+        configFile.set("modules.announcer.announcers.messages." + announcerId, announcerLines);
         configFile.save();
         senderManager.sendMessage(sender, messagesFile.getString("announcer.set-line")
-                .replace("%id%", line));
+                .replace("%id%", announcerLine));
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "announcer setline");
 
         return true;
@@ -264,31 +264,31 @@ public class AnnouncerCommand implements CommandClass {
     }
 
     @Command(names = "set")
-    public boolean onSetSubCommand(@Sender Player sender, @OptArg("") String arg1, @OptArg("") String arg2) {
+    public boolean onSetSubCommand(@Sender Player sender, @OptArg("") String argument1, @OptArg("") String argument2) {
 
-        if (arg1.isEmpty()) {
+        if (argument1.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("announcer", "set", "interval/mode")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (arg1.equalsIgnoreCase("interval")) {
-            if (arg2.isEmpty()) {
+        if (argument1.equalsIgnoreCase("interval")) {
+            if (argument2.isEmpty()) {
                 senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                        .replace("%usage%", TextUtils.getUsage("announcer", "set", arg1, "[<time>]")));
+                        .replace("%usage%", TextUtils.getUsage("announcer", "set", argument1, "[<time>]")));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
-            if (TextUtils.isNumber(arg2)) {
+            if (TextUtils.isNumber(argument2)) {
                 senderManager.sendMessage(sender, messagesFile.getString("announcer.error.interval")
-                        .replace("%time%", arg2));
+                        .replace("%time%", argument2));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
-            int number = Integer.parseInt(arg2);
+            int number = Integer.parseInt(argument2);
 
             senderManager.sendMessage(sender, messagesFile.getString("announcer.set.interval")
                     .replace("%time%", String.valueOf(number)));
@@ -298,25 +298,25 @@ public class AnnouncerCommand implements CommandClass {
             return true;
         }
 
-        if (arg1.equalsIgnoreCase("mode")) {
-            if (arg2.isEmpty()) {
+        if (argument1.equalsIgnoreCase("mode")) {
+            if (argument2.isEmpty()) {
                 senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                        .replace("%usage%", TextUtils.getUsage("announcer", "set", arg1, "ordened/random")));
+                        .replace("%usage%", TextUtils.getUsage("announcer", "set", argument1, "ordened/random")));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
-            switch (arg2) {
+            switch (argument2) {
                 case "ordened":
                 case "random":
                     senderManager.sendMessage(sender, messagesFile.getString("announcer.set.interval")
-                                .replace("%mode%", arg2));
-                    configFile.set("modules.announcer.announcers.type", arg2);
+                                .replace("%mode%", argument2));
+                    configFile.set("modules.announcer.announcers.type", argument2);
                     configFile.save();
                     break;
                 default:
                     senderManager.sendMessage(sender, messagesFile.getString("announcer.error.unknown-mode")
-                            .replace("%mode%", arg2));
+                            .replace("%mode%", argument2));
             }
             return true;
         }

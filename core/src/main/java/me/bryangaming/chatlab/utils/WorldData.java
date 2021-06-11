@@ -11,19 +11,15 @@ import java.util.Set;
 
 public class WorldData {
 
-    private final PluginService pluginService;
 
     private static ChatLab plugin;
-    private static DebugLogger debugLogger;
 
     private static Configuration utils;
 
     public WorldData(PluginService pluginService) {
-        this.pluginService = pluginService;
         utils = pluginService.getFiles().getFormatsFile();
 
         plugin = pluginService.getPlugin();
-        debugLogger = pluginService.getLogs();
     }
 
     public static List<String> getWorldChat(Player player) {

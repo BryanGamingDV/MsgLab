@@ -13,8 +13,6 @@ public class DebugLogger {
 
     private final ChatLab plugin;
 
-    private File file;
-
     public DebugLogger(ChatLab plugin) {
         this.plugin = plugin;
         setup();
@@ -41,7 +39,7 @@ public class DebugLogger {
     }
 
     public void setup() {
-        file = new File(plugin.getDataFolder(), "logs.yml");
+        File file = new File(plugin.getDataFolder(), "logs.yml");
         file.mkdirs();
 
         if (file.exists()) {

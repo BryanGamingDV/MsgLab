@@ -127,6 +127,26 @@ public class GroupManager {
         return "default";
     }
 
+    public String getFormat(GroupEnum channelType, Player player, String playerRank){
+        if (channelType == GroupEnum.CHANNEL) {
+            return "channel." + playerRank;
+        }
+        if (channelType == GroupEnum.PARTY) {
+            return "party-chat";
+        }
+
+        if (formatsFile.getBoolean("per-world-chat.worlds." + WorldData.getWorldID(player) + ".chat-format.enabled")) {
+            return "per-world-chat.worlds." + WorldData.getWorldID(player);
+        }
+
+        switch (playerRank) {
+            case "default":
+            case "op":
+                return "chat-format." + playerRank;
+            default:
+                return "chat-format.groups." + playerRank;
+        }
+    }
     public Set<String> getConfigSection(GroupEnum channelType, Player player, String playerRank) {
         Configuration formatsFile = pluginService.getFiles().getFormatsFile();
 

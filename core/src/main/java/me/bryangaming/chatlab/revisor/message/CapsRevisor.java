@@ -33,7 +33,6 @@ public class CapsRevisor implements Revisor {
     public String revisor(Player player, String string) {
 
         Configuration filtersFile = pluginService.getFiles().getFiltersFile();
-
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         int mayusmin = filtersFile.getInt("message." + revisorName + ".min-mayus", -1);

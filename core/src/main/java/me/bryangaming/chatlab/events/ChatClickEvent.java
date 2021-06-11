@@ -42,10 +42,10 @@ public class ChatClickEvent implements Listener {
             return;
         }
 
-        StaffChatManager staffChatManagerMethod = pluginService.getPlayerManager().getStaffChatMethod();
+        StaffChatManager staffChatManager = pluginService.getPlayerManager().getStaffChatManager();
 
-        if (staffChatManagerMethod.isUsingStaffSymbol(event)) {
-            staffChatManagerMethod.getStaffSymbol(event);
+        if (staffChatManager.isUsingStaffSymbol(event)) {
+            staffChatManager.getStaffSymbol(event);
             return;
         }
 

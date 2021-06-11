@@ -41,7 +41,7 @@ public class SendTextListener implements Listener {
         UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
-        StaffChatManager staffChatManagerMethod = pluginService.getPlayerManager().getStaffChatMethod();
+        StaffChatManager staffChatManagerManager = pluginService.getPlayerManager().getStaffChatManager();
 
         if (playerStatus.isClickMode()) {
             return;
@@ -50,9 +50,9 @@ public class SendTextListener implements Listener {
         if (pluginService.getFiles().getConfigFile().getBoolean("modules.staff-chat.enabled")) {
             ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
 
-            if (staffChatManagerMethod.isUsingStaffSymbol(event)) {
+            if (staffChatManagerManager.isUsingStaffSymbol(event)) {
                 event.setCancelled(true);
-                staffChatManagerMethod.getStaffSymbol(event);
+                staffChatManagerManager.getStaffSymbol(event);
                 return;
             }
 

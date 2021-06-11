@@ -19,8 +19,6 @@ public class EventLoader implements Loader {
 
     private final PluginService pluginService;
 
-    private AchievementListener achievementListener;
-
     public EventLoader(PluginService pluginService) {
         this.pluginService = pluginService;
         load();
@@ -49,9 +47,6 @@ public class EventLoader implements Loader {
             loadEvents(new AchievementListener(pluginService));
         }
 
-        if (TextUtils.equalsIgnoreCaseOr(TextUtils.getServerVersion(Bukkit.getServer()), "1.15", "1.16")){
-           this.achievementListener =  new AchievementListener(pluginService);
-        }
 
         if (Bukkit.getPluginManager().isPluginEnabled("ProtocolLib")) {
             TabFilter tabFilter = new TabFilter(pluginService);
@@ -69,9 +64,6 @@ public class EventLoader implements Loader {
         pluginService.getPlugin().getLogger().info("Events loaded!");
     }
 
-    public AchievementListener getAchiviementListener(){
-        return achievementListener;
-    }
     public void loadEvents(Listener... listeners) {
 
         DebugLogger debug = pluginService.getLogs();

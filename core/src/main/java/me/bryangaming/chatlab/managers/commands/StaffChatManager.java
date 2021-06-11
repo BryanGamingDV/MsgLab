@@ -64,8 +64,6 @@ public class StaffChatManager implements Option {
 
     public boolean isUsingStaffSymbol(AsyncPlayerChatEvent event) {
 
-
-        SenderManager senderManager = pluginService.getPlayerManager().getSender();
         Player player = event.getPlayer();
 
         if (event.getMessage().startsWith(configFile.getString("modules.staff-chat.symbol"))) {
@@ -73,10 +71,6 @@ public class StaffChatManager implements Option {
         }
 
         return false;
-    }
-
-    public void sendToStaffPlayers(Player player, String message){
-       sendToStaffPlayers(player.getName(), message);
     }
 
     public void sendToStaffPlayers(String playerName, String message){
@@ -102,22 +96,22 @@ public class StaffChatManager implements Option {
         ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
+        UserData senderData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (!senderManager.hasPermission(player, "staff-chat", "watch")){
             return;
         }
 
-        if (playerStatus.isClickMode()) {
+        if (senderData.isClickMode()) {
             clickChatManager.unset(player.getUniqueId());
         }
 
-        for (Player playeronline : Bukkit.getServer().getOnlinePlayers()) {
+        for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
             if (!senderManager.hasPermission(player, "staff-chat", "watch")){
                 continue;
             }
 
-            senderManager.sendMessage(playeronline, messagesFile.getString("staff-chat.message")
+            senderManager.sendMessage(onlinePlayer, messagesFile.getString("staff-chat.message")
                     .replace("%player%", player.getName())
                     .replace("%message%", event.getMessage())
                     .replace(messagesFile.getString("staff-chat.symbol"), ""));

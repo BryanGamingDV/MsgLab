@@ -48,24 +48,24 @@ public class CooldownData {
         }
 
         Player player = Bukkit.getPlayer(uuid);
-        UserData playerCooldown = cache.getUserDatas().get(uuid);
+        UserData userData = cache.getUserDatas().get(uuid);
 
         if (senderManager.hasPermission(player, "cooldown", "chat-bypass")){
             return false;
         }
 
-        if (playerCooldown.isCooldownMode()) {
+        if (userData.isCooldownMode()) {
             senderManager.sendMessage(player, filtersFile.getString("cooldown.text.message")
                     .replace("%seconds%", pluginService.getServerData().getServerTextCooldownInString()));
             return true;
         }
 
-        playerCooldown.setCooldownMode(true);
+        userData.setCooldownMode(true);
 
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
-                playerCooldown.setCooldownMode(false);
+                userData.setCooldownMode(false);
             }
         }, 20L * pluginService.getServerData().getServerTextCooldown());
 

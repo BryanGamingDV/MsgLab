@@ -30,7 +30,7 @@ public class UnIgnoreCommand implements CommandClass {
     @Command(names = "unignore")
     public boolean onCommand(@Sender Player sender, @OptArg OfflinePlayer target) {
 
-        IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
+        IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreManager();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         Configuration playersFile = pluginService.getFiles().getPlayersFile();
@@ -72,16 +72,16 @@ public class UnIgnoreCommand implements CommandClass {
             return true;
         }
 
-        List<String> ignoredlist = playersFile.getStringList("players." + playeruuid + ".players-ignored");
-        UUID targetuuid = target.getPlayer().getUniqueId();
+        List<String> ignoredPlayers = playersFile.getStringList("players." + playeruuid + ".players-ignored");
+        UUID targetUniqueId = target.getPlayer().getUniqueId();
 
-        if (!(ignoredlist.contains(targetname))) {
+        if (!(ignoredPlayers.contains(targetname))) {
             senderManager.sendMessage(sender, messagesFile.getString("ignore.error.already-unignored"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        ignoreManager.unignorePlayer(sender, targetuuid);
+        ignoreManager.unIgnorePlayer(sender, targetUniqueId);
         senderManager.sendMessage(sender, messagesFile.getString("ignore.player-unignored")
                 .replace("%player%", targetname));
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "unignore");

@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public class VanishHook implements Hook {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     public VanishHook(PluginService pluginService) {
         this.pluginService = pluginService;

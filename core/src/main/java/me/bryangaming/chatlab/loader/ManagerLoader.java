@@ -30,13 +30,12 @@ public class ManagerLoader implements Loader {
 
     private ChatManager chatManager;
     private HelpOpManager helpOpManager;
-    private SocialSpyManager socialSpyManager;
     private IgnoreManager ignoreManager;
     private MsgManager msgManager;
 
     private PartyManager partyManager;
     private ReplyManager replyManager;
-    private StaffChatManager staffChatManagerMethod;
+    private StaffChatManager staffChatManagerManager;
 
     private VariableUtils variableUtils;
     private TextUtils textUtils;
@@ -65,10 +64,9 @@ public class ManagerLoader implements Loader {
         chatManager = new ChatManager(pluginService);
 
         actionManager = new ActionManager(pluginService);
-        staffChatManagerMethod = new StaffChatManager(pluginService);
+        staffChatManagerManager = new StaffChatManager(pluginService);
         helpOpManager = new HelpOpManager(pluginService);
         ignoreManager = new IgnoreManager(pluginService);
-        socialSpyManager = new SocialSpyManager(pluginService);
 
         partyManager = new PartyManager(pluginService);
         replyManager = new ReplyManager(pluginService);
@@ -78,7 +76,7 @@ public class ManagerLoader implements Loader {
         textUtils = new TextUtils(pluginService);
         conditionManager = new ConditionManager(pluginService);
 
-        pluginService.getLogs().log("Methods registered");
+        pluginService.getLogs().log("Managers registered");
 
     }
 
@@ -86,7 +84,7 @@ public class ManagerLoader implements Loader {
         return actionManager;
     }
 
-    public PartyManager getPartyMethod() {
+    public PartyManager getPartyManager() {
         return partyManager;
     }
 
@@ -99,11 +97,11 @@ public class ManagerLoader implements Loader {
     }
 
 
-    public HoverManager getHoverMethod() {
+    public HoverManager getHoverManager() {
         return hoverManager;
     }
 
-    public RecipientManager getRecipientMethod() {
+    public RecipientManager getRecipientManager() {
         return recipientManager;
     }
 
@@ -111,31 +109,27 @@ public class ManagerLoader implements Loader {
         return senderManager;
     }
 
-    public StaffChatManager getStaffChatMethod() {
-        return staffChatManagerMethod;
+    public StaffChatManager getStaffChatManager() {
+        return staffChatManagerManager;
     }
 
-    public SocialSpyManager getSocialSpyMethod() {
-        return socialSpyManager;
-    }
-
-    public HelpOpManager getHelpOpMethod() {
+    public HelpOpManager getHelpOpManager() {
         return helpOpManager;
     }
 
-    public IgnoreManager getIgnoreMethod() {
+    public IgnoreManager getIgnoreManager() {
         return ignoreManager;
     }
 
-    public ReplyManager getReplyMethod() {
+    public ReplyManager getReplyManager() {
         return replyManager;
     }
 
-    public MsgManager getMsgMethod() {
+    public MsgManager getMsgManager() {
         return msgManager;
     }
 
-    public ChatManager getChatMethod() {
+    public ChatManager getChatManager() {
         return chatManager;
     }
 

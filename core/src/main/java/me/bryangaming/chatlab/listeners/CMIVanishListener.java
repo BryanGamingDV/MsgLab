@@ -14,13 +14,16 @@ public class CMIVanishListener implements Listener {
     private PluginService pluginService;
 
     private final Configuration configFile;
-    private final Jedis jedis;
+    private Jedis jedis;
 
     public CMIVanishListener(PluginService pluginService) {
         this.pluginService = pluginService;
 
         this.configFile = pluginService.getFiles().getConfigFile();
-        this.jedis = pluginService.getRedisConnection().getJedisPool().getResource();
+
+        if (pluginService.getRedisConnection() != null) {
+            this.jedis = pluginService.getRedisConnection().getJedisPool().getResource();
+        }
     }
 
     @EventHandler

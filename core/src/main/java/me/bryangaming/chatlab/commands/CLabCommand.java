@@ -148,7 +148,7 @@ public class CLabCommand implements CommandClass {
     }
 
     @Command(names = "debug")
-    public boolean debugSubCommand(CommandSender sender, @OptArg("") String arg1, @OptArg("") String arg2) {
+    public boolean debugSubCommand(CommandSender sender, @OptArg("") String argument1, @OptArg("") String argument2) {
 
         if (!(senderManager.hasPermission(sender, "clab", "debug"))) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-perms"));
@@ -156,55 +156,55 @@ public class CLabCommand implements CommandClass {
             return true;
         }
 
-        if (arg1.isEmpty()) {
+        if (argument1.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("clab", "debug", "pwc, commands, modules")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (arg1.equalsIgnoreCase("pwc")) {
-            Set<String> worldlist = formatsFile.getConfigurationSection("per-world-chat.worlds").getKeys(true);
+        if (argument1.equalsIgnoreCase("pwc")) {
+            Set<String> allowedWords = formatsFile.getConfigurationSection("per-world-chat.worlds").getKeys(true);
 
-            if (arg2.isEmpty()) {
+            if (argument2.isEmpty()) {
                 senderManager.sendMessage(sender, messagesFile.getString("global-errors.unknown-args"));
-                senderManager.sendMessage(sender, "&8- &fWorlds: " + String.join(", ", worldlist) + ", or -all");
+                senderManager.sendMessage(sender, "&8- &fWorlds: " + String.join(", ", allowedWords) + ", or -all");
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
-            if (arg2.equalsIgnoreCase("-all")) {
+            if (argument2.equalsIgnoreCase("-all")) {
                 senderManager.sendMessage(sender, messagesFile.getString("clab.debug.list.worlds"));
 
-                for (String worldname : worldlist) {
-                    senderManager.sendMessage(sender, "&8- &f " + worldname);
+                for (String allowedWorld : allowedWords) {
+                    senderManager.sendMessage(sender, "&8- &f " + allowedWorld);
                 }
 
                 senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab debug pwc -all");
                 return true;
             }
 
-            List<String> worldname = formatsFile.getStringList("per-world-chat.worlds." + arg2);
+            List<String> allowedWorlds = formatsFile.getStringList("per-world-chat.worlds." + argument2);
 
-            if (worldname.isEmpty()) {
+            if (allowedWorlds.isEmpty()) {
                 senderManager.sendMessage(sender, messagesFile.getString("clab.error.debug.unknown-world")
-                        .replace("%world%", arg2));
+                        .replace("%world%", argument2));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
             senderManager.sendMessage(sender, messagesFile.getString("clab.debug.worldpath-info")
-                    .replace("%world%", arg2));
+                    .replace("%world%", argument2));
 
-            for (String worldnamelist : worldname) {
-                senderManager.sendMessage(sender, "&8- &f" + worldnamelist);
+            for (String allowedWorld : allowedWorlds) {
+                senderManager.sendMessage(sender, "&8- &f" + allowedWorld);
             }
             senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab debug pwc");
             return true;
         }
 
         senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                .replace("%usage%", TextUtils.getUsage("clab", arg1, "commands, modules")));
+                .replace("%usage%", TextUtils.getUsage("clab", argument1, "commands, modules")));
         senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
     }
@@ -218,9 +218,9 @@ public class CLabCommand implements CommandClass {
             return true;
         }
 
-        Configuration config = pluginService.getCache().getConfigFiles().get(configName);
+        Configuration configFile = pluginService.getCache().getConfigFiles().get(configName);
 
-        if (config == null){
+        if (configFile == null){
             senderManager.sendMessage(sender, messagesFile.getString("clab.error.unknown-config")
                     .replace("%listconfig%", String.join(" ,", pluginService.getCache().getConfigFiles().keySet())));
             senderManager.playSound(sender, SoundEnum.ERROR);
@@ -234,7 +234,7 @@ public class CLabCommand implements CommandClass {
             return true;
         }
 
-        if (config.get(path) == null){
+        if (configFile.get(path) == null){
             senderManager.sendMessage(sender, messagesFile.getString("clab.error.unknown-path"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
@@ -252,14 +252,12 @@ public class CLabCommand implements CommandClass {
                 .replace("%path%", path)
                 .replace("%value%", value));
         senderManager.playSound(sender, SoundEnum.ERROR);
-        config.set(path, value);
-        config.save();
+        configFile.set(path, value);
+        configFile.save();
         return true;
     }
 
     public void getReloadEvent(CommandSender sender, String string) {
-
-        FileLoader files = pluginService.getFiles();
 
         Map<String, Configuration> fileMap = pluginService.getCache().getConfigFiles();
         TasksManager tasksManager = pluginService.getTasksManager();

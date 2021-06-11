@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public class ConditionManager {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     public ConditionManager(PluginService pluginService){
         this.pluginService = pluginService;
@@ -39,9 +39,11 @@ public class ConditionManager {
 
     private String replaceVariables(Player player, String object){
         Economy economy = pluginService.getSupportManager().getVaultSupport().getEconomy();
+
         if (economy != null){
             object = object.replace("%pmoney%", String.valueOf(economy.getBalance(player)));
         }
+
         return object
                 .replace("%phealth%", String.valueOf(player.getHealth()))
                 .replace("%pfeed%", String.valueOf(player.getFoodLevel()))

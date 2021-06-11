@@ -28,43 +28,41 @@ public class IgnoreManager {
         this.ignorelist = pluginService.getCache().getIgnorelist();
     }
 
-    public void ignorePlayer(CommandSender sender, UUID uuid) {
+    public void ignorePlayer(Player sender, UUID targetUniqueID) {
 
-        Player you = (Player) sender;
-        UUID playeruuid = you.getUniqueId();
+        UUID senderUniqueID = sender.getUniqueId();
 
-        OfflinePlayer player = Bukkit.getPlayer(uuid);
+        Player target = Bukkit.getPlayer(targetUniqueID);
         List<String> ignoredPlayers;
 
-        if (ignorelist.get(playeruuid) == null) {
+        if (ignorelist.get(senderUniqueID) == null) {
             ignoredPlayers = new ArrayList<>();
         } else {
-            ignoredPlayers = ignorelist.get(playeruuid);
+            ignoredPlayers = ignorelist.get(senderUniqueID);
         }
 
-        ignoredPlayers.add(player.getName());
-        ignorelist.put(playeruuid, ignoredPlayers);
+        ignoredPlayers.add(target.getName());
+        ignorelist.put(senderUniqueID, ignoredPlayers);
 
-        playerFile.set("players." + playeruuid + ".name", you.getName());
-        playerFile.set("players." + playeruuid + ".players-ignored", ignoredPlayers);
+        playerFile.set("players." + senderUniqueID + ".name", sender.getName());
+        playerFile.set("players." + senderUniqueID + ".players-ignored", ignoredPlayers);
 
         playerFile.save();
 
     }
 
-    public void unignorePlayer(CommandSender sender, UUID uuid) {
+    public void unIgnorePlayer(Player sender, UUID uuid) {
 
-        Player you = (Player) sender;
-        UUID playeruuid = you.getUniqueId();
+        UUID senderUniqueId = sender.getUniqueId();
+        Player target = Bukkit.getPlayer(uuid);
 
-        OfflinePlayer target = Bukkit.getPlayer(uuid);
-
-        List<String> ignoredPlayers = ignorelist.get(playeruuid);
+        List<String> ignoredPlayers = ignorelist.get(senderUniqueId);
         ignoredPlayers.remove(target.getName());
-        playerFile.set("players." + playeruuid + ".players-ignored", ignoredPlayers);
+
+        playerFile.set("players." + senderUniqueId + ".players-ignored", ignoredPlayers);
         playerFile.save();
 
-        if (playerFile.getStringList("players." + playeruuid + ".players-ignored").isEmpty()) {
+        if (playerFile.getStringList("players." + senderUniqueId + ".players-ignored").isEmpty()) {
             playerFile.set("players." + uuid, null);
             playerFile.save();
         }
@@ -77,15 +75,15 @@ public class IgnoreManager {
             return false;
         }
 
-        Configuration players = pluginService.getFiles().getPlayersFile();
+        Configuration playersFile = pluginService.getFiles().getPlayersFile();
         String playerName = Bukkit.getPlayer(sender).getName();
 
-        if (!(players.contains("players."))) return false;
+        if (!(playersFile.contains("players."))) return false;
 
-        List<String> ignorelist = players
+        List<String> ignoredPlayers = playersFile
                 .getStringList("players." + playerIgnored.toString() + ".players-ignored");
 
 
-        return ignorelist.contains(playerName);
+        return ignoredPlayers.contains(playerName);
     }
 }

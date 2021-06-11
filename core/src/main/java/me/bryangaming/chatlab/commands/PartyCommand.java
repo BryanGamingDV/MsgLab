@@ -23,7 +23,7 @@ import java.util.UUID;
 @Command(names = "party")
 public class PartyCommand implements CommandClass {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     private final Configuration messagesFile;
 
@@ -35,7 +35,7 @@ public class PartyCommand implements CommandClass {
 
         this.messagesFile = pluginService.getFiles().getMessagesFile();
 
-        this.partyManager = pluginService.getPlayerManager().getPartyMethod();
+        this.partyManager = pluginService.getPlayerManager().getPartyManager();
         this.senderManager = pluginService.getPlayerManager().getSender();
     }
 

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 public class TabFilter {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     public TabFilter(PluginService pluginService) {
         this.pluginService = pluginService;

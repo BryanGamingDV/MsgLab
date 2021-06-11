@@ -25,69 +25,69 @@ public class StreamCommand implements CommandClass {
     }
 
     @Command(names = "stream")
-    public boolean onCommand(@Sender Player player, @OptArg("") @Text String args) {
+    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String senderMessage) {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         Configuration configFile = pluginService.getFiles().getConfigFile();
         Configuration messagesFile = pluginService.getFiles().getMessagesFile();
 
-        if (args.isEmpty()) {
-            senderManager.sendMessage(player, messagesFile.getString("global-errors.no-args")
+        if (senderMessage.isEmpty()) {
+            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("stream", "<message>")));
-            senderManager.playSound(player, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        String message = String.join(" ", args);
+        String message = String.join(" ", senderMessage);
 
-        boolean allowmode = false;
+        boolean validLink = false;
 
-        String[] blockedRevisors;
+        String[] blockedFilters;
         if (configFile.getBoolean("module.stream.only-link")) {
-            blockedRevisors = new String[]{"ALL"};
+            blockedFilters = new String[]{"ALL"};
             if (message.startsWith("https://")) {
-                for (String string : configFile.getStringList("module.stream.allowed-links")) {
-                    if (message.substring(8).startsWith(string)) {
-                        allowmode = true;
+                for (String allowedLink : configFile.getStringList("module.stream.allowed-links")) {
+                    if (message.substring(8).startsWith(allowedLink)) {
+                        validLink = true;
                         break;
                     }
                 }
 
             } else {
-                for (String string : configFile.getStringList("module.stream.allowed-links")) {
-                    if (message.startsWith(string)) {
-                        allowmode = true;
+                for (String allowedLink : configFile.getStringList("module.stream.allowed-links")) {
+                    if (message.startsWith(allowedLink)) {
+                        validLink = true;
                         break;
                     }
                 }
             }
 
             if (message.split(" ").length > 1) {
-                allowmode = false;
+                validLink = false;
             }
 
         } else {
-            blockedRevisors = new String[]{"BotRevisor", "LinkRevisor"};
+            blockedFilters = new String[]{"BotRevisor", "LinkRevisor"};
             if (message.contains(".")) {
                 for (String string :configFile.getStringList("module.stream.allowed-links")) {
                     if (message.contains(string)) {
-                        allowmode = true;
+                        validLink = true;
                         break;
                     }
                 }
             }
         }
 
-        if (!allowmode) {
-            senderManager.sendMessage(player, messagesFile.getString("stream.error.valid-link")
+        if (!validLink) {
+            senderManager.sendMessage(sender, messagesFile.getString("stream.error.valid-link")
                     .replace("%message%", message));
-            senderManager.playSound(player, SoundEnum.ERROR);
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (configFile.getBoolean("modules.stream.enable-revisor")) {
-            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(player, message, TextRevisorEnum.TEXT, blockedRevisors);
+            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT, blockedFilters);
             Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
 
             if (textrevisorEvent.isCancelled()){
@@ -100,17 +100,17 @@ public class StreamCommand implements CommandClass {
         if (!configFile.getBoolean("options.bungeecord")) {
             for (Player playerOnline : Bukkit.getServer().getOnlinePlayers()) {
                 senderManager.sendMessage(playerOnline, configFile.getString("stream.text")
-                        .replace("%player%", player.getName())
+                        .replace("%player%", sender.getName())
                         .replace("%message%", message));
                 senderManager.playSound(playerOnline, SoundEnum.RECEIVE_STREAM);
             }
         }else{
             pluginService.getRedisConnection().sendMessage("chatlab", MessageType.STREAM, configFile.getString("stream.text")
-                    .replace("%player%", player.getName())
+                    .replace("%player%", sender.getName())
                     .replace("%message%", message) );
         }
 
-        senderManager.playSound(player, SoundEnum.ARGUMENT, "stream");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "stream");
         return true;
     }
 

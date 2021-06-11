@@ -32,37 +32,36 @@ public class SoundManager {
     }
 
     private void setup() {
+
         String version = Bukkit.getServer().getClass().getName();
-        String versionname = version.split("\\.")[3];
+        String versionName = version.substring(0, version.split("\\.")[3].indexOf("_", 2));
 
-        if (versionname.startsWith("v1_8")) {
-            debug.log("Using " + versionname + ", enabling sounds. Version:" + versionname);
-            return;
+        System.out.println(versionName);
+
+        switch (versionName) {
+            case "v1_8":
+            case "v1_9":
+                debug.log("Using " + versionName + ", enabling sounds. Version:" + versionName);
+                break;
+            default:
+                debug.log("Using " + versionName + ", warning the default sounds are from 1.8, 1.9, disabling it", LoggerTypeEnum.WARNING);
+                debug.log("Modify the sound, to avoid errors");
+
+                sound.set("options.enabled-all", false);
+                sound.save();
         }
-
-        if (versionname.startsWith("v1_9")) {
-            debug.log("Using " + versionname + ", enabling sounds. Version:" + versionname);
-            return;
-        }
-
-        debug.log("Using " + versionname + ", warning the default sounds are from 1.8, 1.9, disabling it", LoggerTypeEnum.WARNING);
-        debug.log("Modify the sound, to avoid errors");
-
-        sound.set("options.enabled-all", false);
-        sound.save();
-
     }
 
-    public void setSound(UUID target, String path) {
+    public void setSound(UUID targetUniqueId, String path) {
 
-        OfflinePlayer player = Bukkit.getPlayer(target);
+        OfflinePlayer player = Bukkit.getPlayer(targetUniqueId);
         Location location = player.getPlayer().getLocation();
 
         if (!(sound.getBoolean("options.enabled-all"))) {
             return;
         }
 
-        UserData playerMsgToggle = pluginService.getCache().getUserDatas().get(target);
+        UserData playerMsgToggle = pluginService.getCache().getUserDatas().get(targetUniqueId);
 
         if (!(playerMsgToggle.isPlayersoundMode())) {
             return;

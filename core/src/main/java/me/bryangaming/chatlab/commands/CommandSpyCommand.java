@@ -131,15 +131,15 @@ public class CommandSpyCommand implements CommandClass {
     }
 
     @Command(names = {"list"})
-    public boolean onListSubCommand(@Sender Player sender, @OptArg("") String args) {
+    public boolean onListSubCommand(@Sender Player sender, @OptArg("") String typeList) {
 
-        if (args.isEmpty()) {
+        if (typeList.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getStringList("commandspy.list.format"));
             senderManager.playSound(sender, SoundEnum.ARGUMENT, "commandspy list");
             return true;
         }
 
-        if (args.equalsIgnoreCase("players")) {
+        if (typeList.equalsIgnoreCase("players")) {
 
             List<Player> playerList = new ArrayList<>();
             for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
@@ -175,7 +175,7 @@ public class CommandSpyCommand implements CommandClass {
             return true;
         }
 
-        if (args.equalsIgnoreCase("blocked-commands")) {
+        if (typeList.equalsIgnoreCase("blocked-commands")) {
 
             List<String> blockedCommands = messagesFile.getStringList("commandspy.blocked-commands");
 
@@ -204,9 +204,9 @@ public class CommandSpyCommand implements CommandClass {
     }
 
     @Command(names = {"block"})
-    public boolean onBlockSubCommand(@Sender Player sender, @OptArg("") String args) {
+    public boolean onBlockSubCommand(@Sender Player sender, @OptArg("") String command) {
 
-        if (args.isEmpty()) {
+        if (command.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("cspy", "block", "<word>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
@@ -215,27 +215,27 @@ public class CommandSpyCommand implements CommandClass {
 
         List<String> blockedWords = configFile.getStringList("modules.spymodule.commandspy.blocked-commands");
 
-        if (blockedWords.contains(args)) {
+        if (blockedWords.contains(command)) {
             senderManager.sendMessage(sender, messagesFile.getString("commandspy.error.commands.already-blocked")
-                    .replace("%command%", args));
+                    .replace("%command%", command));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        blockedWords.add(args);
+        blockedWords.add(command);
         configFile.set("modules.spymodule.commandspy.blocked-commands", blockedWords);
         configFile.save();
 
         senderManager.sendMessage(sender, messagesFile.getString("commandspy.commands.blocked")
-                .replace("%command%", args));
+                .replace("%command%", command));
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "commandspy block");
         return true;
     }
 
     @Command(names = {"unblock"})
-    public boolean onUnBlockSubCommand(@Sender Player sender, @OptArg("") String args) {
+    public boolean onUnBlockSubCommand(@Sender Player sender, @OptArg("") String command) {
 
-        if (args.isEmpty()) {
+        if (command.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("cspy", "block", "<word>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
@@ -244,20 +244,20 @@ public class CommandSpyCommand implements CommandClass {
 
         List<String> blockedWords = configFile.getStringList("modules.spymodule.commandspy.blocked-commands");
 
-        if (!blockedWords.contains(args)) {
+        if (!blockedWords.contains(command)) {
             senderManager.sendMessage(sender, messagesFile.getString("commandspy.error.commands.already-unblocked")
-                    .replace("%command%", args));
+                    .replace("%command%", command));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        blockedWords.remove(args);
+        blockedWords.remove(command);
 
         configFile.set("modules.spymodule.commandspy.blocked-commands", blockedWords);
         configFile.save();
 
         senderManager.sendMessage(sender, messagesFile.getString("commandspy.commands.unblocked")
-                .replace("%command%", args));
+                .replace("%command%", command));
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "commandspy unblock");
         return true;
     }

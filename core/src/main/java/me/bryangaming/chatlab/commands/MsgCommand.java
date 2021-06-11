@@ -39,7 +39,7 @@ public class MsgCommand implements CommandClass {
         Configuration configFile = pluginService.getFiles().getConfigFile();
         Configuration messagesFile = pluginService.getFiles().getMessagesFile();
 
-        UUID playeruuid = sender.getUniqueId();
+        UUID playerUniqueId = sender.getUniqueId();
 
         if (target == null) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
@@ -48,7 +48,7 @@ public class MsgCommand implements CommandClass {
             return true;
         }
 
-        UUID targetuuid = target.getUniqueId();
+        UUID targetUniqueId = target.getUniqueId();
 
         if (target.getName().equalsIgnoreCase("-all")) {
             senderManager.sendMessage(sender, "%c &fEmmm, use /broadcast or the chat.");
@@ -67,7 +67,7 @@ public class MsgCommand implements CommandClass {
             return true;
         }
 
-        UserData playerMsgToggle = pluginService.getCache().getUserDatas().get(playeruuid);
+        UserData playerMsgToggle = pluginService.getCache().getUserDatas().get(playerUniqueId);
 
         if (target.getName().equalsIgnoreCase("-toggle")) {
 
@@ -136,7 +136,7 @@ public class MsgCommand implements CommandClass {
 
         }
 
-        UserData targetToggled = pluginService.getCache().getUserDatas().get(targetuuid);
+        UserData targetToggled = pluginService.getCache().getUserDatas().get(targetUniqueId);
 
         if (targetToggled == null) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
@@ -177,7 +177,7 @@ public class MsgCommand implements CommandClass {
             message = "<pre>" + message + "</pre>";
         }
 
-        MsgManager msgManager = pluginService.getPlayerManager().getMsgMethod();
+        MsgManager msgManager = pluginService.getPlayerManager().getMsgManager();
         Player targetPlayer = target.getPlayer();
 
         if (configFile.getBoolean("options.bungeecord")){
@@ -192,8 +192,8 @@ public class MsgCommand implements CommandClass {
 
         Bukkit.getPluginManager().callEvent(new SocialSpyEvent(socialspyFormat));
 
-        ReplyManager reply = pluginService.getPlayerManager().getReplyMethod();
-        reply.setReply(playeruuid, targetuuid);
+        ReplyManager reply = pluginService.getPlayerManager().getReplyManager();
+        reply.setReply(playerUniqueId, targetUniqueId);
         return true;
     }
 }

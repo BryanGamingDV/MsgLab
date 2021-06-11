@@ -24,15 +24,15 @@ public class HelpOpManager implements Option {
     }
 
     public void toggleOption(UUID uuid) {
-        UserData usercache = cache.get(uuid);
+        UserData userData = cache.get(uuid);
 
-        if (usercache.isPlayerHelpOp()) {
-            usercache.toggleHelpOp(false);
+        if (userData.isPlayerHelpOp()) {
+            userData.toggleHelpOp(false);
             status = pluginService.getFiles().getMessagesFile().getString("helpop.player.variable-off");
             return;
         }
 
-        usercache.toggleHelpOp(true);
+        userData.toggleHelpOp(true);
         status = pluginService.getFiles().getMessagesFile().getString("helpop.player.variable-on");
     }
 

@@ -42,12 +42,12 @@ public class IgnoreCommand implements CommandClass {
             return true;
         }
 
-        Map<UUID, List<String>> ignoredList = pluginService.getCache().getIgnorelist();
-        List<String> playerIgnoredList = playersFile.getStringList("players." + playeruuid + ".players-ignored");
+        Map<UUID, List<String>> ignoredListData = pluginService.getCache().getIgnorelist();
+        List<String> playersIgnored = playersFile.getStringList("players." + playeruuid + ".players-ignored");
 
         if (target.getName().equalsIgnoreCase("-list")) {
 
-            if (!ignoredList.containsKey(playeruuid) || playerIgnoredList.isEmpty()) {
+            if (!ignoredListData.containsKey(playeruuid) || playersIgnored.isEmpty()) {
                 senderManager.sendMessage(sender, messagesFile.getString("ignore.error.anybody"));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
@@ -55,8 +55,8 @@ public class IgnoreCommand implements CommandClass {
 
             senderManager.sendMessage(sender, messagesFile.getString("ignore.list-ignoredplayers"));
 
-            for (String playersIgnored : playerIgnoredList) {
-                senderManager.sendMessage(sender, "&8- &a" + playersIgnored);
+            for (String playerIgnored : playersIgnored) {
+                senderManager.sendMessage(sender, "&8- &a" + playerIgnored);
             }
 
             senderManager.playSound(sender, SoundEnum.ARGUMENT, "ignore");
@@ -82,9 +82,9 @@ public class IgnoreCommand implements CommandClass {
         }
 
         String targetname = target.getPlayer().getName();
-        IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreMethod();
+        IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreManager();
 
-        if (!ignoredList.containsKey(playeruuid)) {
+        if (!ignoredListData.containsKey(playeruuid)) {
             ignoreManager.ignorePlayer(sender, target.getUniqueId());
             senderManager.sendMessage(sender, messagesFile.getString("ignore.player-ignored")
                     .replace("%player%", targetname));
@@ -92,7 +92,7 @@ public class IgnoreCommand implements CommandClass {
             return true;
         }
 
-        if (!(playerIgnoredList.contains(targetname))) {
+        if (!(playersIgnored.contains(targetname))) {
             ignoreManager.ignorePlayer(sender, target.getUniqueId());
             senderManager.sendMessage(sender, messagesFile.getString("ignore.player-ignored")
                     .replace("%player%", targetname));
@@ -100,7 +100,7 @@ public class IgnoreCommand implements CommandClass {
             return true;
         }
 
-        ignoreManager.unignorePlayer(sender, target.getUniqueId());
+        ignoreManager.unIgnorePlayer(sender, target.getUniqueId());
         senderManager.sendMessage(sender, messagesFile.getString("ignore.player-unignored")
                 .replace("%player%", targetname));
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "ignore");

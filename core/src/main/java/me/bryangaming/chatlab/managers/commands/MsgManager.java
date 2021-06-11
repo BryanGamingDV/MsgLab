@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class MsgManager {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     public MsgManager(PluginService pluginService) {
         this.pluginService = pluginService;
@@ -48,12 +48,11 @@ public class MsgManager {
         senderManager.sendMessage(player, playerFormat, message);
         senderManager.playSound(player, SoundEnum.ARGUMENT, "msg");
 
-        List<String> ignoredlist = players.getStringList("players." + playeruuid + ".players-ignored");
+        List<String> ignoredPlayer = players.getStringList("players." + playeruuid + ".players-ignored");
 
-        if (ignoredlist.contains(target.getName())) {
+        if (ignoredPlayer.contains(target.getName())) {
             return;
         }
-
 
         senderManager.sendMessage(target, targetFormat, message);
         senderManager.playSound(target, SoundEnum.RECEIVE_MSG);

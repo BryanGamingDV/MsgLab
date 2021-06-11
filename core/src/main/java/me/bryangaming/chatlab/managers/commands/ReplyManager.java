@@ -13,20 +13,18 @@ public class ReplyManager {
         this.pluginService = pluginService;
     }
 
-    public void setReply(UUID player, UUID target) {
+    public void setReply(UUID senderUniqueId, UUID targetUniqueId) {
 
-        UserData playerCache = pluginService.getCache().getUserDatas().get(player);
-        UserData targetCache = pluginService.getCache().getUserDatas().get(target);
+        UserData senderData = pluginService.getCache().getUserDatas().get(senderUniqueId);
+        UserData targetData = pluginService.getCache().getUserDatas().get(targetUniqueId);
 
-        playerCache.setRepliedPlayer(target);
-        targetCache.setRepliedPlayer(player);
+        senderData.setRepliedPlayer(targetUniqueId);
+        targetData.setRepliedPlayer(senderUniqueId);
     }
 
+    public void setBungeeReply(UUID senderUniqueId, String target) {
 
-
-    public void setBungeeReply(UUID senderID, String target) {
-
-        UserData targetCache = pluginService.getCache().getUserDatas().get(senderID);
-        targetCache.setRepliedBungeePlayer(target);
+        UserData targetData = pluginService.getCache().getUserDatas().get(senderUniqueId);
+        targetData.setRepliedBungeePlayer(target);
     }
 }

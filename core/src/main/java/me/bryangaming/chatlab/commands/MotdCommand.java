@@ -27,7 +27,6 @@ public class MotdCommand implements CommandClass {
     private final SenderManager senderManager;
     private final List<String> motd;
 
-
     public MotdCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 

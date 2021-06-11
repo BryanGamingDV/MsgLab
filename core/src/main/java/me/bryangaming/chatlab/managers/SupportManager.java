@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.utils.hooks.*;
 
 public class SupportManager {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     private VaultHook vaultHook;
     private VanishHook vanishHook;

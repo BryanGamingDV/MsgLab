@@ -33,16 +33,15 @@ public class AnnouncerTask implements Task {
     public void loadTask() {
 
         Configuration configFile = pluginService.getFiles().getConfigFile();
-
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        ConfigurationSection configurationSection = configFile.getConfigurationSection("modules.announcer.config.messages");
+        ConfigurationSection announcerMessages = configFile.getConfigurationSection("modules.announcer.config.messages");
 
-        if (configurationSection == null){
+        if (announcerMessages == null){
             return;
         }
 
-        List<String> announcerList = new ArrayList<>(configurationSection.getKeys(false));
+        List<String> announcerList = new ArrayList<>(announcerMessages.getKeys(false));
 
         String announcerType = configFile.getString("modules.announcer.config.type");
 

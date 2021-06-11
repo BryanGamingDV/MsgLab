@@ -303,7 +303,6 @@ public class SenderManager {
     public void sendMessageLater(Player sender, int time, String command) {
 
         RunnableManager runnableManager = pluginService.getPlayerManager().getRunnableManager();
-
         Logger logger = pluginService.getPlugin().getLogger();
 
         if (command == null) {

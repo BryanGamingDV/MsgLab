@@ -28,24 +28,24 @@ public class BlockCmdRevisor implements Revisor{
 
     public String revisor(Player player, String command) {
 
-        Configuration formatFile = pluginService.getFiles().getFiltersFile();
+        Configuration filtersFile = pluginService.getFiles().getFiltersFile();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        for (String commandName : formatFile.getStringList("commands." + revisorName +  ".op.list")) {
+        for (String commandName : filtersFile.getStringList("commands." + revisorName +  ".op.list")) {
 
             if (!command.equalsIgnoreCase(commandName)) {
                 continue;
             }
 
-            if (formatFile.getBoolean("commands." + revisorName + ".op.message.enabled")) {
-                senderManager.sendMessage(player, formatFile.getString("commands." + revisorName + ".op.message.format")
+            if (filtersFile.getBoolean("commands." + revisorName + ".op.message.enabled")) {
+                senderManager.sendMessage(player, filtersFile.getString("commands." + revisorName + ".op.message.format")
                         .replace("%command%", commandName));
             }
             return null;
         }
 
 
-        for (String commandName : formatFile.getStringList("commands." + revisorName + ".default.list")) {
+        for (String commandName : filtersFile.getStringList("commands." + revisorName + ".default.list")) {
 
             if (player.hasPermission("commands." + revisorName + ".default.permission")) {
                 break;
@@ -55,8 +55,8 @@ public class BlockCmdRevisor implements Revisor{
                 continue;
             }
 
-            if (formatFile.getBoolean("commands." + revisorName + ".default.message.enabled")) {
-                senderManager.sendMessage(player, formatFile.getString("commands." + revisorName + ".default.message.format")
+            if (filtersFile.getBoolean("commands." + revisorName + ".default.message.enabled")) {
+                senderManager.sendMessage(player, filtersFile.getString("commands." + revisorName + ".default.message.format")
                         .replace("%command%", commandName));
             }
 

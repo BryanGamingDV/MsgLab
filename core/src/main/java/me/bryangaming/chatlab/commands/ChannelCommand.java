@@ -26,7 +26,6 @@ public class ChannelCommand implements CommandClass {
 
     private final Configuration formatsFile;
     private final Configuration messagesFile;
-    private final Configuration configFile;
 
     private final SenderManager senderManager;
 
@@ -35,7 +34,6 @@ public class ChannelCommand implements CommandClass {
     public ChannelCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.configFile = pluginService.getFiles().getConfigFile();
         this.messagesFile = pluginService.getFiles().getMessagesFile();
         this.formatsFile = pluginService.getFiles().getFormatsFile();
 

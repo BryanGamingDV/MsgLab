@@ -31,7 +31,7 @@ public class ReplyCommand implements CommandClass {
     }
 
     @Command(names = {"reply", "r"})
-    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String text) {
+    public boolean onCommand(@Sender Player sender, @OptArg("") @Text String senderMessage) {
 
         FileLoader files = pluginService.getFiles();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
@@ -41,39 +41,38 @@ public class ReplyCommand implements CommandClass {
         Configuration configFile = files.getConfigFile();
         Configuration messagesFile = files.getMessagesFile();
 
-
-        if (text.isEmpty()) {
+        if (senderMessage.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("reply", "<message>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        UserData playerCache = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
+        UserData senderData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
-        if (!playerCache.hasRepliedPlayer()) {
-            if (!playerCache.getRepliedBungeePlayer().isEmpty()) {
+        if (!senderData.hasRepliedPlayer()) {
+            if (!senderData.getRepliedBungeePlayer().isEmpty()) {
                 senderManager.sendMessage(sender, messagesFile.getString("msg-reply.error.no-reply"));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
         }
 
-        String target;
-        if (!playerCache.getRepliedBungeePlayer().isEmpty()) {
-            target = Bukkit.getPlayer(playerCache.getRepliedPlayer()).getName();
+        String targetName;
+        if (!senderData.getRepliedBungeePlayer().isEmpty()) {
+            targetName = Bukkit.getPlayer(senderData.getRepliedPlayer()).getName();
         } else {
-            target = playerCache.getRepliedBungeePlayer();
+            targetName = senderData.getRepliedBungeePlayer();
         }
-        if (text.equalsIgnoreCase("-sender")) {
+        if (senderMessage.equalsIgnoreCase("-sender")) {
             senderManager.sendMessage(sender, messagesFile.getString("msg-reply.format.talked")
-                    .replace("%player%", target));
+                    .replace("%player%", targetName));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
         if (configFile.getBoolean("modules.msg-reply.enable-revisor")) {
-            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, text, TextRevisorEnum.TEXT);
+            TextRevisorEvent textrevisorEvent = new TextRevisorEvent(sender, senderMessage, TextRevisorEnum.TEXT);
             Bukkit.getServer().getPluginManager().callEvent(textrevisorEvent);
 
             if (textrevisorEvent.isCancelled()) {
@@ -82,31 +81,31 @@ public class ReplyCommand implements CommandClass {
         }
 
         if (!senderManager.hasPermission(sender, "chat-format", "color")) {
-            text = "<pre>" + text + "</pre>";
+            senderMessage = "<pre>" + senderMessage + "</pre>";
         }
 
         senderManager.sendMessage(sender, messagesFile.getString("msg-reply.format.player")
                         .replace("%player%", sender.getName())
-                        .replace("%target%", target)
-                , text);
+                        .replace("%target%", targetName)
+                , senderMessage);
         senderManager.playSound(sender, SoundEnum.RECEIVE_MSG);
 
-        UUID playeruuid = sender.getUniqueId();
+        UUID senderUniqueId = sender.getUniqueId();
 
-        List<String> ignoredlist = playersFile.getStringList("players." + playeruuid + ".players-ignored");
+        List<String> ignoredPlayers = playersFile.getStringList("players." + senderUniqueId + ".players-ignored");
 
-        if (!(ignoredlist.contains(target))){
-            if (playerCache.getRepliedBungeePlayer().isEmpty()) {
-                pluginService.getRedisConnection().sendMessage("chatlab", MessageType.MSG, target, text);
-                pluginService.getRedisConnection().sendMessage("chatlab", MessageType.REPLY, target, sender.getName());
+        if (!(ignoredPlayers.contains(targetName))){
+            if (senderData.getRepliedBungeePlayer().isEmpty()) {
+                pluginService.getRedisConnection().sendMessage("chatlab", MessageType.MSG, targetName, senderMessage);
+                pluginService.getRedisConnection().sendMessage("chatlab", MessageType.REPLY, targetName, sender.getName());
             } else {
-                senderManager.sendMessage(Bukkit.getPlayerExact(target), messagesFile.getString("msg-reply.format.player")
+                senderManager.sendMessage(Bukkit.getPlayer(targetName), messagesFile.getString("msg-reply.format.player")
                                 .replace("%player%", sender.getName())
-                                .replace("%target%", target)
-                        , text);
+                                .replace("%target%", targetName)
+                        , senderMessage);
 
-                UserData targetCache = pluginService.getCache().getUserDatas().get(Bukkit.getPlayer(target).getUniqueId());
-                targetCache.setRepliedPlayer(playeruuid);
+                UserData targetData = pluginService.getCache().getUserDatas().get(Bukkit.getPlayer(targetName).getUniqueId());
+                targetData.setRepliedPlayer(senderUniqueId);
             }
             senderManager.playSound(sender, SoundEnum.RECEIVE_MSG);
 
@@ -114,8 +113,8 @@ public class ReplyCommand implements CommandClass {
 
         String socialspyFormat = messagesFile.getString("socialspy.spy")
                 .replace("%player%", sender.getName())
-                .replace("%arg-1%", target)
-                .replace("%message%", text);
+                .replace("%arg-1%", targetName)
+                .replace("%message%", senderMessage);
 
         Bukkit.getPluginManager().callEvent(new SocialSpyEvent(socialspyFormat));
         return true;

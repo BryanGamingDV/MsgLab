@@ -43,8 +43,8 @@ public class ChatListener implements Listener{
         CooldownData cooldownData = pluginService.getCooldownData();
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
-        HoverManager hoverManager = pluginService.getPlayerManager().getHoverMethod();
-        RecipientManager recipientManager = pluginService.getPlayerManager().getRecipientMethod();
+        HoverManager hoverManager = pluginService.getPlayerManager().getHoverManager();
+        RecipientManager recipientManager = pluginService.getPlayerManager().getRecipientManager();
 
 
         if (serverData.isMuted()) {

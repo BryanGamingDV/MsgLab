@@ -4,6 +4,7 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.group.GroupEnum;
 import me.bryangaming.chatlab.managers.group.GroupManager;
+import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -18,9 +19,11 @@ import java.util.Set;
 public class HoverManager {
 
     private final PluginService pluginService;
+    private final Configuration formatsFile;
 
     public HoverManager(PluginService pluginService) {
         this.pluginService = pluginService;
+        this.formatsFile = pluginService.getFiles().getFormatsFile();
     }
 
 
@@ -30,12 +33,11 @@ public class HoverManager {
 
         GroupManager groupManager = pluginService.getPlayerManager().getGroupManager();
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
-        GroupEnum channelType = userData.getChannelType();
 
         String playerRank = groupManager.getPlayerGroup(player);
-        Set<String> configSection = groupManager.getConfigSection(channelType, player, playerRank);
+        String chatFormat = groupManager.getFormat(userData.getChannelType(), player, playerRank);
 
-        if (configSection == null) {
+        if (formatsFile.getConfigurationSection(chatFormat + ".bases")== null) {
             pluginService.getPlugin().getLogger().info("Please put the bases format in the formats.yml");
             pluginService.getPlugin().getLogger().info("For more info, contact in the discord support.");
             return null;
@@ -43,9 +45,9 @@ public class HoverManager {
 
         Component component = miniMessage.parse("");
 
-        for (String format : configSection) {
+        for (String format : formatsFile.getConfigurationSection(chatFormat + ".bases").getKeys(false)){
 
-            String textPath = groupManager.getPlayerFormat(channelType, player, playerRank, format);
+            String textPath = formatsFile.getString(chatFormat + ".bases." + format + ".format");
 
             if (textPath.contains("%message%")) {
                 textPath = TextUtils.convertText(player, textPath, message);
@@ -55,10 +57,10 @@ public class HoverManager {
 
             Component newComponent = miniMessage.parse(textPath);
 
-            List<String> textHover = groupManager.getPlayerHover(channelType, player, playerRank, format);
+            List<String> textHover = formatsFile.getStringList(chatFormat + ".bases." + format + ".hover");
 
-            String textType = groupManager.getPlayerActionType(channelType, player, playerRank, format);
-            String textCommand = groupManager.getPlayerActionFormat(channelType, player, playerRank, format);
+            String textType = formatsFile.getString(chatFormat + ".bases." + format + ".action.type");
+            String textCommand = formatsFile.getString(chatFormat + ".bases." + format + ".action.format");
 
             if (!textHover.isEmpty()) {
                 textHover.replaceAll(string -> TextUtils.convertText(player, string));

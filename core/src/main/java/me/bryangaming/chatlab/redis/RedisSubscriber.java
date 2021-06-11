@@ -23,8 +23,8 @@ public class RedisSubscriber extends JedisPubSub {
 
         this.senderManager = pluginService.getPlayerManager().getSender();
 
-        this.replyManager = pluginService.getPlayerManager().getReplyMethod();
-        this.staffChatManager = pluginService.getPlayerManager().getStaffChatMethod();
+        this.replyManager = pluginService.getPlayerManager().getReplyManager();
+        this.staffChatManager = pluginService.getPlayerManager().getStaffChatManager();
     }
 
 

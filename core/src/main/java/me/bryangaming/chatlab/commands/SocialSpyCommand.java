@@ -3,7 +3,6 @@ package me.bryangaming.chatlab.commands;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.SenderManager;
-import me.bryangaming.chatlab.managers.commands.SocialSpyManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
@@ -24,31 +23,25 @@ public class SocialSpyCommand implements CommandClass {
     private final PluginService pluginService;
 
     private final SenderManager senderManager;
-    private final SocialSpyManager socialSpyManager;
-
-    private final Configuration configFile;
     private final Configuration messagesFile;
 
     public SocialSpyCommand(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.senderManager = pluginService.getPlayerManager().getSender();
-        this.socialSpyManager = pluginService.getPlayerManager().getSocialSpyMethod();
-
-        this.configFile = pluginService.getFiles().getConfigFile();
         this.messagesFile = pluginService.getFiles().getMessagesFile();
+        this.senderManager = pluginService.getPlayerManager().getSender();
     }
 
     @Command(names = {""})
-    public boolean onMainCommand(@Sender Player player) {
-        senderManager.sendMessage(player, messagesFile.getString("global-errors.no-args")
+    public boolean onMainCommand(@Sender Player sender) {
+        senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                 .replace("%usage%", TextUtils.getUsage("socialspy", "on, off, list", "<player>")));
-        senderManager.playSound(player, SoundEnum.ERROR);
+        senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
     }
 
     @Command(names = "list")
-    public boolean onListSubCommand(@Sender Player player) {
+    public boolean onListSubCommand(@Sender Player sender) {
         List<String> socialspyList = new ArrayList<>();
 
         for (UserData cache : pluginService.getCache().getUserDatas().values()) {
@@ -58,61 +51,60 @@ public class SocialSpyCommand implements CommandClass {
         }
 
         if (socialspyList.isEmpty()) {
-            senderManager.sendMessage(player, messagesFile.getString("socialspy.error.anybody"));
-            senderManager.playSound(player, SoundEnum.ERROR);
+            senderManager.sendMessage(sender, messagesFile.getString("socialspy.error.anybody"));
+            senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        senderManager.sendMessage(player, messagesFile.getString("socialspy.list-spyplayers"));
+        senderManager.sendMessage(sender, messagesFile.getString("socialspy.list-spyplayers"));
 
         for (String playerSyping : socialspyList) {
-            senderManager.sendMessage(player, "&8- &f" + playerSyping);
+            senderManager.sendMessage(sender, "&8- &f" + playerSyping);
         }
 
-        senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy list");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "socialspy list");
         return true;
     }
 
 
     @Command(names = {"on"})
-    public boolean onOnSubCommand(@Sender Player player, @OptArg OfflinePlayer target) {
+    public boolean onOnSubCommand(@Sender Player sender, @OptArg OfflinePlayer target) {
 
-        UserData playerSpy = pluginService.getCache().getUserDatas().get(player.getUniqueId());
+        UserData senderData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
         if (target == null){
-            if (playerSpy.isSocialSpyMode()) {
-                senderManager.sendMessage(player, messagesFile.getString("socialspy.error.activated"));
-                senderManager.playSound(player, SoundEnum.ERROR);
+            if (senderData.isSocialSpyMode()) {
+                senderManager.sendMessage(sender, messagesFile.getString("socialspy.error.activated"));
+                senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
-
-            playerSpy.toggleSocialSpy(true);
-            senderManager.sendMessage(player, messagesFile.getString("socialspy.player.enabled"));
-            senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy on");
+            senderData.toggleSocialSpy(true);
+            senderManager.sendMessage(sender, messagesFile.getString("socialspy.player.enabled"));
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "socialspy on");
         } else {
 
             if (!target.isOnline()) {
-                senderManager.sendMessage(player, messagesFile.getString("global-errors.player-offline"));
-                senderManager.playSound(player, SoundEnum.ERROR);
+                senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
+                senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
-            UserData targetSpy = pluginService.getCache().getUserDatas().get(target.getUniqueId());
-            String targetname = target.getName();
+            UserData targetData = pluginService.getCache().getUserDatas().get(target.getUniqueId());
+            String targetName = target.getName();
 
-            if (targetSpy.isSocialSpyMode()) {
-                senderManager.sendMessage(player.getPlayer(), messagesFile.getString("socialspy.error.arg-2-activated")
-                        .replace("%arg-2%", targetname));
-                senderManager.playSound(player, SoundEnum.ERROR);
+            if (targetData.isSocialSpyMode()) {
+                senderManager.sendMessage(sender.getPlayer(), messagesFile.getString("socialspy.error.arg-2-activated")
+                        .replace("%arg-2%", targetName));
+                senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
 
-            targetSpy.toggleSocialSpy(true);
-            senderManager.sendMessage(player, messagesFile.getString("socialspy.arg-2.enabled")
-                    .replace("%arg-2%", target.getName()));
+            targetData.toggleSocialSpy(true);
+            senderManager.sendMessage(sender, messagesFile.getString("socialspy.arg-2.enabled")
+                    .replace("%arg-2%", targetName));
             senderManager.sendMessage(target.getPlayer(), messagesFile.getString("socialspy.player.enabled"));
         }
-        senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy on");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "socialspy on");
         return true;
     }
 
@@ -138,17 +130,17 @@ public class SocialSpyCommand implements CommandClass {
                 return true;
             }
 
-            UserData targetSpy = pluginService.getCache().getUserDatas().get(target.getUniqueId());
+            UserData targetData = pluginService.getCache().getUserDatas().get(target.getUniqueId());
             String targetName = target.getName();
 
-            if (!(targetSpy.isSocialSpyMode())) {
+            if (!(targetData.isSocialSpyMode())) {
                 senderManager.sendMessage(player, messagesFile.getString("socialspy.error.arg-2-unactivated")
                         .replace("%arg-2%", targetName));
                 senderManager.playSound(player, SoundEnum.ERROR);
                 return true;
             }
 
-            targetSpy.toggleSocialSpy(false);
+            targetData.toggleSocialSpy(false);
             senderManager.sendMessage(player, messagesFile.getString("socialspy.arg-2.disabled")
                     .replace("%arg-2%", targetName));
             senderManager.sendMessage(target, messagesFile.getString("socialspy.player.disabled"));

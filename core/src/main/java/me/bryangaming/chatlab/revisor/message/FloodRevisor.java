@@ -37,8 +37,6 @@ public class FloodRevisor implements Revisor {
     public String revisor(Player player, String string) {
 
         Configuration filtersFile = pluginService.getFiles().getFiltersFile();
-        SenderManager senderManager = pluginService.getPlayerManager().getSender();
-
         int floodstatus = 0;
         int minflood = Math.max(0, filtersFile.getInt("message." + revisorName + ".min-chars"));
 

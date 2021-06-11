@@ -5,6 +5,7 @@ import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
+import me.bryangaming.chatlab.managers.click.ClickType;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.string.TextUtils;
@@ -20,7 +21,6 @@ import org.bukkit.entity.Player;
 @Command(names = {"broadcastworld", "bcw", "bcworld"})
 public class BroadcastWorldCommand implements CommandClass {
 
-    private final PluginService pluginService;
 
     private final ClickChatManager clickChatManager;
     private final SenderManager senderManager;
@@ -29,8 +29,6 @@ public class BroadcastWorldCommand implements CommandClass {
     private final Configuration messagesFile;
 
     public BroadcastWorldCommand(PluginService pluginService) {
-        this.pluginService = pluginService;
-
         this.senderManager = pluginService.getPlayerManager().getSender();
         this.clickChatManager = pluginService.getPlayerManager().getChatManagent();
 
@@ -39,16 +37,16 @@ public class BroadcastWorldCommand implements CommandClass {
     }
 
     @Command(names = "")
-    public boolean onMainSubCommand(@Sender Player sender, @OptArg("") @Text String args) {
+    public boolean onMainSubCommand(@Sender Player sender, @OptArg("") @Text String senderMessage) {
 
-        if (args.isEmpty()) {
+        if (senderMessage.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("broadcastworld", "<message>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        String message = String.join(" ", args);
+        String message = String.join(" ", senderMessage);
 
         if (configFile.getBoolean("modules.broadcast.enable-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
@@ -61,7 +59,7 @@ public class BroadcastWorldCommand implements CommandClass {
             message = textRevisorEvent.getMessageRevised();
         }
 
-        for (Player onlinePlayer : clickChatManager.getWorldChat(sender)) {
+        for (Player onlinePlayer : sender.getWorld().getPlayers()) {
             senderManager.sendMessage(onlinePlayer, messagesFile.getString("broadcast.text.world")
                     .replace("%world%", sender.getWorld().getName())
                     .replace("%player%", sender.getName())
@@ -79,7 +77,7 @@ public class BroadcastWorldCommand implements CommandClass {
             return true;
         }
 
-        clickChatManager.activateChat(sender.getUniqueId(), true);
+        clickChatManager.activateChat(sender.getUniqueId(), ClickType.WORLD);
         return true;
 
     }

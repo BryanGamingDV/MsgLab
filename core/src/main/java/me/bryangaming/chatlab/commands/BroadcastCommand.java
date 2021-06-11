@@ -5,6 +5,7 @@ import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
+import me.bryangaming.chatlab.managers.click.ClickType;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.redis.MessageType;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -40,16 +41,16 @@ public class BroadcastCommand implements CommandClass {
     }
 
     @Command(names = "")
-    public boolean onMainCommand(@Sender Player sender, @OptArg("") @Text String args) {
+    public boolean onMainCommand(@Sender Player sender, @OptArg("") @Text String senderMessage) {
 
-        if (args.isEmpty()) {
+        if (senderMessage.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("broadcast", "<message>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        String message = String.join(" ", args);
+        String message = String.join(" ", senderMessage);
 
         if (configFile.getBoolean("modules.broadcast.enable-revisor")) {
             TextRevisorEvent textRevisorEvent = new TextRevisorEvent(sender, message, TextRevisorEnum.TEXT);
@@ -88,7 +89,7 @@ public class BroadcastCommand implements CommandClass {
             return true;
         }
 
-        clickChatManager.activateChat(sender.getUniqueId(), false);
+        clickChatManager.activateChat(sender.getUniqueId(), ClickType.GLOBAL);
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "broadcast -click");
         return true;
     }

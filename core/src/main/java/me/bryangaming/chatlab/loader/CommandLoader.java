@@ -5,7 +5,6 @@ import me.bryangaming.chatlab.api.Loader;
 import me.bryangaming.chatlab.commands.*;
 import me.bryangaming.chatlab.commands.translation.CommandTranslation;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
-import me.bryangaming.chatlab.utils.CommandsType;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilderImpl;
@@ -37,33 +36,9 @@ public class CommandLoader implements Loader {
     public void load() {
         pluginService.getLogs().log("Loading CommandLoader");
 
-        createCommandManager();
-        commandManager.getTranslator().setProvider(new CommandTranslation(pluginService));
-        reCheckCommands();
-
+        registerCommandManager();
         pluginService.getLogs().log("Commands loaded!");
         pluginService.getPlugin().getLogger().info("Commands loaded!");
-    }
-
-    public void reCheckCommands() {
-        registerCommands(
-                new CLabCommand(pluginService),
-                new MsgCommand(pluginService),
-                new ReplyCommand(pluginService),
-                new SocialSpyCommand(pluginService),
-                new StaffChatCommand(pluginService),
-                new HelpopCommand(pluginService),
-                new IgnoreCommand(pluginService),
-                new UnIgnoreCommand(pluginService),
-                new ChatCommand(pluginService),
-                new BroadcastCommand(pluginService),
-                new BroadcastWorldCommand(pluginService),
-                new ChannelCommand(pluginService),
-                new MotdCommand(pluginService),
-                new StreamCommand(pluginService),
-                new CommandSpyCommand(pluginService),
-                new PartyCommand(pluginService),
-                new AnnouncerCommand(pluginService));
     }
 
     public void registerCommands(CommandClass... commandClasses) {
@@ -84,21 +59,38 @@ public class CommandLoader implements Loader {
         }
     }
 
-    private void createCommandManager() {
+    private void registerCommandManager() {
         commandManager = new BukkitCommandManager("ChatLab");
+        commandManager.getTranslator().setProvider(new CommandTranslation(pluginService));
 
         PartInjector injector = PartInjector.create();
         injector.install(new DefaultsModule());
         injector.install(new BukkitModule());
 
         builder = new AnnotatedCommandTreeBuilderImpl(injector);
+
+        registerCommands(
+                new CLabCommand(pluginService),
+                new MsgCommand(pluginService),
+                new ReplyCommand(pluginService),
+                new SocialSpyCommand(pluginService),
+                new StaffChatCommand(pluginService),
+                new HelpopCommand(pluginService),
+                new IgnoreCommand(pluginService),
+                new UnIgnoreCommand(pluginService),
+                new ChatCommand(pluginService),
+                new BroadcastCommand(pluginService),
+                new BroadcastWorldCommand(pluginService),
+                new ChannelCommand(pluginService),
+                new MotdCommand(pluginService),
+                new StreamCommand(pluginService),
+                new CommandSpyCommand(pluginService),
+                new PartyCommand(pluginService),
+                new AnnouncerCommand(pluginService));
     }
 
     public CommandManager getCommandManager() {
         return commandManager;
     }
 
-    public AnnotatedCommandTreeBuilder getBuilder() {
-        return builder;
-    }
 }

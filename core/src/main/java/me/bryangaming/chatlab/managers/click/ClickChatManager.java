@@ -22,21 +22,26 @@ import java.util.UUID;
 public class ClickChatManager {
 
     private final PluginService pluginService;
+
+    private final SenderManager senderManager;
     private final Configuration messagesFile;
-    private Boolean worldtype;
+
+    private ClickType clickType;
 
     public ClickChatManager(PluginService pluginService) {
         this.pluginService = pluginService;
         this.messagesFile = pluginService.getFiles().getMessagesFile();
+
+        this.senderManager = pluginService.getPlayerManager().getSender();
     }
 
     public void setAgain(UUID uuid) {
         setWorld(uuid);
     }
 
-    public void activateChat(UUID uuid, Boolean world) {
+    public void activateChat(UUID uuid, ClickType clickType) {
 
-        worldtype = world;
+        this.clickType = clickType;
         setWorld(uuid);
     }
 
@@ -45,10 +50,6 @@ public class ClickChatManager {
         UserData userData = pluginService.getCache().getUserDatas().get(uuid);
 
         Player player = Bukkit.getPlayer(uuid);
-        SenderManager senderManager = pluginService.getPlayerManager().getSender();
-
-        Configuration messagesFile = pluginService.getFiles().getMessagesFile();
-
         List<String> chatClick = userData.getClickChat();
 
         if (chatClick.size() < 1) {
@@ -88,59 +89,48 @@ public class ClickChatManager {
 
             senderManager.sendMessageLater(player, 1, messagesFile.getString("broadcast.mode.hover"));
 
-            waitHover(player, cooldown);
+            broadcastMessage(player, cooldown);
 
         }
     }
 
 
-    public void waitHover(Player sender, int second) {
+    public void broadcastMessage(Player sender, int second) {
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(pluginService.getPlugin(), new Runnable() {
             @Override
             public void run() {
 
                 MiniMessage miniMessage = MiniMessage.get();
-
                 BukkitAudiences bukkitAudiences = pluginService.getPlugin().getBukkitAudiences();
-
 
                 UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
                 List<String> chatClick = userData.getClickChat();
 
-                Component component;
-                if (worldtype) {
-                    component = miniMessage.parse(messagesFile.getString("broadcast.click_cmd.world")
-                            .replace("%message%", chatClick.get(0))
-                            .replace("%player%", sender.getName())
-                            .replace("%world%", sender.getWorld().getName()));
+                Configuration formatsFile = pluginService.getFiles().getFormatsFile();
+                String clickedMessage = messagesFile.getString("broadcast.click_cmd." + clickType.getPath())
+                        .replace("%message%", chatClick.get(0));
 
-                } else {
-                    component = miniMessage.parse(messagesFile.getString("broadcast.click_cmd.global")
-                            .replace("%message%", chatClick.get(0))
-                            .replace("%player%", sender.getName()));
+                List<Player> onlinePlayers;
 
+                if (clickType == ClickType.WORLD) {
+                    if (formatsFile.getBoolean("per-world-chat.all-worlds")) {
+                        onlinePlayers = sender.getWorld().getPlayers();
+                    } else {
+                        onlinePlayers = getWorldList(sender);
+                    }
+
+                    clickedMessage = clickedMessage.replace("%world%", sender.getWorld().getName());
+                }else{
+                    onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
                 }
+
+                Component component = TextUtils.convertTextToComponent(sender, clickedMessage);
+
                 component = component.hoverEvent(HoverEvent.showText(miniMessage.parse(messagesFile.getString("broadcast.click_cmd.format"))));
                 component = component.clickEvent(ClickEvent.clickEvent(ClickEvent.Action.RUN_COMMAND, "/" + chatClick.get(1)));
 
-                Configuration utils = pluginService.getFiles().getFormatsFile();
-
-                if (worldtype) {
-                    List<Player> worldList;
-
-                    if (utils.getBoolean("per-world-chat.all-worlds")) {
-                        worldList = getWorldChat(sender);
-                    } else {
-                        worldList = getWorldList(sender);
-                    }
-
-                    for (Player playeronline : worldList) {
-                        bukkitAudiences.player(playeronline).sendMessage(component);
-                    }
-                } else {
-                    for (Player playeronline : Bukkit.getServer().getOnlinePlayers()) {
-                        bukkitAudiences.player(playeronline).sendMessage(component);
-                    }
+                for (Player player : onlinePlayers){
+                    bukkitAudiences.player(player).sendMessage(component);
                 }
 
                 userData.toggleClickMode(false);
@@ -150,26 +140,23 @@ public class ClickChatManager {
     }
 
     public List<Player> getWorldList(Player player) {
-        List<Player> listplayer = new ArrayList<>();
-        for (String worldname : WorldData.getWorldChat(player)) {
-            World world = Bukkit.getWorld(worldname);
-            listplayer.addAll(world.getPlayers());
+        List<Player> playerList = new ArrayList<>();
+
+        for (String worldName : WorldData.getWorldChat(player)) {
+            World world = Bukkit.getWorld(worldName);
+            playerList.addAll(world.getPlayers());
         }
-        return listplayer;
+        return playerList;
     }
 
-    public List<Player> getWorldChat(Player player) {
-        return player.getWorld().getPlayers();
-    }
 
-    public void unset(UUID uuid) {
 
-        Player player = Bukkit.getPlayer(uuid);
+    public void unset(UUID playerUniqueId) {
 
-        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
-        SenderManager senderManager = pluginService.getPlayerManager().getSender();
+        UserData userData = pluginService.getCache().getUserDatas().get(playerUniqueId);
 
-        senderManager.sendMessage(player, messagesFile.getString("broadcast.mode.disabled"));
+        senderManager.sendMessage(Bukkit.getPlayer(playerUniqueId), messagesFile.getString("broadcast.mode.disabled"));
+
         userData.toggleClickMode(false);
         userData.getClickChat().clear();
     }

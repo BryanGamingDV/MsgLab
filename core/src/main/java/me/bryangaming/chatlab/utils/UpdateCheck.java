@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * A utility class to assist in checking for updates for plugins uploaded to
  * <a href="https://spigotmc.org/resources/">SpigotMC</a>. Before any members of this
  * class are accessed, {@link #init(JavaPlugin, int)} must be invoked by the plugin,
- * preferrably in its {@link JavaPlugin#onEnable()} method, though that is not a
+ * preferrably in its {@link JavaPlugin#onEnable()} Manager, though that is not a
  * requirement.
  * <p>
  * This class performs asynchronous queries to <a href="https://spiget.org">SpiGet</a>,
@@ -110,7 +110,7 @@ public final class UpdateCheck {
 
     /**
      * Get the last update result that was queried by {@link #requestUpdateCheck()}. If no update
-     * check was performed since this class' initialization, this method will return null.
+     * check was performed since this class' initialization, this Manager will return null.
      *
      * @return the last update check result. null if none.
      */
@@ -127,7 +127,7 @@ public final class UpdateCheck {
 
     /**
      * Initialize this update checker with the specified values and return its instance. If an instance
-     * of UpdateChecker has already been initialized, this method will act similarly to {@link #get()}
+     * of UpdateChecker has already been initialized, this Manager will act similarly to {@link #get()}
      * (which is recommended after initialization).
      *
      * @param plugin        the plugin for which to check updates. Cannot be null
@@ -147,7 +147,7 @@ public final class UpdateCheck {
 
     /**
      * Initialize this update checker with the specified values and return its instance. If an instance
-     * of UpdateChecker has already been initialized, this method will act similarly to {@link #get()}
+     * of UpdateChecker has already been initialized, this Manager will act similarly to {@link #get()}
      * (which is recommended after initialization).
      *
      * @param plugin   the plugin for which to check updates. Cannot be null
@@ -162,7 +162,7 @@ public final class UpdateCheck {
 
     /**
      * Get the initialized instance of UpdateChecker. If {@link #init(JavaPlugin, int)} has not yet been
-     * invoked, this method will throw an exception.
+     * invoked, this Manager will throw an exception.
      *
      * @return the UpdateChecker instance
      */
