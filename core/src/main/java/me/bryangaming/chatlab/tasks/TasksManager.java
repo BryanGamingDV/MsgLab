@@ -8,13 +8,14 @@ import java.util.HashMap;
 
 public class TasksManager {
 
-    private HashMap<String, Task> tasksList = new HashMap<>();
+    private final HashMap<String, Task> tasksList = new HashMap<>();
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     public TasksManager(PluginService pluginService) {
         this.pluginService = pluginService;
         loadTasks(new AnnouncerTask("announcer", pluginService));
+        pluginService.getLogs().log("Loaded tasks");
     }
 
     public void loadTasks(Task... taskTypes) {

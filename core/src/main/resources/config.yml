@@ -4,7 +4,7 @@
 # | |    | |__   __ _| |_| |     __ _| |__  
 # | |    | '_ \ / _` | __| |    / _` | '_ \ 
 # | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
-#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2.1
 #
 # Main Config | config.yml
 
@@ -23,7 +23,7 @@
 # If you want to go to the support: https://discord.gg/YjhubS3bWW
 
 # Config version, please don't change this path.
-config-version: 2.2
+config-version: 2.2.1
 
 #
 # Options:
@@ -46,6 +46,14 @@ options:
       format: "<red>[Error] <dark_gray>|"
       # Variable to be replaced.
       variable: "%e"
+  # Redis! [For bungeecord]:
+  redis:
+    enabled: false
+
+    # Redis data:
+    address: localhost
+    port: 25565
+    password: add
 
   # Section to activate or deactivate hooks automatically.
   allow-hooks:
@@ -84,8 +92,7 @@ options:
   allow-support: true
   # Add space limit.
   center-space: 50
-  # Enable bungeecord.
-  bungeecord: false
+
 # 
 # Modules
 #

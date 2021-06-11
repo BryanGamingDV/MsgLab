@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
-import org.checkerframework.checker.lock.qual.EnsuresLockHeld;
 
 import java.util.ArrayList;
 

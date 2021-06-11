@@ -34,9 +34,7 @@ public class SoundManager {
     private void setup() {
 
         String version = Bukkit.getServer().getClass().getName();
-        String versionName = version.substring(0, version.split("\\.")[3].indexOf("_", 2));
-
-        System.out.println(versionName);
+        String versionName = version.split("\\.")[3].substring(0, version.split("\\.")[3].indexOf("_", 3));
 
         switch (versionName) {
             case "v1_8":

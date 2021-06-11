@@ -40,7 +40,7 @@ public class EventLoader implements Loader {
                 new ChatListener(pluginService));
 
         if (TextUtils.equalsIgnoreCaseOr(TextUtils.getServerVersion(Bukkit.getServer()),
-                "1.13", "1.14", "1.15", "1.16")) {
+                "1.13", "1.14", "1.15", "1.16", "1.17")) {
             loadEvents(new TabListener(pluginService),
                     new AdvancementListener(pluginService));
         }else{

@@ -1,6 +1,7 @@
 package me.bryangaming.chatlab.redis;
 
 import me.bryangaming.chatlab.PluginService;
+import org.bukkit.scheduler.BukkitRunnable;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -44,9 +45,14 @@ public class RedisConnection {
     }
 
     public void subscribeChannel(String channel){
-        try (Jedis jedis = jedisPool.getResource()) {
-            jedis.subscribe(new RedisSubscriber(pluginService), channel);
-        }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                try (Jedis jedis = jedisPool.getResource()) {
+                    jedis.subscribe(new RedisSubscriber(pluginService), channel);
+                }
+            }
+        }.runTaskAsynchronously(pluginService.getPlugin());
     }
 
     public JedisPool getJedisPool(){

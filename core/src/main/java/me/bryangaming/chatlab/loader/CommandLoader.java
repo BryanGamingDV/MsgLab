@@ -47,10 +47,7 @@ public class CommandLoader implements Loader {
 
             List<Command> command = builder.fromClass(commandClass);
             String commandName = command.get(0).getName();
-
-            CommandsType commandsType = CommandsType.valueOf(commandName.toUpperCase());
-
-            if (pluginService.getFiles().getConfigFile().getBoolean("modules." + commandsType.getCommandName() + ".enabled")) {
+            if (pluginService.getFiles().getConfigFile().getBoolean("modules." + commandName + ".enabled")) {
                 commandManager.registerCommands(command);
                 pluginService.getLogs().log("Command: " + commandName + " loaded.");
             } else {
@@ -68,7 +65,11 @@ public class CommandLoader implements Loader {
         injector.install(new BukkitModule());
 
         builder = new AnnotatedCommandTreeBuilderImpl(injector);
+        reCheckCommands();
+    }
 
+
+    public void reCheckCommands(){
         registerCommands(
                 new CLabCommand(pluginService),
                 new MsgCommand(pluginService),
@@ -88,6 +89,7 @@ public class CommandLoader implements Loader {
                 new PartyCommand(pluginService),
                 new AnnouncerCommand(pluginService));
     }
+
 
     public CommandManager getCommandManager() {
         return commandManager;

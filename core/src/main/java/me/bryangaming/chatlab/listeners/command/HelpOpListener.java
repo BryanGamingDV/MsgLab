@@ -28,7 +28,7 @@ public class HelpOpListener implements Listener {
         Configuration configFile = pluginService.getFiles().getConfigFile();
         Configuration messagesFile = pluginService.getFiles().getMessagesFile();
 
-        if (configFile.getBoolean("options.bungeecord")){
+        if (configFile.getBoolean("options.redis.enabled")){
             pluginService.getRedisConnection().sendMessage("chatlab", MessageType.HELPOP, messagesFile.getString("helpop.format")
                     .replace("%player%", helpopEvent.getPlayer().getName())
                     .replace("%message%", helpopEvent.getMessage()));

@@ -16,10 +16,7 @@ import me.fixeddev.commandflow.annotated.annotation.OptArg;
 import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 @Command(names = {"broadcast", "bc"})
 public class BroadcastCommand implements CommandClass {
@@ -63,7 +60,7 @@ public class BroadcastCommand implements CommandClass {
             message = textRevisorEvent.getMessageRevised();
         }
 
-        if (!configFile.getBoolean("options.bungeecord")) {
+        if (!configFile.getBoolean("options.redis.enabled")) {
             for (Player onlinePlayer : Bukkit.getServer().getOnlinePlayers()) {
                 senderManager.sendMessage(onlinePlayer, messagesFile.getString("broadcast.text.global")
                         .replace("%player%", sender.getName())

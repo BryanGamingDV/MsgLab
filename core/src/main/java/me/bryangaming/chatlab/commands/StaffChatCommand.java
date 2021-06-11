@@ -48,7 +48,7 @@ public class StaffChatCommand implements CommandClass {
 
         String message = String.join(" ", senderMessage);
 
-        if (configFile.getBoolean("options.bungeecord")){
+        if (configFile.getBoolean("options.redis.enabled")){
             pluginService.getRedisConnection().sendMessage("chatlab", MessageType.STAFFCHAT, sender.getName(), message);
         }else {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {

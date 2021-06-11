@@ -5,7 +5,6 @@ import me.bryangaming.chatlab.api.Module;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.hooks.VaultHook;
 import org.bukkit.Bukkit;
-import sun.security.provider.ConfigFile;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -180,7 +180,7 @@ public class MsgCommand implements CommandClass {
         MsgManager msgManager = pluginService.getPlayerManager().getMsgManager();
         Player targetPlayer = target.getPlayer();
 
-        if (configFile.getBoolean("options.bungeecord")){
+        if (configFile.getBoolean("options.redis.enabled")){
             msgManager.sendBungeePrivateMessage(sender, target.getName(), message);
          }else {
             msgManager.sendPrivateMessage(sender, targetPlayer, message);

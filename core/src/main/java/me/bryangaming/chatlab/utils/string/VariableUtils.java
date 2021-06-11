@@ -1,21 +1,17 @@
 package me.bryangaming.chatlab.utils.string;
 
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.managers.SupportManager;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.managers.SupportManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.Achievement;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 
 public class VariableUtils {
-
-    private PluginService pluginService;
 
     private static SupportManager supportManager;
     private static ChatManager chatManager;
@@ -24,8 +20,6 @@ public class VariableUtils {
     private static Configuration filtersFile;
 
     public VariableUtils(PluginService pluginService) {
-        this.pluginService = pluginService;
-
         supportManager = pluginService.getSupportManager();
         chatManager = pluginService.getPlayerManager().getChatManager();
 

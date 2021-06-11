@@ -2,7 +2,6 @@ package me.bryangaming.chatlab.utils;
 
 import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.debug.DebugLogger;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

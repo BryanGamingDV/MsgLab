@@ -28,7 +28,7 @@ public class CMIVanishListener implements Listener {
 
     @EventHandler
     public void onVanish(CMIPlayerVanishEvent event){
-        if (!configFile.getBoolean("options.bungeecord")){
+        if (!configFile.getBoolean("options.redis.enabled")){
             return;
         }
         jedis.hdel("onlinePlayer", event.getPlayer().getName());
@@ -36,7 +36,7 @@ public class CMIVanishListener implements Listener {
 
     @EventHandler
     public void onUnVanish(CMIPlayerUnVanishEvent event){
-        if (!configFile.getBoolean("options.bungeecord")){
+        if (!configFile.getBoolean("options.redis.enabled")){
             return;
         }
         jedis.hset("onlinePlayer", event.getPlayer().getName(), Bukkit.getServer().getName());

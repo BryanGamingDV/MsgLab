@@ -6,10 +6,10 @@ import me.bryangaming.chatlab.loader.CommandLoader;
 import me.bryangaming.chatlab.loader.EventLoader;
 import me.bryangaming.chatlab.loader.FileLoader;
 import me.bryangaming.chatlab.loader.ManagerLoader;
+import me.bryangaming.chatlab.managers.SupportManager;
 import me.bryangaming.chatlab.redis.RedisConnection;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.tasks.TasksManager;
-import me.bryangaming.chatlab.managers.SupportManager;
 
 public class PluginService {
 
@@ -53,14 +53,19 @@ public class PluginService {
         loadRedis();
     }
 
-    private void loadRedis(){
-        if (!fileLoader.getConfigFile().getBoolean("options.bungeecord")){
+    private void loadRedis(){ ;
+        if (!fileLoader.getConfigFile().getBoolean("options.redis.enabled")){
             return;
         }
 
-        redisConnection = new RedisConnection(this, "", "localhost", 25565);
+        debug.log("Loading redis.");
+        redisConnection = new RedisConnection(this,
+                fileLoader.getConfigFile().getString("options.redis.password"),
+                fileLoader.getConfigFile().getString("options.redis.hostname"),
+                fileLoader.getConfigFile().getInt("options.redis.password"));
         redisConnection.redisConnect();
         redisConnection.subscribeChannel("chatlab");
+        debug.log("Redis loaded!");
     }
 
     public RedisConnection getRedisConnection(){

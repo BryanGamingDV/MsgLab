@@ -97,7 +97,7 @@ public class StreamCommand implements CommandClass {
             message = textrevisorEvent.getMessageRevised();
         }
 
-        if (!configFile.getBoolean("options.bungeecord")) {
+        if (!configFile.getBoolean("options.redis.enabled")) {
             for (Player playerOnline : Bukkit.getServer().getOnlinePlayers()) {
                 senderManager.sendMessage(playerOnline, configFile.getString("stream.text")
                         .replace("%player%", sender.getName())

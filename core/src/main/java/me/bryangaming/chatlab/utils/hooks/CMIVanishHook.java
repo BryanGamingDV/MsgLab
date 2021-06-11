@@ -9,8 +9,6 @@ import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.UUID;
-
 public class CMIVanishHook implements Hook {
 
     private final PluginService pluginService;

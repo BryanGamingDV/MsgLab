@@ -39,8 +39,6 @@ public final class Configuration extends YamlConfiguration {
 
                 if (this.plugin.getResource(this.fileName) != null) {
                     this.plugin.saveResource(this.fileName, false);
-                } else {
-                    this.save(file);
                 }
 
                 load(file);
@@ -49,8 +47,6 @@ public final class Configuration extends YamlConfiguration {
 
             if (plugin.getResource(fileName) != null) {
                 plugin.saveResource(fileName, false);
-            } else {
-                save(file);
             }
 
             load(file);

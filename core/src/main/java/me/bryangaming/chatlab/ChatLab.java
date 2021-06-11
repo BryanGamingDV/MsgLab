@@ -64,10 +64,6 @@ public class ChatLab extends JavaPlugin {
             getUpdateChecker();
         }
 
-        if (basicMsg.getFiles().getConfigFile().getBoolean("options.bungeecord")){
-           getServer().getMessenger().registerOutgoingPluginChannel(this, "bryang:chatlab");
-        }
-
         initModules(
                 new RecoverDataModule(basicMsg),
                 new DataModule(basicMsg),

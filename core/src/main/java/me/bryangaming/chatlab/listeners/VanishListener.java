@@ -23,7 +23,7 @@ public class VanishListener implements Listener {
     @EventHandler
     public void onVanish(PlayerVanishStateChangeEvent event){
 
-        if (!configFile.getBoolean("options.bungeecord")){
+        if (!configFile.getBoolean("options.redis.enabled")){
             return;
         }
 
