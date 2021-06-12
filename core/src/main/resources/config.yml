@@ -23,7 +23,7 @@
 # If you want to go to the support: https://discord.gg/YjhubS3bWW
 
 # Config version, please don't change this path.
-config-version: 2.2.1
+config-version: 2.2.2
 
 #
 # Options:
@@ -73,6 +73,8 @@ options:
     # from being displayed. 
     # This also includes the premium version (PremiumVanish). 
     supervanish: true
+    # CMI
+    cmi: true
 
   # Enable metrics
   # You can deactivate it without any problem, 
@@ -90,8 +92,13 @@ options:
   use-legacy-colors: true
   # If you allow the subcommand to go to the support of the plugin /clab support.
   allow-support: true
+  # Allow relational placeholders [Only if you have a faster server].
+  allow-relational-placeholders: false
+
+
   # Add space limit.
   center-space: 50
+
 
 # 
 # Modules

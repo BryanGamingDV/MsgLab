@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 
 import java.util.Collection;
+import java.util.List;
 
 public class TabListener implements Listener {
 
@@ -27,16 +28,22 @@ public class TabListener implements Listener {
             return;
         }
 
+        GroupManager groupManager = pluginService.getPlayerManager().getGroupManager();
+        List<String> completions = filtersFile.getStringList("revisor-cmd.tab-module.filter.groups." + groupManager.getFitlerGroup(playerCommandSendEvent.getPlayer()));
+
+        if (completions.isEmpty()){
+            return;
+        }
+
         Collection<String> commands = playerCommandSendEvent.getCommands();
         commands.clear();
-        GroupManager groupManager = pluginService.getPlayerManager().getGroupManager();
 
-        for (String completitions : filtersFile.getStringList("revisor-cmd.tab-module.filter.groups." + groupManager.getFitlerGroup(playerCommandSendEvent.getPlayer()))) {
-            if (completitions.startsWith("@")) {
-                commands.addAll(filtersFile.getStringList("revisor-cmd.tab-module.filter.groups." + completitions.substring(1)));
+        for (String completion : completions) {
+            if (completion.startsWith("@")) {
+                commands.addAll(filtersFile.getStringList("revisor-cmd.tab-module.filter.groups." + completion.substring(1)));
             }
 
-            commands.add(completitions);
+            commands.add(completion);
         }
     }
 }

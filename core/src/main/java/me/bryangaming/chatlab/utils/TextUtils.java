@@ -1,9 +1,8 @@
-package me.bryangaming.chatlab.utils.string;
+package me.bryangaming.chatlab.utils;
 
 import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SenderManager;
-import me.bryangaming.chatlab.utils.Configuration;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -156,6 +155,7 @@ public class TextUtils {
     }
 
     public static void printStackTrace() {
+        logger.info("Plugin version: " + chatLab.getDescription().getVersion());
         logger.info("Code line:");
 
         StackTraceElement[] stackTraceElement = new Exception().getStackTrace();

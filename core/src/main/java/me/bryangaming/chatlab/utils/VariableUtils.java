@@ -1,9 +1,8 @@
-package me.bryangaming.chatlab.utils.string;
+package me.bryangaming.chatlab.utils;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SupportManager;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
-import me.bryangaming.chatlab.utils.Configuration;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;

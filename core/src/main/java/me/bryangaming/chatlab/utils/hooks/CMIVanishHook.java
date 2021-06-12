@@ -5,7 +5,7 @@ import com.Zrips.CMI.Modules.Vanish.VanishManager;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.Hook;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
-import me.bryangaming.chatlab.utils.string.TextUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -25,7 +25,6 @@ public class CMIVanishHook implements Hook {
             pluginService.getLogs().log("Addons - CMI not enabled! Disabling support..", LoggerTypeEnum.WARNING);
             return;
         }
-
 
         if (pluginService.getFiles().getConfigFile().getBoolean("options.hooks.cmi")){
             return;

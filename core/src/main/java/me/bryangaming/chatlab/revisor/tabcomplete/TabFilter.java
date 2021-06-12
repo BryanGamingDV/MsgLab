@@ -9,7 +9,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.string.TextUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
 import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;
@@ -45,12 +45,17 @@ public class TabFilter {
                 if (event.getPacketType() != PacketType.Play.Client.TAB_COMPLETE) {
                     return;
                 }
-
+                System.out.println("t1est");
                 if (!filtersFile.getBoolean("commands.tab-module.block.enabled")) {
+                    System.out.println("te2st");
                     return;
                 }
 
                 Player player = event.getPlayer();
+
+                if (player.hasPermission(filtersFile.getString("commands.tab-module.block.permission.bypass"))){
+                    return;
+                }
                 PacketContainer packet = event.getPacket();
                 String command = packet.getSpecificModifier(String.class).read(0).toLowerCase();
 

@@ -10,8 +10,9 @@ import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.revisor.CooldownData;
+import me.bryangaming.chatlab.utils.CommandsType;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.string.TextUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -111,6 +112,10 @@ public class SendTextListener implements Listener {
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
         String commandText = event.getMessage().replace("/", "").split(" ")[0].toLowerCase();
 
+        if (commandText.isEmpty()){
+            return;
+        }
+
         if (cooldownData.isCmdSpamming(event.getPlayer().getUniqueId())) {
             if (!filterFile.getStringList("cooldown.cmd.disabled-cmds").contains(commandText)){
                 event.setCancelled(true);
@@ -130,11 +135,14 @@ public class SendTextListener implements Listener {
             }
         }
 
-        if (pluginService.getFiles().getConfigFile().getString("modules." + commandText) == null){
+        CommandsType commandsType;
+        try{
+            commandsType = CommandsType.valueOf(commandText.toUpperCase());
+        }catch (IllegalArgumentException exception) {
             return;
         }
 
-        if (!senderManager.hasPermission(event.getPlayer(), commandText, ".main")) {
+        if (!senderManager.hasPermission(event.getPlayer(), commandsType.getCommandName(), ".main")) {
             senderManager.sendMessage(event.getPlayer(), messagesFile.getString("global-errors.no-perms"));
             event.setCancelled(true);
         }

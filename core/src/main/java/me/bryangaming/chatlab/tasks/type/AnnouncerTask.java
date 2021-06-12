@@ -35,7 +35,7 @@ public class AnnouncerTask implements Task {
         Configuration configFile = pluginService.getFiles().getConfigFile();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
-        ConfigurationSection announcerMessages = configFile.getConfigurationSection("modules.announcer.config.messages");
+        ConfigurationSection announcerMessages = configFile.getConfigurationSection("modules.announcer.announcers.messages");
 
         if (announcerMessages == null){
             return;
@@ -43,7 +43,7 @@ public class AnnouncerTask implements Task {
 
         List<String> announcerList = new ArrayList<>(announcerMessages.getKeys(false));
 
-        String announcerType = configFile.getString("modules.announcer.config.type");
+        String announcerType = configFile.getString("modules.announcer.announcers.type");
 
         Random random = new Random();
 
@@ -79,6 +79,9 @@ public class AnnouncerTask implements Task {
     }
 
     public void cancelTask() {
+        if (bukkitTask == null){
+            return;
+        }
         bukkitTask.cancel();
     }
 

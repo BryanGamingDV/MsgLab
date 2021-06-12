@@ -5,6 +5,7 @@ import me.bryangaming.chatlab.api.Loader;
 import me.bryangaming.chatlab.commands.*;
 import me.bryangaming.chatlab.commands.translation.CommandTranslation;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
+import me.bryangaming.chatlab.utils.CommandsType;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilderImpl;
@@ -46,8 +47,11 @@ public class CommandLoader implements Loader {
         for (CommandClass commandClass : commandClasses) {
 
             List<Command> command = builder.fromClass(commandClass);
+
             String commandName = command.get(0).getName();
-            if (pluginService.getFiles().getConfigFile().getBoolean("modules." + commandName + ".enabled")) {
+            CommandsType commandsType = CommandsType.valueOf(commandName.toUpperCase());
+
+            if (pluginService.getFiles().getConfigFile().getBoolean("modules." + commandsType.getCommandName() + ".enabled")) {
                 commandManager.registerCommands(command);
                 pluginService.getLogs().log("Command: " + commandName + " loaded.");
             } else {

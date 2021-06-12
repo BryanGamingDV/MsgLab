@@ -12,14 +12,10 @@ import java.util.ArrayList;
 
 public class AdvancementListener implements Listener {
 
-    private PluginService pluginService;
-
     private final Configuration formatsFile;
-
     private final SenderManager senderManager;
 
     public AdvancementListener(PluginService pluginService) {
-        this.pluginService = pluginService;
         this.formatsFile = pluginService.getFiles().getFormatsFile();
         this.senderManager = pluginService.getPlayerManager().getSender();
     }

@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.utils.string.TextUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 

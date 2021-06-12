@@ -12,12 +12,10 @@ public class VanishListener implements Listener {
 
     private final Configuration configFile;
     private final Jedis jedis;
-    private PluginService pluginService;
 
     public VanishListener (PluginService pluginService){
         this.configFile = pluginService.getFiles().getConfigFile();
         this.jedis = pluginService.getRedisConnection().getJedisPool().getResource();
-        this.pluginService = pluginService;
     }
 
     @EventHandler

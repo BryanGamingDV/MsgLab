@@ -12,7 +12,7 @@ import redis.clients.jedis.JedisPubSub;
 
 public class RedisSubscriber extends JedisPubSub {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     private final ReplyManager replyManager;
     private final StaffChatManager staffChatManager;

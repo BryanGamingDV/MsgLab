@@ -20,11 +20,14 @@ public class SendDataListener implements Listener {
     @EventHandler
     public void onSend(SendDataEvent event){
 
-        try (Jedis jedis = pluginService.getRedisConnection().getJedisPool().getResource()){
-            jedis.hset("onlinePlayer", event.getPlayer().getName(), Bukkit.getServer().getName());
+        Configuration configFile = pluginService.getFiles().getConfigFile();
+
+        if (configFile.getBoolean("options.bungeecord")) {
+            try (Jedis jedis = pluginService.getRedisConnection().getJedisPool().getResource()) {
+                jedis.hset("onlinePlayer", event.getPlayer().getName(), Bukkit.getServer().getName());
+            }
         }
 
-        Configuration configFile = pluginService.getFiles().getConfigFile();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         if (senderManager.hasPermission(event.getPlayer(), "helpop", "watch")) {

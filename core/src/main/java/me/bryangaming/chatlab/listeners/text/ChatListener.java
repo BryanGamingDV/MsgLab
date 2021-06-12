@@ -12,6 +12,7 @@ import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.group.GroupEnum;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -35,8 +36,7 @@ public class ChatListener implements Listener{
 
         Player player = event.getSender();
 
-        Configuration messagesFile
-                = pluginService.getFiles().getMessagesFile();
+        Configuration messagesFile = pluginService.getFiles().getMessagesFile();
         Configuration formatsFile = pluginService.getFiles().getFormatsFile();
 
         ServerData serverData = pluginService.getServerData();
@@ -87,12 +87,33 @@ public class ChatListener implements Listener{
             message = textRevisorEvent.getMessageRevised();
         }
 
-        recipientManager.setRecipients(event.getChatEvent());
-        Component baseComponent = hoverManager.convertBaseComponent(player, message);
 
-        for (Player recipient : event.getChatEvent().getRecipients()) {
-            BukkitAudiences bukkitAudiences = pluginService.getPlugin().getBukkitAudiences();
-            bukkitAudiences.player(recipient).sendMessage(baseComponent);
+        recipientManager.setRecipients(event.getChatEvent());
+        Component baseComponent;
+
+        if (pluginService.getFiles().getConfigFile().getBoolean("options.allow-relational-placeholders")) {
+            if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+                for (Player recipient : event.getChatEvent().getRecipients()) {
+                    baseComponent = hoverManager.convertBaseComponent(player, PlaceholderAPI.setRelationalPlaceholders(player, recipient, message));
+
+                    BukkitAudiences bukkitAudiences = pluginService.getPlugin().getBukkitAudiences();
+                    bukkitAudiences.player(recipient).sendMessage(baseComponent);
+                }
+            }else{
+                baseComponent = hoverManager.convertBaseComponent(player, message);
+
+                for (Player recipient : event.getChatEvent().getRecipients()) {
+                    BukkitAudiences bukkitAudiences = pluginService.getPlugin().getBukkitAudiences();
+                    bukkitAudiences.player(recipient).sendMessage(baseComponent);
+                }
+            }
+        }else{
+            baseComponent = hoverManager.convertBaseComponent(player, message);
+
+            for (Player recipient : event.getChatEvent().getRecipients()) {
+                BukkitAudiences bukkitAudiences = pluginService.getPlugin().getBukkitAudiences();
+                bukkitAudiences.player(recipient).sendMessage(baseComponent);
+            }
         }
 
         if (formatsFile.getBoolean("chat-format.log.enabled")){

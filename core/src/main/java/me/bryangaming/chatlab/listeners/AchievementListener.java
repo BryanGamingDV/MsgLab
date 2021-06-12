@@ -13,13 +13,10 @@ import java.util.ArrayList;
 
 public class AchievementListener implements Listener {
 
-    private PluginService pluginService;
-
     private final Configuration formatsFile;
     private final SenderManager senderManager;
 
     public AchievementListener(PluginService pluginService) {
-        this.pluginService = pluginService;
         this.formatsFile = pluginService.getFiles().getFormatsFile();
         this.senderManager = pluginService.getPlayerManager().getSender();
     }

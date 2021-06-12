@@ -10,7 +10,7 @@ import me.bryangaming.chatlab.listeners.command.HelpOpListener;
 import me.bryangaming.chatlab.listeners.command.SocialSpyListener;
 import me.bryangaming.chatlab.listeners.text.ChatListener;
 import me.bryangaming.chatlab.revisor.tabcomplete.TabFilter;
-import me.bryangaming.chatlab.utils.string.TextUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -30,6 +30,7 @@ public class EventLoader implements Loader {
                 new JoinListener(pluginService),
                 new QuitListener(pluginService),
                 new SendTextListener(pluginService),
+                new SendDataListener(pluginService),
                 new ChatClickEvent(pluginService),
                 new GuiListener(pluginService),
                 new HelpOpListener(pluginService),

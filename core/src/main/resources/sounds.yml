@@ -35,11 +35,12 @@ group:
 # List of sounds:
 sounds:
   # Sound that will be played when an error occurred in the plugin.
-  enabled: true
-  # Sound type.
-  sound: LEVEL_UP
-  # Pitch
-  pitch: 1
+  error:
+    enabled: true
+    # Sound type.
+    sound: LEVEL_UP
+    # Pitch
+    pitch: 1
 
   # Sound that will be played when you received a broadcast.
   receive_broadcast:

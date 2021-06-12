@@ -7,7 +7,7 @@ import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.modules.DataModule;
 import me.bryangaming.chatlab.tasks.TasksManager;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.string.TextUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
@@ -273,7 +273,7 @@ public class CLabCommand implements CommandClass {
             checkCommands();
             DataModule dataModule = new DataModule(pluginService);
             tasksManager.reloadTasks();
-            senderManager.sendMessage(sender, messagesFile.getString("clab.reload"));
+            senderManager.sendMessage(sender, messagesFile.getString("clab.reload.plugin"));
             senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab reload all");
             return;
         }
@@ -286,18 +286,16 @@ public class CLabCommand implements CommandClass {
         }
 
         fileMap.get(string).reload();
-        if (string.equalsIgnoreCase("command")) {
-            tasksManager.getTask("announcer").reloadTask();
-        }
         if (string.equalsIgnoreCase("config")) {
             checkCommands();
+            tasksManager.getTask("announcer").reloadTask();
         }
         if (string.equalsIgnoreCase("utils")) {
             DataModule dataModule = new DataModule(pluginService);
         }
 
-        senderManager.sendMessage(sender, messagesFile.getString("clab.reload-file")
-                .replace("%file%", StringUtils.capitalize(string)));
+        senderManager.sendMessage(sender, messagesFile.getString("clab.reload.file")
+                .replace("%file%", StringUtils.capitalize(string + ".yml")));
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab reload");
 
     }

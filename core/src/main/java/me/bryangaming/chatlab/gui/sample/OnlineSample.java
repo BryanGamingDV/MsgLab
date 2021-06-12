@@ -8,7 +8,7 @@ import me.bryangaming.chatlab.managers.GuiManager;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.pages.PageUUIDCreator;
-import me.bryangaming.chatlab.utils.string.TextUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;

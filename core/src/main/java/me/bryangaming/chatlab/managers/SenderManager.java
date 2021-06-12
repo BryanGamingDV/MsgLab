@@ -4,8 +4,9 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.sound.SoundManager;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.string.TextUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -129,6 +130,8 @@ public class SenderManager {
         }
 
         if (!(sender instanceof Player)) {
+            pluginService.getPlugin().getBukkitAudiences().sender(sender).sendMessage(Component.text(TextUtils.convertLegacyToMiniMessage(
+                    path.replace("%newline%", "\n"))));
             System.out.println(path.replace("%newline%", "\n"));
             return;
         }

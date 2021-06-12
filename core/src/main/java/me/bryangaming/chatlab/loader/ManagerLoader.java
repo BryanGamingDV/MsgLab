@@ -8,8 +8,8 @@ import me.bryangaming.chatlab.managers.commands.*;
 import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.managers.sound.SoundManager;
 import me.bryangaming.chatlab.utils.WorldData;
-import me.bryangaming.chatlab.utils.string.TextUtils;
-import me.bryangaming.chatlab.utils.string.VariableUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.VariableUtils;
 
 public class ManagerLoader implements Loader {
 

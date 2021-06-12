@@ -7,7 +7,7 @@ import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.utils.hooks.VaultHook;
-import me.bryangaming.chatlab.utils.string.TextUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

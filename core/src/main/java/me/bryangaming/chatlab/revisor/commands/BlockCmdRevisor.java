@@ -2,9 +2,12 @@ package me.bryangaming.chatlab.revisor.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
+import me.bryangaming.chatlab.managers.ActionManager;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class BlockCmdRevisor implements Revisor{
 
@@ -29,7 +32,8 @@ public class BlockCmdRevisor implements Revisor{
     public String revisor(Player player, String command) {
 
         Configuration filtersFile = pluginService.getFiles().getFiltersFile();
-        SenderManager senderManager = pluginService.getPlayerManager().getSender();
+
+        ActionManager actionManager = pluginService.getPlayerManager().getActionManager();
 
         for (String commandName : filtersFile.getStringList("commands." + revisorName +  ".op.list")) {
 
@@ -37,12 +41,18 @@ public class BlockCmdRevisor implements Revisor{
                 continue;
             }
 
-            if (filtersFile.getBoolean("commands." + revisorName + ".op.message.enabled")) {
-                senderManager.sendMessage(player, filtersFile.getString("commands." + revisorName + ".op.message.format")
-                        .replace("%command%", commandName));
+            List<String> actions = filtersFile.getStringList("commands." + revisorName + ".op.actions");
+
+            if (!actions.isEmpty()) {
+
+                actions.replaceAll(action -> action.replace("%command%", command));
+                actionManager.execute(player, actions);
             }
+
             return null;
         }
+
+
 
 
         for (String commandName : filtersFile.getStringList("commands." + revisorName + ".default.list")) {
@@ -55,9 +65,12 @@ public class BlockCmdRevisor implements Revisor{
                 continue;
             }
 
-            if (filtersFile.getBoolean("commands." + revisorName + ".default.message.enabled")) {
-                senderManager.sendMessage(player, filtersFile.getString("commands." + revisorName + ".default.message.format")
-                        .replace("%command%", commandName));
+            List<String> actions = filtersFile.getStringList("commands." + revisorName + ".default.actions");
+
+            if (!actions.isEmpty()) {
+
+                actions.replaceAll(action -> action.replace("%command%", command));
+                actionManager.execute(player, actions);
             }
 
             return null;

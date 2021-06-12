@@ -1,6 +1,5 @@
 package me.bryangaming.chatlab.utils;
 
-import me.bryangaming.chatlab.utils.string.TextUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -36,11 +35,9 @@ public final class Configuration extends YamlConfiguration {
     private void createFile() {
         try {
             if (file.exists()) {
-
                 if (this.plugin.getResource(this.fileName) != null) {
                     this.plugin.saveResource(this.fileName, false);
                 }
-
                 load(file);
                 return;
             }

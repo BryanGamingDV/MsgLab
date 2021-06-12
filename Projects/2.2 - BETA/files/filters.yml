@@ -215,6 +215,11 @@ commands:
       # Enable this module?
       enabled: false
 
+      # Permissions:
+      permissions:
+        # Permission to bypass.
+        bypass: chatlab.bypass
+
       # When you put /<tab>:
       empty: true
 
