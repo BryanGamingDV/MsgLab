@@ -194,7 +194,7 @@
             <artifactId>cmi</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}\APICMI.jar</systemPath>
+            <systemPath>${project.basedir}/APICMI.jar</systemPath>
         </dependency>
     </dependencies>
 
