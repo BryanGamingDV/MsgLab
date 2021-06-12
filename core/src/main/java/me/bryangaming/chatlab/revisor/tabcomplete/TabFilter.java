@@ -45,9 +45,7 @@ public class TabFilter {
                 if (event.getPacketType() != PacketType.Play.Client.TAB_COMPLETE) {
                     return;
                 }
-                System.out.println("t1est");
                 if (!filtersFile.getBoolean("commands.tab-module.block.enabled")) {
-                    System.out.println("te2st");
                     return;
                 }
 

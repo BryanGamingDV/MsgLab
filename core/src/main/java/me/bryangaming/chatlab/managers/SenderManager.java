@@ -130,9 +130,8 @@ public class SenderManager {
         }
 
         if (!(sender instanceof Player)) {
-            pluginService.getPlugin().getBukkitAudiences().sender(sender).sendMessage(Component.text(TextUtils.convertLegacyToMiniMessage(
+            pluginService.getPlugin().getBukkitAudiences().sender(sender).sendMessage(MiniMessage.get().parse(TextUtils.convertLegacyToMiniMessage(
                     path.replace("%newline%", "\n"))));
-            System.out.println(path.replace("%newline%", "\n"));
             return;
         }
 
