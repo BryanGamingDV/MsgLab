@@ -3,7 +3,6 @@ package me.bryangaming.chatlab.revisor.message;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.revisor.Revisor;
 import me.bryangaming.chatlab.managers.ActionManager;
-import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.entity.Player;
 
@@ -31,9 +30,8 @@ public class FirstWordRevisor implements Revisor {
 
     @Override
     public String revisor(Player player, String message) {
-        Configuration filtersFile = pluginService.getFiles().getFiltersFile();
-        SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
+        Configuration filtersFile = pluginService.getFiles().getFiltersFile();
         String firstLetter = String.valueOf(message.charAt(0));
 
         if (firstLetter.equals(firstLetter.toUpperCase())){

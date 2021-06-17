@@ -1,11 +1,10 @@
-package me.bryangaming.chatlab.loader;
+package me.bryangaming.chatlab.loader.command;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.Loader;
 import me.bryangaming.chatlab.commands.*;
 import me.bryangaming.chatlab.commands.translation.CommandTranslation;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
-import me.bryangaming.chatlab.utils.CommandsType;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilderImpl;
@@ -35,10 +34,10 @@ public class CommandLoader implements Loader {
 
     @Override
     public void load() {
-        pluginService.getLogs().log("Loading CommandLoader");
+        pluginService.getDebugger().log("Loading CommandLoader");
 
         registerCommandManager();
-        pluginService.getLogs().log("Commands loaded!");
+        pluginService.getDebugger().log("Commands loaded!");
         pluginService.getPlugin().getLogger().info("Commands loaded!");
     }
 
@@ -53,9 +52,9 @@ public class CommandLoader implements Loader {
 
             if (pluginService.getFiles().getConfigFile().getBoolean("modules." + commandsType.getCommandName() + ".enabled")) {
                 commandManager.registerCommands(command);
-                pluginService.getLogs().log("Command: " + commandName + " loaded.");
+                pluginService.getDebugger().log("Command: " + commandName + " loaded.");
             } else {
-                pluginService.getLogs().log("Command: " + commandName + " unloaded.", LoggerTypeEnum.WARNING);
+                pluginService.getDebugger().log("Command: " + commandName + " unloaded.", LoggerTypeEnum.WARNING);
             }
         }
     }

@@ -5,17 +5,18 @@ import me.bryangaming.chatlab.api.task.Task;
 import me.bryangaming.chatlab.tasks.type.AnnouncerTask;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TasksManager {
 
-    private final HashMap<String, Task> tasksList = new HashMap<>();
+    private final Map<String, Task> tasksList = new HashMap<>();
 
     private final PluginService pluginService;
 
     public TasksManager(PluginService pluginService) {
         this.pluginService = pluginService;
         loadTasks(new AnnouncerTask("announcer", pluginService));
-        pluginService.getLogs().log("Loaded tasks");
+        pluginService.getDebugger().log("Loaded tasks");
     }
 
     public void loadTasks(Task... taskTypes) {

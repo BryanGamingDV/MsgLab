@@ -5,12 +5,13 @@ import me.bryangaming.chatlab.gui.manager.GuiSample;
 import me.bryangaming.chatlab.gui.sample.OnlineSample;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class SampleManager {
 
     private final PluginService pluginService;
 
-    private final HashMap<String, GuiSample> sampleHashMap = new HashMap<>();
+    private final Map<String, GuiSample> sampleHashMap = new HashMap<>();
 
     public SampleManager(PluginService pluginService) {
         this.pluginService = pluginService;
@@ -21,7 +22,7 @@ public class SampleManager {
         sampleHashMap.put("online", new OnlineSample(pluginService));
     }
 
-    public HashMap<String, GuiSample> getSampleMap() {
+    public Map<String, GuiSample> getSampleMap() {
         return sampleHashMap;
     }
 }

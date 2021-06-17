@@ -5,9 +5,13 @@
       <configuration>
         <autoDetectTypes>
           <platformType>ADVENTURE</platformType>
+          <platformType>SPIGOT</platformType>
           <platformType>BUKKIT</platformType>
         </autoDetectTypes>
       </configuration>
     </facet>
+  </component>
+  <component name="McpModuleSettings">
+    <option name="srgType" value="SRG" />
   </component>
 </module>

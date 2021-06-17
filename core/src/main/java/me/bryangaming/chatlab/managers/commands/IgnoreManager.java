@@ -13,7 +13,6 @@ import java.util.UUID;
 public class IgnoreManager {
 
     private final Configuration playerFile;
-
     private final PluginService pluginService;
 
     private final Map<UUID, List<String>> ignorelist;

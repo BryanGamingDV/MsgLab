@@ -6,11 +6,11 @@ import me.bryangaming.chatlab.events.CommandSpyEvent;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEnum;
 import me.bryangaming.chatlab.events.revisor.TextRevisorEvent;
 import me.bryangaming.chatlab.events.text.ChatEvent;
+import me.bryangaming.chatlab.loader.command.CommandsType;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.revisor.CooldownData;
-import me.bryangaming.chatlab.utils.CommandsType;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.TextUtils;
 import org.bukkit.Bukkit;
@@ -142,7 +142,7 @@ public class SendTextListener implements Listener {
             return;
         }
 
-        if (!senderManager.hasPermission(event.getPlayer(), commandsType.getCommandName(), ".main")) {
+        if (!senderManager.hasPermission(event.getPlayer(), commandsType.getCommandName(), commandsType.getSuffix() + ".main")) {
             senderManager.sendMessage(event.getPlayer(), messagesFile.getString("global-errors.no-perms"));
             event.setCancelled(true);
         }

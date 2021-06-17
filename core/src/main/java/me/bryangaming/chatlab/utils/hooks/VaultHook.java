@@ -27,7 +27,7 @@ public class VaultHook implements Hook {
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             pluginService.getPlugin().getLogger().info("Addons - Vault not enabled! Disabling support..");
-            pluginService.getLogs().log("Addons - Vault not enabled! Disabling support..", LoggerTypeEnum.WARNING);
+            pluginService.getDebugger().log("Addons - Vault not enabled! Disabling support..", LoggerTypeEnum.WARNING);
             return;
         }
 
@@ -52,7 +52,7 @@ public class VaultHook implements Hook {
         }
 
         pluginService.getPlugin().getLogger().info("Addons - Vault enabled! Enabling support..");
-        pluginService.getLogs().log("Addons - Vault enabled! Enabling support...");
+        pluginService.getDebugger().log("Addons - Vault enabled! Enabling support...");
     }
 
     public Permission getPermissions() {

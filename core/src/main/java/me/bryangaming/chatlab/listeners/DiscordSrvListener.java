@@ -6,6 +6,7 @@ import github.scarsz.discordsrv.util.DiscordUtil;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.PlaceholderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -32,9 +33,8 @@ public class DiscordSrvListener {
                 continue;
             }
 
-            senderManager.sendMessage(player, formatsFile.getString("chat-format.discord-srv.message.from-discord")
-                    .replace("%player%", event.getAuthor().getName())
-                    .replace("%message%", event.getMessage().getContentStripped()));
+            senderManager.sendMessage(player, PlaceholderUtils.replaceDiscordVariables(event.getMember(), formatsFile.getString("chat-format.discord-srv.message.from-discord"))
+                    .replace("%player%", event.getMember().getEffectiveName()));
         }
 
     }

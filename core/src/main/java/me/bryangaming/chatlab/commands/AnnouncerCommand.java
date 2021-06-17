@@ -18,7 +18,6 @@ import java.util.List;
 @Command(names = {"announcer", "acc"})
 public class AnnouncerCommand implements CommandClass {
 
-    private final PluginService pluginService;
 
     private final Configuration configFile;
     private final Configuration messagesFile;
@@ -26,8 +25,6 @@ public class AnnouncerCommand implements CommandClass {
     private final SenderManager senderManager;
 
     public AnnouncerCommand(PluginService pluginService) {
-        this.pluginService = pluginService;
-
         this.configFile = pluginService.getFiles().getConfigFile();
         this.messagesFile = pluginService.getFiles().getMessagesFile();
 

@@ -10,7 +10,6 @@ import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.redis.MessageType;
 import me.bryangaming.chatlab.utils.Configuration;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,7 +32,6 @@ public class QuitListener implements Listener {
         Player player = event.getPlayer();
 
         Configuration messagesFile = pluginService.getFiles().getMessagesFile();
-
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         GroupManager groupManager = pluginService.getPlayerManager().getGroupManager();

@@ -7,9 +7,9 @@ import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.*;
 import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.managers.sound.SoundManager;
-import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.utils.TextUtils;
-import me.bryangaming.chatlab.utils.VariableUtils;
+import me.bryangaming.chatlab.utils.PlaceholderUtils;
+import me.bryangaming.chatlab.utils.WorldData;
 
 public class ManagerLoader implements Loader {
 
@@ -37,7 +37,7 @@ public class ManagerLoader implements Loader {
     private ReplyManager replyManager;
     private StaffChatManager staffChatManagerManager;
 
-    private VariableUtils variableUtils;
+    private PlaceholderUtils placeholderUtils;
     private TextUtils textUtils;
     private ConditionManager conditionManager;
 
@@ -72,11 +72,11 @@ public class ManagerLoader implements Loader {
         replyManager = new ReplyManager(pluginService);
         msgManager = new MsgManager(pluginService);
 
-        variableUtils = new VariableUtils(pluginService);
+        placeholderUtils = new PlaceholderUtils(pluginService);
         textUtils = new TextUtils(pluginService);
         conditionManager = new ConditionManager(pluginService);
 
-        pluginService.getLogs().log("Managers registered");
+        pluginService.getDebugger().log("Managers registered");
 
     }
 

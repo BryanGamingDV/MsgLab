@@ -2,10 +2,10 @@ package me.bryangaming.chatlab;
 
 import me.bryangaming.chatlab.data.ServerData;
 import me.bryangaming.chatlab.debug.DebugLogger;
-import me.bryangaming.chatlab.loader.CommandLoader;
 import me.bryangaming.chatlab.loader.EventLoader;
 import me.bryangaming.chatlab.loader.FileLoader;
 import me.bryangaming.chatlab.loader.ManagerLoader;
+import me.bryangaming.chatlab.loader.command.CommandLoader;
 import me.bryangaming.chatlab.managers.SupportManager;
 import me.bryangaming.chatlab.redis.RedisConnection;
 import me.bryangaming.chatlab.revisor.CooldownData;
@@ -21,7 +21,6 @@ public class PluginService {
 
     private ManagerLoader managerLoader;
     private DebugLogger debug;
-
 
     private SupportManager supportManager;
     private CommandLoader commandLoader;
@@ -80,7 +79,7 @@ public class PluginService {
         return cooldownData;
     }
 
-    public DebugLogger getLogs() {
+    public DebugLogger getDebugger() {
         return debug;
     }
 

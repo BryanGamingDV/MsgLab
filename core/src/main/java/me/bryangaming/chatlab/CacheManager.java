@@ -21,7 +21,7 @@ public class CacheManager {
 
     public CacheManager(PluginService pluginService) {
 
-        DebugLogger debug = pluginService.getLogs();
+        DebugLogger debug = pluginService.getDebugger();
         debug.log("Configuration loaded!");
         debug.log("Playeruuid loaded!");
 
