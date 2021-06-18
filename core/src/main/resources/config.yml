@@ -4,7 +4,7 @@
 # | |    | |__   __ _| |_| |     __ _| |__  
 # | |    | '_ \ / _` | __| |    / _` | '_ \ 
 # | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
-#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2.3 m
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2.4
 #
 # Main Config | config.yml
 
@@ -23,7 +23,7 @@
 # If you want to go to the support: https://discord.gg/YjhubS3bWW
 
 # Config version, please don't change this path.
-config-version: 2.2.3
+config-version: 2.2.4
 
 #
 # Options:

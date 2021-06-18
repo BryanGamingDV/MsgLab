@@ -74,7 +74,7 @@ public class ChatCommand implements CommandClass {
     public boolean clearSubCommand(@Sender Player sender, @OptArg("") @Text String arguments) {
 
         String world = "-global";
-        int lines = configFile.getInt("modules.chat.default-blank");
+        int lines = configFile.getInt("modules.chat.empty-blank", 50);
         boolean silent = false;
 
         if (arguments.isEmpty()) {

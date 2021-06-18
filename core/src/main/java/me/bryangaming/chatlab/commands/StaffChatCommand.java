@@ -53,11 +53,11 @@ public class StaffChatCommand implements CommandClass {
         }else {
             Bukkit.getServer().getOnlinePlayers().forEach(onlinePlayer -> {
 
-                if (!senderManager.hasPermission(onlinePlayer, "staffchat", "main")) {
+                if (!senderManager.hasPermission(onlinePlayer, "staff-chat", "main")) {
                     return;
                 }
 
-                senderManager.sendMessage(onlinePlayer, messagesFile.getString("staff-chat.message")
+                senderManager.sendMessage(onlinePlayer, messagesFile.getString("staff-chat.format")
                         .replace("%player%", sender.getName())
                         .replace("%message%", message));
             });

@@ -117,6 +117,11 @@ public class GroupManager {
                 return group;
             case "permission":
                 for (String groupPath : configurationSection.getConfigurationSection("groups").getKeys(false)){
+
+                    if (configurationSection.getString(groupPath + ".permission") == null){
+                        continue;
+                    }
+
                     if (!player.hasPermission(configurationSection.getString(groupPath + ".permission"))){
                         continue;
                     }

@@ -23,7 +23,7 @@ public class ChatManager {
     public ChatManager(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.messagesFile = pluginService.getFiles().getConfigFile();
+        this.messagesFile = pluginService.getFiles().getMessagesFile();
         this.filtersFile = pluginService.getFiles().getFiltersFile();
 
         this.serverData = pluginService.getServerData();

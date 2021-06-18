@@ -72,7 +72,7 @@ public class SendTextListener implements Listener {
                         return;
                     }
 
-                    senderManager.sendMessage(playeronline.getPlayer(), messagesFile.getString("staff-chat.message")
+                    senderManager.sendMessage(playeronline.getPlayer(), messagesFile.getString("staff-chat.format")
                             .replace("%player%", player.getName())
                             .replace("%message%", event.getMessage()));
                 });
