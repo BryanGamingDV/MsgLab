@@ -15,8 +15,6 @@ buildNumber.properties
 #
 .iml
 .idea/
-.idea/.name
-.idea/
 !.idea/runConfigurations/
 
 #
