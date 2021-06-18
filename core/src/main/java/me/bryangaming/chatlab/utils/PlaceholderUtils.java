@@ -1,5 +1,6 @@
 package me.bryangaming.chatlab.utils;
 
+import github.scarsz.discordsrv.dependencies.jda.api.entities.Member;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SupportManager;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
@@ -10,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class VariableUtils {
+public class PlaceholderUtils {
 
     private static SupportManager supportManager;
     private static ChatManager chatManager;
@@ -18,7 +19,7 @@ public class VariableUtils {
     private static Configuration config;
     private static Configuration filtersFile;
 
-    public VariableUtils(PluginService pluginService) {
+    public PlaceholderUtils(PluginService pluginService) {
         supportManager = pluginService.getSupportManager();
         chatManager = pluginService.getPlayerManager().getChatManager();
 
@@ -93,7 +94,7 @@ public class VariableUtils {
             return string;
         }
 
-        if (!TextUtils.isAllowedHooked("Vault")){
+        if (!TextUtils.isHookEnabled("Vault")){
             return string;
         }
 
@@ -111,5 +112,13 @@ public class VariableUtils {
 
     private static String replaceTags(Player player, String string) {
         return chatManager.replaceTagsVariables(player, string);
+    }
+
+    public static String replaceDiscordVariables(Member member, String text){
+        return text
+                .replace("%player%", member.getNickname())
+                .replace("%role%", member.getRoles().get(member.getRoles().size() - 1).getName())
+                .replace("%playercolor%", String.valueOf(member.getColor().getRGB()));
+
     }
 }

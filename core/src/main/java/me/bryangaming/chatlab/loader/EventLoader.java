@@ -67,7 +67,7 @@ public class EventLoader implements Loader {
 
     public void loadEvents(Listener... listeners) {
 
-        DebugLogger debug = pluginService.getLogs();
+        DebugLogger debug = pluginService.getDebugger();
         PluginManager pl = Bukkit.getServer().getPluginManager();
 
         for (Listener listener : listeners) {

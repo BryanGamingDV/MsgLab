@@ -30,7 +30,7 @@ public class CommandTranslation extends BukkitDefaultTranslationProvider {
         translations.put("player.offline", "4. The player %s is offline!");
         translations.put("sender.unknown", "5. Unknown command sender!");
         translations.put("sender.only-player", messagesFile.getString("global-error.console"));
-        pluginService.getLogs().log("Translator created!");
+        pluginService.getDebugger().log("Translator created!");
     }
 
     public String getTranslation(String key) {

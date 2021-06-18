@@ -26,7 +26,7 @@ public class TabFilter {
     public void setup() {
         Logger logger = pluginService.getPlugin().getLogger();
 
-        if (!TextUtils.isAllowedHooked("ProtocolLib")){
+        if (!TextUtils.isHookEnabled("ProtocolLib")){
             logger.info("The hook was disabled in config.");
             return;
         }

@@ -34,7 +34,7 @@ public class CooldownData {
         this.senderManager = pluginService.getPlayerManager().getSender();
         pluginService.getServerData().setServerTextCooldown(filtersFile.getInt("cooldown.text.seconds"));
         pluginService.getServerData().setServerCmdCooldown(filtersFile.getInt("cooldown.cmd.seconds"));
-        pluginService.getLogs().log("Loaded CooldownData");
+        pluginService.getDebugger().log("Loaded CooldownData");
     }
 
     public boolean isTextSpamming(UUID uuid) {

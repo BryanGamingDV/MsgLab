@@ -2,10 +2,7 @@ package me.bryangaming.chatlab.data;
 
 import org.bukkit.World;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class ServerData {
 
@@ -14,7 +11,7 @@ public class ServerData {
     private final List<World> worldList = new ArrayList<>();
     private final List<String> channelsMuted = new ArrayList<>();
 
-    private final HashMap<Integer, PartyData> channelDataMap = new HashMap<>();
+    private final Map<Integer, PartyData> channelDataMap = new HashMap<>();
 
     private int serverTextCooldown = 0;
     private int serverCmdCooldown = 0;

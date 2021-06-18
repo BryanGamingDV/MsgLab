@@ -4,10 +4,7 @@ import me.bryangaming.chatlab.managers.group.GroupEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class UserData{
 
@@ -44,7 +41,7 @@ public class UserData{
     private boolean isLeader = true;
 
     private final List<String> clickChat = new ArrayList<>();
-    private final HashMap<String, String> hashMap = new HashMap<>();
+    private final Map<String, String> hashMap = new HashMap<>();
 
     public UserData(UUID uuid) {
         this.uuid = uuid;
@@ -112,7 +109,7 @@ public class UserData{
         return isLeader;
     }
 
-    public HashMap<String, String> gethashTags() {
+    public Map<String, String> gethashTags() {
         return hashMap;
     }
 

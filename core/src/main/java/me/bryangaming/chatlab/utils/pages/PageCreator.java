@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class PageCreator {
 
-    private Map<Integer, List<String>> hashString;
+    private final Map<Integer, List<String>> hashString;
 
     public PageCreator(List<String> stringList) {
         hashString = new HashMap<>();

@@ -272,6 +272,16 @@ commands:
       # Enable this module?
       enabled: true
 
+      group-access: permission
+      groups:
+        test:
+          # List of blocked commands.
+          list:
+            - plugins
+            - pl
+            - help
+            - "?"
+          # permission: server.block [If group-access is "permission"].
       # To block people with op.
       op:
         # List of blocked commands.

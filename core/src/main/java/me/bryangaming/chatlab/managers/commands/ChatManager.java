@@ -9,10 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ChatManager {
 
@@ -26,7 +23,7 @@ public class ChatManager {
     public ChatManager(PluginService pluginService) {
         this.pluginService = pluginService;
 
-        this.messagesFile = pluginService.getFiles().getConfigFile();
+        this.messagesFile = pluginService.getFiles().getMessagesFile();
         this.filtersFile = pluginService.getFiles().getFiltersFile();
 
         this.serverData = pluginService.getServerData();
@@ -229,7 +226,7 @@ public class ChatManager {
     public String replaceTagsVariables(Player player, String message) {
 
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
-        HashMap<String, String> hashmapTag = userData.gethashTags();
+        Map<String, String> hashmapTag = userData.gethashTags();
 
         for (String tag : checkTags()) {
 

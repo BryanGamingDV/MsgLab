@@ -11,14 +11,10 @@ import redis.clients.jedis.Jedis;
 
 public class CMIVanishListener implements Listener {
 
-    private PluginService pluginService;
-
     private final Configuration configFile;
     private Jedis jedis;
 
     public CMIVanishListener(PluginService pluginService) {
-        this.pluginService = pluginService;
-
         this.configFile = pluginService.getFiles().getConfigFile();
 
         if (pluginService.getRedisConnection() != null) {

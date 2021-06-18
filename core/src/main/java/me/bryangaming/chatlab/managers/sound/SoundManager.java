@@ -20,14 +20,12 @@ public class SoundManager {
     private final PluginService pluginService;
     private final Configuration sound;
 
-    private final CacheManager cache;
     private final DebugLogger debug;
 
     public SoundManager(PluginService pluginService) {
         this.pluginService = pluginService;
-        this.cache = pluginService.getCache();
         this.sound = pluginService.getFiles().getSoundsFile();
-        this.debug = pluginService.getLogs();
+        this.debug = pluginService.getDebugger();
         setup();
     }
 
@@ -86,10 +84,10 @@ public class SoundManager {
             return Sound.valueOf(sound.getString(path));
 
         } catch (IllegalArgumentException io) {
-            pluginService.getLogs().log("Sound_Error" + io.getCause());
+            pluginService.getDebugger().log("Sound_Error" + io.getCause());
 
             for (StackTraceElement stack : io.getStackTrace()) {
-                pluginService.getLogs().log(stack.toString());
+                pluginService.getDebugger().log(stack.toString());
             }
 
             return null;

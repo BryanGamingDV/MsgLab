@@ -22,7 +22,7 @@ public class CMIVanishHook implements Hook {
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("CMI")) {
             pluginService.getPlugin().getLogger().info("Addons - CMI not enabled! Disabling support..");
-            pluginService.getLogs().log("Addons - CMI not enabled! Disabling support..", LoggerTypeEnum.WARNING);
+            pluginService.getDebugger().log("Addons - CMI not enabled! Disabling support..", LoggerTypeEnum.WARNING);
             return;
         }
 
@@ -40,7 +40,7 @@ public class CMIVanishHook implements Hook {
             return false;
         }
 
-        if (!TextUtils.isAllowedHooked("CMI")) {
+        if (!TextUtils.isHookEnabled("CMI")) {
             return false;
         }
 

@@ -38,7 +38,7 @@ public class FileLoader implements Loader{
 
     private Configuration setConfiguration(String string) {
 
-        DebugLogger log = pluginService.getLogs();
+        DebugLogger log = pluginService.getDebugger();
         Map<String, Configuration> configFiles = pluginService.getCache().getConfigFiles();
 
         Configuration config = new Configuration(pluginService.getPlugin(), string);

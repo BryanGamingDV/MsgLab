@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CommandSpyListener implements Listener {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     public CommandSpyListener(PluginService pluginService) {
         this.pluginService = pluginService;

@@ -21,7 +21,7 @@ public class VanishHook implements Hook {
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("PremiumVanish") || !Bukkit.getPluginManager().isPluginEnabled("SuperVanish")) {
             pluginService.getPlugin().getLogger().info("Addons - SuperVanish not enabled! Disabling support..");
-            pluginService.getLogs().log("Addons - SuperVanish not enabled! Disabling support..", LoggerTypeEnum.WARNING);
+            pluginService.getDebugger().log("Addons - SuperVanish not enabled! Disabling support..", LoggerTypeEnum.WARNING);
             return;
         }
 
@@ -41,7 +41,7 @@ public class VanishHook implements Hook {
             return false;
         }
 
-        if (!TextUtils.isAllowedHooked("SuperVanish")) {
+        if (!TextUtils.isHookEnabled("SuperVanish")) {
             return false;
         }
 

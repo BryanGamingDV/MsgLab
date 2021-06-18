@@ -17,6 +17,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 @Command(names = {"chat"})
@@ -73,7 +74,7 @@ public class ChatCommand implements CommandClass {
     public boolean clearSubCommand(@Sender Player sender, @OptArg("") @Text String arguments) {
 
         String world = "-global";
-        int lines = configFile.getInt("modules.chat.default-blank");
+        int lines = configFile.getInt("modules.chat.empty-blank", 50);
         boolean silent = false;
 
         if (arguments.isEmpty()) {
@@ -359,7 +360,7 @@ public class ChatCommand implements CommandClass {
             return true;
         }
 
-        HashMap<String, String> tagData = userData.gethashTags();
+        Map<String, String> tagData = userData.gethashTags();
 
         if (tagValue.isEmpty()) {
             senderManager.sendMessage(player, messagesFile.getString("error.chat.tags.empty-colortags")

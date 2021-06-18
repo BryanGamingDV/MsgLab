@@ -19,7 +19,7 @@ public class DiscordHook implements Hook {
     public void setup() {
         if (!Bukkit.getPluginManager().isPluginEnabled("DiscordSRV")) {
             pluginService.getPlugin().getLogger().info("Addons - DiscordSRV not enabled! Disabling support..");
-            pluginService.getLogs().log("Addons - DiscordSRV not enabled! Disabling support..", LoggerTypeEnum.WARNING);
+            pluginService.getDebugger().log("Addons - DiscordSRV not enabled! Disabling support..", LoggerTypeEnum.WARNING);
             return;
         }
 

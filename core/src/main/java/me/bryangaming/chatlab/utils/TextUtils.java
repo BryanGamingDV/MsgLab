@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
@@ -15,7 +16,6 @@ import java.util.logging.Logger;
 
 public class TextUtils {
 
-    private PluginService pluginService;
 
     private static ChatLab chatLab;
     private static Configuration config;
@@ -23,8 +23,6 @@ public class TextUtils {
     private static Logger logger;
 
     public TextUtils(PluginService pluginService) {
-        this.pluginService = pluginService;
-
         chatLab = pluginService.getPlugin();
         config = pluginService.getFiles().getConfigFile();
         senderManager = pluginService.getPlayerManager().getSender();
@@ -35,13 +33,14 @@ public class TextUtils {
     }
 
     public static String convertText(Player player, String path) {
-        path = VariableUtils.replaceAllVariables(player, path);
+        path = PlaceholderUtils.replaceAllVariables(player, path);
         return TextUtils.setColor(path);
     }
 
     public static Component convertTextToComponent(Player player, String path) {
-        path = VariableUtils.replaceAllVariables(player, path);
+        path = PlaceholderUtils.replaceAllVariables(player, path);
         path = TextUtils.convertLegacyToMiniMessage(path);
+
 
         return MiniMessage.get().parse(path);
     }
@@ -58,7 +57,7 @@ public class TextUtils {
         path = path
                 .replace("%message%", message);
 
-        path = VariableUtils.replaceAllVariables(player, path);
+        path = PlaceholderUtils.replaceAllVariables(player, path);
         path = TextUtils.convertLegacyToMiniMessage(path);
 
         return MiniMessage.get().parse(path);
@@ -75,7 +74,7 @@ public class TextUtils {
         path = path
                 .replace("%message%", message);
 
-        path = VariableUtils.replaceAllVariables(player, path);
+        path = PlaceholderUtils.replaceAllVariables(player, path);
         path = TextUtils.convertLegacyToMiniMessage(path);
 
         return path;
@@ -134,7 +133,7 @@ public class TextUtils {
 
         return false;
     }
-    public static boolean isAllowedHooked(String pluginName){
+    public static boolean isHookEnabled(String pluginName){
         return config.getBoolean("options.allow-hooks." + pluginName.toLowerCase());
     }
 
@@ -156,6 +155,7 @@ public class TextUtils {
 
     public static void printStackTrace() {
         logger.info("Plugin version: " + chatLab.getDescription().getVersion());
+        logger.info("Bukkit version: " + getServerVersion(Bukkit.getServer()));
         logger.info("Code line:");
 
         StackTraceElement[] stackTraceElement = new Exception().getStackTrace();
