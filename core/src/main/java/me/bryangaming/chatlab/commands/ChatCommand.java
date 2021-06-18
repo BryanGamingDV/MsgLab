@@ -326,7 +326,7 @@ public class ChatCommand implements CommandClass {
             return true;
         }
 
-        if (TextUtils.isNumber(argument1)){
+        if (!TextUtils.isNumber(argument1)){
             senderManager.sendMessage(sender, messagesFile.getString("chat.error.flags.unknown-number")
                     .replace("%text%", argument1));
             senderManager.playSound(sender, SoundEnum.ERROR);
@@ -346,7 +346,7 @@ public class ChatCommand implements CommandClass {
         UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (tagKey.isEmpty()) {
-            senderManager.sendMessage(player, messagesFile.getString("error.chat.tags.empty-tags")
+            senderManager.sendMessage(player, messagesFile.getString("chat.error.tags.empty-tags")
                     .replace("%tags%", chatManager.allTags())
                     .replace("%usage%", TextUtils.getUsage("chat", "color", "[<typetag>]", "[@tag/color]")));
             senderManager.playSound(player, SoundEnum.ERROR);
@@ -354,7 +354,7 @@ public class ChatCommand implements CommandClass {
         }
 
         if (!chatManager.isTag(tagKey)) {
-            senderManager.sendMessage(player, messagesFile.getString("error.chat.tags.unknown-tag")
+            senderManager.sendMessage(player, messagesFile.getString("chat.error.tags.unknown-tag")
                     .replace("%text%", tagKey));
             senderManager.playSound(player, SoundEnum.ERROR);
             return true;
@@ -363,7 +363,7 @@ public class ChatCommand implements CommandClass {
         Map<String, String> tagData = userData.gethashTags();
 
         if (tagValue.isEmpty()) {
-            senderManager.sendMessage(player, messagesFile.getString("error.chat.tags.empty-colortags")
+            senderManager.sendMessage(player, messagesFile.getString("chat.error.tags.empty-colortags")
                     .replace("%colortags%", chatManager.allColorTags())
                     .replace("%usage%", TextUtils.getUsage("chat", "color", "typetag", "[@tag/color]")));
             senderManager.playSound(player, SoundEnum.ERROR);
@@ -372,7 +372,7 @@ public class ChatCommand implements CommandClass {
 
         if (tagValue.startsWith("@")) {
             if (messagesFile.getString("chat.color.tags." + tagValue.substring(1)) == null) {
-                senderManager.sendMessage(player, messagesFile.getString("error.chat.tags.unknown-tagcolor")
+                senderManager.sendMessage(player, messagesFile.getString("chat.error.tags.unknown-tagcolor")
                         .replace("%text%", tagValue));
                 senderManager.playSound(player, SoundEnum.ERROR);
                 return true;

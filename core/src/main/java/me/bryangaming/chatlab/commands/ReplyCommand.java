@@ -95,7 +95,7 @@ public class ReplyCommand implements CommandClass {
         List<String> ignoredPlayers = playersFile.getStringList("players." + senderUniqueId + ".players-ignored");
 
         if (!(ignoredPlayers.contains(targetName))){
-            if (senderData.getRepliedBungeePlayer().isEmpty()) {
+            if (!senderData.getRepliedBungeePlayer().isEmpty()) {
                 pluginService.getRedisConnection().sendMessage("chatlab", MessageType.MSG, targetName, senderMessage);
                 pluginService.getRedisConnection().sendMessage("chatlab", MessageType.REPLY, targetName, sender.getName());
             } else {

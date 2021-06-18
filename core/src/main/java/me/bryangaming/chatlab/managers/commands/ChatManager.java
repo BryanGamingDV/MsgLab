@@ -155,14 +155,12 @@ public class ChatManager {
                         serverData.unmuteChannel(channelPath);
                     }
                 }
+                if (!channelPath.equalsIgnoreCase("-none")) {
+                    senderManager.sendMessageTo(channelPlayerList, messagesFile.getString("chat.unmute.temporal"));
+                }else{
+                    senderManager.sendMessageTo(onlinePlayers, messagesFile.getString("chat.unmute.temporal"));
 
-                if (silent) {
-                    return;
                 }
-
-                for (Player onlinePlayer : onlinePlayers) {
-                    senderManager.sendMessage(onlinePlayer, messagesFile.getString("chat.mute.unmute-temporal"));
-                           }
             }
         }, 20L * seconds);
     }
@@ -184,7 +182,8 @@ public class ChatManager {
         }
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            senderManager.sendMessage(onlinePlayer, messagesFile.getString("chat.mute.unmute-temporal"));
+            senderManager.sendMessage(onlinePlayer, messagesFile.getString("chat.unmute.permanent")
+                    .replace("%player%", onlinePlayer.getName()));
         }
     }
 
