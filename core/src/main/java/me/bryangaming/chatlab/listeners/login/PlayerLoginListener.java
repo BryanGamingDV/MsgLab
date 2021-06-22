@@ -1,6 +1,5 @@
 package me.bryangaming.chatlab.listeners.login;
 
-import javafx.scene.Group;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.JQData;
 import me.bryangaming.chatlab.events.PlayerLoginEvent;
