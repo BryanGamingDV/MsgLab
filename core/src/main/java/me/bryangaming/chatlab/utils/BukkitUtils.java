@@ -16,6 +16,7 @@ public class BukkitUtils {
 
 
 
+    @Deprecated
     public static List<String> convertItemDataInText(ItemStack itemStack){
 
         List<String> itemList = new ArrayList<>();
