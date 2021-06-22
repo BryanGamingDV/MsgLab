@@ -7,15 +7,23 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.FireworkEffect;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.concurrent.TimedSemaphore;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Firework;
+import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitTask;
 
 import javax.sound.sampled.AudioInputStream;
 import java.time.Duration;
 import java.util.List;
+import java.util.Locale;
 
 public class ActionManager {
 
@@ -126,7 +134,6 @@ public class ActionManager {
             if (actions.startsWith("[BOSSBAR]")){
                 String[] bossBarPath = actions.substring(9).split(";");
 
-
                 Audience audience = pluginService.getPlugin().getBukkitAudiences().player(player);
                 audience.showBossBar(BossBar.bossBar(
                         TextUtils.convertTextToComponent(player, bossBarPath[0]),
@@ -137,6 +144,22 @@ public class ActionManager {
                 continue;
             }
 
+            // Firework
+            if (actions.startsWith("[FIREWORK]")){
+                String[] fireworkPath = actions.substring(10).split(";");
+
+                Firework firework = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
+                FireworkMeta fireworkMeta = firework.getFireworkMeta();
+                fireworkMeta.setPower(Integer.parseInt(fireworkPath[0]));
+                fireworkMeta.addEffect(FireworkEffect.builder()
+                        .with(FireworkEffect.Type.valueOf(fireworkPath[1]))
+                        .withColor(Color.fromRGB(Integer.parseInt(fireworkPath[2]), Integer.parseInt(fireworkPath[3]), Integer.parseInt(fireworkPath[4])))
+                        .build());
+
+                firework.setFireworkMeta(fireworkMeta);
+                firework.detonate();
+
+            }
         }
     }
 }

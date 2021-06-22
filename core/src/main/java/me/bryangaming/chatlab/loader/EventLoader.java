@@ -61,7 +61,6 @@ public class EventLoader implements Loader {
             loadEvents(new CMIVanishListener(pluginService));
         }
 
-
         pluginService.getPlugin().getLogger().info("Events loaded!");
     }
 

@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class RecipientManager {
 
-    private PluginService pluginService;
+    private final PluginService pluginService;
 
     public RecipientManager(PluginService pluginService) {
         this.pluginService = pluginService;

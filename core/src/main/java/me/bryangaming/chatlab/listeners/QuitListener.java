@@ -18,7 +18,7 @@ import redis.clients.jedis.Jedis;
 
 import java.util.UUID;
 
-public class QuitListener implements Listener {
+public class    QuitListener implements Listener {
 
     private final PluginService pluginService;
 

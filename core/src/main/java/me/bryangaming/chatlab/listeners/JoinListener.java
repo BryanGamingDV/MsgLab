@@ -41,7 +41,7 @@ public class JoinListener implements Listener {
         UserData userData = pluginService.getCache().getUserDatas().get(playerUUID);
         Bukkit.getPluginManager().callEvent(new SendDataEvent(player, userData));
 
-        if (!pluginService.getFiles().getFormatsFile().getBoolean("join_and_quit.enabled")) {
+        if (pluginService.getFiles().getFormatsFile().getBoolean("join_and_quit.enabled")) {
             if (!event.getPlayer().hasPlayedBefore()) {
                 Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, player, playerRank, ChangeMode.FIRST_JOIN));
             } else {

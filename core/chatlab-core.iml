@@ -6,6 +6,7 @@
         <autoDetectTypes>
           <platformType>ADVENTURE</platformType>
           <platformType>SPIGOT</platformType>
+          <platformType>MCP</platformType>
           <platformType>BUKKIT</platformType>
         </autoDetectTypes>
       </configuration>

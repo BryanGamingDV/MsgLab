@@ -167,6 +167,11 @@ chat-format:
       # To register messages of discord to minecraft.
       from-discord: "%author% > %messages%"
 
+  # Inventory variables
+  inventory:
+    # You want to publish the item in your hand in the chat.
+    item-val: "%item%"
+
   allow-revisor: true
   # Format section.
   #
@@ -528,36 +533,65 @@ join-and-quit:
     default:
       # Entry and exit message format for default group.
       first-join:
-        # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "<dark_gray>[</dark_gray><green>+</green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>has joined for first time</white><gold>!</gold>"
+
+        message:
+          # Message type.
+          # Put in the path:
+          # "random", to send random messages from the list.
+          # "orderly", to send messages in order as listed.
+          # "silent" to put a empty message, or "none" to disable it.
+          type: random
+          formats:
+            - "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
         # A welcome message.
         motd:
-          - "<rainbow>---------------</rainbow>"
-          - "<white>Welcome to </white><gold>My Server</gold>"
-          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
-          - "<rainbow:2>---------------</rainbow>"
+          # Option to hook
+          hook: LockLogin
+          format:
+            - "<rainbow>---------------</rainbow>"
+            - "<white>Welcome to </white><gold>My Server</gold>"
+            - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+            - "<rainbow:2>---------------</rainbow>"
         # Actions from player.
         actions:
           - "[CONSOLECMD] give %player% diamond"
 
       # When a player join to the server.
       join:
-        # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
+        message:
+          # Message type
+          # Put in the path:
+          # "random", to send random messages from the list.
+          # "orderly", to send messages in order as listed.
+          # "silent" to put a empty message, or "none" to disable it.
+          type: random
+          formats:
+            - "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
+
         # A welcome message.
         motd:
-          - "<rainbow>---------------</rainbow>"
-          - "<white>Welcome back to </white><gold>My Server</gold>"
-          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
-          - "<rainbow:2>---------------</rainbow>"
+          # Option to hook
+          hook: LockLogin
+          format:
+            - "<rainbow>---------------</rainbow>"
+            - "<white>Welcome back to </white><gold>My Server</gold>"
+            - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+            - "<rainbow:2>---------------</rainbow>"
         # Actions from player.
         actions:
           - ""
 
       # When a player quit to the server.
       quit:
-        # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "<dark_gray>[</dark_gray><red>-</red><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%<gray> <white>left</white><gold>!</gold>"
+        message:
+          # Message type
+          # Put in the path:
+          # "random", to send random messages from the list.
+          # "orderly", to send messages in order as listed.
+          # "silent" to put a empty message, or "none" to disable it.
+          type: random
+          formats:
+            - "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
         # Actions from player.
         actions:
           - ""
@@ -565,34 +599,62 @@ join-and-quit:
       # When a player join for the first time.
       first-join:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "<dark_gray><bold>[</dark_gray><green>+</green><dark_gray>]</bold></dark_gray> <gold><bold>VIP</bold></gold><white> player</white> <gray>%player%</gray> <white> has joined for first time</white><gold>!</gold>"
+        message:
+          # Message type
+          # Put in the path:
+          # "random", to send random messages from the list.
+          # "orderly", to send messages in order as listed.
+          # "silent" to put a empty message, or "none" to disable it.
+          type: random
+          formats:
+            - "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
         # A welcome message.
         motd:
-          - "<rainbow>---------------</rainbow>"
-          - "<white>Welcome <red>%player%</red> <white>to </white><gold>My Server</gold>"
-          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
-          - "<rainbow:2>---------------</rainbow>"
+          hook: LockLogin
+          format:
+            - "<rainbow>---------------</rainbow>"
+            - "<white>Welcome <red>%player%</red> <white>to </white><gold>My Server</gold>"
+            - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+            - "<rainbow:2>---------------</rainbow>"
         # Actions from player.
         actions:
           - ""
       # When a player join to the server.
       join:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "<dark_gray>[</dark_gray><green>+</green><dark_gray>]</dark_gray> <gold>VIP</gold> <white>player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
+        message:
+          # Message type
+          # Put in the path:
+          # "random", to send random messages from the list.
+          # "orderly", to send messages in order as listed.
+          # "silent" to put a empty message, or "none" to disable it.
+          type: random
+          formats:
+            - "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
         # A welcome message.
         motd:
-          - "<rainbow>---------------</rainbow>"
-          - "<white>Welcome </white><red>%player%</red><white>back to </white><gold>My Server</gold>"
-          - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
-          - "<rainbow:2>---------------</rainbow>"
+          hook: LockLogin
+          format:
+            - "<rainbow>---------------</rainbow>"
+            - "<white>Welcome </white><red>%player%</red><white>back to </white><gold>My Server</gold>"
+            - "<gray>This server is using <hover:show_text:'<gradient:green:aqua>Download ChatLab'><click:open_url:https://www.spigotmc.org/resources/chatlab-1-8-1-16-chatformat-antitab-tags-chatmanager.84926/><gradient:blue:aqua>ChatLab</gradient> <gray>by</gray> <gradient:aqua:red>BryanGaming</gradient></click></hover>"
+            - "<rainbow:2>---------------</rainbow>"
         # Actions from player.
         actions:
           - ""
       # When a player quit to the server.
       quit:
         # Message format: [Put "silent" to put a empty message, or "none" to disable it].
-        message: "<dark_gray><bold>[</dark_gray><red>-<dark_gray>]</bold></dark_gray>  <gold><bold>VIP</bold></gold><white> player</white> <gray>%player%</gray> <white>left the server</white><gold>!</gold>"
-        # Actions from player.
+        message:
+          # Message type
+          # Put in the path:
+          # "random", to send random messages from the list.
+          # "orderly", to send messages in order as listed.
+          # "silent" to put a empty message, or "none" to disable it.
+          type: random
+          formats:
+            - "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
+       # Actions from player.
         actions:
           - ""
 

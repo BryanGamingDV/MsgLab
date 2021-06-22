@@ -4,16 +4,27 @@ import java.util.List;
 
 public class JQData {
 
-    private List<String> firstJoinCommands;
-    private List<String> joinCommands;
-    private List<String> quitCommands;
+    private int firstJoinNextId = 0;
+    private int joinNextId = 0;
+    private int quitNextId = 0;
 
-    private String firstJoinFormat;
-    private String joinFormat;
-    private String quitFormat;
+    private String firstJoinType;
+    private String joinType;
+    private String quitType;
+
+    private List<String> firstJoinFormat;
+    private List<String> joinFormat;
+    private List<String> quitFormat;
+
+    private String firstJoinHook;
+    private String joinHook;
 
     private List<String> firstJoinMotdList;
     private List<String> joinMotdList;
+
+    private List<String> firstJoinActions;
+    private List<String> joinActions;
+    private List<String> quitActions;
 
     private String name;
 
@@ -21,51 +32,116 @@ public class JQData {
         this.name = name;
     }
 
-    public List<String> getFirstJoinCommands() {
-        return firstJoinCommands;
+    public int getFirstJoinNextId() {
+        return firstJoinNextId;
     }
 
-    public void setFirstJoinCommands(List<String> firstJoinCommands) {
-        this.firstJoinCommands = firstJoinCommands;
+    public boolean firstJoinIdIsTheMax(int id) {
+        return firstJoinNextId + 1 == id;
     }
 
-    public List<String> getJoinCommands() {
-        return joinCommands;
+    public void sumFirstJoinNextId(){
+        this.firstJoinNextId++;
     }
 
-    public void setJoinCommands(List<String> joinCommands) {
-        this.joinCommands = joinCommands;
+    public void clearFirstJoinNextId(){
+        this.firstJoinNextId = 0;
     }
 
-    public List<String> getQuitCommands() {
-        return quitCommands;
+
+    public String getFirstJoinHook(){
+        return firstJoinHook;
     }
 
-    public void setQuitCommands(List<String> quitCommands) {
-        this.quitCommands = quitCommands;
+    public void setFirstJoinHook(String hook){
+        this.firstJoinHook = hook;
     }
 
-    public String getFirstJoinFormat() {
+    public int getJoinNextId() {
+        return joinNextId;
+    }
+
+    public boolean joinIdIsTheMax(int id) {
+        return joinNextId + 1 == id;
+    }
+
+    public void sumJoinNextId() {
+        this.joinNextId++;
+    }
+
+    public void clearJoinNextId() {
+        joinNextId = 0;
+    }
+
+    public String getJoinHook(){
+        return joinHook;
+    }
+
+    public void setJoinHook(String hook){
+        this.joinHook = hook;
+    }
+
+    public int getQuitNextId() {
+        return quitNextId;
+    }
+
+    public boolean quitIdIsTheMax(int id) {
+        return quitNextId + 1 == id;
+    }
+
+    public void sumQuitNextId() {
+        this.quitNextId++;
+    }
+
+    public void clearQuitNextId() {
+        this.quitNextId = 0;
+    }
+
+    public String getFirstJoinType() {
+        return firstJoinType;
+    }
+
+    public void setFirstJoinType(String firstJoinType) {
+        this.firstJoinType = firstJoinType;
+    }
+
+    public String getJoinType() {
+        return joinType;
+    }
+
+    public void setJoinType(String joinType) {
+        this.joinType = joinType;
+    }
+
+    public String getQuitType() {
+        return quitType;
+    }
+
+    public void setQuitType(String quitType) {
+        this.quitType = quitType;
+    }
+
+    public List<String> getFirstJoinFormat() {
         return firstJoinFormat;
     }
 
-    public void setFirstJoinFormat(String firstJoinFormat) {
+    public void setFirstJoinFormat(List<String> firstJoinFormat) {
         this.firstJoinFormat = firstJoinFormat;
     }
 
-    public String getJoinFormat() {
+    public List<String> getJoinFormat() {
         return joinFormat;
     }
 
-    public void setJoinFormat(String joinFormat) {
+    public void setJoinFormat(List<String> joinFormat) {
         this.joinFormat = joinFormat;
     }
 
-    public String getQuitFormat() {
+    public List<String> getQuitFormat() {
         return quitFormat;
     }
 
-    public void setQuitFormat(String quitFormat) {
+    public void setQuitFormat(List<String> quitFormat) {
         this.quitFormat = quitFormat;
     }
 
@@ -83,5 +159,29 @@ public class JQData {
 
     public void setJoinMotdList(List<String> joinMotdList) {
         this.joinMotdList = joinMotdList;
+    }
+
+    public List<String> getFirstJoinActions() {
+        return firstJoinActions;
+    }
+
+    public void setFirstJoinActions(List<String> firstJoinActions) {
+        this.firstJoinActions = firstJoinActions;
+    }
+
+    public List<String> getJoinActions() {
+        return joinActions;
+    }
+
+    public void setJoinActions(List<String> joinActions) {
+        this.joinActions = joinActions;
+    }
+
+    public List<String> getQuitActions() {
+        return quitActions;
+    }
+
+    public void setQuitActions(List<String> quitActions) {
+        this.quitActions = quitActions;
     }
 }

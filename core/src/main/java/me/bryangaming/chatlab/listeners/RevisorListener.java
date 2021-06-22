@@ -15,13 +15,10 @@ import java.util.List;
 
 public class RevisorListener implements Listener {
 
-    private PluginService pluginService;
-
     private final List<Revisor> revisorTextList = new ArrayList<>();
     private final List<Revisor> revisorCmdList = new ArrayList<>();
 
     public RevisorListener(PluginService pluginService) {
-        this.pluginService = pluginService;
 
         loadCmdRevisor(
                 new BlockCmdRevisor(pluginService, "commands-module.block"),

@@ -2,6 +2,7 @@ package me.bryangaming.chatlab.utils;
 
 import github.scarsz.discordsrv.dependencies.jda.api.entities.Member;
 import me.bryangaming.chatlab.PluginService;
+import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.SupportManager;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -9,26 +10,37 @@ import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Collections;
+import java.util.List;
 
 public class PlaceholderUtils {
 
+    private static SenderManager senderManager;
     private static SupportManager supportManager;
     private static ChatManager chatManager;
 
     private static Configuration config;
+    private static Configuration formatsFile;
     private static Configuration filtersFile;
 
     public PlaceholderUtils(PluginService pluginService) {
+        senderManager = pluginService.getPlayerManager().getSender();
         supportManager = pluginService.getSupportManager();
         chatManager = pluginService.getPlayerManager().getChatManager();
 
         config = pluginService.getFiles().getConfigFile();
+        formatsFile = pluginService.getFiles().getFormatsFile();
         filtersFile = pluginService.getFiles().getFiltersFile();
     }
 
     public static String replaceAllVariables(Player player, String string) {
 
+        // Coming soon.. string = replaceItemVariables(player, string);
         string = replaceEmojis(string);
         string = replaceTags(player, string);
         string = replacePlayerVariables(player, string);
@@ -87,6 +99,28 @@ public class PlaceholderUtils {
         return string
                 .replace("%newline%", "\n");
 
+    }
+
+    private static String replaceItemVariables(Player player, String string) {
+
+        if (formatsFile.getString("chat-format.inventory.item-val") == null) {
+            return string;
+        }
+
+        ItemStack itemStack = player.getInventory().getItemInMainHand();
+
+        if (itemStack.getType() == Material.AIR) {
+            return string.replace(formatsFile.getString("chat-format.inventory.item-val"), "");
+        }
+
+            List<String> playerMainItems = BukkitUtils.convertItemDataInText(itemStack);
+
+            String itemPath = "<hover:show_text:" + String.join("%newline%", playerMainItems) + ">[" + itemStack.getType().name() + "]";
+
+            if (senderManager.hasPermission(player, "chat-format", "color")) {
+                return string.replace(formatsFile.getString("chat-format.inventory.item-val"), itemPath);
+            }
+            return string.replace(formatsFile.getString("chat-format.inventory.item-val"), "</pre>" + itemPath + "<pre>");
     }
 
     private static String replaceVaultVariables(Player player, String string) {

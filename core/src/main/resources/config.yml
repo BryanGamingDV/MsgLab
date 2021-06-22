@@ -341,6 +341,7 @@ modules:
       main: none
 
   chat-format:
+
     permissions:
       color: clab.chat.color
 
