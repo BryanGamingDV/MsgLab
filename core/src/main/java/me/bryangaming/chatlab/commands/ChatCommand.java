@@ -2,7 +2,6 @@ package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.ServerData;
-import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
@@ -15,9 +14,6 @@ import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 @Command(names = {"chat"})
@@ -338,67 +334,6 @@ public class ChatCommand implements CommandClass {
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "chat cooldown");
         return true;
 
-    }
-
-    @Command(names = "color")
-    public boolean colorSubCommand(@Sender Player player, @OptArg("") String tagKey, @OptArg("") String tagValue) {
-
-        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
-
-        if (tagKey.isEmpty()) {
-            senderManager.sendMessage(player, messagesFile.getString("chat.error.tags.empty-tags")
-                    .replace("%tags%", chatManager.allTags())
-                    .replace("%usage%", TextUtils.getUsage("chat", "color", "[<typetag>]", "[@tag/color]")));
-            senderManager.playSound(player, SoundEnum.ERROR);
-            return true;
-        }
-
-        if (!chatManager.isTag(tagKey)) {
-            senderManager.sendMessage(player, messagesFile.getString("chat.error.tags.unknown-tag")
-                    .replace("%text%", tagKey));
-            senderManager.playSound(player, SoundEnum.ERROR);
-            return true;
-        }
-
-        Map<String, String> tagData = userData.gethashTags();
-
-        if (tagValue.isEmpty()) {
-            senderManager.sendMessage(player, messagesFile.getString("chat.error.tags.empty-colortags")
-                    .replace("%colortags%", chatManager.allColorTags())
-                    .replace("%usage%", TextUtils.getUsage("chat", "color", "typetag", "[@tag/color]")));
-            senderManager.playSound(player, SoundEnum.ERROR);
-            return true;
-        }
-
-        if (tagValue.startsWith("@")) {
-            if (messagesFile.getString("chat.color.tags." + tagValue.substring(1)) == null) {
-                senderManager.sendMessage(player, messagesFile.getString("chat.error.tags.unknown-tagcolor")
-                        .replace("%text%", tagValue));
-                senderManager.playSound(player, SoundEnum.ERROR);
-                return true;
-            }
-
-            if (tagData.containsKey(tagKey)) {
-                tagData.replace(tagKey, tagValue.substring(1));
-            } else {
-                tagData.put(tagKey, tagValue.substring(1));
-            }
-
-            senderManager.sendMessage(player, messagesFile.getString("chat.color.selected.tag")
-                    .replace("%tag%", tagValue.substring(1)));
-            senderManager.playSound(player, SoundEnum.ARGUMENT, "chat color");
-            return true;
-        }
-
-        if (tagData.containsKey(tagKey)) {
-            tagData.replace(tagKey, tagValue);
-        } else {
-            tagData.put(tagKey, tagValue);
-        }
-        senderManager.sendMessage(player, messagesFile.getString("chat.color.selected.color")
-                .replace("%color%", tagValue.replace("&", "&_")));
-        senderManager.playSound(player, SoundEnum.ARGUMENT, "chat color");
-        return true;
     }
 
     @Command(names = "reload")

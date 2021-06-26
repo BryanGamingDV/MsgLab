@@ -2,13 +2,11 @@ package me.bryangaming.chatlab;
 
 import me.bryangaming.chatlab.api.Module;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
-import me.bryangaming.chatlab.dependency.DependencyDownloader;
 import me.bryangaming.chatlab.modules.CheckModule;
 import me.bryangaming.chatlab.modules.DataModule;
 import me.bryangaming.chatlab.modules.RecoverDataModule;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.UpdateCheck;
-import ml.karmaconfigs.locklogin.api.modules.PluginModule;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -23,9 +21,6 @@ public class ChatLab extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
-        DependencyDownloader dependencyDownloader = new DependencyDownloader(this.getClassLoader(), new File(getDataFolder(), "dependencies"), getLogger());
-        dependencyDownloader.downloadDependencies();
 
         loadKyori();
         registerServices();

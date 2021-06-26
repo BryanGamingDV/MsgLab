@@ -9,6 +9,7 @@ import me.bryangaming.chatlab.events.text.ChatEvent;
 import me.bryangaming.chatlab.loader.command.CommandsType;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.click.ClickChatManager;
+import me.bryangaming.chatlab.managers.commands.MsgManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.utils.Configuration;
@@ -42,12 +43,20 @@ public class SendTextListener implements Listener {
         UserData playerStatus = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
+        MsgManager msgManager = pluginService.getPlayerManager().getMsgManager();
         StaffChatManager staffChatManagerManager = pluginService.getPlayerManager().getStaffChatManager();
 
         if (playerStatus.isClickMode()) {
             return;
         }
 
+        if (pluginService.getFiles().getConfigFile().getBoolean("modules.msg-reply.enabled")) {
+            if (playerStatus.isMsgPlayerMode()){
+                event.setCancelled(true);
+                msgManager.sendPrivateMessage(event.getPlayer(), Bukkit.getPlayer(playerStatus.getRepliedPlayer()), event.getMessage());
+                return;
+            }
+        }
         if (pluginService.getFiles().getConfigFile().getBoolean("modules.staff-chat.enabled")) {
             ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
 
@@ -88,7 +97,6 @@ public class SendTextListener implements Listener {
                     Bukkit.getServer().getPluginManager().callEvent(new ChatEvent(player, playerStatus, event, event.getMessage()));
                 }
             });
-
         }
     }
 

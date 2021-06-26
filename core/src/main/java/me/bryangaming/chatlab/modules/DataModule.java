@@ -4,7 +4,10 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.Module;
 import me.bryangaming.chatlab.data.JQData;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.TextUtils;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collections;
 import java.util.Map;
 
 public class DataModule implements Module {
@@ -37,51 +40,96 @@ public class DataModule implements Module {
                 }
 
                 // FirstJoin Format
-                if (formatsFile.getString("join-and-quit.formats." + dataRanks + ".first-join.message") == null) {
+                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".first-join.message.formats").isEmpty()) {
                     jqData.setFirstJoinFormat(null);
                 } else {
-                    jqData.setFirstJoinFormat(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".first-join.message"));
+                    jqData.setFirstJoinFormat(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".first-join.message.formats"));
                 }
 
-                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".first-join.motd").isEmpty()) {
+                String oldFirstJoinFormat = formatsFile.getString("join-and-quit.formats." + dataRanks + ".first-join.message");
+
+                if (oldFirstJoinFormat != null){
+                    if (TextUtils.equalsIgnoreCaseOr(oldFirstJoinFormat, "none", "silent")){
+                        jqData.setJoinType(oldFirstJoinFormat);
+                        jqData.setJoinFormat(Collections.singletonList(""));
+                    }else{
+                        jqData.setJoinType("none");
+                        jqData.setJoinFormat(Collections.singletonList(oldFirstJoinFormat));
+                    }
+                }
+
+                jqData.setFirstJoinHook(formatsFile.getBoolean("join-and-quit.formats." + dataRanks + ".first-join.motd.hook"));
+
+                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".first-join.motd.format").isEmpty()) {
                     jqData.setFirstJoinMotdList(null);
                 } else {
-                    jqData.setFirstJoinMotdList(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".first-join.motd"));
+                    jqData.setFirstJoinMotdList(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".first-join.motd.format"));
                 }
 
-                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".first-join.commands").isEmpty()) {
+                String oldJoinMotd = formatsFile.getString("join-and-quit.formats." + dataRanks + ".first-join.motd");
+
+                if (oldJoinMotd != null){
+                    jqData.setFirstJoinHook(false);
+                    jqData.setFirstJoinMotdList(Collections.singletonList(oldJoinMotd));
+                }
+
+
+                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".first-join.actions").isEmpty()) {
                     jqData.setFirstJoinActions(null);
                 } else {
-                    jqData.setFirstJoinActions(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".first-join.commands"));
+                    jqData.setFirstJoinActions(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".first-join.actions"));
                 }
+
+
 
             }
             if (formatsFile.getConfigurationSection("join-and-quit.formats." + dataRanks + ".join") != null) {
 
                 // Join Format:
-                if (formatsFile.getString("join-and-quit.formats." + dataRanks + ".join.message.format") == null) {
+                if (formatsFile.getString("join-and-quit.formats." + dataRanks + ".join.message.type") == null) {
                     jqData.setJoinType(null);
                 } else {
                     jqData.setJoinType(formatsFile.getString("join-and-quit.formats." + dataRanks + ".join.message.type"));
                 }
-
                 // Join Format:
-                if (formatsFile.getString("join-and-quit.formats." + dataRanks + ".join.message.format") == null) {
+                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".join.message.formats").isEmpty()) {
                     jqData.setJoinFormat(null);
                 } else {
-                    jqData.setJoinFormat(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".join.message.format"));
+                    jqData.setJoinFormat(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".join.message.formats"));
                 }
 
-                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".join.motd").isEmpty()) {
+                String oldJoinFormat = formatsFile.getString("join-and-quit.formats." + dataRanks + ".join.message");
+
+                if (oldJoinFormat != null){
+                    if (TextUtils.equalsIgnoreCaseOr(oldJoinFormat, "none", "silent")){
+                        jqData.setJoinType(oldJoinFormat);
+                        jqData.setJoinFormat(Collections.singletonList(""));
+                    }else{
+                        jqData.setJoinType("none");
+                        jqData.setJoinFormat(Collections.singletonList(oldJoinFormat));
+                    }
+                }
+
+                jqData.setJoinHook(formatsFile.getBoolean("join-and-quit.formats." + dataRanks + ".join.motd.hook"));
+
+                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".join.motd.format").isEmpty()) {
                     jqData.setJoinMotdList(null);
                 } else {
-                    jqData.setJoinMotdList(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".join.motd"));
+                    jqData.setJoinMotdList(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".join.motd.format"));
                 }
 
-                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".join.commands").isEmpty()) {
+                String oldJoinMotd = formatsFile.getString("join-and-quit.formats." + dataRanks + ".join.motd");
+
+                if (oldJoinMotd != null){
+                    jqData.setJoinHook(false);
+                    jqData.setJoinMotdList(Collections.singletonList(oldJoinMotd));
+                }
+
+
+                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".join.actions").isEmpty()) {
                     jqData.setJoinActions(null);
                 } else {
-                    jqData.setJoinActions(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".join.commands"));
+                    jqData.setJoinActions(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".join.actions"));
                 }
 
             }
@@ -95,16 +143,28 @@ public class DataModule implements Module {
                 }
 
                 // Quit Format:
-                if (formatsFile.getString("join-and-quit.formats." + dataRanks + ".quit.message") == null) {
+                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".quit.message.formats").isEmpty()) {
                     jqData.setQuitFormat(null);
                 } else {
-                    jqData.setQuitFormat(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".quit.message"));
+                    jqData.setQuitFormat(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".quit.message.formats"));
                 }
 
-                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".quit.commands").isEmpty()) {
+                String oldQuitFormat = formatsFile.getString("join-and-quit.formats." + dataRanks + ".quit.message");
+
+                if (oldQuitFormat != null){
+                    if (TextUtils.equalsIgnoreCaseOr(oldQuitFormat, "none", "silent")){
+                        jqData.setJoinType(oldQuitFormat);
+                        jqData.setJoinFormat(Collections.singletonList(""));
+                    }else{
+                        jqData.setJoinType("none");
+                        jqData.setJoinFormat(Collections.singletonList(oldQuitFormat));
+                    }
+                }
+
+                if (formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".quit.actions").isEmpty()) {
                     jqData.setQuitActions(null);
                 } else {
-                    jqData.setQuitActions(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".quit.commands"));
+                    jqData.setQuitActions(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".quit.actions"));
                 }
 
             }

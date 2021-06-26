@@ -546,7 +546,7 @@ join-and-quit:
         # A welcome message.
         motd:
           # Option to hook
-          hook: LockLogin
+          hook: false
           format:
             - "<rainbow>---------------</rainbow>"
             - "<white>Welcome to </white><gold>My Server</gold>"
@@ -571,7 +571,7 @@ join-and-quit:
         # A welcome message.
         motd:
           # Option to hook
-          hook: LockLogin
+          hook: false
           format:
             - "<rainbow>---------------</rainbow>"
             - "<white>Welcome back to </white><gold>My Server</gold>"
@@ -610,7 +610,7 @@ join-and-quit:
             - "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
         # A welcome message.
         motd:
-          hook: LockLogin
+          hook: false
           format:
             - "<rainbow>---------------</rainbow>"
             - "<white>Welcome <red>%player%</red> <white>to </white><gold>My Server</gold>"
@@ -633,7 +633,7 @@ join-and-quit:
             - "<dark_gray>[</dark_gray><dark_green>+</dark_green><dark_gray>]</dark_gray> <white>Player</white> <gray>%player%</gray> <white>joined</white><gold>!</gold>"
         # A welcome message.
         motd:
-          hook: LockLogin
+          hook: false
           format:
             - "<rainbow>---------------</rainbow>"
             - "<white>Welcome </white><red>%player%</red><white>back to </white><gold>My Server</gold>"

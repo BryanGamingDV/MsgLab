@@ -49,13 +49,50 @@ cooldown:
 # Here you can set the permission and the variable
 # to be replaced to use the color and tags
 tags:
+
+  config:
+    # When the variable doesn't have item ID setted in config.
+    default-item-id: DIAMOND
+    gui-format: "&fList tags of &a%tag%&8:"
+
+    item-lore:
+      - ""
+      - "&eClick to use it!"
+
+
+  # Groups:
   color:
     variable: "%ml_color%"
     permission: clab.chat.color
 
+    list:
+      red:
+        variable: "&c"
+        name: "&cRed"
+        # Item id [When you use the GUI, optional]:
+        item_id: REDSTONE
+      green:
+        variable: "&a"
+        name: "&aGreen"
+        # Item id [When you use the GUI, optional]:
+        item_id: EMERALD
+
+
   tag:
     variable: "%ml_tag%"
     permission: clab.chat.tag
+
+    list:
+      apprendice:
+        variable: "&e[APRRENDICE]"
+        name: "&aApprendice"
+        # Item id [When you use the GUI, optional]:
+        item_id: REDSTONE
+      master:
+        variable: "&c[MASTER]"
+        name: "&aMaster"
+        # Item id [When you use the GUI, optional]:
+        item_id: EMERALD
 
 
 message:

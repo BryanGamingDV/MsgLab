@@ -345,6 +345,13 @@ modules:
     permissions:
       color: clab.chat.color
 
+  tags:
+    # Enable this module?
+    enabled: true
+    permissions:
+      # main: If player is using the command.
+      main: none
+
   cooldown:
     # Permissions of arguments. Put "none" to disable it.
     permissions:

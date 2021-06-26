@@ -1,11 +1,8 @@
 package me.bryangaming.chatlab.events;
 
-import me.bryangaming.chatlab.listeners.login.PlayerLoginListener;
-import me.bryangaming.chatlab.listeners.login.plugin.PlayerLockLoginEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 
 public class PlayerLoginEvent extends Event {
 

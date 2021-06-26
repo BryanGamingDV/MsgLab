@@ -66,8 +66,9 @@ public class    QuitListener implements Listener {
                 pluginService.getServerData().deleteParty(partyData.getChannelID());
             }
         }
+
         playerStatus.resetStats();
-        if (pluginService.getFiles().getFormatsFile().getBoolean("join_and_quit.enabled")) {
+        if (pluginService.getFiles().getFormatsFile().getBoolean("join-and-quit.enabled")) {
             Bukkit.getPluginManager().callEvent(new ServerChangeEvent(event, event.getPlayer(), playerRank, ChangeMode.QUIT));
         }
 
@@ -94,6 +95,11 @@ public class    QuitListener implements Listener {
             }
 
             if (target.hasRepliedPlayer(player.getUniqueId())) {
+
+                if (target.isMsgPlayerMode()){
+                    target.setMsgChatMessage(false);
+                }
+
                 target.setRepliedPlayer(null);
             }
 

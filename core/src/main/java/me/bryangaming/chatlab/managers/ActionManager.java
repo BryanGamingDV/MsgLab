@@ -4,26 +4,20 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.utils.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.concurrent.TimedSemaphore;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
-import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitTask;
 
-import javax.sound.sampled.AudioInputStream;
 import java.time.Duration;
 import java.util.List;
-import java.util.Locale;
 
 public class ActionManager {
 

@@ -154,9 +154,20 @@ public class MsgCommand implements CommandClass {
 
 
         if (msg.isEmpty()) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("msg", "<player>", "<message>")));
-            senderManager.playSound(sender, SoundEnum.ERROR);
+
+            ReplyManager reply = pluginService.getPlayerManager().getReplyManager();
+
+            if (!playerMsgToggle.isMsgPlayerMode()){
+                senderManager.sendMessage(sender, messagesFile.getString("msg-reply.format.talk-mode.enabled")
+                        .replace("%sender%", target.getName()));
+                playerMsgToggle.setMsgChatMessage(true);
+                reply.setReply(playerUniqueId, targetUniqueId);
+            }else{
+                senderManager.sendMessage(sender, messagesFile.getString("msg-reply.format.talk-mode.disabled")
+                        .replace("%sender%", target.getName()));
+                playerMsgToggle.setMsgChatMessage(false);
+                playerMsgToggle.setRepliedPlayer(null);
+            }
             return true;
         }
 

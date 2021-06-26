@@ -1,8 +1,8 @@
 main: me.bryangaming.chatlab.ChatLab
 name: ChatLab
-version: 2.2.4
+version: 2.3
 author: BryanGaming
 loadbefore:
   - EssentialsX
-softdepend: [ PlaceholderAPI, Multiverse-Core, Vault, ProtocolLib, DiscordSRV, CMI ]
+softdepend: [LockLogin, PlaceholderAPI, Multiverse-Core, Vault, ProtocolLib, DiscordSRV, CMI ]
 api-version: 1.13

@@ -111,13 +111,6 @@
             <version>1.11.3-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>me.lucko</groupId>
-            <artifactId>jar-relocator</artifactId>
-            <version>1.4</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
@@ -128,7 +121,7 @@
             <groupId>net.kyori</groupId>
             <artifactId>adventure-api</artifactId>
             <version>4.8.0</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>me.lucko</groupId>
@@ -179,19 +172,19 @@
             <groupId>me.fixeddev</groupId>
             <artifactId>commandflow-universal</artifactId>
             <version>0.4.5</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>me.fixeddev</groupId>
             <artifactId>commandflow-bukkit</artifactId>
             <version>0.4.0</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.LeonMangler</groupId>
             <artifactId>SuperVanish</artifactId>
             <version>6.2.1</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.MilkBowl</groupId>

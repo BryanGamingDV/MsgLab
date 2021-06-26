@@ -16,8 +16,8 @@ public class JQData {
     private List<String> joinFormat;
     private List<String> quitFormat;
 
-    private String firstJoinHook;
-    private String joinHook;
+    private boolean firstJoinHook;
+    private boolean joinHook;
 
     private List<String> firstJoinMotdList;
     private List<String> joinMotdList;
@@ -49,11 +49,11 @@ public class JQData {
     }
 
 
-    public String getFirstJoinHook(){
+    public boolean getFirstJoinHook(){
         return firstJoinHook;
     }
 
-    public void setFirstJoinHook(String hook){
+    public void setFirstJoinHook(boolean hook){
         this.firstJoinHook = hook;
     }
 
@@ -73,11 +73,11 @@ public class JQData {
         joinNextId = 0;
     }
 
-    public String getJoinHook(){
+    public boolean getJoinHook(){
         return joinHook;
     }
 
-    public void setJoinHook(String hook){
+    public void setJoinHook(boolean hook){
         this.joinHook = hook;
     }
 

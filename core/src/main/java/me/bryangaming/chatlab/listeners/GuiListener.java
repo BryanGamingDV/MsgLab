@@ -48,11 +48,11 @@ public class GuiListener implements Listener {
             return;
         }
 
-        if (userData.equalsGUIGroup("default")) {
+        if (!userData.isGUISet()){
             return;
         }
 
-        guiManager.getData(userData.getGUIGroup()).getClickEvent(event);
+        guiManager.getData(userData.getGUIGroup(0)).getClickEvent(event);
     }
 
     @EventHandler
@@ -66,7 +66,7 @@ public class GuiListener implements Listener {
         }
 
         if (userData.isGUISet()) {
-            userData.setGUIGroup("default");
+            userData.clearGuiGroup();
         }
 
         if (userData.getPage() > 0) {

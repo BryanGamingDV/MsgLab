@@ -5,17 +5,16 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.SupportManager;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
+import me.bryangaming.chatlab.managers.commands.TagsManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collections;
 import java.util.List;
 
 public class PlaceholderUtils {
@@ -23,6 +22,7 @@ public class PlaceholderUtils {
     private static SenderManager senderManager;
     private static SupportManager supportManager;
     private static ChatManager chatManager;
+    private static TagsManager tagsManager;
 
     private static Configuration config;
     private static Configuration formatsFile;
@@ -32,6 +32,7 @@ public class PlaceholderUtils {
         senderManager = pluginService.getPlayerManager().getSender();
         supportManager = pluginService.getSupportManager();
         chatManager = pluginService.getPlayerManager().getChatManager();
+        tagsManager = pluginService.getPlayerManager().getTagsManager();
 
         config = pluginService.getFiles().getConfigFile();
         formatsFile = pluginService.getFiles().getFormatsFile();
@@ -145,7 +146,7 @@ public class PlaceholderUtils {
     }
 
     private static String replaceTags(Player player, String string) {
-        return chatManager.replaceTagsVariables(player, string);
+        return tagsManager.replaceTagsVariables(player, string);
     }
 
     public static String replaceDiscordVariables(Member member, String text){

@@ -5,7 +5,6 @@ import me.bryangaming.chatlab.data.JQData;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
 import me.bryangaming.chatlab.managers.ActionManager;
-import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
@@ -59,6 +58,7 @@ public class ServerChangeListener implements Listener {
                             global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqData.getFirstJoinFormat().get(jqData.getFirstJoinNextId())));
                             jqData.sumFirstJoinNextId();
                         case "random":
+                            playerJoinEvent.setJoinMessage(null);
                             Random random = new Random();
                             global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqData.getFirstJoinFormat().get(random.nextInt() * (jqData.getFirstJoinFormat().size() - 1))));
 
@@ -69,7 +69,7 @@ public class ServerChangeListener implements Listener {
 
             if (jqData.getFirstJoinMotdList() != null) {
 
-                if (!jqData.getFirstJoinHook().equalsIgnoreCase("none")) {
+                if (!jqData.getFirstJoinHook()) {
                     for (String motdFormat : jqData.getFirstJoinMotdList()) {
                         if (motdFormat.startsWith("[LOOP")) {
                             String loopTest = motdFormat.split("]")[0];
@@ -113,13 +113,15 @@ public class ServerChangeListener implements Listener {
                             global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqData.getJoinFormat().get(jqData.getJoinNextId())));
                             jqData.sumJoinNextId();
                         case "random":
+                            playerJoinEvent.setJoinMessage(null);
                             Random random = new Random();
                             global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqData.getJoinFormat().get(random.nextInt() * (jqData.getJoinFormat().size() - 1))));
                     }
                 }
             }
+
               if (jqData.getJoinMotdList() != null) {
-                if (!jqData.getJoinHook().equalsIgnoreCase("none")) {
+                if (!jqData.getJoinHook()) {
                     for (String motdFormat : jqData.getJoinMotdList()) {
                         if (motdFormat.startsWith("[LOOP")) {
                             String loopTest = motdFormat.split("]")[0];
@@ -164,6 +166,7 @@ public class ServerChangeListener implements Listener {
                             global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqData.getQuitFormat().get(jqData.getQuitNextId())));
                             jqData.sumQuitNextId();
                         case "random":
+                            playerQuitEvent.setQuitMessage(null);
                             Random random = new Random();
                             global.sendMessage(TextUtils.convertTextToComponent(serverChangeEvent.getPlayer(), jqData.getQuitFormat().get(random.nextInt() * (jqData.getQuitFormat().size() - 1))));
                     }
