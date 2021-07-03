@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-@Command(names = {"motd"}, desc = "Principal command")
+@Command(names = {"motd"})
 
 public class MotdCommand implements CommandClass {
 

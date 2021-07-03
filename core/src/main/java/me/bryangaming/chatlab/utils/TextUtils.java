@@ -49,6 +49,38 @@ public class TextUtils {
         return MiniMessage.get().parse(formattedPath);
     }
 
+    public static String convertAliasesToCommand(String command){
+        switch (command){
+            case "acc":
+                return "announcer";
+            case "bc":
+                return "broadcast";
+            case "bcworld":
+            case "bcw":
+                return "broadcastworld";
+            case "chn":
+                return "channel";
+            case "chatlab":
+                return "clab";
+            case "cspy":
+                return "commandspy";
+            case "ac":
+                return "helpop";
+            case "pm":
+            case "tell":
+            case "t":
+            case "w":
+            case "whisper":
+                return "msg";
+            case "r":
+                return "reply";
+            case "sspy":
+                return "socialspy";
+            case "sc":
+                return "staffchat";
+        }
+        return command;
+    }
     public static Component convertTextToComponent(Player player, String path, String message) {
 
 

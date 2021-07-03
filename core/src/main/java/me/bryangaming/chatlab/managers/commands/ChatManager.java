@@ -20,13 +20,11 @@ public class ChatManager {
     private final ServerData serverData;
 
     private final Configuration messagesFile;
-    private final Configuration filtersFile;
 
     public ChatManager(PluginService pluginService) {
         this.pluginService = pluginService;
 
         this.messagesFile = pluginService.getFiles().getMessagesFile();
-        this.filtersFile = pluginService.getFiles().getFiltersFile();
 
         this.serverData = pluginService.getServerData();
         this.senderManager = pluginService.getPlayerManager().getSender();
@@ -132,7 +130,7 @@ public class ChatManager {
             }
         }
 
-        if (seconds != -1) {
+        if (seconds == -1) {
             return;
         }
 
@@ -195,15 +193,6 @@ public class ChatManager {
         serverData.setServerTextCooldown(time);
         senderManager.sendMessage(player, messagesFile.getString("chat.cooldown.message")
                 .replace("%time%", String.valueOf(time)));
-    }
-
-
-    public Set<String> checkTags() {
-        return filtersFile.getConfigurationSection("tags").getKeys(false);
-    }
-
-    public Set<String> checkColorTags() {
-        return messagesFile.getConfigurationSection("chat.color.tags").getKeys(false);
     }
 
 }

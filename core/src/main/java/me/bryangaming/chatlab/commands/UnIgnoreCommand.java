@@ -43,13 +43,13 @@ public class UnIgnoreCommand implements CommandClass {
             return true;
         }
 
-        if (!(senderManager.isOnline(sender))) {
+        if (!(senderManager.isOnline(target))) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (senderManager.isVanished(sender)){
+        if (senderManager.isVanished(target.getPlayer())){
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;

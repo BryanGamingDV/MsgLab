@@ -79,7 +79,7 @@ public class    QuitListener implements Listener {
                 pluginService.getRedisConnection().sendMessage("chatlab", MessageType.REPLY, playerStatus.getRepliedBungeePlayer(), player.getName());
                 pluginService.getRedisConnection().sendMessage("chatlab", MessageType.REPLY, playerStatus.getRepliedBungeePlayer(), messagesFile.getString("msg-reply.toggle.left")
                         .replace("%player%", playerStatus.getRepliedBungeePlayer())
-                        .replace("%arg-1%", event.getPlayer().getName()));
+                        .replace("%target%", event.getPlayer().getName()));
                 return;
             }
 
@@ -105,7 +105,7 @@ public class    QuitListener implements Listener {
 
             senderManager.sendMessage(target.getPlayer(), messagesFile.getString("msg-reply.toggle.left")
                     .replace("%player%", target.getPlayer().getName())
-                    .replace("%arg-1%", event.getPlayer().getName()));
+                    .replace("%target%", event.getPlayer().getName()));
         }
 
 

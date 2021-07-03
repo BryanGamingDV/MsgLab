@@ -59,6 +59,7 @@ clab:
         - "<dark_gray>- <white>/channel [join/quit/list/move] [<channel>] <dark_gray>: <white>To use the channel manager."
         - "<dark_gray>- <white>/stream [<text>] <dark_gray>: <white>To stream."
         - "<dark_gray>- <white>/commandspy [on/off/list..] <dark_gray>: <white>To send a commandspy."
+        - "<dark_gray>- <white>/tags [use/gui/list] <dark_gray>: <white>To use the tags."
 
   # /clab reload
   reload:
@@ -107,13 +108,14 @@ clab:
 msg-reply:
 
   format:
-    player: "%c <white>You <dark_gray>> <white>%sender% <dark_gray>: <white>%message%"
+    player: "%c <white>You <dark_gray>> <white>%target% <dark_gray>: <white>%message%"
     arg-1: "%c <white>%sender% <dark_gray>> <white>You <dark_gray>: <white>%message%"
 
     talk-mode:
       enabled: "%c <white>Now you can talk without a command with %target%. Put '/msg %target%' again to talk normal."
       disabled: "%c <white>Now you can talk with a command with %target%. Put '/msg %target%' again to talk without a command."
 
+    left: "%c <white>Dear %player%, <white>the target that you talked with or talked with you left the game."
     talked: "%c <white>You talked with <green>%player%"
 
   # When you use /msg -toggle
@@ -128,7 +130,7 @@ msg-reply:
       unactivated: "%c <white>Now everyone can message <green>%arg-1%<white>."
 
     msg: "%c <white>Sorry, <green>%player%<white>'s pms are disabled."
-    left: "%c <white>Dear %player%, <white>the player <green>(%player%) <white>that you talked with or talked with you left the game."
+    left: "%c <white>Dear %player%, <white>the player <green>(%target%) <white>that you talked with or talked with you left the game."
 
   error:
     no-reply: "%c <white>You don't have anyone to reply."
@@ -295,7 +297,7 @@ channel:
   list:
     message: "<white> List of channels:"
     space: "<dark_gray>->"
-    format: "<dark_gray>- <white>%channel% <dark_gray>- %mode%"
+    format: "<dark_gray>- <white>%channel% "
 
   # Information of a especify channel
   info:
@@ -373,9 +375,12 @@ chat:
   error:
     muted: "%e <white>The chat is muted."
     management:
-      already-muted: "%e <white>The chat is already muted."
-      already-unmuted: "%e <white>The chat is already unmuted."
-
+      global:
+        already-muted: "%e <white>The chat is already muted."
+        already-unmuted: "%e <white>The chat is already unmuted."
+      world:
+        already-muted: "%e <white>The chat is already muted."
+        already-unmuted: "%e <white>The chat is already unmuted."
     flags:
       empty-arg: "%e <white>Please, provide an argument for the flag."
 

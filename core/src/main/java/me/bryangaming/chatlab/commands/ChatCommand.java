@@ -73,6 +73,7 @@ public class ChatCommand implements CommandClass {
         int lines = configFile.getInt("modules.chat.empty-blank", 50);
         boolean silent = false;
 
+
         if (arguments.isEmpty()) {
             chatManager.clearSubCommand(sender, lines, world, false);
             return true;
@@ -143,7 +144,14 @@ public class ChatCommand implements CommandClass {
         int times = -1;
         boolean silent = false;
 
+
         if (arguments.isEmpty()) {
+
+            if (serverData.isMuted()){
+                senderManager.sendMessage(sender, messagesFile.getString("chat.error.management.global.already-muted"));
+                return true;
+            }
+
             chatManager.muteSubCommand(sender, times, channel, world, false);
             return true;
         }
@@ -169,6 +177,11 @@ public class ChatCommand implements CommandClass {
 
                     }
 
+                    if (serverData.isWorldMuted(Bukkit.getWorld(flags[id + 1]))){
+                        senderManager.sendMessage(sender, messagesFile.getString("chat.error.management.world.already-muted"));
+                        return true;
+                    }
+
                     if (flags[id + 1].equalsIgnoreCase("-global")) {
                         if (serverData.isMuted()) {
                             senderManager.sendMessage(sender, messagesFile.getString("error.chat.management.already-muted"));
@@ -191,6 +204,12 @@ public class ChatCommand implements CommandClass {
                         senderManager.sendMessage(sender, messagesFile.getString("chat.error.flags.unknown-channel")
                                 .replace("%channel%", arguments));
                         senderManager.playSound(sender, SoundEnum.ERROR);
+                        return true;
+                    }
+
+
+                    if (serverData.isChannelMuted(flags[id + 1])){
+                        senderManager.sendMessage(sender, messagesFile.getString("chat.error.management.world.already-muted"));
                         return true;
                     }
 
@@ -238,6 +257,12 @@ public class ChatCommand implements CommandClass {
         boolean silent = false;
 
         if (arguments.isEmpty()){
+            if (!serverData.isMuted()) {
+                senderManager.sendMessage(sender, messagesFile.getString("error.chat.management.already-unmuted"));
+                senderManager.playSound(sender, SoundEnum.ERROR);
+                return true;
+            }
+
             chatManager.unmuteSubCommand(world, channel, silent);
             return true;
         }

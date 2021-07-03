@@ -51,7 +51,7 @@ public class ReplyCommand implements CommandClass {
         UserData senderData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
 
         if (!senderData.hasRepliedPlayer()) {
-            if (!senderData.getRepliedBungeePlayer().isEmpty()) {
+            if (senderData.getRepliedBungeePlayer().isEmpty()) {
                 senderManager.sendMessage(sender, messagesFile.getString("msg-reply.error.no-reply"));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
@@ -80,9 +80,6 @@ public class ReplyCommand implements CommandClass {
             }
         }
 
-        if (!senderManager.hasPermission(sender, "chat-format", "color")) {
-            senderMessage = "<pre>" + senderMessage + "</pre>";
-        }
 
         senderManager.sendMessage(sender, messagesFile.getString("msg-reply.format.player")
                         .replace("%player%", sender.getName())
@@ -99,9 +96,9 @@ public class ReplyCommand implements CommandClass {
                 pluginService.getRedisConnection().sendMessage("chatlab", MessageType.MSG, targetName, senderMessage);
                 pluginService.getRedisConnection().sendMessage("chatlab", MessageType.REPLY, targetName, sender.getName());
             } else {
-                senderManager.sendMessage(Bukkit.getPlayer(targetName), messagesFile.getString("msg-reply.format.player")
+                senderManager.sendMessage(Bukkit.getPlayer(targetName), messagesFile.getString("msg-reply.format.arg-1")
                                 .replace("%player%", sender.getName())
-                                .replace("%target%", targetName)
+                                .replace("%sender%", targetName)
                         , senderMessage);
 
                 UserData targetData = pluginService.getCache().getUserDatas().get(Bukkit.getPlayer(targetName).getUniqueId());
@@ -111,7 +108,7 @@ public class ReplyCommand implements CommandClass {
 
         }
 
-        String socialspyFormat = messagesFile.getString("socialspy.spy")
+        String socialspyFormat = messagesFile.getString("socialspy.format")
                 .replace("%player%", sender.getName())
                 .replace("%arg-1%", targetName)
                 .replace("%message%", senderMessage);

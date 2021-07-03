@@ -14,7 +14,6 @@ import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-@Command(names = {"staffchat", "sc"})
 public class StaffChatCommand implements CommandClass {
 
     private final PluginService pluginService;
@@ -35,7 +34,7 @@ public class StaffChatCommand implements CommandClass {
         this.messagesFile = pluginService.getFiles().getMessagesFile();
     }
 
-    @Command(names = "")
+    @Command(names = {"staffchat", "sc"})
     public boolean onMainCommand(@Sender Player sender, @OptArg("") String senderMessage) {
 
         if (senderMessage.isEmpty()) {
@@ -44,6 +43,38 @@ public class StaffChatCommand implements CommandClass {
                     .replace("%mode%", staffChatManagerManager.getStatus()));
             senderManager.playSound(sender, SoundEnum.ARGUMENT, "staffchat");
             return true;
+        }
+
+        UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
+        switch (senderMessage.split(" ")[0].toLowerCase()) {
+            case "-toggle":
+                staffChatManagerManager.toggleOption(sender.getUniqueId());
+                senderManager.sendMessage(sender, messagesFile.getString("staff-chat.player.toggle")
+                        .replace("%mode%", staffChatManagerManager.getStatus()));
+                senderManager.playSound(sender, SoundEnum.ARGUMENT, "staffchat -toggle");
+                return true;
+            case "-on":
+                if (userData.isStaffchatMode()) {
+                    senderManager.sendMessage(sender, messagesFile.getString("staff-chat.error.activated"));
+                    senderManager.playSound(sender, SoundEnum.ERROR);
+                    return true;
+                }
+
+                staffChatManagerManager.enableOption(sender.getUniqueId());
+                senderManager.sendMessage(sender, messagesFile.getString("staff-chat.player.enabled"));
+                senderManager.playSound(sender, SoundEnum.ARGUMENT, "staffchat -on");
+                return true;
+            case "-off":
+                if (!(userData.isStaffchatMode())) {
+                    senderManager.sendMessage(sender, messagesFile.getString("staff-chat.error.unactivated"));
+                    senderManager.playSound(sender, SoundEnum.ERROR);
+                    return true;
+                }
+
+                staffChatManagerManager.disableOption(sender.getUniqueId());
+                senderManager.sendMessage(sender, messagesFile.getString("staff-chat.player.disabled"));
+                senderManager.playSound(sender, SoundEnum.ARGUMENT, "staffchat -off");
+                return true;
         }
 
         String message = String.join(" ", senderMessage);
@@ -66,47 +97,4 @@ public class StaffChatCommand implements CommandClass {
         return true;
     }
 
-    @Command(names = "-on")
-    public boolean onOnSubCommand(@Sender Player sender) {
-
-        UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
-
-        if (userData.isStaffchatMode()) {
-            senderManager.sendMessage(sender, messagesFile.getString("staff-chat.error.activated"));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        staffChatManagerManager.enableOption(sender.getUniqueId());
-        senderManager.sendMessage(sender, messagesFile.getString("staff-chat.player.enabled"));
-        senderManager.playSound(sender, SoundEnum.ARGUMENT, "staffchat -on");
-        return true;
-    }
-
-
-    @Command(names = "-off")
-    public boolean onOffSubCommand(@Sender Player sender) {
-
-        UserData userData = pluginService.getCache().getUserDatas().get(sender.getUniqueId());
-
-        if (!(userData.isStaffchatMode())) {
-            senderManager.sendMessage(sender, messagesFile.getString("staff-chat.error.unactivated"));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        staffChatManagerManager.disableOption(sender.getUniqueId());
-        senderManager.sendMessage(sender, messagesFile.getString("staff-chat.player.disabled"));
-        senderManager.playSound(sender, SoundEnum.ARGUMENT, "staffchat -off");
-        return true;
-    }
-
-    @Command(names = "-toggle")
-    public boolean onToggleSubCommand(@Sender Player sender) {
-        staffChatManagerManager.toggleOption(sender.getUniqueId());
-        senderManager.sendMessage(sender, messagesFile.getString("staff-chat.player.toggle")
-                .replace("%mode%", staffChatManagerManager.getStatus()));
-        senderManager.playSound(sender, SoundEnum.ARGUMENT, "staffchat -toggle");
-        return true;
-    }
 }

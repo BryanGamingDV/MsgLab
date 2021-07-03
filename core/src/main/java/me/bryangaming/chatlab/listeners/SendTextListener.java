@@ -51,7 +51,23 @@ public class SendTextListener implements Listener {
         }
 
         if (pluginService.getFiles().getConfigFile().getBoolean("modules.msg-reply.enabled")) {
-            if (playerStatus.isMsgPlayerMode()){
+
+            if (playerStatus.hasRepliedPlayer()) {
+                Player target = Bukkit.getPlayer(playerStatus.getRepliedPlayer());
+
+                if (target == null) {
+                    if (messagesFile.getString("msg-reply.format.left") != null) {
+                        senderManager.sendMessage(player, messagesFile.getString("msg-reply.format.left")
+                                .replace("%player%", event.getPlayer().getName())
+                                .replace("%target%", Bukkit.getOfflinePlayer(playerStatus.getRepliedPlayer()).getName()));
+                    }
+                    playerStatus.setMsgChatMessage(false);
+                    playerStatus.setRepliedPlayer(null);
+                }
+            }
+
+
+            if (playerStatus.isMsgPlayerMode()) {
                 event.setCancelled(true);
                 msgManager.sendPrivateMessage(event.getPlayer(), Bukkit.getPlayer(playerStatus.getRepliedPlayer()), event.getMessage());
                 return;
@@ -119,13 +135,12 @@ public class SendTextListener implements Listener {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
         String commandText = event.getMessage().replace("/", "").split(" ")[0].toLowerCase();
-
         if (commandText.isEmpty()){
             return;
         }
 
-        if (cooldownData.isCmdSpamming(event.getPlayer().getUniqueId())) {
-            if (!filterFile.getStringList("cooldown.cmd.disabled-cmds").contains(commandText)){
+        if (!filterFile.getStringList("cooldown.cmd.disabled-cmds").contains(commandText)){
+            if (cooldownData.isCmdSpamming(event.getPlayer().getUniqueId())) {
                 event.setCancelled(true);
                 return;
             }
@@ -142,6 +157,8 @@ public class SendTextListener implements Listener {
                 return;
             }
         }
+
+        commandText = TextUtils.convertAliasesToCommand(commandText);
 
         CommandsType commandsType;
         try{

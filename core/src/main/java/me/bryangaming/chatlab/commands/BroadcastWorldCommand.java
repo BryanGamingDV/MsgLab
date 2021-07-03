@@ -10,14 +10,11 @@ import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
 import me.bryangaming.chatlab.utils.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
-import me.fixeddev.commandflow.annotated.annotation.Command;
-import me.fixeddev.commandflow.annotated.annotation.OptArg;
-import me.fixeddev.commandflow.annotated.annotation.Text;
+import me.fixeddev.commandflow.annotated.annotation.*;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-@Command(names = {"broadcastworld", "bcw", "bcworld"})
 public class BroadcastWorldCommand implements CommandClass {
 
 
@@ -35,13 +32,25 @@ public class BroadcastWorldCommand implements CommandClass {
         this.messagesFile = pluginService.getFiles().getMessagesFile();
     }
 
-    @Command(names = "")
-    public boolean onMainSubCommand(@Sender Player sender, @OptArg("") @Text String senderMessage) {
+
+    @Command(names = {"broadcastworld", "bcw", "bcworld"})
+    public boolean onMainSubCommand(@Sender Player sender, @Text String senderMessage) {
 
         if (senderMessage.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("broadcastworld", "<message>")));
             senderManager.playSound(sender, SoundEnum.ERROR);
+            return true;
+        }
+
+
+        if (senderMessage.startsWith("-click")) {
+            if (!senderManager.hasPermission(sender, "broadcast", "world.click")) {
+                senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-perms"));
+                return true;
+            }
+
+            clickChatManager.activateChat(sender.getUniqueId(), ClickType.WORLD);
             return true;
         }
 
@@ -66,19 +75,6 @@ public class BroadcastWorldCommand implements CommandClass {
             senderManager.playSound(sender, SoundEnum.RECEIVE_BROADCASTWORLD);
         }
         return true;
-    }
-
-    @Command(names = "-click")
-    public boolean onClickSubCommand(@Sender Player sender) {
-
-        if (!senderManager.hasPermission(sender, "broadcast", "world.click")) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-perms"));
-            return true;
-        }
-
-        clickChatManager.activateChat(sender.getUniqueId(), ClickType.WORLD);
-        return true;
-
     }
 
 }

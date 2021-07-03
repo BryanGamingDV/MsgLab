@@ -44,10 +44,10 @@ public class StreamCommand implements CommandClass {
         boolean validLink = false;
 
         String[] blockedFilters;
-        if (configFile.getBoolean("module.stream.only-link")) {
+        if (configFile.getBoolean("modules.stream.only-link")) {
             blockedFilters = new String[]{"ALL"};
             if (message.startsWith("https://")) {
-                for (String allowedLink : configFile.getStringList("module.stream.allowed-links")) {
+                for (String allowedLink : configFile.getStringList("modules.stream.allowed-links")) {
                     if (message.substring(8).startsWith(allowedLink)) {
                         validLink = true;
                         break;
@@ -55,7 +55,7 @@ public class StreamCommand implements CommandClass {
                 }
 
             } else {
-                for (String allowedLink : configFile.getStringList("module.stream.allowed-links")) {
+                for (String allowedLink : configFile.getStringList("modules.stream.allowed-links")) {
                     if (message.startsWith(allowedLink)) {
                         validLink = true;
                         break;
@@ -70,7 +70,7 @@ public class StreamCommand implements CommandClass {
         } else {
             blockedFilters = new String[]{"BotRevisor", "LinkRevisor"};
             if (message.contains(".")) {
-                for (String string :configFile.getStringList("module.stream.allowed-links")) {
+                for (String string : configFile.getStringList("module.stream.allowed-links")) {
                     if (message.contains(string)) {
                         validLink = true;
                         break;
@@ -99,7 +99,7 @@ public class StreamCommand implements CommandClass {
 
         if (!configFile.getBoolean("options.redis.enabled")) {
             for (Player playerOnline : Bukkit.getServer().getOnlinePlayers()) {
-                senderManager.sendMessage(playerOnline, configFile.getString("stream.text")
+                senderManager.sendMessage(playerOnline, messagesFile.getString("stream.text")
                         .replace("%player%", sender.getName())
                         .replace("%message%", message));
                 senderManager.playSound(playerOnline, SoundEnum.RECEIVE_STREAM);

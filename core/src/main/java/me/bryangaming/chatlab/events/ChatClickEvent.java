@@ -74,7 +74,7 @@ public class ChatClickEvent implements Listener {
                 clickchat.add(event.getMessage());
             }
 
-            senderManager.sendMessage(event.getPlayer(), pluginService.getFiles().getMessagesFile().getString("commands.broadcast.mode.selected.cooldown")
+            senderManager.sendMessage(event.getPlayer(), pluginService.getFiles().getMessagesFile().getString("broadcast.mode.selected.cooldown")
                     .replace("%cooldown%", clickchat.get(2)));
 
 

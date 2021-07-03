@@ -8,6 +8,7 @@ import me.bryangaming.chatlab.utils.TextUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class DataModule implements Module {
@@ -48,7 +49,7 @@ public class DataModule implements Module {
 
                 String oldFirstJoinFormat = formatsFile.getString("join-and-quit.formats." + dataRanks + ".first-join.message");
 
-                if (oldFirstJoinFormat != null){
+                if (formatsFile.isString("join-and-quit.formats." + dataRanks + ".first-join.message")){
                     if (TextUtils.equalsIgnoreCaseOr(oldFirstJoinFormat, "none", "silent")){
                         jqData.setJoinType(oldFirstJoinFormat);
                         jqData.setJoinFormat(Collections.singletonList(""));
@@ -66,11 +67,11 @@ public class DataModule implements Module {
                     jqData.setFirstJoinMotdList(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".first-join.motd.format"));
                 }
 
-                String oldJoinMotd = formatsFile.getString("join-and-quit.formats." + dataRanks + ".first-join.motd");
+                List<String> oldJoinMotd = formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".first-join.motd");
 
-                if (oldJoinMotd != null){
-                    jqData.setFirstJoinHook(false);
-                    jqData.setFirstJoinMotdList(Collections.singletonList(oldJoinMotd));
+                if (!oldJoinMotd.isEmpty()){
+                    jqData.setJoinHook(false);
+                    jqData.setJoinMotdList(oldJoinMotd);
                 }
 
 
@@ -100,7 +101,7 @@ public class DataModule implements Module {
 
                 String oldJoinFormat = formatsFile.getString("join-and-quit.formats." + dataRanks + ".join.message");
 
-                if (oldJoinFormat != null){
+                if (formatsFile.isString("join-and-quit.formats." + dataRanks + ".join.message")){
                     if (TextUtils.equalsIgnoreCaseOr(oldJoinFormat, "none", "silent")){
                         jqData.setJoinType(oldJoinFormat);
                         jqData.setJoinFormat(Collections.singletonList(""));
@@ -118,11 +119,11 @@ public class DataModule implements Module {
                     jqData.setJoinMotdList(formatsFile.getColoredStringList("join-and-quit.formats." + dataRanks + ".join.motd.format"));
                 }
 
-                String oldJoinMotd = formatsFile.getString("join-and-quit.formats." + dataRanks + ".join.motd");
+                List<String> oldJoinMotd = formatsFile.getStringList("join-and-quit.formats." + dataRanks + ".join.motd");
 
-                if (oldJoinMotd != null){
+                if (!oldJoinMotd.isEmpty()){
                     jqData.setJoinHook(false);
-                    jqData.setJoinMotdList(Collections.singletonList(oldJoinMotd));
+                    jqData.setJoinMotdList(oldJoinMotd);
                 }
 
 
@@ -151,7 +152,7 @@ public class DataModule implements Module {
 
                 String oldQuitFormat = formatsFile.getString("join-and-quit.formats." + dataRanks + ".quit.message");
 
-                if (oldQuitFormat != null){
+                if (formatsFile.isString("join-and-quit.formats." + dataRanks + ".quit.message")){
                     if (TextUtils.equalsIgnoreCaseOr(oldQuitFormat, "none", "silent")){
                         jqData.setJoinType(oldQuitFormat);
                         jqData.setJoinFormat(Collections.singletonList(""));

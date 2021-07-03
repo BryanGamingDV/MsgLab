@@ -133,6 +133,7 @@ public class ChannelCommand implements CommandClass {
         senderManager.sendMessage(player, messagesFile.getString("channel.list.space"));
 
         for (String group : formatsFile.getConfigurationSection("channel").getKeys(false)){
+
             senderManager.sendMessage(player, messagesFile.getString("channel.list.format")
                         .replace("%channel%", group));
         }

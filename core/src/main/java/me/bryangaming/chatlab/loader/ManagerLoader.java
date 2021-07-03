@@ -55,7 +55,6 @@ public class ManagerLoader implements Loader {
         guiManager = new GuiManager(pluginService);
         runnableManager = new RunnableManager(pluginService);
 
-        chatManagent = new ClickChatManager(pluginService);
         groupManager = new GroupManager(pluginService);
 
         recipientManager = new RecipientManager(pluginService);
@@ -64,6 +63,7 @@ public class ManagerLoader implements Loader {
         senderManager = new SenderManager(pluginService);
         chatManager = new ChatManager(pluginService);
 
+        chatManagent = new ClickChatManager(pluginService);
         actionManager = new ActionManager(pluginService);
         staffChatManagerManager = new StaffChatManager(pluginService);
         helpOpManager = new HelpOpManager(pluginService);

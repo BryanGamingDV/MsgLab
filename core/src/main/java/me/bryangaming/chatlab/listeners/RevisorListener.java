@@ -64,7 +64,9 @@ public class RevisorListener implements Listener {
 
 
             String message = textRevisorEvent.getMessage();
+
             if (textRevisorEvent.getRevisorExcepcions().contains("ALL")){
+                textRevisorEvent.setMessageRevised(message);
                 return;
             }
 

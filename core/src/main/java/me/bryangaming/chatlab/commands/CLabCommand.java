@@ -48,7 +48,7 @@ public class CLabCommand implements CommandClass {
     @Command(names = "")
     public boolean onCommand(CommandSender sender) {
         senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, support, sounds, debug, restore")));
+                .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, support, sounds, debug")));
         senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
     }
@@ -109,18 +109,11 @@ public class CLabCommand implements CommandClass {
     @Command(names = "support")
     public boolean supportSubCommand(CommandSender sender) {
 
-        if (configFile.getBoolean("options.allow-support")) {
-            senderManager.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
-            senderManager.sendMessage(sender, "&8- &fJoin: &ahttps://discord.gg/wpSh4Bf4E");
-            senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab support");
-            return true;
-        }
+        senderManager.sendMessage(sender, "&b[Server] &8| &fIf you want plugin support:");
+        senderManager.sendMessage(sender, "&8- &fJoin: &ahttps://discord.gg/wpSh4Bf4E");
+        senderManager.playSound(sender, SoundEnum.ARGUMENT, "clab support");
 
-        senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                .replace("%usage%", TextUtils.getUsage("clab", "help, reload, commands, sounds, debug, restore")));
-        senderManager.playSound(sender, SoundEnum.ERROR);
         return true;
-
     }
 
     @Command(names = "sounds")
