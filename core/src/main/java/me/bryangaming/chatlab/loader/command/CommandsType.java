@@ -18,7 +18,8 @@ public enum CommandsType {
     STREAM("stream", ""),
     COMMANDSPY("spymodule.commandspy", ""),
     PARTY("party", ""),
-    ANNOUNCER("announcer", "");
+    ANNOUNCER("announcer", ""),
+    TAGS("tags", "");
 
     private final String commandName;
     private final String suffix;

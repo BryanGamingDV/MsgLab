@@ -115,14 +115,13 @@ public class MsgCommand implements CommandClass {
             return true;
         }
 
-
-        if (!(senderManager.isOnline(sender))) {
+        if (!(senderManager.isOnline(target))) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (senderManager.isVanished(sender)){
+        if (senderManager.isVanished(target.getPlayer())){
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
@@ -154,9 +153,20 @@ public class MsgCommand implements CommandClass {
 
 
         if (msg.isEmpty()) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("msg", "<player>", "<message>")));
-            senderManager.playSound(sender, SoundEnum.ERROR);
+
+            ReplyManager reply = pluginService.getPlayerManager().getReplyManager();
+
+            if (!playerMsgToggle.isMsgPlayerMode()){
+                senderManager.sendMessage(sender, messagesFile.getString("msg-reply.format.talk-mode.enabled")
+                        .replace("%target%", target.getName()));
+                playerMsgToggle.setMsgChatMessage(true);
+                reply.setReply(playerUniqueId, targetUniqueId);
+            }else{
+                senderManager.sendMessage(sender, messagesFile.getString("msg-reply.format.talk-mode.disabled")
+                        .replace("%target%", target.getName()));
+                playerMsgToggle.setMsgChatMessage(false);
+                playerMsgToggle.setRepliedPlayer(null);
+            }
             return true;
         }
 
@@ -173,10 +183,6 @@ public class MsgCommand implements CommandClass {
             message = textRevisorEvent.getMessageRevised();
         }
 
-        if (!senderManager.hasPermission(sender, "chat-format", "color")) {
-            message = "<pre>" + message + "</pre>";
-        }
-
         MsgManager msgManager = pluginService.getPlayerManager().getMsgManager();
         Player targetPlayer = target.getPlayer();
 
@@ -185,7 +191,7 @@ public class MsgCommand implements CommandClass {
          }else {
             msgManager.sendPrivateMessage(sender, targetPlayer, message);
         }
-        String socialspyFormat = messagesFile.getString("socialspy.spy")
+        String socialspyFormat = messagesFile.getString("socialspy.format")
                 .replace("%player%", sender.getName())
                 .replace("%arg-1%", target.getName())
                 .replace("%message%", message);

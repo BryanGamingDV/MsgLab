@@ -16,12 +16,14 @@ public class UserData{
 
     private String channelgroup = "default";
 
-    private String guiGroup = "default";
+    private List<String> guiGroup = new ArrayList<>();
     private int guipage = 0;
 
     private boolean changinginv = false;
 
     private boolean socialspyMode = false;
+
+    private boolean msgPlayerMode = false;
     private boolean msgtoggleMode = false;
 
     private boolean playercooldownMode = false;
@@ -102,11 +104,15 @@ public class UserData{
     }
 
     public boolean isGUISet() {
-        return !guiGroup.equalsIgnoreCase("default");
+        return !guiGroup.isEmpty();
     }
 
     public boolean isPlayerLeader() {
         return isLeader;
+    }
+
+    public boolean isMsgPlayerMode() {
+        return msgPlayerMode;
     }
 
     public Map<String, String> gethashTags() {
@@ -126,7 +132,7 @@ public class UserData{
     }
 
     public boolean equalsGUIGroup(String string) {
-        return guiGroup.equalsIgnoreCase(string);
+        return guiGroup.get(0).equalsIgnoreCase(string);
     }
 
     public int getPage() {
@@ -145,12 +151,20 @@ public class UserData{
         changinginv = status;
     }
 
-    public void setGUIGroup(String string) {
-        guiGroup = string;
+    public void setGUIGroup(int id, String string) {
+        guiGroup.set(id, string);
     }
 
-    public String getGUIGroup() {
-        return guiGroup;
+    public void addGuiGroup(String string){
+        guiGroup.add(string);
+    }
+
+    public void clearGuiGroup(){
+        guiGroup.clear();
+    }
+
+    public String getGUIGroup(int id) {
+        return guiGroup.get(id);
     }
 
     public void changePage(int page) {
@@ -160,6 +174,8 @@ public class UserData{
     public void setChannelGroup(String group) {
         channelgroup = group;
     }
+
+
 
     public List<String> getClickChat() {
         return clickChat;
@@ -225,12 +241,16 @@ public class UserData{
         this.isLeader = isLeader;
     }
 
+    public void setMsgChatMessage(boolean status){
+        this.msgPlayerMode = status;
+    }
+
     public void resetStats() {
 
         if (!(gethashTags().size() > 0)) gethashTags().clear();
         if (isChangingPage()) setChangeInv(false);
         if (getPage() > 0) changePage(0);
-        if (isGUISet()) setGUIGroup("default");
+        if (isGUISet()) guiGroup.clear();
 
         if (getChannelType() != GroupEnum.GLOBAL) setPlayerChannel(GroupEnum.GLOBAL);
         if (!equalsChannelGroup("default")) setChannelGroup("default");

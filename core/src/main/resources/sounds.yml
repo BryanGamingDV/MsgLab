@@ -18,6 +18,9 @@ config:
 
 # Sound groups.
 group:
+
+
+
   # Group name  
   msg:
     # Commands that will have the same sound.

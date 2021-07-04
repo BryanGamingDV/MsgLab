@@ -34,19 +34,18 @@ public final class Configuration extends YamlConfiguration {
 
     private void createFile() {
         try {
-            if (file.exists()) {
+            if (!file.exists()) {
                 if (this.plugin.getResource(this.fileName) != null) {
-                    this.plugin.saveResource(this.fileName, false);
+                    plugin.saveResource(this.fileName, false);
+                }else{
+                    save(file);
                 }
                 load(file);
                 return;
             }
 
-            if (plugin.getResource(fileName) != null) {
-                plugin.saveResource(fileName, false);
-            }
-
             load(file);
+            save(file);
 
         } catch (InvalidConfigurationException | IOException e) {
             plugin.getLogger().log(Level.SEVERE, "Creation of Configuration '" + fileName + "' failed.", e);

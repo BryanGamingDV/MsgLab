@@ -2,7 +2,6 @@ package me.bryangaming.chatlab.commands;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.ServerData;
-import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
@@ -15,9 +14,6 @@ import me.fixeddev.commandflow.annotated.annotation.Text;
 import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 @Command(names = {"chat"})
@@ -76,6 +72,7 @@ public class ChatCommand implements CommandClass {
         String world = "-global";
         int lines = configFile.getInt("modules.chat.empty-blank", 50);
         boolean silent = false;
+
 
         if (arguments.isEmpty()) {
             chatManager.clearSubCommand(sender, lines, world, false);
@@ -147,7 +144,14 @@ public class ChatCommand implements CommandClass {
         int times = -1;
         boolean silent = false;
 
+
         if (arguments.isEmpty()) {
+
+            if (serverData.isMuted()){
+                senderManager.sendMessage(sender, messagesFile.getString("chat.error.management.global.already-muted"));
+                return true;
+            }
+
             chatManager.muteSubCommand(sender, times, channel, world, false);
             return true;
         }
@@ -173,6 +177,11 @@ public class ChatCommand implements CommandClass {
 
                     }
 
+                    if (serverData.isWorldMuted(Bukkit.getWorld(flags[id + 1]))){
+                        senderManager.sendMessage(sender, messagesFile.getString("chat.error.management.world.already-muted"));
+                        return true;
+                    }
+
                     if (flags[id + 1].equalsIgnoreCase("-global")) {
                         if (serverData.isMuted()) {
                             senderManager.sendMessage(sender, messagesFile.getString("error.chat.management.already-muted"));
@@ -195,6 +204,12 @@ public class ChatCommand implements CommandClass {
                         senderManager.sendMessage(sender, messagesFile.getString("chat.error.flags.unknown-channel")
                                 .replace("%channel%", arguments));
                         senderManager.playSound(sender, SoundEnum.ERROR);
+                        return true;
+                    }
+
+
+                    if (serverData.isChannelMuted(flags[id + 1])){
+                        senderManager.sendMessage(sender, messagesFile.getString("chat.error.management.world.already-muted"));
                         return true;
                     }
 
@@ -242,6 +257,12 @@ public class ChatCommand implements CommandClass {
         boolean silent = false;
 
         if (arguments.isEmpty()){
+            if (!serverData.isMuted()) {
+                senderManager.sendMessage(sender, messagesFile.getString("error.chat.management.already-unmuted"));
+                senderManager.playSound(sender, SoundEnum.ERROR);
+                return true;
+            }
+
             chatManager.unmuteSubCommand(world, channel, silent);
             return true;
         }
@@ -326,7 +347,7 @@ public class ChatCommand implements CommandClass {
             return true;
         }
 
-        if (TextUtils.isNumber(argument1)){
+        if (!TextUtils.isNumber(argument1)){
             senderManager.sendMessage(sender, messagesFile.getString("chat.error.flags.unknown-number")
                     .replace("%text%", argument1));
             senderManager.playSound(sender, SoundEnum.ERROR);
@@ -338,67 +359,6 @@ public class ChatCommand implements CommandClass {
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "chat cooldown");
         return true;
 
-    }
-
-    @Command(names = "color")
-    public boolean colorSubCommand(@Sender Player player, @OptArg("") String tagKey, @OptArg("") String tagValue) {
-
-        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
-
-        if (tagKey.isEmpty()) {
-            senderManager.sendMessage(player, messagesFile.getString("error.chat.tags.empty-tags")
-                    .replace("%tags%", chatManager.allTags())
-                    .replace("%usage%", TextUtils.getUsage("chat", "color", "[<typetag>]", "[@tag/color]")));
-            senderManager.playSound(player, SoundEnum.ERROR);
-            return true;
-        }
-
-        if (!chatManager.isTag(tagKey)) {
-            senderManager.sendMessage(player, messagesFile.getString("error.chat.tags.unknown-tag")
-                    .replace("%text%", tagKey));
-            senderManager.playSound(player, SoundEnum.ERROR);
-            return true;
-        }
-
-        Map<String, String> tagData = userData.gethashTags();
-
-        if (tagValue.isEmpty()) {
-            senderManager.sendMessage(player, messagesFile.getString("error.chat.tags.empty-colortags")
-                    .replace("%colortags%", chatManager.allColorTags())
-                    .replace("%usage%", TextUtils.getUsage("chat", "color", "typetag", "[@tag/color]")));
-            senderManager.playSound(player, SoundEnum.ERROR);
-            return true;
-        }
-
-        if (tagValue.startsWith("@")) {
-            if (messagesFile.getString("chat.color.tags." + tagValue.substring(1)) == null) {
-                senderManager.sendMessage(player, messagesFile.getString("error.chat.tags.unknown-tagcolor")
-                        .replace("%text%", tagValue));
-                senderManager.playSound(player, SoundEnum.ERROR);
-                return true;
-            }
-
-            if (tagData.containsKey(tagKey)) {
-                tagData.replace(tagKey, tagValue.substring(1));
-            } else {
-                tagData.put(tagKey, tagValue.substring(1));
-            }
-
-            senderManager.sendMessage(player, messagesFile.getString("chat.color.selected.tag")
-                    .replace("%tag%", tagValue.substring(1)));
-            senderManager.playSound(player, SoundEnum.ARGUMENT, "chat color");
-            return true;
-        }
-
-        if (tagData.containsKey(tagKey)) {
-            tagData.replace(tagKey, tagValue);
-        } else {
-            tagData.put(tagKey, tagValue);
-        }
-        senderManager.sendMessage(player, messagesFile.getString("chat.color.selected.color")
-                .replace("%color%", tagValue.replace("&", "&_")));
-        senderManager.playSound(player, SoundEnum.ARGUMENT, "chat color");
-        return true;
     }
 
     @Command(names = "reload")

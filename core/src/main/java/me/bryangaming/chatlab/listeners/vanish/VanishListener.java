@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.listeners;
+package me.bryangaming.chatlab.listeners.vanish;
 
 import de.myzelyam.api.vanish.PlayerVanishStateChangeEvent;
 import me.bryangaming.chatlab.PluginService;
@@ -11,11 +11,14 @@ import redis.clients.jedis.Jedis;
 public class VanishListener implements Listener {
 
     private final Configuration configFile;
-    private final Jedis jedis;
+    private Jedis jedis;
 
     public VanishListener (PluginService pluginService){
         this.configFile = pluginService.getFiles().getConfigFile();
-        this.jedis = pluginService.getRedisConnection().getJedisPool().getResource();
+
+        if (configFile.getBoolean("options.redis.enabled")) {
+            this.jedis = pluginService.getRedisConnection().getJedisPool().getResource();
+        }
     }
 
     @EventHandler

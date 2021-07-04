@@ -18,7 +18,6 @@ import me.fixeddev.commandflow.bukkit.annotation.Sender;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-@Command(names = {"broadcast", "bc"})
 public class BroadcastCommand implements CommandClass {
 
     private final PluginService pluginService;
@@ -37,7 +36,7 @@ public class BroadcastCommand implements CommandClass {
         this.messagesFile = pluginService.getFiles().getMessagesFile();
     }
 
-    @Command(names = "")
+    @Command(names = {"broadcast", "bc"})
     public boolean onMainCommand(@Sender Player sender, @OptArg("") @Text String senderMessage) {
 
         if (senderMessage.isEmpty()) {
@@ -46,6 +45,22 @@ public class BroadcastCommand implements CommandClass {
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
+
+
+        if (senderMessage.startsWith("-click")){
+            ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
+
+            if (!senderManager.hasPermission(sender, "broadcast","global.click")) {
+                senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-perms"));
+                senderManager.playSound(sender, SoundEnum.ERROR);
+                return true;
+            }
+
+            clickChatManager.activateChat(sender.getUniqueId(), ClickType.GLOBAL);
+            senderManager.playSound(sender, SoundEnum.ARGUMENT, "broadcast -click");
+            return true;
+        }
+
 
         String message = String.join(" ", senderMessage);
 
@@ -73,21 +88,6 @@ public class BroadcastCommand implements CommandClass {
                     .replace("%message%", message));
         }
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "broadcast");
-        return true;
-    }
-
-    @Command(names = "-click")
-    public boolean onClickSubCommand(@Sender Player sender) {
-        ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
-
-        if (!senderManager.hasPermission(sender, "broadcast","global.click")) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-perms"));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        clickChatManager.activateChat(sender.getUniqueId(), ClickType.GLOBAL);
-        senderManager.playSound(sender, SoundEnum.ARGUMENT, "broadcast -click");
         return true;
     }
 

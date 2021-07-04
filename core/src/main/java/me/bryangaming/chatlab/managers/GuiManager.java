@@ -44,7 +44,7 @@ public class GuiManager {
         UserData userData = pluginService.getCache().getUserDatas().get(uuid);
 
         player.openInventory(getData(name).getPage(uuid, page).build());
-        userData.setGUIGroup(name);
+        userData.setGUIGroup(0, name);
     }
 
 

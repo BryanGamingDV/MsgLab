@@ -10,7 +10,10 @@ import me.bryangaming.chatlab.utils.UpdateCheck;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+
 
 public class ChatLab extends JavaPlugin {
 
@@ -53,7 +56,7 @@ public class ChatLab extends JavaPlugin {
         chatLab = new PluginService(this);
         Configuration configFile = chatLab.getFiles().getConfigFile();
 
-        if (!configFile.getString("config-version", "1.0").equalsIgnoreCase(getDescription().getVersion())) {
+        if (!configFile.getString("config-version", "1.0").equalsIgnoreCase("2.3")) {
             getLogger().info("Error - Please reload the configuration!");
             getLogger().info("Error - You are using the latest version with an outdated path.");
             getLogger().info("Error - This can cause bugs..");
@@ -74,8 +77,10 @@ public class ChatLab extends JavaPlugin {
 
     public void recoverStats() {
         if (Bukkit.getServer().getOnlinePlayers().size() > 0) {
+
             chatLab.getDebugger().log("The plugin was reloaded with /reload", LoggerTypeEnum.WARNING);
             getLogger().info("Please don't use /reload to reload plugins, it can cause serious errors!");
+
         }
     }
 

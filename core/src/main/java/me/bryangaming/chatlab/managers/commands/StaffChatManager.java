@@ -94,8 +94,6 @@ public class StaffChatManager implements Option {
         Player player = event.getPlayer();
 
         ClickChatManager clickChatManager = pluginService.getPlayerManager().getChatManagent();
-        SenderManager senderManager = pluginService.getPlayerManager().getSender();
-
         UserData senderData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
 
         if (!senderManager.hasPermission(player, "staff-chat", "watch")){
@@ -111,7 +109,7 @@ public class StaffChatManager implements Option {
                 continue;
             }
 
-            senderManager.sendMessage(onlinePlayer, messagesFile.getString("staff-chat.message")
+            senderManager.sendMessage(onlinePlayer, messagesFile.getString("staff-chat.format")
                     .replace("%player%", player.getName())
                     .replace("%message%", event.getMessage())
                     .replace(messagesFile.getString("staff-chat.symbol"), ""));

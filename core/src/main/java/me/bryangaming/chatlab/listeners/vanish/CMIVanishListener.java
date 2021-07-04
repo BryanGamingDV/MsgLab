@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.listeners;
+package me.bryangaming.chatlab.listeners.vanish;
 
 import com.Zrips.CMI.events.CMIPlayerUnVanishEvent;
 import com.Zrips.CMI.events.CMIPlayerVanishEvent;

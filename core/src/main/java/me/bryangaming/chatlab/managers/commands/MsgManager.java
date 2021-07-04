@@ -37,7 +37,7 @@ public class MsgManager {
 
         String playerFormat = messagesFile.getString("msg-reply.format.player")
                 .replace("%sender%", player.getName())
-                .replace("%receiver%", target.getName());
+                .replace("%target%", target.getName());
 
         String targetFormat = messagesFile.getString("msg-reply.format.arg-1")
                 .replace("%player%", player.getName())

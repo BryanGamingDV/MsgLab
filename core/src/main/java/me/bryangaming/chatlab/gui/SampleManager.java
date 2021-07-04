@@ -3,6 +3,7 @@ package me.bryangaming.chatlab.gui;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.gui.manager.GuiSample;
 import me.bryangaming.chatlab.gui.sample.OnlineSample;
+import me.bryangaming.chatlab.gui.sample.TagSample;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class SampleManager {
 
     public void setup() {
         sampleHashMap.put("online", new OnlineSample(pluginService));
+        sampleHashMap.put("tag", new TagSample(pluginService));
     }
 
     public Map<String, GuiSample> getSampleMap() {

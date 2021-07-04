@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.utils.hooks;
+package me.bryangaming.chatlab.utils.hooks.vanish;
 
 import de.myzelyam.api.vanish.VanishAPI;
 import me.bryangaming.chatlab.PluginService;
@@ -9,11 +9,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-public class VanishHook implements Hook {
+public class SuperVanishHook implements Hook {
 
     private final PluginService pluginService;
 
-    public VanishHook(PluginService pluginService) {
+    public SuperVanishHook(PluginService pluginService) {
         this.pluginService = pluginService;
         setup();
     }
@@ -25,7 +25,7 @@ public class VanishHook implements Hook {
             return;
         }
 
-        if (pluginService.getFiles().getConfigFile().getBoolean("options.hooks.protocollib")){
+        if (!pluginService.getFiles().getConfigFile().getBoolean("options.allow-hooks.supervanish")){
             return;
         }
 

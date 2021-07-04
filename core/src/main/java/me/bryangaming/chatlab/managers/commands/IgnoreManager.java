@@ -68,18 +68,18 @@ public class IgnoreManager {
 
     public boolean playerIsIgnored(UUID sender, UUID playerIgnored) {
 
-        if (!pluginService.getFiles().getConfigFile().getBoolean("modules.ignore.enabled")){
+        if (!pluginService.getFiles().getConfigFile().getBoolean("modules.ignore-unignore.enabled")){
             return false;
         }
 
         Configuration playersFile = pluginService.getFiles().getPlayersFile();
         String playerName = Bukkit.getPlayer(sender).getName();
 
-        if (!(playersFile.contains("players."))) return false;
+        if (!(playersFile.contains("players"))) return false;
+
 
         List<String> ignoredPlayers = playersFile
                 .getStringList("players." + playerIgnored.toString() + ".players-ignored");
-
 
         return ignoredPlayers.contains(playerName);
     }

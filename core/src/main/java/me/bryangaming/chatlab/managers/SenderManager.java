@@ -97,6 +97,15 @@ public class SenderManager {
         return player.hasPermission(permission);
 
     }
+
+    public boolean isOnline(OfflinePlayer player){
+        if (!configFile.getBoolean("options.bungeeecord")) {
+            return player.isOnline();
+        }
+
+        return jedis.hexists("onlinePlayer", player.getName());
+    }
+
     public boolean isOnline(Player player){
         if (!configFile.getBoolean("options.bungeeecord")) {
             return player.isOnline();
@@ -144,7 +153,6 @@ public class SenderManager {
     }
 
     public void sendMessage(Player sender, String path) {
-
         Logger logger = pluginService.getPlugin().getLogger();
         if (path == null) {
             if (!configFile.getString("version", "1.0").equalsIgnoreCase(pluginService.getPlugin().getDescription().getVersion())) {

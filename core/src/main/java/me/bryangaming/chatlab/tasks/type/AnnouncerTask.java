@@ -1,5 +1,6 @@
 package me.bryangaming.chatlab.tasks.type;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.task.Task;
 import me.bryangaming.chatlab.managers.SenderManager;
@@ -44,6 +45,7 @@ public class AnnouncerTask implements Task {
         List<String> announcerList = new ArrayList<>(announcerMessages.getKeys(false));
 
         String announcerType = configFile.getString("modules.announcer.announcers.type");
+        long announcerDelay = configFile.getInt("modules.announcer.global-interval") * 20L;
 
         Random random = new Random();
 
@@ -51,12 +53,13 @@ public class AnnouncerTask implements Task {
         AtomicBoolean firstTime = new AtomicBoolean(true);
 
         bukkitTask = Bukkit.getServer().getScheduler().runTaskTimer(pluginService.getPlugin(), () -> {
+
             switch (announcerType.toLowerCase()) {
                 case "random":
                     announcerID.set(random.nextInt(announcerList.size() - 1));
                     break;
 
-                case "ordened":
+                case "ordered":
                     if (firstTime.get()){
                         firstTime.set(false);
                         break;
@@ -72,10 +75,11 @@ public class AnnouncerTask implements Task {
                 default:
                     return;
             }
-            Bukkit.getServer().getOnlinePlayers().forEach(player ->
-                    senderManager.sendMessage(player, configFile.getStringList("modules.announcer.config.messages." + announcerList.get(announcerID.get()))));
 
-        }, configFile.getInt("modules.announcer.config.interval") * 20L, configFile.getInt("modules.announcer.config.interval") * 20L);
+            Bukkit.getServer().getOnlinePlayers().forEach(player ->
+                    senderManager.sendMessage(player, configFile.getStringList("modules.announcer.announcers.messages." + announcerList.get(announcerID.get()))));
+
+        }, announcerDelay, announcerDelay);
     }
 
     public void cancelTask() {

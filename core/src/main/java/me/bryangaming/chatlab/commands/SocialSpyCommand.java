@@ -74,12 +74,12 @@ public class SocialSpyCommand implements CommandClass {
 
         if (target == null){
             if (senderData.isSocialSpyMode()) {
-                senderManager.sendMessage(sender, messagesFile.getString("socialspy.error.activated"));
+                senderManager.sendMessage(sender, messagesFile.getString("socialspy.error.player.activated"));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }
             senderData.toggleSocialSpy(true);
-            senderManager.sendMessage(sender, messagesFile.getString("socialspy.player.enabled"));
+            senderManager.sendMessage(sender, messagesFile.getString("socialspy.message.enabled"));
             senderManager.playSound(sender, SoundEnum.ARGUMENT, "socialspy on");
         } else {
 
@@ -93,7 +93,7 @@ public class SocialSpyCommand implements CommandClass {
             String targetName = target.getName();
 
             if (targetData.isSocialSpyMode()) {
-                senderManager.sendMessage(sender.getPlayer(), messagesFile.getString("socialspy.error.arg-2-activated")
+                senderManager.sendMessage(sender.getPlayer(), messagesFile.getString("socialspy.error.arg-2.activated")
                         .replace("%arg-2%", targetName));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
@@ -102,7 +102,7 @@ public class SocialSpyCommand implements CommandClass {
             targetData.toggleSocialSpy(true);
             senderManager.sendMessage(sender, messagesFile.getString("socialspy.arg-2.enabled")
                     .replace("%arg-2%", targetName));
-            senderManager.sendMessage(target.getPlayer(), messagesFile.getString("socialspy.player.enabled"));
+            senderManager.sendMessage(target.getPlayer(), messagesFile.getString("socialspy.message.enabled"));
         }
         senderManager.playSound(sender, SoundEnum.ARGUMENT, "socialspy on");
         return true;
@@ -115,13 +115,13 @@ public class SocialSpyCommand implements CommandClass {
 
         if (target == null) {
             if (!(playerSpy.isSocialSpyMode())) {
-                senderManager.sendMessage(player, messagesFile.getString("socialspy.error.unactivated"));
+                senderManager.sendMessage(player, messagesFile.getString("socialspy.error.player.unactivated"));
                 senderManager.playSound(player, SoundEnum.ERROR);
                 return true;
             }
 
             playerSpy.toggleSocialSpy(false);
-            senderManager.sendMessage(player, messagesFile.getString("socialspy.player.disabled"));
+            senderManager.sendMessage(player, messagesFile.getString("socialspy.message.disabled"));
         } else {
 
             if (!target.isOnline()) {
@@ -134,7 +134,7 @@ public class SocialSpyCommand implements CommandClass {
             String targetName = target.getName();
 
             if (!(targetData.isSocialSpyMode())) {
-                senderManager.sendMessage(player, messagesFile.getString("socialspy.error.arg-2-unactivated")
+                senderManager.sendMessage(player, messagesFile.getString("socialspy.error.arg-2.unactivated")
                         .replace("%arg-2%", targetName));
                 senderManager.playSound(player, SoundEnum.ERROR);
                 return true;
@@ -143,7 +143,7 @@ public class SocialSpyCommand implements CommandClass {
             targetData.toggleSocialSpy(false);
             senderManager.sendMessage(player, messagesFile.getString("socialspy.arg-2.disabled")
                     .replace("%arg-2%", targetName));
-            senderManager.sendMessage(target, messagesFile.getString("socialspy.player.disabled"));
+            senderManager.sendMessage(target, messagesFile.getString("socialspy.message.disabled"));
         }
 
         senderManager.playSound(player, SoundEnum.ARGUMENT, "socialspy off");

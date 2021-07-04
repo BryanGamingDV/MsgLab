@@ -1,6 +1,5 @@
 package me.bryangaming.chatlab.managers.sound;
 
-import me.bryangaming.chatlab.CacheManager;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.DebugLogger;

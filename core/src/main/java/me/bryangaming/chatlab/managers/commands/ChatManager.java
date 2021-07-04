@@ -9,7 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class ChatManager {
 
@@ -18,13 +20,11 @@ public class ChatManager {
     private final ServerData serverData;
 
     private final Configuration messagesFile;
-    private final Configuration filtersFile;
 
     public ChatManager(PluginService pluginService) {
         this.pluginService = pluginService;
 
         this.messagesFile = pluginService.getFiles().getMessagesFile();
-        this.filtersFile = pluginService.getFiles().getFiltersFile();
 
         this.serverData = pluginService.getServerData();
         this.senderManager = pluginService.getPlayerManager().getSender();
@@ -130,7 +130,7 @@ public class ChatManager {
             }
         }
 
-        if (seconds != -1) {
+        if (seconds == -1) {
             return;
         }
 
@@ -155,14 +155,12 @@ public class ChatManager {
                         serverData.unmuteChannel(channelPath);
                     }
                 }
+                if (!channelPath.equalsIgnoreCase("-none")) {
+                    senderManager.sendMessageTo(channelPlayerList, messagesFile.getString("chat.unmute.temporal"));
+                }else{
+                    senderManager.sendMessageTo(onlinePlayers, messagesFile.getString("chat.unmute.temporal"));
 
-                if (silent) {
-                    return;
                 }
-
-                for (Player onlinePlayer : onlinePlayers) {
-                    senderManager.sendMessage(onlinePlayer, messagesFile.getString("chat.mute.unmute-temporal"));
-                           }
             }
         }, 20L * seconds);
     }
@@ -184,7 +182,8 @@ public class ChatManager {
         }
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            senderManager.sendMessage(onlinePlayer, messagesFile.getString("chat.mute.unmute-temporal"));
+            senderManager.sendMessage(onlinePlayer, messagesFile.getString("chat.unmute.permanent")
+                    .replace("%player%", onlinePlayer.getName()));
         }
     }
 
@@ -196,68 +195,4 @@ public class ChatManager {
                 .replace("%time%", String.valueOf(time)));
     }
 
-
-    public Set<String> checkTags() {
-        return filtersFile.getConfigurationSection("tags").getKeys(false);
-    }
-
-    public Set<String> checkColorTags() {
-        return messagesFile.getConfigurationSection("chat.color.tags").getKeys(false);
-    }
-
-    public boolean isTag(String tag) {
-        for (String tags : checkTags()) {
-            if (tags.equalsIgnoreCase(tag)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    public String allTags() {
-        return String.join(", ", checkTags());
-    }
-
-    public String allColorTags() {
-        return String.join(",", checkColorTags());
-    }
-
-    public String replaceTagsVariables(Player player, String message) {
-
-        UserData userData = pluginService.getCache().getUserDatas().get(player.getUniqueId());
-        Map<String, String> hashmapTag = userData.gethashTags();
-
-        for (String tag : checkTags()) {
-
-            String variableTag = filtersFile.getString("tags." + tag + ".variable");
-
-            if (variableTag == null) {
-                System.out.println("Nulltag " + tag);
-                continue;
-            }
-
-
-            if (!message.contains(variableTag)) {
-                continue;
-            }
-
-            if (!player.hasPermission(variableTag)) {
-                message = message.replace(variableTag, "");
-                continue;
-            }
-
-
-            if (!hashmapTag.containsKey(tag)) {
-                message = message.replace(variableTag, "");
-                continue;
-            }
-
-            message = message.replace(variableTag, hashmapTag.get(tag));
-
-        }
-
-        return message;
-
-    }
 }

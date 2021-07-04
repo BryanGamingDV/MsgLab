@@ -90,7 +90,8 @@ public class CommandLoader implements Loader {
                 new StreamCommand(pluginService),
                 new CommandSpyCommand(pluginService),
                 new PartyCommand(pluginService),
-                new AnnouncerCommand(pluginService));
+                new AnnouncerCommand(pluginService),
+                new TagsCommand(pluginService));
     }
 
 

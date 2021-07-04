@@ -7,8 +7,8 @@ import me.bryangaming.chatlab.managers.click.ClickChatManager;
 import me.bryangaming.chatlab.managers.commands.*;
 import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.managers.sound.SoundManager;
-import me.bryangaming.chatlab.utils.TextUtils;
 import me.bryangaming.chatlab.utils.PlaceholderUtils;
+import me.bryangaming.chatlab.utils.TextUtils;
 import me.bryangaming.chatlab.utils.WorldData;
 
 public class ManagerLoader implements Loader {
@@ -32,6 +32,7 @@ public class ManagerLoader implements Loader {
     private HelpOpManager helpOpManager;
     private IgnoreManager ignoreManager;
     private MsgManager msgManager;
+    private TagsManager tagsManager;
 
     private PartyManager partyManager;
     private ReplyManager replyManager;
@@ -54,7 +55,6 @@ public class ManagerLoader implements Loader {
         guiManager = new GuiManager(pluginService);
         runnableManager = new RunnableManager(pluginService);
 
-        chatManagent = new ClickChatManager(pluginService);
         groupManager = new GroupManager(pluginService);
 
         recipientManager = new RecipientManager(pluginService);
@@ -63,10 +63,12 @@ public class ManagerLoader implements Loader {
         senderManager = new SenderManager(pluginService);
         chatManager = new ChatManager(pluginService);
 
+        chatManagent = new ClickChatManager(pluginService);
         actionManager = new ActionManager(pluginService);
         staffChatManagerManager = new StaffChatManager(pluginService);
         helpOpManager = new HelpOpManager(pluginService);
         ignoreManager = new IgnoreManager(pluginService);
+        tagsManager = new TagsManager(pluginService);
 
         partyManager = new PartyManager(pluginService);
         replyManager = new ReplyManager(pluginService);
@@ -96,6 +98,9 @@ public class ManagerLoader implements Loader {
         return chatManagent;
     }
 
+    public TagsManager getTagsManager(){
+        return tagsManager;
+    }
 
     public HoverManager getHoverManager() {
         return hoverManager;

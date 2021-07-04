@@ -18,13 +18,17 @@ public class TextUtils {
 
 
     private static ChatLab chatLab;
+
     private static Configuration config;
+    private static Configuration formatsFile;
+
     private static SenderManager senderManager;
     private static Logger logger;
 
     public TextUtils(PluginService pluginService) {
         chatLab = pluginService.getPlugin();
         config = pluginService.getFiles().getConfigFile();
+        formatsFile = pluginService.getFiles().getFormatsFile();
         senderManager = pluginService.getPlayerManager().getSender();
         logger = pluginService.getPlugin().getLogger();
     }
@@ -33,51 +37,85 @@ public class TextUtils {
     }
 
     public static String convertText(Player player, String path) {
-        path = PlaceholderUtils.replaceAllVariables(player, path);
-        return TextUtils.setColor(path);
+        String formattedPath = PlaceholderUtils.replaceAllVariables(player, path);
+        return TextUtils.setColor(formattedPath);
     }
 
     public static Component convertTextToComponent(Player player, String path) {
-        path = PlaceholderUtils.replaceAllVariables(player, path);
-        path = TextUtils.convertLegacyToMiniMessage(path);
+        String formattedPath = PlaceholderUtils.replaceAllVariables(player, path);
+        formattedPath = TextUtils.convertLegacyToMiniMessage(formattedPath);
 
 
-        return MiniMessage.get().parse(path);
+        return MiniMessage.get().parse(formattedPath);
     }
 
+    public static String convertAliasesToCommand(String command){
+        switch (command){
+            case "acc":
+                return "announcer";
+            case "bc":
+                return "broadcast";
+            case "bcworld":
+            case "bcw":
+                return "broadcastworld";
+            case "chn":
+                return "channel";
+            case "chatlab":
+                return "clab";
+            case "cspy":
+                return "commandspy";
+            case "ac":
+                return "helpop";
+            case "pm":
+            case "tell":
+            case "t":
+            case "w":
+            case "whisper":
+                return "msg";
+            case "r":
+                return "reply";
+            case "sspy":
+                return "socialspy";
+            case "sc":
+                return "staffchat";
+        }
+        return command;
+    }
     public static Component convertTextToComponent(Player player, String path, String message) {
 
 
-        if (!senderManager.hasPermission(player, "chat-format", "color")){
-            message = "<pre>" + message + "</pre>";
+        String formattedMessage;
+        if (!senderManager.hasPermission(player, "chat-format", "color")) {
+            formattedMessage = "<pre>" + message + "</pre>";
         } else {
-            message = TextUtils.convertLegacyToMiniMessage(message);
+            formattedMessage = TextUtils.convertLegacyToMiniMessage(message);
         }
 
-        path = path
-                .replace("%message%", message);
+        String formattedPath = path
+                .replace("%message%", formattedMessage);
 
-        path = PlaceholderUtils.replaceAllVariables(player, path);
-        path = TextUtils.convertLegacyToMiniMessage(path);
+        formattedPath = PlaceholderUtils.replaceAllVariables(player, formattedPath);
+        formattedPath = TextUtils.convertLegacyToMiniMessage(formattedPath);
 
-        return MiniMessage.get().parse(path);
+
+       return MiniMessage.get().parse(formattedPath);
     }
-
     public static String convertText(Player player, String path, String message) {
 
+        String formattedMessage;
         if (!senderManager.hasPermission(player, "chat-format", "color")){
-            message = "<pre>" + message + "</pre>";
+            formattedMessage = "<pre>" + message + "</pre>";
         } else {
-            message = TextUtils.convertLegacyToMiniMessage(message);
+            formattedMessage = TextUtils.convertLegacyToMiniMessage(message);
         }
 
-        path = path
-                .replace("%message%", message);
+        String formattedPath  = path
+                .replace("%message%", formattedMessage);
 
-        path = PlaceholderUtils.replaceAllVariables(player, path);
-        path = TextUtils.convertLegacyToMiniMessage(path);
+        formattedPath = PlaceholderUtils.replaceAllVariables(player, formattedPath);
+        formattedPath = TextUtils.convertLegacyToMiniMessage(formattedPath);
 
-        return path;
+        return formattedPath;
 
     }
 
@@ -88,10 +126,10 @@ public class TextUtils {
         if (!config.getBoolean("options.use-legacy-colors")) {
             return string;
         }
-        string = string
+        String formattedPath = string
                 .replace("&f", "<white>");
 
-        return MiniMessage.get().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(string).asComponent());
+        return MiniMessage.get().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(formattedPath).asComponent());
     }
 
 

@@ -97,7 +97,7 @@ public class CommandSpyCommand implements CommandClass {
         if (offlinePlayer == null) {
 
             if (!userData.isCommandspyMode()) {
-                senderManager.sendMessage(sender, messagesFile.getString("commandspy.error.status.already-disabled"));
+                senderManager.sendMessage(sender, messagesFile.getString("commandspy.error.status.player.already-disabled"));
                 senderManager.playSound(sender, SoundEnum.ERROR);
                 return true;
             }

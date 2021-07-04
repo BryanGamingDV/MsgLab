@@ -59,6 +59,7 @@ clab:
         - "<dark_gray>- <white>/channel [join/quit/list/move] [<channel>] <dark_gray>: <white>To use the channel manager."
         - "<dark_gray>- <white>/stream [<text>] <dark_gray>: <white>To stream."
         - "<dark_gray>- <white>/commandspy [on/off/list..] <dark_gray>: <white>To send a commandspy."
+        - "<dark_gray>- <white>/tags [use/gui/list] <dark_gray>: <white>To use the tags."
 
   # /clab reload
   reload:
@@ -107,8 +108,14 @@ clab:
 msg-reply:
 
   format:
-    player: "%c <white>You <dark_gray>> <white>%sender% <dark_gray>: <white>%message%"
+    player: "%c <white>You <dark_gray>> <white>%target% <dark_gray>: <white>%message%"
     arg-1: "%c <white>%sender% <dark_gray>> <white>You <dark_gray>: <white>%message%"
+
+    talk-mode:
+      enabled: "%c <white>Now you can talk without a command with %target%. Put '/msg %target%' again to talk normal."
+      disabled: "%c <white>Now you can talk with a command with %target%. Put '/msg %target%' again to talk without a command."
+
+    left: "%c <white>Dear %player%, <white>the target that you talked with or talked with you left the game."
     talked: "%c <white>You talked with <green>%player%"
 
   # When you use /msg -toggle
@@ -123,7 +130,7 @@ msg-reply:
       unactivated: "%c <white>Now everyone can message <green>%arg-1%<white>."
 
     msg: "%c <white>Sorry, <green>%player%<white>'s pms are disabled."
-    left: "%c <white>Dear %player%, <white>the player <green>(%player%) <white>that you talked with or talked with you left the game."
+    left: "%c <white>Dear %player%, <white>the player <green>(%target%) <white>that you talked with or talked with you left the game."
 
   error:
     no-reply: "%c <white>You don't have anyone to reply."
@@ -290,7 +297,7 @@ channel:
   list:
     message: "<white> List of channels:"
     space: "<dark_gray>->"
-    format: "<dark_gray>- <white>%channel% <dark_gray>- %mode%"
+    format: "<dark_gray>- <white>%channel% "
 
   # Information of a especify channel
   info:
@@ -363,26 +370,17 @@ chat:
   cooldown:
     message: "%c <white>The cooldown was changed to <green>%time% <white>seconds."
 
-  # /chat tags
-  tags:
-    selected:
-      color: "%c <white>You selected the color <green>%color%<white>."
-      tag: "%c <white>You selected the tag <green>%tag%<white>."
-
-    tags:
-      red: "<dark_red>"
-      green: "<dark_green>"
-      blue: "<dark_blue>"
-      yellow: "<gold>"
-
   reload: "%c <white>Chat reloaded."
 
   error:
     muted: "%e <white>The chat is muted."
     management:
-      already-muted: "%e <white>The chat is already muted."
-      already-unmuted: "%e <white>The chat is already unmuted."
-
+      global:
+        already-muted: "%e <white>The chat is already muted."
+        already-unmuted: "%e <white>The chat is already unmuted."
+      world:
+        already-muted: "%e <white>The chat is already muted."
+        already-unmuted: "%e <white>The chat is already unmuted."
     flags:
       empty-arg: "%e <white>Please, provide an argument for the flag."
 
@@ -391,13 +389,6 @@ chat:
       unknown-channel: "%e <white>Unknown channel. <green>%channel%<white>."
       unknown-number: "%e <white>Unknown number: <green>%text%"
       negative-number: "%e <white>The number is negative: <green>%number%<white>."
-
-    tags:
-      empty-tags: "%e <white>List of tags: <green>%tags% %newline%<dark_gray>- <white>Usage: <green>%usage%"
-      empty-colortags: "%e <white>List of color tags: <green>%colortags% %newline%<dark_gray>- <white>Usage: <green>%usage%"
-
-      unknown-tag: "%e <white>Unknown tag."
-      unknown-tagcolor: "%e <white>Unknown tag color."
 
 # Section of /commandspy
 commandspy:
@@ -594,3 +585,21 @@ party:
       set: "%e <white>You aren't the leader to set the party public or private"
       promote: "%e <white>You aren't the leader to promote a player."
       kick: "%e <white>You aren't the leader to kick a player."
+
+tags:
+  help:
+    - "%p <white>Tags help 1/1"
+    - "<dark_gray>- <white>/tags help: <green>Help command."
+    - "<dark_gray>- <white>/tags use [<group>] [<tag>]: <green>To use a tag from a group."
+    - "<dark_gray>- <white>/tags list: <green>List of groups.."
+    - "<dark_gray>- <white>/tags gui [<group>]: <green>To open the gui of a tag."
+  list:
+    - "%p <white>List of tags:"
+    - "<dark_gray>- <white>color: <green>To use the colors."
+    - "<dark_gray>- <white>tags: <green>To use the tags."
+  set: "%p &fTag &a%tag% &fset from %group%"
+  error:
+    empty-group: "<white>Unknown tag. %newline%<white>Usage: <green>%usage%%newline%<white>List of groups: <green>%groups%"
+    unknown-group: "<white>Unknown tag. %newline%<white>Usage: <green>%usage%%newline%<white>List of groups: <green>%groups%"
+    empty-tag: "<white>Unknown tag. %newline%<white>Usage: <green>%usage%%newline%<white>List of groups: <green>%tags%"
+    unknown-tag: "<white>Unknown tag. %newline%<white>Usage: <green>%usage%%newline%<white>List of groups: <green>%tags%"
