@@ -47,7 +47,6 @@ public class AnnouncerTask implements Task {
         String announcerType = configFile.getString("modules.announcer.announcers.type");
         long announcerDelay = configFile.getInt("modules.announcer.global-interval") * 20L;
 
-        System.out.println(announcerDelay);
         Random random = new Random();
 
         AtomicInteger announcerID = new AtomicInteger(0);

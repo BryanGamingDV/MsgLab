@@ -1,6 +1,6 @@
 main: me.bryangaming.chatlab.ChatLab
 name: ChatLab
-version: 2.3.4
+version: 2.3.5
 author: BryanGaming
 
 loadbefore:

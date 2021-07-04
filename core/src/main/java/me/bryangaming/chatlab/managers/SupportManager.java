@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.utils.hooks.*;
 import me.bryangaming.chatlab.utils.hooks.vanish.CMIVanishHook;
 import me.bryangaming.chatlab.utils.hooks.vanish.SuperVanishHook;
 import me.bryangaming.chatlab.utils.hooks.vanish.VanishNoPacketHook;
-import org.kitteh.vanish.VanishManager;
+import org.bukkit.Bukkit;
 
 public class SupportManager {
 
@@ -29,7 +29,10 @@ public class SupportManager {
         discordHook = new DiscordHook(pluginService);
         cmiVanishHook = new CMIVanishHook(pluginService);
         superVanishHook = new SuperVanishHook(pluginService);
-        vanishNoPacketHook = new VanishNoPacketHook(pluginService);
+
+        if (Bukkit.getPluginManager().isPluginEnabled("VanishNoPacket")) {
+            vanishNoPacketHook = new VanishNoPacketHook(pluginService);
+        }
     }
 
     public VanishNoPacketHook getVanishNoPacketHook() {
