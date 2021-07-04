@@ -110,6 +110,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.github.mbax</groupId>
+            <artifactId>vanishnopacket</artifactId>
+            <version>0cb428ff27</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>ml.karmaconfigs</groupId>
             <artifactId>LockLogin-API</artifactId>
             <version>1.11.3-SNAPSHOT</version>
@@ -194,7 +200,7 @@
             <groupId>com.github.LeonMangler</groupId>
             <artifactId>SuperVanish</artifactId>
             <version>6.2.1</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.MilkBowl</groupId>
@@ -232,13 +238,6 @@
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/APICMI.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>vanish.sample</groupId>
-            <artifactId>vanishnopacket</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/VanishNoPacketPL.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.nickuc.login</groupId>

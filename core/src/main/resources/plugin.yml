@@ -17,5 +17,6 @@ softdepend:
   - CMI
   - SuperVanish
   - PremiumVanish
+  - VanishNoPacket
 
 api-version: 1.13
