@@ -32,6 +32,10 @@ public class PlayerLoginListener implements Listener {
         JQData jqData = pluginService.getCache().getJQFormats().get(playerRank);
 
         if (!event.getPlayer().hasPlayedBefore()){
+            if (!jqData.getFirstJoinHook()){
+                return;
+            }
+
             for (String motdFormat : jqData.getFirstJoinMotdList()) {
                 if (motdFormat.startsWith("[LOOP")) {
                     String loopTest = motdFormat.split("]")[0];
@@ -46,6 +50,11 @@ public class PlayerLoginListener implements Listener {
                 player.sendMessage(TextUtils.convertTextToComponent(sender, motdFormat));
             }
         }else{
+
+            if (!jqData.getJoinHook()){
+                return;
+            }
+
             for (String motdFormat : jqData.getJoinMotdList()) {
                 if (motdFormat.startsWith("[LOOP")) {
                     String loopTest = motdFormat.split("]")[0];

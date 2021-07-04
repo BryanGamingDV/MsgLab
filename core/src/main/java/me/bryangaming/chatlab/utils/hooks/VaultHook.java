@@ -31,7 +31,7 @@ public class VaultHook implements Hook {
             return;
         }
 
-        if (pluginService.getFiles().getConfigFile().getBoolean("options.hooks.vault")){
+        if (!pluginService.getFiles().getConfigFile().getBoolean("options.allow-hooks.vault")){
             return;
         }
 

@@ -12,6 +12,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 
 public class HoverManager {
@@ -43,6 +44,8 @@ public class HoverManager {
 
         Component component = miniMessage.parse("");
 
+        Logger logger = pluginService.getPlugin().getLogger();
+
         for (String format : formatsFile.getConfigurationSection(chatFormat + ".bases").getKeys(false)){
 
             String textPath = formatsFile.getString(chatFormat + ".bases." + format + ".format");
@@ -64,8 +67,20 @@ public class HoverManager {
                 textHover.replaceAll(string -> TextUtils.convertText(player, string));
 
                 newComponent = newComponent.hoverEvent(HoverEvent.showText(miniMessage.parse(String.join("\n", textHover))));
-                newComponent = newComponent.clickEvent(ClickEvent.clickEvent(ClickEvent.Action.valueOf(textType), textCommand
-                        .replace("%player%", player.getName())));
+
+                ClickEvent.Action clickEvent;
+                try {
+                    clickEvent = ClickEvent.Action.valueOf(textType);
+                }catch (IllegalArgumentException exception){
+                    logger.info("ERROR! The action doesn´t exists!");
+                    logger.info("Rank: " +  playerRank);
+                    logger.info("Click action: " + textType);
+                    exception.printStackTrace();
+                    return null;
+                }
+
+                    newComponent = newComponent.clickEvent(ClickEvent.clickEvent(clickEvent, textCommand
+                            .replace("%player%", player.getName())));
             }
 
             component = component.append(newComponent);

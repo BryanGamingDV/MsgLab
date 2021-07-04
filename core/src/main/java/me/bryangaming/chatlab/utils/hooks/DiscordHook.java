@@ -23,7 +23,7 @@ public class DiscordHook implements Hook {
             return;
         }
 
-        if (pluginService.getFiles().getConfigFile().getBoolean("options.hooks.discordsrv")){
+        if (!pluginService.getFiles().getConfigFile().getBoolean("options.allow-hooks.discordsrv")){
             return;
         }
 

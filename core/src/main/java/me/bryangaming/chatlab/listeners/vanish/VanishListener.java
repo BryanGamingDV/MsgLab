@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.listeners;
+package me.bryangaming.chatlab.listeners.vanish;
 
 import de.myzelyam.api.vanish.PlayerVanishStateChangeEvent;
 import me.bryangaming.chatlab.PluginService;

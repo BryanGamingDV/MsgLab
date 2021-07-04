@@ -25,7 +25,7 @@ public class ProtocolHook implements Hook {
             return;
         }
 
-        if (pluginService.getFiles().getConfigFile().getBoolean("options.hooks.protocollib")){
+        if (!pluginService.getFiles().getConfigFile().getBoolean("options.allow-hooks.protocollib")){
             return;
         }
 

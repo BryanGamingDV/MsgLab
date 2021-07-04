@@ -1,4 +1,4 @@
-package me.bryangaming.chatlab.utils.hooks;
+package me.bryangaming.chatlab.utils.hooks.vanish;
 
 import com.Zrips.CMI.CMI;
 import com.Zrips.CMI.Modules.Vanish.VanishManager;
@@ -26,7 +26,7 @@ public class CMIVanishHook implements Hook {
             return;
         }
 
-        if (pluginService.getFiles().getConfigFile().getBoolean("options.hooks.cmi")){
+        if (!pluginService.getFiles().getConfigFile().getBoolean("options.allow-hooks.cmi")){
             return;
         }
         vanishManager = CMI.getInstance().getVanishManager();
@@ -36,7 +36,7 @@ public class CMIVanishHook implements Hook {
 
     public boolean isVanished(Player player){
 
-        if (!Bukkit.getPluginManager().isPluginEnabled("PremiumVanish") || !Bukkit.getPluginManager().isPluginEnabled("SuperVanish")) {
+        if (!Bukkit.getPluginManager().isPluginEnabled("CMI")){
             return false;
         }
 

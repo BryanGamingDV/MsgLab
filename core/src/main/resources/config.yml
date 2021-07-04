@@ -4,7 +4,7 @@
 # | |    | |__   __ _| |_| |     __ _| |__  
 # | |    | '_ \ / _` | __| |    / _` | '_ \ 
 # | |____| | | | (_| | |_| |___| (_| | |_) | by BryanG
-#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.3.2
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.3.3
 #
 # Main Config | config.yml
 
@@ -18,7 +18,7 @@
 # players.yml =To see the data of players.
 #
 
-# If you want to go to the wiki: https://app.gitbook.com/@bryangaming/spaces
+# If you want to go to the wiki: https://bryangaming.gitbook.io/chatlab/
 # Visit the MiniMessage guide: https://docs.adventure.kyori.net/minimessage.html#format
 # If you want to go to the support: https://discord.gg/YjhubS3bWW
 
@@ -73,8 +73,10 @@ options:
     # from being displayed. 
     # This also includes the premium version (PremiumVanish). 
     supervanish: true
-    # CMI
+    # Enable CMI vanish hook.
     cmi: true
+    # Enable VanishNoPacket hook.
+    vanish-no-packet: true
 
   # Enable metrics
   # You can deactivate it without any problem, 

@@ -261,6 +261,9 @@ commands:
         - /help
         - /icanhasbukkit
 
+      # Permissions:
+      perms:
+        bypass: server.bypass
       # A message when the player is using block command module.
       message:
         enabled: false

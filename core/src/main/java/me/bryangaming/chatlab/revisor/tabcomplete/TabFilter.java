@@ -51,7 +51,7 @@ public class TabFilter {
 
                 Player player = event.getPlayer();
 
-                if (player.hasPermission(filtersFile.getString("commands.tab-module.block.permission.bypass"))){
+                if (player.hasPermission(filtersFile.getString("commands.tab-module.block.perms.bypass", "none"))){
                     return;
                 }
                 PacketContainer packet = event.getPacket();

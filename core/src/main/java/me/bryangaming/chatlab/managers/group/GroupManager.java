@@ -46,6 +46,10 @@ public class GroupManager {
             return "op";
         }
 
+        if (formatsFile.getString("chat-format.group-access").equalsIgnoreCase("none")) {
+            return "default";
+        }
+
         if (formatsFile.getString("chat-format.group-access").equalsIgnoreCase("permission")) {
             for (String group : getGroup()) {
                 if (player.hasPermission(formatsFile.getString("chat-format.groups." + group + ".permission"))) {

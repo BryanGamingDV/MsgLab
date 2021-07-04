@@ -8,7 +8,12 @@ import me.bryangaming.chatlab.listeners.*;
 import me.bryangaming.chatlab.listeners.command.CommandSpyListener;
 import me.bryangaming.chatlab.listeners.command.HelpOpListener;
 import me.bryangaming.chatlab.listeners.command.SocialSpyListener;
+import me.bryangaming.chatlab.listeners.login.plugin.PlayerAuthLoginEvent;
+import me.bryangaming.chatlab.listeners.login.plugin.PlayerNLoginEvent;
+import me.bryangaming.chatlab.listeners.vanish.CMIVanishListener;
 import me.bryangaming.chatlab.listeners.text.ChatListener;
+import me.bryangaming.chatlab.listeners.vanish.VanishListener;
+import me.bryangaming.chatlab.listeners.vanish.VanishNoPacketListener;
 import me.bryangaming.chatlab.revisor.tabcomplete.TabFilter;
 import me.bryangaming.chatlab.utils.TextUtils;
 import org.bukkit.Bukkit;
@@ -41,7 +46,7 @@ public class EventLoader implements Loader {
                 new ChatListener(pluginService));
 
         if (TextUtils.equalsIgnoreCaseOr(TextUtils.getServerVersion(Bukkit.getServer()),
-                "1.13", "1.14", "1.15", "1.16", "1.17")) {
+                "1.12", "1.13", "1.14", "1.15", "1.16", "1.17")) {
             loadEvents(new TabListener(pluginService),
                     new AdvancementListener(pluginService));
         }else{
@@ -55,6 +60,18 @@ public class EventLoader implements Loader {
 
         if (Bukkit.getPluginManager().isPluginEnabled("SuperVanish") || Bukkit.getPluginManager().isPluginEnabled("PremiumVanish")) {
             loadEvents(new VanishListener(pluginService));
+        }
+
+        if (Bukkit.getPluginManager().isPluginEnabled("VanishNoPacket")) {
+            loadEvents(new VanishNoPacketListener(pluginService));
+        }
+
+        if (Bukkit.getPluginManager().isPluginEnabled("NLogin")){
+            loadEvents(new PlayerNLoginEvent());
+        }
+
+        if (Bukkit.getPluginManager().isPluginEnabled("AuthMe")){
+            loadEvents(new PlayerAuthLoginEvent());
         }
 
         if (Bukkit.getPluginManager().isPluginEnabled("CMI")){
