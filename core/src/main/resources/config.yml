@@ -4,7 +4,7 @@
 # | |    | |__   __ _| |_| |     __ _| |__  
 # | |    | '_ \ / _` | __| |    / _` | '_ \ 
 # | |____| | | | (_| | |_| |___| (_| | |_) | by BryanG
-#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.3.3
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.3.6
 #
 # Main Config | config.yml
 
@@ -355,6 +355,8 @@ modules:
       main: none
 
   cooldown:
+    # Enable this module?
+    enabled: true
     # Permissions of arguments. Put "none" to disable it.
     permissions:
       chat-bypass: clab.text.bypass

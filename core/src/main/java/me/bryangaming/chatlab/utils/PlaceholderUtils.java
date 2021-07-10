@@ -6,6 +6,7 @@ import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.SupportManager;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
 import me.bryangaming.chatlab.managers.commands.TagsManager;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;

@@ -4,7 +4,7 @@
 # | |    | |__   __ _| |_| |     __ _| |__
 # | |    | '_ \ / _` | __| |    / _` | '_ \
 # | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
-#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.3.6
 #
 # Messages | messages.yml
 
@@ -490,21 +490,6 @@ announcer:
 
       ordened: "ordened"
       random: "random"
-
-  # Configuration of the announcers to be displayed.
-  announcers:
-    # Type list:
-    # Ordered (The messages will be sorted as they are in the messages section).
-    # Random (The messages will be aleatory).
-    type: ORDERED
-    messages:
-      1:
-        - "<white>Hello!"
-      2:
-        - "<yellow>Bye!"
-      3:
-        - "<aqua>ChatLab <yellow>Plugin"
-        - "<gray>Author: <rainbow>BryanGaming</rainbow>"
 
   error:
     unknown-id: "%e <white>Unknown id. <green>%id%<white>."

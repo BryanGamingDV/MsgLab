@@ -9,7 +9,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;
@@ -42,32 +42,33 @@ public class TabFilter {
         protocolManager.addPacketListener(new PacketAdapter(pluginService.getPlugin(), ListenerPriority.HIGHEST, new PacketType[]{PacketType.Play.Client.TAB_COMPLETE}) {
             @Override
             public void onPacketReceiving(PacketEvent event) {
+
                 if (event.getPacketType() != PacketType.Play.Client.TAB_COMPLETE) {
                     return;
                 }
+
                 if (!filtersFile.getBoolean("commands.tab-module.block.enabled")) {
                     return;
                 }
 
                 Player player = event.getPlayer();
 
-                if (player.hasPermission(filtersFile.getString("commands.tab-module.block.perms.bypass", "none"))){
+                if (player.hasPermission(filtersFile.getString("commands.tab-module.block.perms.bypass", "none"))) {
                     return;
                 }
+
                 PacketContainer packet = event.getPacket();
                 String command = packet.getSpecificModifier(String.class).read(0).toLowerCase();
 
+
                 if (filtersFile.getBoolean("commands.tab-module.block.empty")) {
-                    if (!command.contains(" ")) {
+                    if (command.equalsIgnoreCase("/")){
                         event.setCancelled(true);
                         sendMessage(player);
                         return;
                     }
                 }
 
-                if (!command.contains(" ")) {
-                    return;
-                }
 
                 for (String commands : filtersFile.getStringList("commands.tab-module.block.commands")) {
 
@@ -80,7 +81,7 @@ public class TabFilter {
                     return;
                 }
 
-                event.setCancelled(false);
+
 
             }
         });

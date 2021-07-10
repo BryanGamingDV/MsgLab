@@ -1,7 +1,7 @@
 package me.bryangaming.chatlab.managers;
 
 import me.bryangaming.chatlab.PluginService;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.title.Title;

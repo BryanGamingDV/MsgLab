@@ -1,27 +1,32 @@
 package me.bryangaming.chatlab.data;
 
+import org.minidns.record.A;
+import redis.clients.jedis.StreamGroupInfo;
+
 import java.util.List;
 
 public class JQData {
 
+    private int authJoinNextId = 0;
     private int firstJoinNextId = 0;
     private int joinNextId = 0;
     private int quitNextId = 0;
 
+    private String authType;
     private String firstJoinType;
     private String joinType;
     private String quitType;
 
+    private List<String> authFormat;
     private List<String> firstJoinFormat;
     private List<String> joinFormat;
     private List<String> quitFormat;
 
-    private boolean firstJoinHook;
-    private boolean joinHook;
-
+    private List<String> authMotdList;
     private List<String> firstJoinMotdList;
     private List<String> joinMotdList;
 
+    private List<String> authActions;
     private List<String> firstJoinActions;
     private List<String> joinActions;
     private List<String> quitActions;
@@ -30,6 +35,23 @@ public class JQData {
 
     public JQData(String name) {
         this.name = name;
+    }
+
+    // ID
+    public int getAuthNextId() {
+        return authJoinNextId;
+    }
+
+    public boolean authIdIsTheMax(int id) {
+        return authJoinNextId + 1 == id;
+    }
+
+    public void sumAuthNextId(){
+        this.authJoinNextId++;
+    }
+
+    public void clearAuthNextId(){
+        this.authJoinNextId = 0;
     }
 
     public int getFirstJoinNextId() {
@@ -48,15 +70,6 @@ public class JQData {
         this.firstJoinNextId = 0;
     }
 
-
-    public boolean getFirstJoinHook(){
-        return firstJoinHook;
-    }
-
-    public void setFirstJoinHook(boolean hook){
-        this.firstJoinHook = hook;
-    }
-
     public int getJoinNextId() {
         return joinNextId;
     }
@@ -73,13 +86,6 @@ public class JQData {
         joinNextId = 0;
     }
 
-    public boolean getJoinHook(){
-        return joinHook;
-    }
-
-    public void setJoinHook(boolean hook){
-        this.joinHook = hook;
-    }
 
     public int getQuitNextId() {
         return quitNextId;
@@ -95,6 +101,15 @@ public class JQData {
 
     public void clearQuitNextId() {
         this.quitNextId = 0;
+    }
+
+    // Type:
+    public String getAuthType() {
+        return authType;
+    }
+
+    public void setAuthType(String authType) {
+        this.authType = authType;
     }
 
     public String getFirstJoinType() {
@@ -121,6 +136,15 @@ public class JQData {
         this.quitType = quitType;
     }
 
+    // Format:
+    public List<String> getAuthFormat(){
+        return authFormat;
+    }
+
+    public void setAuthFormat(List<String> authFormat){
+        this.authFormat = authFormat;
+    }
+
     public List<String> getFirstJoinFormat() {
         return firstJoinFormat;
     }
@@ -145,6 +169,16 @@ public class JQData {
         this.quitFormat = quitFormat;
     }
 
+
+    // Motd:
+    public List<String> getAuthMotdList(){
+        return authMotdList;
+    }
+
+    public void setAuthMotdList(List<String> authMotdList){
+        this.authMotdList = authMotdList;
+    }
+
     public List<String> getFirstJoinMotdList() {
         return firstJoinMotdList;
     }
@@ -159,6 +193,15 @@ public class JQData {
 
     public void setJoinMotdList(List<String> joinMotdList) {
         this.joinMotdList = joinMotdList;
+    }
+
+    // Actions:
+    public List<String> getAuthActions(){
+        return authActions;
+    }
+
+    public void setAuthActions(List<String> actions){
+        this.authActions = actions;
     }
 
     public List<String> getFirstJoinActions() {

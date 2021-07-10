@@ -1,11 +1,15 @@
-package me.bryangaming.chatlab.utils;
+package me.bryangaming.chatlab.utils.text;
 
 import me.bryangaming.chatlab.ChatLab;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.SenderManager;
+import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.PlaceholderUtils;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.util.RGBLike;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -86,7 +90,7 @@ public class TextUtils {
 
         String formattedMessage;
         if (!senderManager.hasPermission(player, "chat-format", "color")) {
-            formattedMessage = "<pre>" + message + "</pre>";
+            formattedMessage = MiniMessage.get().serialize(MiniMessage.get().parse(TextUtils.convertLegacyToMiniMessage(message)));
         } else {
             formattedMessage = TextUtils.convertLegacyToMiniMessage(message);
         }
@@ -98,7 +102,7 @@ public class TextUtils {
         formattedPath = TextUtils.convertLegacyToMiniMessage(formattedPath);
 
 
-       return MiniMessage.get().parse(formattedPath);
+        return MiniMessage.get().parse(formattedPath);
     }
     public static String convertText(Player player, String path, String message) {
 
@@ -120,7 +124,6 @@ public class TextUtils {
     }
 
 
-
     public static String convertLegacyToMiniMessage(String string) {
 
         if (!config.getBoolean("options.use-legacy-colors")) {
@@ -131,7 +134,6 @@ public class TextUtils {
 
         return MiniMessage.get().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(formattedPath).asComponent());
     }
-
 
     public static int countRepeatedCharacters(String string, char character) {
 

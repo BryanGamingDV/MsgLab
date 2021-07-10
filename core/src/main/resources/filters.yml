@@ -4,7 +4,7 @@
 # | |    | |__   __ _| |_| |     __ _| |__  
 # | |    | '_ \ / _` | __| |    / _` | '_ \ 
 # | |____| | | | (_| | |_| |___| (_| | |_) | by BryanGaming
-#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.2
+#  \_____|_| |_|\__,_|\__|______\__,_|_.__/  Version: 2.3.6
 #
 # Filters Config | config.yml
 
@@ -244,13 +244,13 @@ message:
 commands:
   tab-module:
     # Enable this module?
-    enabled: false
+    enabled: true
 
     # To block <tab>
     # - Requires ProtocolLib.
     block:
       # Enable this module?
-      enabled: false
+      enabled: true
 
       # When you put /<tab>:
       empty: true
