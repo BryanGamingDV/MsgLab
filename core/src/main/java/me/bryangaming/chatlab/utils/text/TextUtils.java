@@ -17,6 +17,8 @@ import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextUtils {
 
@@ -25,6 +27,8 @@ public class TextUtils {
 
     private static Configuration config;
     private static Configuration formatsFile;
+
+    private static Pattern HEX_PATTERN = Pattern.compile("&(#[A-Fa-f0-9]{6})");
 
     private static SenderManager senderManager;
     private static Logger logger;
@@ -84,6 +88,15 @@ public class TextUtils {
                 return "staffchat";
         }
         return command;
+    }
+
+    public String colorizeOldHexColors(String message) {
+
+        Matcher matcher = HEX_PATTERN.matcher(message);
+        while (matcher.find()) {
+            message = net.md_5.bungee.api.ChatColor.matcher.start() + 1, matcher.end()));
+
+        }
     }
     public static Component convertTextToComponent(Player player, String path, String message) {
 
