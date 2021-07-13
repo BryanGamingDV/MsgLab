@@ -85,7 +85,7 @@ public class ChatLab extends JavaPlugin {
             ModuleLoader loader = new ModuleLoader(pluginsFolder);
             loader.loadModule("LockLoginHook");
 
-            new ModuleLoader(lockloginModules);
+            loader = new ModuleLoader(lockloginModules);
 
             if (!ModuleLoader.isLoaded("LockLoginHook")) {
                 getLogger().info("Failed to hook using advanced module hook method, trying simple");
@@ -95,6 +95,8 @@ public class ChatLab extends JavaPlugin {
                     File copyJar = new File(lockloginModules, "LockLoginHook.jar");
 
                     Files.move(pluginJar.toPath(), copyJar.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                    loader.loadModule("LockLoginHook");
                 } catch (Throwable ex) {
                     getLogger().log(Level.SEVERE, "Failed to hook into LockLogin", ex);
                 }
