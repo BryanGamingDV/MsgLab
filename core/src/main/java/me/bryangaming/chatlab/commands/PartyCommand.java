@@ -53,22 +53,7 @@ public class PartyCommand implements CommandClass {
     }
 
     @Command(names = "join")
-    public boolean onJoinSubCommand(@Sender Player sender, @OptArg("") String leader) {
-
-        if (leader.isEmpty()) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("party", "join", "<player>")));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        Player player = Bukkit.getPlayerExact(leader);
-
-        if (player == null) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
+    public boolean onJoinSubCommand(@Sender Player sender, Player player) {
 
         if (pluginService.getSupportManager().getVanishSupport().isVanished(player)){
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
@@ -167,57 +152,28 @@ public class PartyCommand implements CommandClass {
     }
 
     @Command(names = "invite")
-    public boolean onInviteSubCommand(@Sender Player sender, @OptArg("") String target) {
+    public boolean onInviteSubCommand(@Sender Player sender, Player target) {
 
-        if (target.isEmpty()) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("party", "invite", "<player>")));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        Player player = Bukkit.getPlayerExact(target);
-
-        if (player == null) {
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(target)){
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (pluginService.getSupportManager().getVanishSupport().isVanished(player)){
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        partyManager.invitePlayer(sender, player);
+        partyManager.invitePlayer(sender, target);
         return true;
     }
 
     @Command(names = "removeinvite")
-    public boolean onRemoveInviteSubCommand(@Sender Player sender, @OptArg("") String target) {
-        if (target.isEmpty()) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("party", "removeinvite", "<player>")));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
+    public boolean onRemoveInviteSubCommand(@Sender Player sender, Player target) {
 
-        Player player = Bukkit.getPlayerExact(target);
-
-        if (player == null) {
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(target)){
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (pluginService.getSupportManager().getVanishSupport().isVanished(player)){
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        partyManager.removeInvitePlayer(sender, player);
+        partyManager.removeInvitePlayer(sender, target);
         return true;
     }
 
@@ -228,7 +184,7 @@ public class PartyCommand implements CommandClass {
     }
 
     @Command(names = "promote")
-    public boolean onPromoteSubCommand(@Sender Player sender, @OptArg("") String target) {
+    public boolean onPromoteSubCommand(@Sender Player sender, Player target) {
         if (target.isEmpty()) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
                     .replace("%usage%", TextUtils.getUsage("party", "promote", "<player>")));
@@ -236,48 +192,25 @@ public class PartyCommand implements CommandClass {
             return true;
         }
 
-        Player player = Bukkit.getPlayerExact(target);
-
-        if (player == null) {
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(target)){
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (pluginService.getSupportManager().getVanishSupport().isVanished(player)){
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        partyManager.promoteToLeader(sender, player);
+        partyManager.promoteToLeader(sender, target);
         return true;
     }
 
     @Command(names = "kick")
-    public boolean onKickSubCommand(@Sender Player sender, @OptArg("") String target) {
-        if (target.isEmpty()) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("party", "removeinvite", "<player>")));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        Player player = Bukkit.getPlayerExact(target);
-
-        if (player == null) {
+    public boolean onKickSubCommand(@Sender Player sender, Player target) {
+        if (pluginService.getSupportManager().getVanishSupport().isVanished(target)){
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
             senderManager.playSound(sender, SoundEnum.ERROR);
             return true;
         }
 
-        if (pluginService.getSupportManager().getVanishSupport().isVanished(player)){
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        partyManager.kickPlayer(sender, player);
+        partyManager.kickPlayer(sender, target);
         return true;
     }
 }

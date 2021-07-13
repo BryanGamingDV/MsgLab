@@ -28,20 +28,13 @@ public class UnIgnoreCommand implements CommandClass {
     }
 
     @Command(names = "unignore")
-    public boolean onCommand(@Sender Player sender, @OptArg OfflinePlayer target) {
+    public boolean onCommand(@Sender Player sender, OfflinePlayer target) {
 
         IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreManager();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         Configuration playersFile = pluginService.getFiles().getPlayersFile();
         Configuration messagesFile = pluginService.getFiles().getMessagesFile();
-
-        if (target == null) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("unignore", "<player>")));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
 
         if (!(senderManager.isOnline(target))) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));

@@ -1,0 +1,4 @@
+name: LockLoginHook
+version: 2.3.7
+author: BryanG
+loader_bukkit: me.bryangaming.chatlab.utils.hooks.login.LockLoginHook

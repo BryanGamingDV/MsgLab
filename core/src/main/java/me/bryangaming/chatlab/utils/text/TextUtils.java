@@ -10,6 +10,7 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.util.RGBLike;
+import net.kyori.text.TextComponent;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -90,14 +91,36 @@ public class TextUtils {
         return command;
     }
 
-    public String colorizeOldHexColors(String message) {
+    //public String colorizeOldHexColors(String message) {
 
-        Matcher matcher = HEX_PATTERN.matcher(message);
-        while (matcher.find()) {
-            message = net.md_5.bungee.api.ChatColor.matcher.start() + 1, matcher.end()));
+    // Matcher matcher = HEX_PATTERN.matcher(message);
+       // while (matcher.find()) {
+       //   message = net.md_5.bungee.api.ChatColor.matcher.start() + 1, matcher.end()));
 
-        }
+       // }
+    // }
+
+    public static String convertBasicString(String path){
+
+        String formattedPath = PlaceholderUtils.replacePluginVariables(path);
+
+        Component component = MiniMessage.get().parse(formattedPath);
+        String colorSerialized = LegacyComponentSerializer.legacyAmpersand().serialize(component);
+
+        return TextUtils.setColor(colorSerialized);
     }
+
+
+    public static net.kyori.text.Component convertBasicComponent(String path){
+
+        String formattedPath = PlaceholderUtils.replacePluginVariables(path);
+
+        Component component = MiniMessage.get().parse(formattedPath);
+        String colorSerialized = LegacyComponentSerializer.legacyAmpersand().serialize(component);
+
+        return TextComponent.of(TextUtils.setColor(colorSerialized));
+    }
+
     public static Component convertTextToComponent(Player player, String path, String message) {
 
 

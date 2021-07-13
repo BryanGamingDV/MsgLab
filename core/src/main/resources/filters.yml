@@ -248,6 +248,7 @@ commands:
 
     # To block <tab>
     # - Requires ProtocolLib.
+    # Only 1.8-1.12
     block:
       # Enable this module?
       enabled: true
@@ -272,11 +273,12 @@ commands:
     # filter commands [Only 1.13+]
     filter:
       # Enable this module?
-      enabled: true
+      enabled: false
 
       # You can put @<group> to fill in the commands that are in such a group.
       groups:
         default:
+
           - msg
           - reply
           - ignore

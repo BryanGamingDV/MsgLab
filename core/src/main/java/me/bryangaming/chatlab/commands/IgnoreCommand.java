@@ -26,7 +26,7 @@ public class IgnoreCommand implements CommandClass {
     }
 
     @Command(names = "ignore")
-    public boolean onIgnoreCommand(@Sender Player sender, @OptArg OfflinePlayer target) {
+    public boolean onIgnoreCommand(@Sender Player sender, OfflinePlayer target) {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
@@ -34,13 +34,6 @@ public class IgnoreCommand implements CommandClass {
         Configuration messagesFile = pluginService.getFiles().getMessagesFile();
 
         UUID playeruuid = sender.getUniqueId();
-
-        if (target == null) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("ignore", "<sender>")));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
 
         Map<UUID, List<String>> ignoredListData = pluginService.getCache().getIgnorelist();
         List<String> playersIgnored = playersFile.getStringList("players." + playeruuid + ".players-ignored");

@@ -92,7 +92,7 @@ public class PlaceholderUtils {
         return string;
     }
 
-    private static String replacePluginVariables(String string) {
+    public static String replacePluginVariables(String string) {
         for (String keys : config.getConfigurationSection("options.replacer").getKeys(false)) {
             string = string.replace(config.getString("options.replacer." + keys + ".variable"),
                     config.getString("options.replacer." + keys + ".format"));

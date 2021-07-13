@@ -7,6 +7,7 @@ public class LockLoginHook extends PluginModule {
 
     @Override
     public void onEnable() {
+        System.out.println("test");
         getManager().registerListener(new PlayerLockLoginEvent());
     }
 
