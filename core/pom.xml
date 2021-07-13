@@ -116,9 +116,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>ml.karmaconfigs</groupId>
+            <groupId>eu.locklogin</groupId>
             <artifactId>LockLogin-API</artifactId>
-            <version>1.11.3-SNAPSHOT</version>
+            <version>1.12.24-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>ml.karmaconfigs</groupId>
+            <artifactId>KarmaAPI-Bukkit</artifactId>
+            <version>1.2.8-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
