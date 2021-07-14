@@ -8,9 +8,9 @@ loadbefore:
 
 softdepend:
   - AuthMe
-  - LockLogin
   - NLogin
   - PlaceholderAPI
+  - LockLogin
   - Vault
   - ProtocolLib
   - DiscordSRV
