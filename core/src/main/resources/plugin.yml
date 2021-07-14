@@ -5,6 +5,7 @@ author: BryanGaming
 
 loadbefore:
   - EssentialsX
+  - LockLogin
 
 softdepend:
   - AuthMe
