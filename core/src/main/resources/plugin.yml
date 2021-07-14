@@ -11,6 +11,7 @@ softdepend:
   - AuthMe
   - NLogin
   - PlaceholderAPI
+  - LockLogin
   - Vault
   - ProtocolLib
   - DiscordSRV

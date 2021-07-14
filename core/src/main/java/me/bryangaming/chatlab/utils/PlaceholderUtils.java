@@ -85,7 +85,7 @@ public class PlaceholderUtils {
 
     private static String replaceEmojis(String string) {
 
-        for (String emojiPath : filtersFile.getStringList("messages.emojis")) {
+        for (String emojiPath : filtersFile.getStringList("message.emojis")) {
              string = string.replace(emojiPath.split(";")[0], emojiPath.split(";")[1]);
         }
 
