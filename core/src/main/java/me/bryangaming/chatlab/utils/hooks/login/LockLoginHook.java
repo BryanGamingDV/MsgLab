@@ -19,7 +19,6 @@ public class LockLoginHook extends PluginModule {
     @Override
     public void disable() {
         stopTasks();
-
         getConsole().sendMessage("&cDisabling ChatLab support for LockLogin");
     }
 }
