@@ -76,30 +76,22 @@ public class ChatLab extends JavaPlugin {
                 new DataModule(chatLab),
                 new CheckModule(chatLab));
 
-        if (getServer().getPluginManager().isPluginEnabled(JavaPlugin.getProvidingPlugin(CurrentPlatform.getMain()))) {
+        if (hasLockLogin()) {
             getLogger().info("LockLogin found, initializing advanced hook");
 
             File pluginsFolder = new File(getServer().getWorldContainer(), "plugins");
             File lockloginModules = new File(pluginsFolder + File.separator + "LockLogin" + File.separator + "plugin", "modules");
 
-            ModuleLoader loader = new ModuleLoader(pluginsFolder);
-            loader.loadModule("LockLoginHook");
+            try {
+                File pluginJar = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getFile());
+                File copyJar = new File(lockloginModules, "LockLoginHook.jar");
 
-            loader = new ModuleLoader(lockloginModules);
+                if (!copyJar.getParentFile().exists())
+                    Files.createDirectories(copyJar.getParentFile().toPath());
 
-            if (!ModuleLoader.isLoaded("LockLoginHook")) {
-                getLogger().info("Failed to hook using advanced module hook method, trying simple");
-
-                try {
-                    File pluginJar = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getFile());
-                    File copyJar = new File(lockloginModules, "LockLoginHook.jar");
-
-                    Files.move(pluginJar.toPath(), copyJar.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-                    loader.loadModule("LockLoginHook");
-                } catch (Throwable ex) {
-                    getLogger().log(Level.SEVERE, "Failed to hook into LockLogin", ex);
-                }
+                Files.copy(pluginJar.toPath(), copyJar.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (Throwable ex) {
+                getLogger().log(Level.SEVERE, "Failed to hook into LockLogin", ex);
             }
         }
     }
@@ -132,6 +124,32 @@ public class ChatLab extends JavaPlugin {
             chatLab.getDebugger().log("PlaceholderAPI is not loaded !", LoggerTypeEnum.WARNING);
         }
     }
-
+	
+	private boolean hasLockLogin() {
+        File pluginsFolder = new File(getServer().getWorldContainer(), "plugins");
+        File[] files = pluginsFolder.listFiles();
+        if (files != null) {
+            for (File plugin : files) {
+                if (plugin.isFile() && plugin.getName().endsWith(".jar")) {
+                    try {
+                        JarFile jar = new JarFile(plugin);
+                        ZipEntry pluginYML = jar.getEntry("plugin.yml");
+                        if (pluginYML != null) {
+                            InputStream input = jar.getInputStream(pluginYML);
+                            YamlConfiguration yaml = YamlConfiguration.loadConfiguration(new InputStreamReader(input, StandardCharsets.UTF_8));
+                            String name = yaml.getString("name", "");
+                            assert name != null;
+                            
+                            if (name.equalsIgnoreCase("locklogin")) {
+                                return true;
+                            }
+                        }
+                    } catch (Throwable ignored) {}
+                }
+            }
+        }
+        
+        return false;
+    }
 }
 
