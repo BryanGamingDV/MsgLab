@@ -1,7 +1,5 @@
 package me.bryangaming.chatlab;
 
-import eu.locklogin.api.module.plugin.javamodule.ModuleLoader;
-import eu.locklogin.api.util.platform.CurrentPlatform;
 import me.bryangaming.chatlab.api.Module;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import me.bryangaming.chatlab.modules.CheckModule;
@@ -12,12 +10,19 @@ import me.bryangaming.chatlab.utils.UpdateCheck;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.jar.JarFile;
 import java.util.logging.Level;
+import java.util.zip.ZipEntry;
 
 public class ChatLab extends JavaPlugin {
 
@@ -54,7 +59,6 @@ public class ChatLab extends JavaPlugin {
     }
 
     public void registerServices() {
-
         chatLab = new PluginService(this);
         Configuration configFile = chatLab.getFiles().getConfigFile();
 
@@ -124,8 +128,8 @@ public class ChatLab extends JavaPlugin {
             chatLab.getDebugger().log("PlaceholderAPI is not loaded !", LoggerTypeEnum.WARNING);
         }
     }
-	
-	private boolean hasLockLogin() {
+
+    private boolean hasLockLogin() {
         File pluginsFolder = new File(getServer().getWorldContainer(), "plugins");
         File[] files = pluginsFolder.listFiles();
         if (files != null) {
@@ -139,7 +143,7 @@ public class ChatLab extends JavaPlugin {
                             YamlConfiguration yaml = YamlConfiguration.loadConfiguration(new InputStreamReader(input, StandardCharsets.UTF_8));
                             String name = yaml.getString("name", "");
                             assert name != null;
-                            
+
                             if (name.equalsIgnoreCase("locklogin")) {
                                 return true;
                             }
@@ -148,7 +152,7 @@ public class ChatLab extends JavaPlugin {
                 }
             }
         }
-        
+
         return false;
     }
 }

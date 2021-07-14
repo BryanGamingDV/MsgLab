@@ -29,7 +29,8 @@ public class TextUtils {
     private static Configuration config;
     private static Configuration formatsFile;
 
-    private static Pattern HEX_PATTERN = Pattern.compile("&(#[A-Fa-f0-9]{6})");
+    private static Pattern HEX_PATTERN = Pattern.compile("&?#([\\\\dA-Fa-f]{2})([\\\\dA-Fa-f]{2})([\\\\dA-Fa-f]{2})");
+    private static Pattern SECONDARY_HEX_COLOR_PATTERN = Pattern.compile("&?#([\\dA-Fa-f]{2})([\\dA-Fa-f]{2})([\\dA-Fa-f]{2})");
 
     private static SenderManager senderManager;
     private static Logger logger;
@@ -42,7 +43,8 @@ public class TextUtils {
         logger = pluginService.getPlugin().getLogger();
     }
     public static String setColor(String string) {
-        return ChatColor.translateAlternateColorCodes('&', string);
+        String newString = colorizeOldHexColors(string);
+        return ChatColor.translateAlternateColorCodes('&', newString);
     }
 
     public static String convertText(Player player, String path) {
@@ -91,14 +93,22 @@ public class TextUtils {
         return command;
     }
 
-    //public String colorizeOldHexColors(String message) {
+    public static String colorizeOldHexColors(String message) {
 
-    // Matcher matcher = HEX_PATTERN.matcher(message);
-       // while (matcher.find()) {
-       //   message = net.md_5.bungee.api.ChatColor.matcher.start() + 1, matcher.end()));
+     String messageColorized = HEX_PATTERN.matcher(message)
+             .replaceAll("&[$1,$2,$3]");
 
-       // }
-    // }
+     messageColorized = SECONDARY_HEX_COLOR_PATTERN.matcher(messageColorized)
+             .replaceAll(ChatColor.COLOR_CHAR + "x" +
+                     ChatColor.COLOR_CHAR + "$1" +
+                     ChatColor.COLOR_CHAR + "$2" +
+                     ChatColor.COLOR_CHAR + "$3" +
+                     ChatColor.COLOR_CHAR + "$4" +
+                     ChatColor.COLOR_CHAR + "$5" +
+                     ChatColor.COLOR_CHAR + "$6");
+
+    return messageColorized;
+    }
 
     public static String convertBasicString(String path){
 
