@@ -12,6 +12,7 @@ import me.bryangaming.chatlab.utils.UpdateCheck;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -76,30 +77,26 @@ public class ChatLab extends JavaPlugin {
                 new DataModule(chatLab),
                 new CheckModule(chatLab));
 
-        if (getServer().getPluginManager().isPluginEnabled(JavaPlugin.getProvidingPlugin(CurrentPlatform.getMain()))) {
+
+        if (getServer().getPluginManager().isPluginEnabled("LockLogin")) {
             getLogger().info("LockLogin found, initializing advanced hook");
 
             File pluginsFolder = new File(getServer().getWorldContainer(), "plugins");
             File lockloginModules = new File(pluginsFolder + File.separator + "LockLogin" + File.separator + "plugin", "modules");
 
-            ModuleLoader loader = new ModuleLoader(pluginsFolder);
-            loader.loadModule("LockLoginHook");
+            try {
+                File pluginJar = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getFile());
+                File copyJar = new File(lockloginModules, "LockLoginHook.jar");
 
-            loader = new ModuleLoader(lockloginModules);
+                Files.move(pluginJar.toPath(), copyJar.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-            if (!ModuleLoader.isLoaded("LockLoginHook")) {
-                getLogger().info("Failed to hook using advanced module hook method, trying simple");
-
-                try {
-                    File pluginJar = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getFile());
-                    File copyJar = new File(lockloginModules, "LockLoginHook.jar");
-
-                    Files.move(pluginJar.toPath(), copyJar.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-                    loader.loadModule("LockLoginHook");
-                } catch (Throwable ex) {
-                    getLogger().log(Level.SEVERE, "Failed to hook into LockLogin", ex);
+                Plugin locklogin = getServer().getPluginManager().getPlugin("LockLogin");
+                if (locklogin != null) {
+                    getServer().getPluginManager().disablePlugin(locklogin);
+                    getServer().getPluginManager().enablePlugin(locklogin);
                 }
+            } catch (Throwable ex) {
+                getLogger().log(Level.SEVERE, "Failed to hook into LockLogin", ex);
             }
         }
     }
