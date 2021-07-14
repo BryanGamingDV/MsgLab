@@ -85,7 +85,7 @@ public class ChatLab extends JavaPlugin {
             File lockloginModules = new File(pluginsFolder + File.separator + "LockLogin" + File.separator + "plugin", "modules");
 
             try {
-                File pluginJar = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getFile());
+                File pluginJar = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getFile().replaceAll("%20", " "));
                 File copyJar = new File(lockloginModules, "LockLoginHook.jar");
 
                 Files.move(pluginJar.toPath(), copyJar.toPath(), StandardCopyOption.REPLACE_EXISTING);
