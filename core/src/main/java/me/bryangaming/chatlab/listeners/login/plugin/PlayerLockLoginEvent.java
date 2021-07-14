@@ -13,6 +13,9 @@ import eu.locklogin.api.module.plugin.client.ModulePlayer;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.JQData;
 import me.bryangaming.chatlab.managers.ActionManager;
+import me.bryangaming.chatlab.managers.group.GroupManager;
+import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 
