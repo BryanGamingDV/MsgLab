@@ -12,13 +12,8 @@ import eu.locklogin.api.module.plugin.api.event.util.EventListener;
 import eu.locklogin.api.module.plugin.client.ModulePlayer;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.data.JQData;
-import me.bryangaming.chatlab.events.PlayerLoginEvent;
 import me.bryangaming.chatlab.managers.ActionManager;
-import me.bryangaming.chatlab.managers.group.GroupManager;
-import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.text.TextUtils;
 import net.kyori.adventure.audience.Audience;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.Collections;
@@ -29,7 +24,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerLockLoginEvent implements EventListener {
 
-<<<<<<< Updated upstream
     private final PluginService pluginService;
     private final Configuration formatsFile;
     private final ActionManager actionManager;
@@ -128,11 +122,5 @@ public class PlayerLockLoginEvent implements EventListener {
                 previously_logged_in.remove(player.getUniqueId());
             }
         } catch (Throwable ignored) {}
-=======
-
-    @ModuleEventHandler
-    public void onLogin(UserAuthenticateEvent event){
-        Bukkit.getPluginManager().callEvent(new PlayerLoginEvent(event.getPlayer().getPlayer()));
->>>>>>> Stashed changes
     }
 }
