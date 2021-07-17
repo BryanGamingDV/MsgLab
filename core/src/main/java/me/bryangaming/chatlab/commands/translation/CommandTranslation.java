@@ -2,13 +2,20 @@ package me.bryangaming.chatlab.commands.translation;
 
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.utils.Configuration;
+import me.bryangaming.chatlab.utils.PlaceholderUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import me.fixeddev.commandflow.Namespace;
+import me.fixeddev.commandflow.bukkit.BukkitCommandManager;
 import me.fixeddev.commandflow.bukkit.BukkitDefaultTranslationProvider;
+import me.fixeddev.commandflow.translator.TranslationProvider;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
+import javax.swing.plaf.TextUI;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandTranslation extends BukkitDefaultTranslationProvider {
+public class CommandTranslation implements TranslationProvider {
 
     private final PluginService pluginService;
 
@@ -27,18 +34,20 @@ public class CommandTranslation extends BukkitDefaultTranslationProvider {
         translations.put("command.subcommand.invalid", "1. The subcommand %s doesn't exist!");
         translations.put("command.no-permission", "2. No permission.");
         translations.put("argument.no-more", "3. No more arguments were found, size: %s position: %s");
-        translations.put("player.offline", "4. The player %s is offline!");
         translations.put("sender.unknown", "5. Unknown command sender!");
-        translations.put("sender.only-player", messagesFile.getString("global-errors.console"));
         pluginService.getDebugger().log("Translator created!");
     }
 
-    public String getTranslation(String key) {
-        return translations.get(key);
-    }
 
     @Override
     public String getTranslation(Namespace namespace, String key) {
-        return getTranslation(key);
+        switch (key){
+            case "sender.only-player":
+                return messagesFile.getString("global-errors.console");
+            case "player.offline":
+                return TextUtils.convertBasicString(messagesFile.getString("global-errors.player-offline"));
+        }
+
+        return translations.get(key);
     }
 }

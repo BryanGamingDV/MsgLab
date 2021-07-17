@@ -1,0 +1,9 @@
+name: LockLoginHook
+version: 2.3.7
+author:
+  - BryanG
+  - KarmaDev
+description:
+  - "Add hooks for LockLogin for"
+  - "ChatLab plugin."
+loader_bukkit: me.bryangaming.chatlab.utils.hooks.login.LockLoginHook

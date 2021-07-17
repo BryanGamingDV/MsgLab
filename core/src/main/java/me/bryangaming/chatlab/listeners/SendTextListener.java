@@ -13,7 +13,7 @@ import me.bryangaming.chatlab.managers.commands.MsgManager;
 import me.bryangaming.chatlab.managers.commands.StaffChatManager;
 import me.bryangaming.chatlab.revisor.CooldownData;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

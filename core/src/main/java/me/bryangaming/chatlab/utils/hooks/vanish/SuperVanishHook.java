@@ -4,7 +4,7 @@ import de.myzelyam.api.vanish.VanishAPI;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.Hook;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

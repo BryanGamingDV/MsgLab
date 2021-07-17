@@ -2,7 +2,7 @@ package me.bryangaming.chatlab.gui.manager;
 
 import me.bryangaming.chatlab.api.LegacyHandler;
 import me.bryangaming.chatlab.api.NMSHandler;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

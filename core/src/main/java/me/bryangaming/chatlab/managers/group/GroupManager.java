@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.data.UserData;
 import me.bryangaming.chatlab.debug.DebugLogger;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import me.bryangaming.chatlab.utils.WorldData;
 import me.bryangaming.chatlab.utils.hooks.VaultHook;
 import org.bukkit.Bukkit;
@@ -46,11 +46,13 @@ public class GroupManager {
             return "op";
         }
 
-        if (formatsFile.getString("chat-format.group-access").equalsIgnoreCase("none")) {
+        String groupAccess = formatsFile.getString("chat-format.group-access", "none");
+
+        if (groupAccess.equalsIgnoreCase("none")) {
             return "default";
         }
 
-        if (formatsFile.getString("chat-format.group-access").equalsIgnoreCase("permission")) {
+        if (groupAccess.equalsIgnoreCase("permission")) {
             for (String group : getGroup()) {
                 if (player.hasPermission(formatsFile.getString("chat-format.groups." + group + ".permission"))) {
                     return group;

@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.data.JQData;
 import me.bryangaming.chatlab.events.server.ChangeMode;
 import me.bryangaming.chatlab.events.server.ServerChangeEvent;
 import me.bryangaming.chatlab.managers.ActionManager;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -68,9 +68,7 @@ public class ServerChangeListener implements Listener {
             }
 
             if (jqData.getFirstJoinMotdList() != null) {
-
-                if (!jqData.getFirstJoinHook()) {
-                    for (String motdFormat : jqData.getFirstJoinMotdList()) {
+                for (String motdFormat : jqData.getFirstJoinMotdList()) {
                         if (motdFormat.startsWith("[LOOP")) {
                             String loopTest = motdFormat.split("]")[0];
 
@@ -83,7 +81,6 @@ public class ServerChangeListener implements Listener {
                         }
                         player.sendMessage(TextUtils.convertTextToComponent(sender, motdFormat));
                     }
-                }
             }
 
             if (jqData.getFirstJoinActions() != null) {
@@ -121,7 +118,6 @@ public class ServerChangeListener implements Listener {
             }
 
               if (jqData.getJoinMotdList() != null) {
-                if (!jqData.getJoinHook()) {
                     for (String motdFormat : jqData.getJoinMotdList()) {
                         if (motdFormat.startsWith("[LOOP")) {
                             String loopTest = motdFormat.split("]")[0];
@@ -136,7 +132,6 @@ public class ServerChangeListener implements Listener {
 
                         player.sendMessage(TextUtils.convertTextToComponent(sender, motdFormat));
                     }
-                }
             }
 
             if (jqData.getJoinActions() != null) {

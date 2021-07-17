@@ -10,7 +10,7 @@ import me.bryangaming.chatlab.managers.commands.MsgManager;
 import me.bryangaming.chatlab.managers.commands.ReplyManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -31,8 +31,7 @@ public class MsgCommand implements CommandClass {
     }
 
     @Command(names = {"msg", "pm", "tell", "t", "w", "whisper"})
-
-    public boolean onCommand(@Sender Player sender, @OptArg OfflinePlayer target, @OptArg("") @Text String msg) {
+    public boolean onCommand(@Sender Player sender, OfflinePlayer target, @OptArg("") @Text String msg) {
 
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
@@ -40,15 +39,6 @@ public class MsgCommand implements CommandClass {
         Configuration messagesFile = pluginService.getFiles().getMessagesFile();
 
         UUID playerUniqueId = sender.getUniqueId();
-
-        if (target == null) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("msg", "<player>", "<message>")));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
-
-        UUID targetUniqueId = target.getUniqueId();
 
         if (target.getName().equalsIgnoreCase("-all")) {
             senderManager.sendMessage(sender, "%c &fEmmm, use /broadcast or the chat.");
@@ -135,6 +125,7 @@ public class MsgCommand implements CommandClass {
 
         }
 
+        UUID targetUniqueId = target.getUniqueId();
         UserData targetToggled = pluginService.getCache().getUserDatas().get(targetUniqueId);
 
         if (targetToggled == null) {

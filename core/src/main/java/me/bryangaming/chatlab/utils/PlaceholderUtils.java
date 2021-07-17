@@ -6,6 +6,7 @@ import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.SupportManager;
 import me.bryangaming.chatlab.managers.commands.ChatManager;
 import me.bryangaming.chatlab.managers.commands.TagsManager;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
@@ -84,14 +85,14 @@ public class PlaceholderUtils {
 
     private static String replaceEmojis(String string) {
 
-        for (String emojiPath : filtersFile.getStringList("messages.emojis")) {
+        for (String emojiPath : filtersFile.getStringList("message.emojis")) {
              string = string.replace(emojiPath.split(";")[0], emojiPath.split(";")[1]);
         }
 
         return string;
     }
 
-    private static String replacePluginVariables(String string) {
+    public static String replacePluginVariables(String string) {
         for (String keys : config.getConfigurationSection("options.replacer").getKeys(false)) {
             string = string.replace(config.getString("options.replacer." + keys + ".variable"),
                     config.getString("options.replacer." + keys + ".format"));

@@ -1,5 +1,6 @@
 package me.bryangaming.chatlab.utils;
 
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;

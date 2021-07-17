@@ -5,6 +5,7 @@ import me.bryangaming.chatlab.api.Loader;
 import me.bryangaming.chatlab.commands.*;
 import me.bryangaming.chatlab.commands.translation.CommandTranslation;
 import me.bryangaming.chatlab.debug.LoggerTypeEnum;
+import me.bryangaming.chatlab.loader.command.usage.CommandUsageBuilder;
 import me.fixeddev.commandflow.CommandManager;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilder;
 import me.fixeddev.commandflow.annotated.AnnotatedCommandTreeBuilderImpl;
@@ -61,6 +62,7 @@ public class CommandLoader implements Loader {
 
     private void registerCommandManager() {
         commandManager = new BukkitCommandManager("ChatLab");
+        commandManager.setUsageBuilder(new CommandUsageBuilder(pluginService));
         commandManager.getTranslator().setProvider(new CommandTranslation(pluginService));
 
         PartInjector injector = PartInjector.create();

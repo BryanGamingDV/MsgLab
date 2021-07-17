@@ -29,7 +29,8 @@ public class TabListener implements Listener {
         }
 
         GroupManager groupManager = pluginService.getPlayerManager().getGroupManager();
-        List<String> completions = filtersFile.getStringList("revisor-cmd.tab-module.filter.groups." + groupManager.getFitlerGroup(playerCommandSendEvent.getPlayer()));
+        String playerGroup = groupManager.getFitlerGroup(playerCommandSendEvent.getPlayer());
+        List<String> completions = filtersFile.getStringList("commands.tab-module.filter.groups." + playerGroup);
 
         if (completions.isEmpty()){
             return;
@@ -37,6 +38,10 @@ public class TabListener implements Listener {
 
         Collection<String> commands = playerCommandSendEvent.getCommands();
         commands.clear();
+
+        if (completions.get(0).equalsIgnoreCase("$none")){
+            return;
+        }
 
         for (String completion : completions) {
             if (completion.startsWith("@")) {

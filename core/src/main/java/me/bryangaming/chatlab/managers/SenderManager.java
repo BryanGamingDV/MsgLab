@@ -4,9 +4,10 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.managers.sound.SoundManager;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
@@ -119,7 +120,16 @@ public class SenderManager {
             return true;
         }
 
-        return supportManager.getCmiVanishSupport().isVanished(player);
+        if (supportManager.getCmiVanishSupport().isVanished(player)){
+            return true;
+        }
+
+        if (!Bukkit.getPluginManager().isPluginEnabled("VanishNoPacket")){
+            return false;
+        }
+
+        return supportManager.getVanishNoPacketHook().isVanished(player);
+
     }
     public void sendMessage(CommandSender sender, String path) {
 

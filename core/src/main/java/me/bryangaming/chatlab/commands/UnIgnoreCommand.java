@@ -5,7 +5,7 @@ import me.bryangaming.chatlab.managers.SenderManager;
 import me.bryangaming.chatlab.managers.commands.IgnoreManager;
 import me.bryangaming.chatlab.managers.sound.SoundEnum;
 import me.bryangaming.chatlab.utils.Configuration;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import me.fixeddev.commandflow.annotated.CommandClass;
 import me.fixeddev.commandflow.annotated.annotation.Command;
 import me.fixeddev.commandflow.annotated.annotation.OptArg;
@@ -28,20 +28,13 @@ public class UnIgnoreCommand implements CommandClass {
     }
 
     @Command(names = "unignore")
-    public boolean onCommand(@Sender Player sender, @OptArg OfflinePlayer target) {
+    public boolean onCommand(@Sender Player sender, OfflinePlayer target) {
 
         IgnoreManager ignoreManager = pluginService.getPlayerManager().getIgnoreManager();
         SenderManager senderManager = pluginService.getPlayerManager().getSender();
 
         Configuration playersFile = pluginService.getFiles().getPlayersFile();
         Configuration messagesFile = pluginService.getFiles().getMessagesFile();
-
-        if (target == null) {
-            senderManager.sendMessage(sender, messagesFile.getString("global-errors.no-args")
-                    .replace("%usage%", TextUtils.getUsage("unignore", "<player>")));
-            senderManager.playSound(sender, SoundEnum.ERROR);
-            return true;
-        }
 
         if (!(senderManager.isOnline(target))) {
             senderManager.sendMessage(sender, messagesFile.getString("global-errors.player-offline"));

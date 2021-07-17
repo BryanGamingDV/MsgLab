@@ -43,7 +43,6 @@ public class CooldownData {
             return false;
         }
 
-
         if (!(filtersFile.getBoolean("cooldown.text.enabled"))) {
             return false;
         }
@@ -62,7 +61,6 @@ public class CooldownData {
         }
 
         userData.setCooldownMode(true);
-
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {

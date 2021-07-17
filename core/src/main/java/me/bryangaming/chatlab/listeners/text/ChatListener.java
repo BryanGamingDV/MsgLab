@@ -69,7 +69,6 @@ public class ChatListener implements Listener{
         }
 
         if (cooldownData.isTextSpamming(event.getSender().getUniqueId())) {
-            senderManager.sendMessage(player, messagesFile.getString("chat.error.muted"));
             return;
         }
 

@@ -8,7 +8,7 @@ import me.bryangaming.chatlab.managers.commands.*;
 import me.bryangaming.chatlab.managers.group.GroupManager;
 import me.bryangaming.chatlab.managers.sound.SoundManager;
 import me.bryangaming.chatlab.utils.PlaceholderUtils;
-import me.bryangaming.chatlab.utils.TextUtils;
+import me.bryangaming.chatlab.utils.text.TextUtils;
 import me.bryangaming.chatlab.utils.WorldData;
 
 public class ManagerLoader implements Loader {
