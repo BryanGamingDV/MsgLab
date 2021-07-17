@@ -1,6 +1,5 @@
 package me.bryangaming.chatlab.tasks.type;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.api.task.Task;
 import me.bryangaming.chatlab.managers.SenderManager;
@@ -95,5 +94,3 @@ public class AnnouncerTask implements Task {
     }
 
 }
-
-
