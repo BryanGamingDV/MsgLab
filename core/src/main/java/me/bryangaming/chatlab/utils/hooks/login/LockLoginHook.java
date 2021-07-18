@@ -6,14 +6,24 @@ import me.bryangaming.chatlab.PluginService;
 import me.bryangaming.chatlab.listeners.login.plugin.PlayerLockLoginEvent;
 import org.bukkit.Bukkit;
 
+import java.lang.reflect.Field;
+
 public class LockLoginHook extends PluginModule {
 
     @Override
     public void enable() {
-        PluginService service = new PluginService((ChatLab) Bukkit.getServer().getPluginManager().getPlugin("ChatLab"));
+        System.out.println("test");
+        try {
+            Class<?> chatLabClass = Class.forName("me.bryangaming.chatlab.ChatLab");
+            Field field = chatLabClass.getField("chatLab");
 
-        getConsole().sendMessage("&aEnabled ChatLab support for LockLogin");
-        getPlugin().registerListener(new PlayerLockLoginEvent(service));
+            PluginService service = (PluginService) field.get(null);
+            service.getPlugin().getLogger().info("test");
+            getConsole().sendMessage("&aEnabled ChatLab support for LockLogin");
+            getPlugin().registerListener(new PlayerLockLoginEvent(service));
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override

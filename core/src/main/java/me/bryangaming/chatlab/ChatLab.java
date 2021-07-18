@@ -26,7 +26,8 @@ import java.util.zip.ZipEntry;
 
 public class ChatLab extends JavaPlugin {
 
-    private PluginService chatLab;
+
+    public PluginService chatLab;
     private BukkitAudiences bukkitAudiences;
 
     @Override
